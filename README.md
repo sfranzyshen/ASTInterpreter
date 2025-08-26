@@ -1,6 +1,6 @@
 # ArduinoInterpreter (Arduino Sketch Interpreter)
 A Parser / Interpreter to evaluate Arduino Sketches from the Browser or NodeJS.
-
+## Code -> Preprocessor -> Parser -> AST -> Interpreter <-> Command Stream
 ## Live Demo [sfranzyshen.org/ArduinoInterpreter](https://www.sfranzyshen.org/ArduinoInterpreter/)
 
 ## 📜 Licensing
