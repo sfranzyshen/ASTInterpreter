@@ -1,0 +1,156 @@
+🎯 Arduino Semantic Accuracy Test Suite
+======================================
+✅ Dependencies loaded: 54 comprehensive tests
+
+🔬 STARTING SEMANTIC ACCURACY ANALYSIS
+=====================================
+[1/54] Analyzing: Test_Case_for_Array_Access.ino
+  ✅ PERFECT (100% semantic accuracy, 19 commands)
+[2/54] Analyzing: To_test_the_Lexer_and_Parser.ino
+  ⚠️  SEMANTIC ISSUES (80% semantic accuracy, 30 commands)
+[3/54] Analyzing: Global_variable_declarations.ino
+  ✅ PERFECT (100% semantic accuracy, 75 commands)
+[4/54] Analyzing: Test_Case_for_Operator_Precedence.ino
+  ✅ PERFECT (100% semantic accuracy, 21 commands)
+[5/54] Analyzing: Test_Case_for_Parentheses_Precedence.ino
+  ✅ PERFECT (100% semantic accuracy, 21 commands)
+[6/54] Analyzing: Test_Case_for_Unary_vs_Binary_Operators.ino
+  ✅ PERFECT (100% semantic accuracy, 20 commands)
+[7/54] Analyzing: Test_Case_for_C-Style_Initialization.ino
+  ✅ PERFECT (100% semantic accuracy, 18 commands)
+[8/54] Analyzing: Test_Rigorous_Brackets_Parentheses.ino
+  ✅ PERFECT (100% semantic accuracy, 24 commands)
+[9/54] Analyzing: Test_Case_for_the_return_statement.ino
+  ✅ PERFECT (100% semantic accuracy, 17 commands)
+[10/54] Analyzing: Test_Case_for_Advanced_Numeric_Literals.ino
+  ✅ PERFECT (100% semantic accuracy, 20 commands)
+[11/54] Analyzing: Test_Case_for_Character_Literals.ino
+  ✅ PERFECT (100% semantic accuracy, 18 commands)
+[12/54] Analyzing: Test_Case_for_the_Dangling_Else.ino
+  ✅ PERFECT (95.5% semantic accuracy, 22 commands)
+[13/54] Analyzing: Test_Case_for_Pointer_vs_Multiplication.ino
+  ✅ PERFECT (100% semantic accuracy, 19 commands)
+[14/54] Analyzing: Test_Case_for_Function_Pointer_Declarations.ino
+  ✅ PERFECT (100% semantic accuracy, 18 commands)
+[15/54] Analyzing: Nested_Loops_and_Variable_Scope.ino
+  ✅ PERFECT (98.8% semantic accuracy, 80 commands)
+[16/54] Analyzing: Complex_Conditional_Logic.ino
+  ✅ PERFECT (100% semantic accuracy, 36 commands)
+[17/54] Analyzing: Operator_Precedence_and_Associativity.ino
+  ✅ PERFECT (100% semantic accuracy, 57 commands)
+[18/54] Analyzing: Function_Calls_and_Parameter_Passing.ino
+  ✅ PERFECT (100% semantic accuracy, 45 commands)
+[19/54] Analyzing: Loop_Control_Statements_break_continue.ino
+  ✅ PERFECT (97.8% semantic accuracy, 46 commands)
+[20/54] Analyzing: Ternary_Operator_and_Bitwise_Operators.ino
+  ✅ PERFECT (100% semantic accuracy, 75 commands)
+[21/54] Analyzing: Floating-Point_Arithmetic_and_Mixed_Types.ino
+  ✅ PERFECT (100% semantic accuracy, 51 commands)
+[22/54] Analyzing: String_and_Character_Literals.ino
+  ✅ PERFECT (100% semantic accuracy, 48 commands)
+[23/54] Analyzing: Multiple_Statements_on_a_Single_Line.ino
+  ✅ PERFECT (96.2% semantic accuracy, 26 commands)
+[24/54] Analyzing: Mixed-Type_Expressions_and_Casting.ino
+  ✅ PERFECT (100% semantic accuracy, 51 commands)
+[25/54] Analyzing: switch_statement_with_fall-through_and_nested_blocks.ino
+  ✅ PERFECT (100% semantic accuracy, 42 commands)
+[26/54] Analyzing: Complex_Preprocessor_Directives.ino
+  ✅ PERFECT (100% semantic accuracy, 33 commands)
+[27/54] Analyzing: Array_Indexing_and_Multidimensional_Arrays.ino
+  ✅ PERFECT (100% semantic accuracy, 51 commands)
+[28/54] Analyzing: Function_Pointers_and_Callbacks.ino
+  ✅ PERFECT (100% semantic accuracy, 36 commands)
+[29/54] Analyzing: Chained_Assignments_and_Unary_Operators.ino
+  ✅ PERFECT (100% semantic accuracy, 90 commands)
+[30/54] Analyzing: Complex_for_loop_with_multiple_expressions.ino
+  ✅ PERFECT (97.4% semantic accuracy, 38 commands)
+[31/54] Analyzing: do-while_loop_with_a_complex_condition.ino
+  ✅ PERFECT (100% semantic accuracy, 66 commands)
+[32/54] Analyzing: Structs_and_Member_Access.ino
+  ✅ PERFECT (100% semantic accuracy, 45 commands)
+[33/54] Analyzing: Unary_Plus_and_Minus_with_Operator_Precedence.ino
+  ✅ PERFECT (100% semantic accuracy, 51 commands)
+[34/54] Analyzing: Empty_and_NULL_statements.ino
+  ⚠️  SEMANTIC ISSUES (94.7% semantic accuracy, 19 commands)
+[35/54] Analyzing: Pointers_and_Pointer_Arithmetic.ino
+  ✅ PERFECT (100% semantic accuracy, 48 commands)
+[36/54] Analyzing: Initializer_Lists_and_Designated_Initializers.ino
+  ✅ PERFECT (100% semantic accuracy, 42 commands)
+[37/54] Analyzing: Type_Promotion_and_Implicit_Conversions.ino
+  ✅ PERFECT (100% semantic accuracy, 45 commands)
+[38/54] Analyzing: typedef_and_Structs_with_Pointers.ino
+  ✅ PERFECT (100% semantic accuracy, 54 commands)
+[39/54] Analyzing: static_Variables_and_Scope.ino
+  ✅ PERFECT (100% semantic accuracy, 33 commands)
+[40/54] Analyzing: const_and_volatile_Qualifiers.ino
+  ✅ PERFECT (100% semantic accuracy, 36 commands)
+[41/54] Analyzing: Logical_Operators_with_Short-Circuiting.ino
+  ✅ PERFECT (100% semantic accuracy, 45 commands)
+[42/54] Analyzing: Conditional_Operator_in_a_Loop.ino
+  ✅ PERFECT (97.1% semantic accuracy, 35 commands)
+[43/54] Analyzing: Variable_Declarations_in_a_for_Loop.ino
+  ✅ PERFECT (96% semantic accuracy, 25 commands)
+[44/54] Analyzing: Unary_sizeof_Operator.ino
+  ✅ PERFECT (100% semantic accuracy, 45 commands)
+[45/54] Analyzing: Comma_Operator_in_a_for_Loop.ino
+  ✅ PERFECT (97.6% semantic accuracy, 42 commands)
+[46/54] Analyzing: Nested_for_and_if_with_break_and_continue.ino
+  ✅ PERFECT (97.8% semantic accuracy, 45 commands)
+[47/54] Analyzing: Pointer_to_Pointer.ino
+  ✅ PERFECT (100% semantic accuracy, 54 commands)
+[48/54] Analyzing: Self-Referential_Structs_Linked_List_Node.ino
+  ✅ PERFECT (100% semantic accuracy, 57 commands)
+[49/54] Analyzing: static_Global_Variable_and_Function.ino
+  ✅ PERFECT (100% semantic accuracy, 33 commands)
+[50/54] Analyzing: Unsigned_Integer_Rollover.ino
+  ✅ PERFECT (100% semantic accuracy, 48 commands)
+[51/54] Analyzing: Complex_Function_Declarations.ino
+  ✅ PERFECT (100% semantic accuracy, 33 commands)
+[52/54] Analyzing: Bit-Fields_in_Structs.ino
+  ✅ PERFECT (100% semantic accuracy, 48 commands)
+[53/54] Analyzing: extern_Keyword.ino
+  ✅ PERFECT (100% semantic accuracy, 28 commands)
+[54/54] Analyzing: Ternary_Operator_with_Complex_Expressions.ino
+  ✅ PERFECT (100% semantic accuracy, 36 commands)
+
+============================================================
+📊 SEMANTIC ACCURACY ANALYSIS RESULTS
+============================================================
+📈 Overall Semantic Accuracy: 99.1%
+✅ Perfect Tests: 52 (96.3%)
+⚠️  Semantic Issues: 2 (3.7%)
+💥 Execution Failures: 0 (0.0%)
+📊 Total Tests: 54
+⏱️  Analysis Duration: 5.6s
+
+🏆 PERFECT TESTS (95%+ Semantic Accuracy):
+  1. Test_Case_for_Array_Access.ino: 100% (19 commands)
+  2. Global_variable_declarations.ino: 100% (75 commands)
+  3. Test_Case_for_Operator_Precedence.ino: 100% (21 commands)
+  4. Test_Case_for_Parentheses_Precedence.ino: 100% (21 commands)
+  5. Test_Case_for_Unary_vs_Binary_Operators.ino: 100% (20 commands)
+  6. Test_Case_for_C-Style_Initialization.ino: 100% (18 commands)
+  7. Test_Rigorous_Brackets_Parentheses.ino: 100% (24 commands)
+  8. Test_Case_for_the_return_statement.ino: 100% (17 commands)
+  9. Test_Case_for_Advanced_Numeric_Literals.ino: 100% (20 commands)
+  10. Test_Case_for_Character_Literals.ino: 100% (18 commands)
+  ... and 42 more perfect tests
+
+⚠️  SEMANTIC ACCURACY ISSUES:
+  1. To_test_the_Lexer_and_Parser.ino: 80% (0 errors, 6 warnings)
+  2. Empty_and_NULL_statements.ino: 94.7% (1 errors, 0 warnings)
+
+🔍 DETAILED ANALYSIS - WORST SEMANTIC ACCURACY:
+
+1. To_test_the_Lexer_and_Parser.ino (80% accuracy):
+   Warnings:
+     • [PIN_NOT_CONFIGURED] digitalWrite(13) called before pinMode()
+     • [PIN_NOT_CONFIGURED] digitalWrite(13) called before pinMode()
+     • [PIN_NOT_CONFIGURED] digitalWrite(13) called before pinMode()
+
+2. Empty_and_NULL_statements.ino (94.7% accuracy):
+   Errors:
+     • [INFINITE_LOOP_DETECTED] Loop limit reached (3 iterations)
+
+🎯 Semantic accuracy analysis completed!
+Use this data to identify and fix semantic correctness issues.

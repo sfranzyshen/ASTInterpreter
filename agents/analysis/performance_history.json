@@ -1,0 +1,122 @@
+{
+  "measurements": [
+    {
+      "suiteName": "interpreter_examples",
+      "success": true,
+      "duration": 8521,
+      "timestamp": "2025-08-25T16:16:12.109Z",
+      "memoryUsage": {
+        "initial": {
+          "rss": 39714816,
+          "heapTotal": 4341760,
+          "heapUsed": 3824904,
+          "external": 1554712,
+          "arrayBuffers": 10519
+        },
+        "peak": {
+          "rss": 40501248,
+          "heapTotal": 4603904,
+          "heapUsed": 4313408,
+          "external": 1604813,
+          "arrayBuffers": 14226
+        },
+        "delta": 488504
+      },
+      "testResults": {
+        "testCount": 79,
+        "passedTests": 79,
+        "failedTests": 0,
+        "commandCount": 3950,
+        "successRate": 100
+      },
+      "commandRate": 463.56061495129677,
+      "throughput": 9.271212299025935
+    },
+    {
+      "suiteName": "interpreter_old_test",
+      "success": true,
+      "duration": 5620,
+      "timestamp": "2025-08-25T16:16:17.731Z",
+      "memoryUsage": {
+        "initial": {
+          "rss": 45498368,
+          "heapTotal": 4603904,
+          "heapUsed": 3391776,
+          "external": 1606049,
+          "arrayBuffers": 16255
+        },
+        "peak": {
+          "rss": 44793856,
+          "heapTotal": 4866048,
+          "heapUsed": 3652464,
+          "external": 1607383,
+          "arrayBuffers": 17589
+        },
+        "delta": 260688
+      },
+      "testResults": {
+        "testCount": 54,
+        "passedTests": 53,
+        "failedTests": 1,
+        "commandCount": 2700,
+        "successRate": 98.1
+      },
+      "commandRate": 480.4270462633452,
+      "throughput": 9.608540925266905
+    },
+    {
+      "suiteName": "interpreter_neopixel",
+      "success": true,
+      "duration": 337,
+      "timestamp": "2025-08-25T16:16:18.069Z",
+      "memoryUsage": {
+        "initial": {
+          "rss": 44924928,
+          "heapTotal": 4866048,
+          "heapUsed": 3712048,
+          "external": 1607809,
+          "arrayBuffers": 18015
+        },
+        "peak": {
+          "rss": 45056000,
+          "heapTotal": 4866048,
+          "heapUsed": 3949432,
+          "external": 1620766,
+          "arrayBuffers": 30972
+        },
+        "delta": 237384
+      },
+      "testResults": {
+        "testCount": 2,
+        "passedTests": 2,
+        "failedTests": 0,
+        "commandCount": 100,
+        "successRate": 100
+      },
+      "commandRate": 296.7359050445104,
+      "throughput": 5.9347181008902075
+    }
+  ],
+  "baselines": {},
+  "regressions": [
+    {
+      "suiteName": "interpreter_neopixel",
+      "type": "EXECUTION_TIME_REGRESSION",
+      "severity": "SEVERE",
+      "baseline": 200,
+      "current": 337,
+      "percentageIncrease": "68.5",
+      "critical": false,
+      "timestamp": "2025-08-25T16:16:18.071Z"
+    },
+    {
+      "suiteName": "interpreter_neopixel",
+      "type": "THROUGHPUT_REGRESSION",
+      "severity": "MODERATE",
+      "baseline": "10.00",
+      "current": "5.93",
+      "percentageDecrease": "40.7",
+      "timestamp": "2025-08-25T16:16:18.071Z"
+    }
+  ]
+}

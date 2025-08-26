@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!-- Comprehensive Interpreter Test Harness v1.0 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Interpreter Test Harness</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0; 
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 240, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid #00f0ff;
+        }
+        
+        h1 { 
+            color: #00f0ff; 
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+        
+        .controls {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #374151;
+        }
+        
+        .control-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .control-group label {
+            color: #9ca3af;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        select, input, button {
+            padding: 8px 12px;
+            border: 1px solid #4b5563;
+            border-radius: 6px;
+            background: #1f2937;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #00f0ff;
+            box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            background: #374151;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(31, 41, 55, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #374151;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+        
+        .progress-container {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #374151;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #374151;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9em;
+        }
+        
+        #log { 
+            white-space: pre-wrap; 
+            border: 1px solid #374151; 
+            padding: 20px; 
+            background: #1f2937; 
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .pass { color: #10b981; font-weight: bold; }
+        .fail { color: #ef4444; font-weight: bold; }
+        .warning { color: #f59e0b; font-weight: bold; }
+        .info { color: #3b82f6; font-weight: bold; }
+        .category { color: #8b5cf6; font-weight: bold; }
+        
+        .export-section {
+            background: rgba(31, 41, 55, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #374151;
+            margin-top: 20px;
+        }
+        
+        .results-summary {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #374151;
+        }
+        
+        .error-details {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .test-category {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .control-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Comprehensive Interpreter Test Harness</h1>
+        <div class="subtitle">Arduino Interpreter Testing • All Sources Combined • 162 Total Tests</div>
+        <div class="subtitle">Parser Unit Tests • Comprehensive Tests • Arduino Examples • NeoPixel Examples</div>
+    </div>
+
+    <div class="controls">
+        <div class="control-row">
+            <div class="control-group">
+                <label for="categorySelect">Test Category:</label>
+                <select id="categorySelect">
+                    <option value="all">All Categories (162 tests)</option>
+                    <option value="Parser Unit Tests">Parser Unit Tests (27)</option>
+                    <option value="Comprehensive Tests">Comprehensive Tests (54)</option>
+                    <option value="Arduino Examples">Arduino Examples (79)</option>
+                    <option value="NeoPixel Examples">NeoPixel Examples (2)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="searchInput">Search Tests:</label>
+                <input type="text" id="searchInput" placeholder="Filter by test name or content...">
+            </div>
+            
+            <div class="control-group">
+                <label for="verboseMode">Interpreter Mode:</label>
+                <select id="verboseMode">
+                    <option value="false">Standard Mode</option>
+                    <option value="true">Verbose Mode</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-row">
+            <button onclick="runSingleTest()">🔍 Run Single Test</button>
+            <button onclick="runCategoryTests()">📂 Run Category Tests</button>
+            <button onclick="runAllTests()">🚀 Run All Tests</button>
+            <button onclick="stopTests()" id="stopBtn" disabled>⏹️ Stop Tests</button>
+            <button onclick="clearLog()">🗑️ Clear Log</button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number" id="totalTests">162</div>
+            <div class="stat-label">Total Tests</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number pass" id="passedTests">0</div>
+            <div class="stat-label">Passed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number fail" id="failedTests">0</div>
+            <div class="stat-label">Failed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number info" id="successRate">0%</div>
+            <div class="stat-label">Success Rate</div>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Ready to run tests</div>
+    </div>
+
+    <div class="results-summary" id="resultsSummary" style="display: none;">
+        <h3>📊 Test Results Summary</h3>
+        <div id="summaryContent"></div>
+    </div>
+
+    <pre id="log"></pre>
+
+    <div class="export-section">
+        <h3>📤 Export Results</h3>
+        <div class="control-row">
+            <button onclick="exportResults('json')">📄 Export JSON</button>
+            <button onclick="exportResults('csv')">📊 Export CSV</button>
+            <button onclick="exportResults('txt')">📝 Export Text</button>
+        </div>
+    </div>
+
+    <script src="parser.js"></script>
+    <script src="interpreter.js"></script>
+    <script src="comprehensive_tests.js"></script>
+    <script>
+        let testResults = [];
+        let currentTestIndex = 0;
+        let isRunning = false;
+        let shouldStop = false;
+        let filteredTests = [];
+
+        // Initialize the test harness
+        function initializeHarness() {
+            log("🚀 Comprehensive Interpreter Test Harness v1.0");
+            log("📊 Loaded comprehensive test collection:");
+            
+            Object.entries(comprehensiveTestCollection).forEach(([category, data]) => {
+                log(`   📂 ${category}: ${data.count} tests`);
+            });
+            
+            log(`📈 Total tests available: ${getTotalTestCount()}`);
+            log("🎯 Ready to execute interpreter tests\n");
+            
+            updateFilteredTests();
+            updateStats();
+        }
+
+        function getTotalTestCount() {
+            return Object.values(comprehensiveTestCollection)
+                .reduce((total, category) => total + category.count, 0);
+        }
+
+        function updateFilteredTests() {
+            const category = document.getElementById('categorySelect').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredTests = [];
+            
+            if (category === 'all') {
+                Object.entries(comprehensiveTestCollection).forEach(([categoryName, data]) => {
+                    data.tests.forEach(test => {
+                        if (matchesSearch(test, searchTerm)) {
+                            filteredTests.push({ ...test, category: categoryName });
+                        }
+                    });
+                });
+            } else {
+                const categoryData = comprehensiveTestCollection[category];
+                if (categoryData) {
+                    categoryData.tests.forEach(test => {
+                        if (matchesSearch(test, searchTerm)) {
+                            filteredTests.push({ ...test, category });
+                        }
+                    });
+                }
+            }
+            
+            document.getElementById('totalTests').textContent = filteredTests.length;
+            resetStats();
+        }
+
+        function matchesSearch(test, searchTerm) {
+            if (!searchTerm) return true;
+            return test.name.toLowerCase().includes(searchTerm) || 
+                   (test.code && test.code.toLowerCase().includes(searchTerm));
+        }
+
+        function resetStats() {
+            document.getElementById('passedTests').textContent = '0';
+            document.getElementById('failedTests').textContent = '0';
+            document.getElementById('successRate').textContent = '0%';
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressText').textContent = 'Ready to run tests';
+            document.getElementById('resultsSummary').style.display = 'none';
+            testResults = [];
+        }
+
+        function updateStats() {
+            const passed = testResults.filter(r => r.status === 'passed').length;
+            const failed = testResults.filter(r => r.status === 'failed').length;
+            const total = testResults.length;
+            const rate = total > 0 ? Math.round((passed / total) * 100) : 0;
+            
+            document.getElementById('passedTests').textContent = passed;
+            document.getElementById('failedTests').textContent = failed;
+            document.getElementById('successRate').textContent = `${rate}%`;
+        }
+
+        function updateProgress(current, total) {
+            const percentage = total > 0 ? (current / total) * 100 : 0;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = 
+                `${current}/${total} tests completed (${Math.round(percentage)}%)`;
+        }
+
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        async function runSingleTest() {
+            if (filteredTests.length === 0) {
+                log("❌ No tests available for the current filter");
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * filteredTests.length);
+            const test = filteredTests[randomIndex];
+            
+            log(`🔍 Running single test: "${test.name}" from ${test.category}`);
+            await executeTest(test, randomIndex + 1, filteredTests.length);
+            updateStats();
+        }
+
+        async function runCategoryTests() {
+            const category = document.getElementById('categorySelect').value;
+            
+            if (filteredTests.length === 0) {
+                log("❌ No tests available for the current category/filter");
+                return;
+            }
+            
+            log(`📂 Running ${category === 'all' ? 'ALL' : category} tests (${filteredTests.length} tests)`);
+            await runTests(filteredTests);
+        }
+
+        async function runAllTests() {
+            // Temporarily set to all categories
+            document.getElementById('categorySelect').value = 'all';
+            document.getElementById('searchInput').value = '';
+            updateFilteredTests();
+            
+            log(`🚀 Running ALL comprehensive tests (${filteredTests.length} tests)`);
+            await runTests(filteredTests);
+        }
+
+        async function runTests(tests) {
+            if (isRunning) {
+                log("⚠️ Tests are already running");
+                return;
+            }
+            
+            isRunning = true;
+            shouldStop = false;
+            document.getElementById('stopBtn').disabled = false;
+            testResults = [];
+            
+            const startTime = Date.now();
+            
+            for (let i = 0; i < tests.length; i++) {
+                if (shouldStop) {
+                    log("🛑 Test execution stopped by user");
+                    break;
+                }
+                
+                currentTestIndex = i;
+                updateProgress(i, tests.length);
+                
+                const test = tests[i];
+                await executeTest(test, i + 1, tests.length);
+                updateStats();
+                
+                // Small delay to prevent UI blocking
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+            
+            const endTime = Date.now();
+            const duration = ((endTime - startTime) / 1000).toFixed(2);
+            
+            updateProgress(tests.length, tests.length);
+            
+            const passed = testResults.filter(r => r.status === 'passed').length;
+            const failed = testResults.filter(r => r.status === 'failed').length;
+            const successRate = tests.length > 0 ? ((passed / tests.length) * 100).toFixed(1) : 0;
+            
+            log(`\n🏁 Test execution completed in ${duration}s`);
+            log(`📊 Results: ${passed} passed, ${failed} failed (${successRate}% success rate)`);
+            
+            showResultsSummary();
+            
+            isRunning = false;
+            document.getElementById('stopBtn').disabled = true;
+        }
+
+        async function executeTest(test, index, total) {
+            try {
+                log(`\n[${index}/${total}] Testing: ${test.name} (${test.category})`);
+                
+                // Parse the code
+                const ast = parse(test.code);
+                if (!ast) {
+                    throw new Error("Failed to parse code - AST is null");
+                }
+                
+                // Create interpreter
+                const verbose = document.getElementById('verboseMode').value === 'true';
+                const interpreter = new ArduinoInterpreter(ast, { verbose });
+                
+                // Execute the interpretation
+                const result = interpreter.start();
+                
+                if (result) {
+                    log(`✅ PASS: ${test.name}`);
+                    testResults.push({
+                        name: test.name,
+                        category: test.category,
+                        status: 'passed',
+                        executionTime: 0, // Could be measured if needed
+                        details: 'Interpreter executed successfully'
+                    });
+                } else {
+                    log(`❌ FAIL: ${test.name} - Interpreter returned false`);
+                    testResults.push({
+                        name: test.name,
+                        category: test.category,
+                        status: 'failed',
+                        error: 'Interpreter returned false',
+                        details: 'Interpreter execution failed'
+                    });
+                }
+                
+            } catch (error) {
+                log(`❌ FAIL: ${test.name}`);
+                log(`   Error: ${error.message}`);
+                testResults.push({
+                    name: test.name,
+                    category: test.category,
+                    status: 'failed',
+                    error: error.message,
+                    details: error.stack || error.message
+                });
+            }
+        }
+
+        function stopTests() {
+            shouldStop = true;
+            log("🛑 Stop requested - will halt after current test");
+        }
+
+        function clearLog() {
+            document.getElementById('log').textContent = '';
+            initializeHarness();
+        }
+
+        function showResultsSummary() {
+            const summaryDiv = document.getElementById('resultsSummary');
+            const contentDiv = document.getElementById('summaryContent');
+            
+            const categoryStats = {};
+            testResults.forEach(result => {
+                if (!categoryStats[result.category]) {
+                    categoryStats[result.category] = { passed: 0, failed: 0 };
+                }
+                categoryStats[result.category][result.status]++;
+            });
+            
+            let summaryHTML = '<div class="stats">';
+            Object.entries(categoryStats).forEach(([category, stats]) => {
+                const total = stats.passed + stats.failed;
+                const rate = total > 0 ? ((stats.passed / total) * 100).toFixed(1) : 0;
+                summaryHTML += `
+                    <div class="stat-card">
+                        <div class="test-category">${category}</div>
+                        <div class="stat-number">${rate}%</div>
+                        <div class="stat-label">${stats.passed}/${total} passed</div>
+                    </div>
+                `;
+            });
+            summaryHTML += '</div>';
+            
+            // Show failed tests
+            const failedTests = testResults.filter(r => r.status === 'failed');
+            if (failedTests.length > 0) {
+                summaryHTML += '<h4>❌ Failed Tests:</h4>';
+                failedTests.forEach(test => {
+                    summaryHTML += `
+                        <div class="error-details">
+                            <strong>${test.name}</strong> (${test.category})<br>
+                            Error: ${test.error || 'Unknown error'}
+                        </div>
+                    `;
+                });
+            }
+            
+            contentDiv.innerHTML = summaryHTML;
+            summaryDiv.style.display = 'block';
+        }
+
+        function exportResults(format) {
+            if (testResults.length === 0) {
+                log("❌ No test results to export");
+                return;
+            }
+            
+            let content, filename, mimeType;
+            
+            switch (format) {
+                case 'json':
+                    content = JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        totalTests: testResults.length,
+                        passed: testResults.filter(r => r.status === 'passed').length,
+                        failed: testResults.filter(r => r.status === 'failed').length,
+                        results: testResults
+                    }, null, 2);
+                    filename = `interpreter_test_results_${Date.now()}.json`;
+                    mimeType = 'application/json';
+                    break;
+                    
+                case 'csv':
+                    const csvHeaders = 'Name,Category,Status,Error,Details\n';
+                    const csvRows = testResults.map(r => 
+                        `"${r.name}","${r.category}","${r.status}","${r.error || ''}","${r.details || ''}"`
+                    ).join('\n');
+                    content = csvHeaders + csvRows;
+                    filename = `interpreter_test_results_${Date.now()}.csv`;
+                    mimeType = 'text/csv';
+                    break;
+                    
+                case 'txt':
+                    content = `Comprehensive Interpreter Test Results\n`;
+                    content += `Generated: ${new Date().toLocaleString()}\n`;
+                    content += `Total Tests: ${testResults.length}\n`;
+                    content += `Passed: ${testResults.filter(r => r.status === 'passed').length}\n`;
+                    content += `Failed: ${testResults.filter(r => r.status === 'failed').length}\n\n`;
+                    
+                    testResults.forEach(r => {
+                        content += `${r.status.toUpperCase()}: ${r.name} (${r.category})\n`;
+                        if (r.error) content += `  Error: ${r.error}\n`;
+                        content += '\n';
+                    });
+                    filename = `interpreter_test_results_${Date.now()}.txt`;
+                    mimeType = 'text/plain';
+                    break;
+            }
+            
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            log(`📤 Exported results as ${filename}`);
+        }
+
+        // Event listeners
+        document.getElementById('categorySelect').addEventListener('change', updateFilteredTests);
+        document.getElementById('searchInput').addEventListener('input', updateFilteredTests);
+
+        // Initialize on page load
+        window.addEventListener('load', initializeHarness);
+    </script>
+</body>
+</html>
