@@ -1,4 +1,4 @@
-sfranzyshen.com Source-Available License Version 1.0
+## **sfranzyshen.com Source-Available License Version 1.0**
 
 This license governs the use of the accompanying software, "[Software Name]" (the "Software"). By using the Software, you accept this license. If you do not accept the license, do not use the Software.
 
@@ -9,31 +9,31 @@ This license governs the use of the accompanying software, "[Software Name]" (th
 
 --------------------------------------------------------------------------------
 
-### § 1. Grant of License
+### **§ 1. Grant of License**
 
 Subject to the terms of this license, including the Use Limitation, the Licensor grants you a non-exclusive, worldwide, royalty-free license to:
 a. Use, reproduce, modify, and create derivative works of the Licensed Work.
 b. Distribute the Licensed Work and any derivative works you create.
 
-### § 2. Change of License
+### **§ 2. Change of License**
 
 On the Change Date, the Use Limitation automatically terminates, and this license is superseded by the Change License. From that date forward, the Licensed Work is governed by the terms of the Change License.
 
-### § 3. Additional Use Grant (Optional)
+### **§ 3. Additional Use Grant (Optional)**
 
 You may be able to use the Licensed Work in production without purchasing a commercial license if your usage meets the following criteria:
 
-* [Clearly define any exceptions. For example: "You are using the Licensed Work to manage fewer than two servers." or "Your organization has less than $1,000 USD in annual revenue."]
+* Your organization has less than $1,000 USD in annual revenue.
 
-### § 4. Commercial License
+### **§ 4. Commercial License**
 
 If your intended use of the Software is not permitted by this license (e.g., it violates the Use Limitation and does not qualify for an Additional Use Grant), you must purchase a commercial license from sfranzyshen.com. Please contact sfranzyshen@hotmail.com for more information.
 
-### § 5. Trademarks
+### § **5. Trademarks**
 
 This license does not grant you any rights to use the Licensor's names, logos, or trademarks.
 
-### § 6. Disclaimer of Warranty & Limitation of Liability
+### **§ 6. Disclaimer of Warranty & Limitation of Liability**
 
 THE LICENSED WORK IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE.
 
