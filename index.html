@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Interpreter Project</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Use Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Floating Header -->
+    <header class="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Website Title -->
+                <div>
+                    <a href="#" class="text-xl font-semibold text-gray-800">sfranzyshen.org</a>
+                </div>
+                <!-- GitHub Icon Link -->
+                <div>
+                    <a href="https://github.com/sfranzyshen/ArduinoInterpreter/" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Body Content -->
+    <!-- Add a top padding equal to the header's height to prevent content from being hidden -->
+    <main class="pt-24 pb-16">
+        <div class="container mx-auto px-6 py-8 max-w-4xl">
+            <!-- Page Title -->
+            <h1 class="text-3xl font-bold text-gray-900">Welcome to the Arduino Interpreter Project</h1>
+            <!-- Introductory Text -->
+            <div class="mt-6 space-y-4 text-lg text-gray-700">
+                <p>
+                    This project began its life as a 30 day experiment to see if I could use AI technologies to accomplish a programming project that I had struggled with and failed to accomplish (twice) previously. To my surprise and enjoyment, the project was a success and now I want to share it with the rest of the open source educational community.
+                </p>
+                <p>
+                    If you are a commercial endeavor and wish to use (exploit) the work accomplished here, then you will need to license this code to be used in your products.
+                </p>
+                <p>
+                    Additional information on licensing or to find the source code, visit and follow us on <a href="https://github.com/sfranzyshen/ArduinoInterpreter" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub</a>.
+                </p>
+            </div>
+
+            <!-- Divider -->
+            <hr class="my-10 border-gray-200">
+
+            <!-- Playground Links Section -->
+            <div class="space-y-8">
+                <!-- Interpreter Playground -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Interpreter Playground</h2>
+                    <p class="mt-2 text-lg text-gray-700">
+                        Explore the full interpreter playground to test any Arduino Sketch. This section includes a comprehensive test-bed with 135 examples, featuring 79 sketches from the Arduino IDE, 54 complex examples, and even sketches from the Adafruit NeoPixel driver library.
+                    </p>
+                    <a href="interpreter_playground.html" class="mt-4 inline-block bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                        Go to Interpreter Playground
+                    </a>
+                </div>
+
+                <!-- Parser Playground -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Parser Playground</h2>
+                    <p class="mt-2 text-lg text-gray-700">
+                        See how the parser converts code into an Abstract Syntax Tree (AST). The parser-only playground also includes all 135 test cases, allowing you to visualize how the interpreter understands the code before executing it.
+                    </p>
+                    <a href="parser_playground.html" class="mt-4 inline-block bg-green-600 text-white font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-green-700 transition-colors">
+                        Go to Parser Playground
+                    </a>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <hr class="my-10 border-gray-200">
+
+            <!-- Closing / Connect Section -->
+            <div>
+                 <h2 class="text-2xl font-bold text-gray-900">Connect With Me</h2>
+                 <p class="mt-2 text-lg text-gray-700">
+                    If you want to learn more about this Arduino Interpreter or if you want to know more about using AI to augment your programming skills, consider following me on
+                    <a href="https://github.com/sfranzyshen/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub</a>,
+                    <a href="https://www.facebook.com/sfranzyshen" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Facebook</a>,
+                    <a href="https://www.tinkercad.com/users/9Wbn1uShxa2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Tinkercad</a>,
+                    <a href="https://www.youtube.com/channel/UCF2BwDgVwD6W2-eel5BTJOA" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">YouTube</a>,
+                    and many other places on the internet. Or come find me at the <a href="https://chicofablab.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Chico Fab Lab</a> in Chico, California... I always have time to help a friend :)
+                 </p>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
