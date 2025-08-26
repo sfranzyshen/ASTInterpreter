@@ -1,5 +1,5 @@
-# ArduinoInterpreter
-Arduino Sketch Interpreter
+# ArduinoInterpreter (Arduino Sketch Interpreter)
+A Parser / Interpreter to evaluate Arduino Sketches from the Browser or NodeJS.
 
 ## 📜 Licensing
 
