@@ -4,6 +4,9 @@
 
 ArduinoInterpreter is a production-ready parser and interpreter that transforms Arduino/C++ source code into executable command streams through a sophisticated multi-stage processing pipeline. It provides full Arduino language support with hardware simulation, making it perfect for educational tools, code validation, and Arduino development environments.
 
+## Whats Next?
+The process of porting our JavaScript codebase to C++ is officially underway. This transition will enable us to compile for both WebAssembly (Wasm) and Arduino ESP32 binaries from a single source. Initial tests are very encouraging, revealing lower memory usage and a speed boost of up to 50%. More updates will follow, pending my ability to figure out how to pay for a Claude subscription.
+
 ## Funding
 We are urgently in need of funding for this project to continue the longer term goals ... We will be start a tradition funding campaign but for now we are asking for small amount donations to help keep paying for a minimal subscription to claude code ... $20 per month minimum or $100 per month maximum is what we need ... If you can help please click the button
 
