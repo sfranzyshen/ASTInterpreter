@@ -4,6 +4,11 @@
 
 ArduinoInterpreter is a production-ready parser and interpreter that transforms Arduino/C++ source code into executable command streams through a sophisticated multi-stage processing pipeline. It provides full Arduino language support with hardware simulation, making it perfect for educational tools, code validation, and Arduino development environments.
 
+## Funding
+We are urgently in need of funding for this project to continue the longer term goals ... We will be start a tradition funding campaign but for now we are asking for small amount donations to help keep paying for a minimal subscription to claude code ... $20 per month minimum or $100 per month maximum is what we need ... If you can help please click the button
+
+[<img width="10%" height="10%" src="https://raw.githubusercontent.com/sfranzyshen/ArduinoInterpreter/refs/heads/main/paypal.png">](https://www.paypal.com/donate/?hosted_button_id=ZHGG4TAC94E86)
+
 ## 🚀 Architecture Overview
 
 ArduinoInterpreter uses a clean, modular architecture that processes Arduino code through four distinct stages:
