@@ -270,9 +270,18 @@ interpreter.responseHandler = (request) => {
 - **Conditionals**: `#ifdef`, `#ifndef`, `#if defined()`, `#else`, `#endif`
 - **Platform Defines**: ESP32, ARDUINO, WIFI_SUPPORT, BLUETOOTH_SUPPORT
 
+
+## 🔭 Other Option
+The ArduinoInterpreter project is not a full Simulator for the Arduino ... The goal for this project is to be the "preprocessor, parser, and interpreter" part for a simulated Arduino environment (not provided). There are other projects that perform full "emulation" or full "simulation" of the Arduino environment ... most notably [**wokwi.com**](https://wokwi.com/) and [**Tinkercad**](https://www.tinkercad.com/things?type=circuits) ... the closet in scope to this project would be the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) project that converts Arduino sketches to a portable C++ that then gets used by '[**JSCPP**](https://github.com/felixhao28/JSCPP)' to simulate the Arduino environment within the browser (or nodejs) . While the projects have similar goals ... the complexity and inclusion of the [**JSCPP**](https://github.com/felixhao28/JSCPP) library into the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) makes it unessarly bloated code ... 
+
+## This project began as a 30-day experiment 
+This project began as a 30-day experiment using AI technologies to solve a previously unsuccessful programming challenge. The result is now available to the open source educational community under dual licensing (Source-Available License and AGPLv3), with commercial licensing available.
+
 ## 📜 Licensing
 
-This project is dual-licensed under the [**sfranzyshen.com Source-Available License 1.0**](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/sfranzyshen_source_available_license.md) and **sfranzyshen.org with [GNU AGPLv3](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/gnu-agpl-v3.0.md)**.
+This project is dual-licensed under the [**sfranzyshen.com Source-Available License 1.0**](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/sfranzyshen_source_available_license.md) 
+
+and **sfranzyshen.org with [GNU AGPLv3](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/gnu-agpl-v3.0.md)**.
 
 * You may use this software under the terms of the **Source-Available License** for non-production purposes (e.g., development, testing).
 * After the Change Date of **8/26/2030**, the software will automatically be governed by the **AGPLv3**.
