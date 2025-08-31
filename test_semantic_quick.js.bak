@@ -10,7 +10,8 @@ console.log('🔍 Quick Semantic Diagnostic Test');
 console.log('=================================');
 
 const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { parse } = require('./parser.js');
+const { ArduinoInterpreter } = require('./interpreter.js');
 const { CommandStreamValidator } = require('./command_stream_validator.js');
 
 // Initialize platform emulation and preprocessor

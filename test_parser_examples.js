@@ -10,9 +10,7 @@ console.log('🚀 Arduino Parser Test - All 79 Examples');
 console.log('==========================================');
 
 // Load dependencies
-const { PlatformEmulation } = require('./platform_emulation.js');
-const { ArduinoPreprocessor } = require('./preprocessor.js');
-const { Parser, parse } = require('./parser.js');
+const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
 
 // Load examples.js file
 let testFiles;

@@ -285,14 +285,14 @@ class PlanManagerAgent {
                 { complexity: "COMPLEX", category: "ARCHITECTURE_DESIGN", dependencies: ["ANALYSIS"] }
             ),
             this.createTodoTask(
-                "Implement preprocessor integration in parser.js",
-                "Implementing preprocessor integration in parser.js",
+                "Implement preprocessor integration in ArduinoParser.js",
+                "Implementing preprocessor integration in ArduinoParser.js",
                 "pending",
                 { complexity: "COMPLEX", category: "IMPLEMENTATION", dependencies: ["ARCHITECTURE_DESIGN"] }
             ),
             this.createTodoTask(
-                "Update interpreter.js to use parser preprocessing",
-                "Updating interpreter.js to use parser preprocessing",
+                "Update ArduinoInterpreter.js to use parser preprocessing",
+                "Updating ArduinoInterpreter.js to use parser preprocessing",
                 "pending",
                 { complexity: "COMPLEX", category: "IMPLEMENTATION", dependencies: ["PARSER_IMPLEMENTATION"] }
             ),

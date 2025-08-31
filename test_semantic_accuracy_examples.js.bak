@@ -1,31 +1,31 @@
 #!/usr/bin/env node
 
 /**
- * Semantic Accuracy Test Suite
+ * Semantic Accuracy Test Suite - Arduino Examples
  * 
- * Tests Arduino interpreter execution for semantic accuracy using the CommandStreamValidator
+ * Tests all 79 Arduino examples for semantic accuracy using the CommandStreamValidator
  * This focuses on correctness of behavior, not just execution success.
  */
 
-console.log('🎯 Arduino Semantic Accuracy Test Suite');
-console.log('======================================');
+console.log('🎯 Arduino Examples Semantic Accuracy Test Suite');
+console.log('==============================================');
 
 // Load dependencies
 const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ArduinoInterpreter } = require('./interpreter.js');
 const { CommandStreamValidator } = require('./command_stream_validator.js');
 
 // Load test data
 let testFiles;
 try {
-    const oldTestData = require('./old_test.js');
-    testFiles = oldTestData.oldTestFiles || oldTestData;
+    const examplesData = require('./examples.js');
+    testFiles = examplesData.examplesFiles || examplesData;
 } catch (error) {
-    console.error('❌ Failed to load old_test.js:', error.message);
+    console.error('❌ Failed to load examples.js:', error.message);
     process.exit(1);
 }
 
-console.log('✅ Dependencies loaded:', testFiles.length, 'comprehensive tests');
+console.log('✅ Dependencies loaded:', testFiles.length, 'Arduino examples');
 
 // Initialize platform emulation and preprocessor
 const platformEmulation = new PlatformEmulation('ESP32_NANO');
@@ -44,7 +44,7 @@ let perfectTests = [];
 // Test a single example with semantic validation
 function testSemanticAccuracy(test, index) {
     return new Promise((resolve) => {
-        const testName = test.name || `Test ${index + 1}`;
+        const testName = test.name || `Example ${index + 1}`;
         const code = test.content || test.code;
         
         if (!code) {
@@ -174,7 +174,7 @@ function testSemanticAccuracy(test, index) {
             }
             
             // Step 6: Wait for completion with timeout
-            const timeoutDuration = 8000; // 8 seconds for semantic analysis
+            const timeoutDuration = 10000; // 10 seconds for Arduino examples
             const timeout = setTimeout(() => {
                 if (!executionCompleted) {
                     executionError = `Execution timeout (${timeoutDuration/1000} seconds)`;
@@ -271,8 +271,8 @@ function testSemanticAccuracy(test, index) {
 
 // Run all semantic accuracy tests
 async function runSemanticTests() {
-    console.log('\n🔬 STARTING SEMANTIC ACCURACY ANALYSIS');
-    console.log('=====================================');
+    console.log('\n🔬 STARTING ARDUINO EXAMPLES SEMANTIC ACCURACY ANALYSIS');
+    console.log('======================================================');
     
     const startTime = Date.now();
     let totalAccuracy = 0;
@@ -288,9 +288,9 @@ async function runSemanticTests() {
     const averageAccuracy = totalTests > 0 ? (totalAccuracy / totalTests).toFixed(1) : 0;
     
     // Generate comprehensive report
-    console.log('\n' + '='.repeat(60));
-    console.log('📊 SEMANTIC ACCURACY ANALYSIS RESULTS');
-    console.log('='.repeat(60));
+    console.log('\n' + '='.repeat(70));
+    console.log('📊 ARDUINO EXAMPLES SEMANTIC ACCURACY ANALYSIS RESULTS');
+    console.log('='.repeat(70));
     console.log(`📈 Overall Semantic Accuracy: ${averageAccuracy}%`);
     console.log(`✅ Perfect Tests: ${perfectTests.length} (${((perfectTests.length / totalTests) * 100).toFixed(1)}%)`);
     console.log(`⚠️  Semantic Issues: ${semanticFailures.length} (${((semanticFailures.length / totalTests) * 100).toFixed(1)}%)`);
@@ -300,32 +300,35 @@ async function runSemanticTests() {
     
     if (perfectTests.length > 0) {
         console.log('\n🏆 PERFECT TESTS (95%+ Semantic Accuracy):');
-        perfectTests.slice(0, 10).forEach((test, idx) => {
+        const displayCount = Math.min(perfectTests.length, 15);
+        perfectTests.slice(0, displayCount).forEach((test, idx) => {
             console.log(`  ${idx + 1}. ${test.name}: ${test.accuracy}% (${test.commands} commands)`);
         });
-        if (perfectTests.length > 10) {
-            console.log(`  ... and ${perfectTests.length - 10} more perfect tests`);
+        if (perfectTests.length > 15) {
+            console.log(`  ... and ${perfectTests.length - 15} more perfect tests`);
         }
     }
     
     if (semanticFailures.length > 0) {
         console.log('\n⚠️  SEMANTIC ACCURACY ISSUES:');
-        semanticFailures.slice(0, 8).forEach((test, idx) => {
+        const displayCount = Math.min(semanticFailures.length, 10);
+        semanticFailures.slice(0, displayCount).forEach((test, idx) => {
             console.log(`  ${idx + 1}. ${test.name}: ${test.accuracy}% (${test.errors} errors, ${test.warnings} warnings)`);
         });
-        if (semanticFailures.length > 8) {
-            console.log(`  ... and ${semanticFailures.length - 8} more tests with semantic issues`);
+        if (semanticFailures.length > 10) {
+            console.log(`  ... and ${semanticFailures.length - 10} more tests with semantic issues`);
         }
     }
     
     if (executionFailures.length > 0) {
         console.log('\n💥 EXECUTION FAILURES:');
-        executionFailures.slice(0, 5).forEach((test, idx) => {
+        const displayCount = Math.min(executionFailures.length, 8);
+        executionFailures.slice(0, displayCount).forEach((test, idx) => {
             const errorMsg = typeof test.error === 'string' ? test.error : test.error?.message || 'Unknown error';
-            console.log(`  ${idx + 1}. ${test.name}: ${errorMsg.substring(0, 60)}...`);
+            console.log(`  ${idx + 1}. ${test.name}: ${errorMsg.substring(0, 50)}...`);
         });
-        if (executionFailures.length > 5) {
-            console.log(`  ... and ${executionFailures.length - 5} more execution failures`);
+        if (executionFailures.length > 8) {
+            console.log(`  ... and ${executionFailures.length - 8} more execution failures`);
         }
     }
     
@@ -334,7 +337,7 @@ async function runSemanticTests() {
         console.log('\n🔍 DETAILED ANALYSIS - WORST SEMANTIC ACCURACY:');
         const worstCases = semanticFailures
             .sort((a, b) => a.accuracy - b.accuracy)
-            .slice(0, 3);
+            .slice(0, 5);
             
         worstCases.forEach((test, idx) => {
             console.log(`\n${idx + 1}. ${test.name} (${test.accuracy}% accuracy):`);
@@ -355,8 +358,8 @@ async function runSemanticTests() {
         });
     }
     
-    console.log('\n🎯 Semantic accuracy analysis completed!');
-    console.log('Use this data to identify and fix semantic correctness issues.');
+    console.log('\n🎯 Arduino examples semantic accuracy analysis completed!');
+    console.log('Use this data to identify and fix semantic correctness issues in the examples.');
 }
 
 // Start the semantic analysis

@@ -19,12 +19,12 @@ class SubagentIntegration {
         this.availableSubagents = {
             'parser-specialist': {
                 description: 'Arduino C++ parsing, AST generation, preprocessor integration',
-                contextFiles: ['parser.js', 'preprocessor.js', 'platform_emulation.js', 'ALR.txt'],
+                contextFiles: ['ArduinoParser.js', 'ALR.txt'],
                 specialties: ['parsing', 'preprocessing', 'platform_emulation', 'ast_generation']
             },
             'interpreter-specialist': {
                 description: 'Arduino code execution, hardware simulation, library integration',
-                contextFiles: ['interpreter.js', 'command_stream_validator.js'],
+                contextFiles: ['ArduinoInterpreter.js', 'command_stream_validator.js'],
                 specialties: ['execution', 'hardware_simulation', 'library_integration', 'command_streams']
             },
             'test-diagnostician': {

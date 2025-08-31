@@ -12,7 +12,7 @@ console.log('======================================');
 
 // Load dependencies
 const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ArduinoInterpreter } = require('./interpreter.js');
 const { CommandStreamValidator } = require('./command_stream_validator.js');
 
 // Load test data

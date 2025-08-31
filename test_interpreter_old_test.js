@@ -9,10 +9,8 @@ console.log('🚀 Arduino Interpreter Test - old_test.js');
 console.log('==========================================');
 
 // Load dependencies
-const { PlatformEmulation } = require('./platform_emulation.js');
-const { ArduinoPreprocessor } = require('./preprocessor.js');
-const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
+const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
 
 // Load old_test.js file
 let testFiles;

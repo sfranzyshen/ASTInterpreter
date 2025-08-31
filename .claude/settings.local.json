@@ -16,10 +16,28 @@
       "Bash(do)",
       "Bash(echo:*)",
       "Bash(done)",
-      "Read(///**)"
+      "Read(///**)",
+      "Bash(for file in test_parser_old_test.js test_parser_neopixel.js test_semantic_accuracy_examples.js test_semantic_accuracy.js test_semantic_quick.js)",
+      "Bash(if [ -f \"$file\" ])",
+      "Bash(then)",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": [],
     "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aplay chime.wav"
+          }
+        ]
+      }
+    ]
   }
+}
 }

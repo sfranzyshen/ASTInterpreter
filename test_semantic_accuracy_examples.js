@@ -11,10 +11,8 @@ console.log('🎯 Arduino Examples Semantic Accuracy Test Suite');
 console.log('==============================================');
 
 // Load dependencies
-const { PlatformEmulation } = require('./platform_emulation.js');
-const { ArduinoPreprocessor } = require('./preprocessor.js');
-const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
+const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
 const { CommandStreamValidator } = require('./command_stream_validator.js');
 
 // Load test data

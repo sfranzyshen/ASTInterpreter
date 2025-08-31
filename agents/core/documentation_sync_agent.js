@@ -48,21 +48,16 @@ class DocumentationSyncAgent {
         
         // Source files that contain version information
         this.sourceFiles = {
-            "interpreter.js": {
-                path: "interpreter.js",
+            "ArduinoInterpreter.js": {
+                path: "ArduinoInterpreter.js",
                 versionPattern: /const INTERPRETER_VERSION = "([^"]+)"/,
                 currentVersion: null
             },
-            "parser.js": {
-                path: "parser.js", 
+            "ArduinoParser.js": {
+                path: "ArduinoParser.js", 
                 versionPattern: /const PARSER_VERSION = "([^"]+)"/,
                 currentVersion: null
             },
-            "preprocessor.js": {
-                path: "preprocessor.js",
-                versionPattern: /const PREPROCESSOR_VERSION = ['"]([^'"]+)['"]/,
-                currentVersion: null
-            }
         };
         
         // Change tracking
@@ -158,9 +153,13 @@ class DocumentationSyncAgent {
         const updates = [];
         
         // Get current versions from source
-        const interpreterVersion = this.sourceFiles["interpreter.js"].currentVersion;
-        const parserVersion = this.sourceFiles["parser.js"].currentVersion;
-        const preprocessorVersion = this.sourceFiles["preprocessor.js"].currentVersion;
+        const interpreterVersion = this.sourceFiles["ArduinoInterpreter.js"].currentVersion;
+        const parserVersion = this.sourceFiles["ArduinoParser.js"].currentVersion;
+        // Read preprocessorVersion from ArduinoParser.js
+        const fs = require('fs');
+        const parserContent = fs.readFileSync(path.join(this.projectRoot, 'ArduinoParser.js'), 'utf8');
+        const preprocessorMatch = parserContent.match(/const PREPROCESSOR_VERSION = ['"]([^'"]+)['"]/);
+        const preprocessorVersion = preprocessorMatch ? preprocessorMatch[1] : null;
         
         if (!interpreterVersion || !parserVersion || !preprocessorVersion) {
             console.error(`❌ Could not read all source versions`);
@@ -203,8 +202,8 @@ class DocumentationSyncAgent {
             }
             
             // Update file structure section
-            const fileStructurePattern = /├── interpreter\.js\s+# Core interpreter \(v[\d.]+\)/;
-            const newFileStructureLine = `├── interpreter.js                               # Core interpreter (v${interpreterVersion})`;
+            const fileStructurePattern = /├── ArduinoInterpreter\.js\s+# Core interpreter \(v[\d.]+\)/;
+            const newFileStructureLine = `├── ArduinoInterpreter.js                       # Core interpreter (v${interpreterVersion})`;
             if (content.match(fileStructurePattern)) {
                 content = content.replace(fileStructurePattern, newFileStructureLine);
                 modified = true;

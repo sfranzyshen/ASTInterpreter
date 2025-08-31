@@ -25,26 +25,19 @@ class VersionManagementAgent {
         
         // Version-controlled files in the project
         this.versionedFiles = {
-            "interpreter.js": {
-                path: "interpreter.js",
+            "ArduinoInterpreter.js": {
+                path: "ArduinoInterpreter.js",
                 versionPattern: /const INTERPRETER_VERSION = "([^"]+)"/,
                 versionVariable: "INTERPRETER_VERSION",
                 currentVersion: null,
                 component: "interpreter"
             },
-            "parser.js": {
-                path: "parser.js", 
+            "ArduinoParser.js": {
+                path: "ArduinoParser.js", 
                 versionPattern: /const PARSER_VERSION = "([^"]+)"/,
                 versionVariable: "PARSER_VERSION",
                 currentVersion: null,
                 component: "parser"
-            },
-            "preprocessor.js": {
-                path: "preprocessor.js",
-                versionPattern: /const PREPROCESSOR_VERSION = ['"]([^'"]+)['"]/,
-                versionVariable: "PREPROCESSOR_VERSION",
-                currentVersion: null,
-                component: "preprocessor"
             },
             "interpreter_playground.html": {
                 path: "interpreter_playground.html",
