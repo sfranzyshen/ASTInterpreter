@@ -1,0 +1,35 @@
+diff --git a/ArduinoInterpreter.js b/ArduinoInterpreter.js
+index 1234567..89abcde 100644
+--- a/ArduinoInterpreter.js
++++ b/ArduinoInterpreter.js
+@@ -4045,7 +4045,7 @@
+         // Update pin state
+         const pinState = this.pinStates.get(pin) || { mode: 'OUTPUT', value: 0 };
+-        pinState.value = value;
++        pinState.value = numericValue; // Store the numeric value
+         this.pinStates.set(pin, pinState);
+         
+         this.emitCommand({
+@@ -4053,7 +4053,7 @@
+             type: COMMAND_TYPES.DIGITAL_WRITE,
+             pin: pin,
+-            value: this.sanitizeForCommand(value),
++            value: numericValue, // Emit the numeric value, not the string
+             timestamp: Date.now()
+         });
+     }
+@@ -4083,7 +4083,7 @@
+         }
+         
+-        this.pinStates.set(pin, { mode: mode, value: 0 });
++        this.pinStates.set(pin, { mode: numericMode, value: 0 });
+         
+         this.emitCommand({
+@@ -4091,7 +4091,7 @@
+             type: COMMAND_TYPES.PIN_MODE,
+             pin: pin,
+-            mode: mode,
++            mode: numericMode,
+             timestamp: Date.now()
+         });
+     }

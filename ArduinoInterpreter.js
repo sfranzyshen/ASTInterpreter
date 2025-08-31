@@ -4052,12 +4052,12 @@ class ArduinoInterpreter {
             }
         }
         
-        this.pinStates.set(pin, { mode: mode, value: 0 });
+        this.pinStates.set(pin, { mode: numericMode, value: 0 });
         
         this.emitCommand({
             type: COMMAND_TYPES.PIN_MODE,
             pin: pin,
-            mode: mode,
+            mode: numericMode,
             timestamp: Date.now()
         });
     }
@@ -4092,13 +4092,13 @@ class ArduinoInterpreter {
         
         // Update pin state
         const pinState = this.pinStates.get(pin) || { mode: 'OUTPUT', value: 0 };
-        pinState.value = value;
+        pinState.value = numericValue; // Store the numeric value
         this.pinStates.set(pin, pinState);
         
         this.emitCommand({
             type: COMMAND_TYPES.DIGITAL_WRITE,
             pin: pin,
-            value: this.sanitizeForCommand(value),
+            value: numericValue, // Emit the numeric value, not the string
             timestamp: Date.now()
         });
     }
