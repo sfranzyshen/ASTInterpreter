@@ -235,7 +235,6 @@
 <body>
     <div class="container">
         <div class="controls">
-            <button class="parse-btn" onclick="parseCode()" style="margin-bottom: 20px;">Parse Code</button>
         </div>
         
         <!-- Test Suite Selection Controls -->
