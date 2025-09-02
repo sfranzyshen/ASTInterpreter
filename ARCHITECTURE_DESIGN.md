@@ -1,117 +1,65 @@
-# New Preprocessing Pipeline Architecture Design
+# Architecture Design
 
-## Current Problems Identified
+This document outlines the architecture of the ArduinoInterpreter system, a dual-language (JavaScript and C++) solution for parsing and interpreting Arduino/C++ code.
 
-### 1. Platform Emulation Missing
-- ❌ No ESP32, WIFI_SUPPORT, BLUETOOTH_SUPPORT defines  
-- ❌ Platform-specific code falls to "Unknown platform" branch
-- ❌ Cannot target different Arduino platforms
+The system is designed around two primary, high-cohesion modules:
 
-### 2. Preprocessing Pipeline Issues  
-- ⚠️ Preprocessor AST nodes still generated in some cases
-- ⚠️ Parser includes preprocessor directive handling code
-- ⚠️ Interpreter includes preprocessor AST handling code
+1.  **The Parser (`ArduinoParser.js`)**: An all-in-one module that consumes raw Arduino source code and produces a clean Abstract Syntax Tree (AST).
+2.  **The Interpreter (`ArduinoInterpreter.js` / `ASTInterpreter.cpp`)**: An execution engine that consumes an AST and produces a hardware-agnostic command stream.
 
-### 3. Clean Architecture Goals
-- ✅ Preprocessor conditional evaluation works correctly
-- ✅ Need to add platform context
-- ✅ Need to eliminate AST pollution completely
+## Processing Pipeline
 
-## Proposed New Architecture
+The data flow is a simple, linear pipeline from source code to a command stream:
 
-### Current Flow (Partially Working)
 ```
-Code → Parser (calls preprocessor, may create AST nodes) → AST + Preprocessor AST → Interpreter (handles some preprocessor AST)
+Arduino Code → Parser (Integrated Preprocessor & Platform Context) → AST → Interpreter → Command Stream
+     ↓                             ↓                                   ↓         ↓              ↓
+  Raw C++        Handles #define, #if, #include, Platform Defines,   Abstract   Hardware    Structured
+  Source         and Library Activation Internally                   Syntax     Simulation  Commands
+  Code                                                               Tree       Events      for Parent App
 ```
 
-### Target Flow (Clean + Platform-Aware)
+## Core Components
+
+### 1. The Parser (`ArduinoParser.js`)
+
+This is the entry point for all source code. It is a comprehensive module that fully encapsulates all parsing-related concerns.
+
+-   **Responsibilities**:
+    -   **Platform Emulation**: Applies platform-specific defines and configurations based on a simple string (`'ARDUINO_UNO'`, `'ESP32_NANO'`). This is the first logical step internally.
+    -   **Preprocessing**: Handles all C++ preprocessor directives, including simple and function-like macros (`#define`), conditional compilation (`#ifdef`, `#if`), and library detection (`#include`).
+    -   **Lexical & Syntactic Analysis**: Performs tokenization and parsing of the cleaned code to generate a structured AST.
+-   **Input**: Raw Arduino/C++ source code string.
+-   **Output**: A clean, preprocessed Abstract Syntax Tree (AST).
+
+### 2. The Interpreter (`ArduinoInterpreter.js` and `ASTInterpreter.cpp`)
+
+The interpreter is the execution engine. It exists in two parallel implementations (JavaScript and C++) that share the same fundamental design.
+
+-   **Responsibilities**:
+    -   **AST Traversal**: Walks the AST provided by the parser.
+    -   **State Management**: Manages global and local variable state using a stack-based scope manager.
+    -   **Hardware Simulation**: Simulates Arduino hardware functions (`pinMode`, `digitalWrite`, `delay`, `millis`, etc.) by emitting commands.
+    -   **Execution Flow Control**: Correctly executes the `setup()` function once and the `loop()` function repeatedly.
+    -   **Library Simulation**: Provides interfaces for simulating common Arduino libraries (Servo, NeoPixel, etc.).
+-   **Input**: An Abstract Syntax Tree (AST).
+-   **Output**: A stream of structured, serializable commands.
+
+## Data Formats
+
+### Abstract Syntax Tree (AST)
+
+The AST is a standard JSON-like tree structure representing the code's syntax. It is the common language that connects the Parser and the Interpreter.
+
+### Command Stream
+
+This is the final output of the system. It is a series of simple JSON objects, each representing a single hardware action. This design decouples the interpreter from any specific hardware, allowing a parent application to consume these commands and drive a real or virtual device.
+
+```javascript
+// Example Command
+{ 
+  type: 'DIGITAL_WRITE', 
+  pin: 13, 
+  value: 1 
+}
 ```
-Code → Platform Setup → Preprocessor (with platform context) → Clean Code → Parser (no preprocessor logic) → Clean AST → Clean Interpreter
-```
-
-## Implementation Plan
-
-### Phase 1: Platform-Aware Preprocessing
-1. **Integrate Platform Emulation with Preprocessor**
-   - Modify preprocessor.js to accept platform defines
-   - Add ESP32 Nano platform defines by default
-   - Make platform switchable
-
-### Phase 2: Clean Pipeline Separation
-1. **Move Preprocessing Before Parser**
-   - Modify parse() function to do full preprocessing first
-   - Ensure parser receives 100% clean code (no directives)
-   - Remove all preprocessor AST generation
-
-2. **Clean Up Parser**
-   - Remove parsePreprocessorDirective() method
-   - Remove preprocessor tokenization logic  
-   - Remove includePreprocessor option (always false)
-   - Remove PreprocessorDirective from AST node types
-
-3. **Clean Up Interpreter**
-   - Remove handlePreprocessorDirective() method
-   - Remove PreprocessorDirective case from executeNode()
-   - Remove preprocessor AST handling completely
-
-### Phase 3: Testing & Validation
-1. **Verify Platform Conditionals Work**
-   - ESP32 branch executes correctly  
-   - WIFI_SUPPORT, BLUETOOTH_SUPPORT defined
-   - Platform switching works
-
-2. **Verify Clean Architecture**  
-   - No PreprocessorDirective AST nodes generated
-   - All 135 tests still pass
-   - Performance improvement (no AST overhead)
-
-## Expected Outcomes
-
-### ✅ Platform-Specific Compilation
-```cpp
-#ifdef ESP32
-    Serial.println("Running on ESP32");  // ✅ EXECUTES
-    WiFi.begin("network", "pass");       // ✅ EXECUTES  
-#else
-    Serial.println("Unknown platform"); // ❌ SKIPPED
-#endif
-```
-
-### ✅ Clean AST (No Preprocessor Nodes)
-- Parser generates only executable code AST
-- Interpreter never sees preprocessor directives
-- Cleaner, faster execution
-
-### ✅ Switchable Platforms
-- Default: ESP32 Nano with WiFi, Bluetooth support
-- Switchable to Arduino Uno, other platforms
-- Platform-specific pin definitions, capabilities
-
-## File Changes Required
-
-### New Files
-- ✅ `platform_emulation.js` - Platform definitions (CREATED)
-- ✅ Test files demonstrating problems (CREATED)
-
-### Modified Files
-- `preprocessor.js` - Add platform integration
-- `parser.js` - Remove AST generation, clean up preprocessing
-- `interpreter.js` - Remove preprocessor AST handling
-- Test files - Update for platform context
-
-### Removed Code
-- Parser: `parsePreprocessorDirective()`, preprocessor tokenization
-- Parser: `PreprocessorDirective` AST node generation  
-- Interpreter: `handlePreprocessorDirective()`, preprocessor cases
-- AST: `PreprocessorDirective` node type definition
-
-## Success Criteria
-
-1. ✅ Platform conditionals work correctly (ESP32 branch executes)
-2. ✅ No PreprocessorDirective AST nodes exist anywhere
-3. ✅ All 135 existing tests still pass
-4. ✅ Platform switching works (ESP32 Nano ↔ Arduino Uno)
-5. ✅ Performance improvement (cleaner execution)
-6. ✅ Cleaner codebase (less complexity)
-
-This design maintains the working conditional compilation while adding platform emulation and eliminating architectural pollution.

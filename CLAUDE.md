@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Conserve Tokens 
+
+For all tasks related to housekeeping, data parsing, and routine file operations, utilize a more cost-effective and token-efficient prompt tool like using gemini -p CLI, or qwen -p CLI tool. When the task requires complex reasoning, creative thinking, or human-like judgment, switch back to using claude code for a more powerful, general-purpose model.
+
 ## Overview
 
 This repository contains a **dual-platform Arduino/C++ parser interpreter implementation** featuring both **JavaScript** and **C++** versions with **comprehensive preprocessor support** and **platform emulation**. 
