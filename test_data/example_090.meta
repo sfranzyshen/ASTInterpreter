@@ -1,0 +1,9 @@
+{
+  "name": "Test_Case_for_the_Dangling_Else.ino",
+  "source": "old_test",
+  "index": "090",
+  "code": "// Test Case for the \"Dangling Else\"\nvoid setup() {\n  int x = 5;\n  int y = 10;\n  if (x > 0)\n    if (y > 20)\n      pinMode(1, HIGH);\n    else\n      pinMode(1, LOW);\n}\n\nvoid loop() {}",
+  "astSize": 278,
+  "commandCount": 22,
+  "generated": "2025-09-02T17:33:03.184Z"
+}

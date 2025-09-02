@@ -1,0 +1,341 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834304655,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834304655,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "redPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756834304656
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "greenPin",
+    "value": 15,
+    "isConst": true,
+    "timestamp": 1756834304656
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "bluePin",
+    "value": 16,
+    "isConst": true,
+    "timestamp": 1756834304656
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834304657,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834304657,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834304657,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304657,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304657,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834304657
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834304657_0.9534854009562557",
+    "timestamp": 1756834304657
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "956"
+    ],
+    "data": "956",
+    "timestamp": 1756834304658,
+    "message": "Serial.print(956)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304658,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756834304659_0.8725300228138853",
+    "timestamp": 1756834304659
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "427"
+    ],
+    "data": "427",
+    "timestamp": 1756834304660,
+    "message": "Serial.print(427)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304660,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 16,
+    "requestId": "analogRead_1756834304661_0.27323519458587353",
+    "timestamp": 1756834304661
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "512"
+    ],
+    "data": "512",
+    "timestamp": 1756834304662,
+    "message": "Serial.println(512)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834304662
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304667,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834304667
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834304668_0.09770618229747008",
+    "timestamp": 1756834304668
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "387"
+    ],
+    "data": "387",
+    "timestamp": 1756834304669,
+    "message": "Serial.print(387)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304669,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756834304669_0.22963300489870297",
+    "timestamp": 1756834304669
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "727"
+    ],
+    "data": "727",
+    "timestamp": 1756834304671,
+    "message": "Serial.print(727)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304671,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 16,
+    "requestId": "analogRead_1756834304671_0.48961257294474403",
+    "timestamp": 1756834304671
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "340"
+    ],
+    "data": "340",
+    "timestamp": 1756834304672,
+    "message": "Serial.println(340)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834304673
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304678,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834304678
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834304678_0.930001351173597",
+    "timestamp": 1756834304678
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "994"
+    ],
+    "data": "994",
+    "timestamp": 1756834304679,
+    "message": "Serial.print(994)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304680,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756834304680_0.5067166793748705",
+    "timestamp": 1756834304680
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "20"
+    ],
+    "data": "20",
+    "timestamp": 1756834304681,
+    "message": "Serial.print(20)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\",\""
+    ],
+    "data": ",",
+    "timestamp": 1756834304682,
+    "message": "Serial.print(\",\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 16,
+    "requestId": "analogRead_1756834304682_0.13705237563077932",
+    "timestamp": 1756834304682
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "144"
+    ],
+    "data": "144",
+    "timestamp": 1756834304683,
+    "message": "Serial.println(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834304683
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834304689,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834304689,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834304689,
+    "message": "Program execution stopped"
+  }
+]

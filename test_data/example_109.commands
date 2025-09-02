@@ -1,0 +1,479 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834384409,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834384409,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834384409,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834384410,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834384410,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834384410,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834384410,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834384410
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 0,
+    "timestamp": 1756834384410
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 10,
+    "timestamp": 1756834384410
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834384410,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834384410,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 1,
+    "timestamp": 1756834384411
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 9,
+    "timestamp": 1756834384411
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384412,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834384412,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      9
+    ],
+    "timestamp": 1756834384417,
+    "message": "checkCondition(9)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834384418,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 2,
+    "timestamp": 1756834384418
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 8,
+    "timestamp": 1756834384419
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384419,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "2"
+    ],
+    "data": "2",
+    "timestamp": 1756834384419,
+    "message": "Serial.println(2)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      8
+    ],
+    "timestamp": 1756834384424,
+    "message": "checkCondition(8)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834384425,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834384425
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834384430,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834384430
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 0,
+    "timestamp": 1756834384431
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 10,
+    "timestamp": 1756834384431
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834384431,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834384431,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 1,
+    "timestamp": 1756834384431
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 9,
+    "timestamp": 1756834384431
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384432,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834384432,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      9
+    ],
+    "timestamp": 1756834384437,
+    "message": "checkCondition(9)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834384438,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 2,
+    "timestamp": 1756834384438
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 8,
+    "timestamp": 1756834384438
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384438,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "2"
+    ],
+    "data": "2",
+    "timestamp": 1756834384439,
+    "message": "Serial.println(2)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      8
+    ],
+    "timestamp": 1756834384444,
+    "message": "checkCondition(8)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834384446,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834384446
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834384451,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834384451
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 0,
+    "timestamp": 1756834384451
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 10,
+    "timestamp": 1756834384451
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834384451,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834384451,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 1,
+    "timestamp": 1756834384451
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 9,
+    "timestamp": 1756834384452
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384452,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834384452,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      9
+    ],
+    "timestamp": 1756834384458,
+    "message": "checkCondition(9)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834384458,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "count",
+    "value": 2,
+    "timestamp": 1756834384458
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "val",
+    "value": 8,
+    "timestamp": 1756834384459
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Count: \""
+    ],
+    "data": "Count: ",
+    "timestamp": 1756834384459,
+    "message": "Serial.print(\"Count: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "2"
+    ],
+    "data": "2",
+    "timestamp": 1756834384459,
+    "message": "Serial.println(2)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkCondition",
+    "arguments": [
+      8
+    ],
+    "timestamp": 1756834384465,
+    "message": "checkCondition(8)"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834384465,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834384465
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834384470,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834384470,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834384470,
+    "message": "Program execution stopped"
+  }
+]

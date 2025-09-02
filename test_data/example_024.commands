@@ -1,0 +1,388 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834304043,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834304043,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834304043,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      31250
+    ],
+    "baudRate": 31250,
+    "timestamp": 1756834304043,
+    "message": "Serial.begin(31250)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834304043,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304043,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834304043,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834304043
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756834304043,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "note",
+    "value": 30,
+    "timestamp": 1756834304043
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834304044,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      30,
+      69
+    ],
+    "timestamp": 1756834304044,
+    "message": "noteOn(144, 30, 69)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304046,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      30
+    ],
+    "timestamp": 1756834304052,
+    "message": "Serial.write(30)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      69
+    ],
+    "timestamp": 1756834304058,
+    "message": "Serial.write(69)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304063
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      30,
+      0
+    ],
+    "timestamp": 1756834304063,
+    "message": "noteOn(144, 30, 0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304064,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      30
+    ],
+    "timestamp": 1756834304069,
+    "message": "Serial.write(30)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      0
+    ],
+    "timestamp": 1756834304075,
+    "message": "Serial.write(0)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304080
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "note",
+    "value": 31,
+    "timestamp": 1756834304081
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834304086,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      31,
+      69
+    ],
+    "timestamp": 1756834304086,
+    "message": "noteOn(144, 31, 69)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304087,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      31
+    ],
+    "timestamp": 1756834304092,
+    "message": "Serial.write(31)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      69
+    ],
+    "timestamp": 1756834304098,
+    "message": "Serial.write(69)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304103
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      31,
+      0
+    ],
+    "timestamp": 1756834304104,
+    "message": "noteOn(144, 31, 0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304104,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      31
+    ],
+    "timestamp": 1756834304110,
+    "message": "Serial.write(31)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      0
+    ],
+    "timestamp": 1756834304116,
+    "message": "Serial.write(0)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304121
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "note",
+    "value": 32,
+    "timestamp": 1756834304122
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756834304127,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      32,
+      69
+    ],
+    "timestamp": 1756834304127,
+    "message": "noteOn(144, 32, 69)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304128,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      32
+    ],
+    "timestamp": 1756834304134,
+    "message": "Serial.write(32)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      69
+    ],
+    "timestamp": 1756834304139,
+    "message": "Serial.write(69)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304144
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "noteOn",
+    "arguments": [
+      144,
+      32,
+      0
+    ],
+    "timestamp": 1756834304144,
+    "message": "noteOn(144, 32, 0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      144
+    ],
+    "timestamp": 1756834304145,
+    "message": "Serial.write(144)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      32
+    ],
+    "timestamp": 1756834304151,
+    "message": "Serial.write(32)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      0
+    ],
+    "timestamp": 1756834304156,
+    "message": "Serial.write(0)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756834304162
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "note",
+    "value": 33,
+    "timestamp": 1756834304162
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756834304168,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834304168
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834304173,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

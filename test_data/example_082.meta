@@ -1,0 +1,9 @@
+{
+  "name": "Test_Case_for_Operator_Precedence.ino",
+  "source": "old_test",
+  "index": "082",
+  "code": "// Test Case for Operator Precedence\nvoid setup() {\n  int a = 5;\n  int b = 10;\n  int c = 2;\n\n  if (a + b / c == 10 && b > 9) {\n    // Parser should correctly evaluate (b / c) first, then (a + ...),\n    // then (== 10), then (> 9), and finally the &&.\n  }\n}\n\nvoid loop() {\n  // empty\n}",
+  "astSize": 343,
+  "commandCount": 21,
+  "generated": "2025-09-02T17:33:02.759Z"
+}

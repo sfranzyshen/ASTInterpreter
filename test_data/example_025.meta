@@ -1,0 +1,9 @@
+{
+  "name": "MultiSerial.ino",
+  "source": "examples",
+  "index": "025",
+  "code": "// 04.Communication MultiSerial.ino\n\nvoid setup() {\n  // initialize both serial ports:\n  Serial.begin(9600);\n  Serial1.begin(9600);\n}\n\nvoid loop() {\n  // read from port 1, send to port 0:\n  if (Serial1.available()) {\n    int inByte = Serial1.read();\n    Serial.write(inByte);\n  }\n\n  // read from port 0, send to port 1:\n  if (Serial.available()) {\n    int inByte = Serial.read();\n    Serial1.write(inByte);\n  }\n}\n",
+  "astSize": 392,
+  "commandCount": 40,
+  "generated": "2025-09-02T17:31:44.263Z"
+}

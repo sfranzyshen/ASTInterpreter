@@ -1,0 +1,9 @@
+{
+  "name": "Test_Case_for_Unary_vs_Binary_Operators.ino",
+  "source": "old_test",
+  "index": "084",
+  "code": "// Test Case for Unary vs. Binary Operators\nvoid setup() {\n  int x = 10;\n  int y = -x;      // Unary minus\n  int z = 10 - 5;  // Binary minus\n}\n\nvoid loop() {\n  // empty\n}",
+  "astSize": 256,
+  "commandCount": 20,
+  "generated": "2025-09-02T17:33:02.880Z"
+}

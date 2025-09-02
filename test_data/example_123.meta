@@ -1,0 +1,9 @@
+{
+  "name": "Comma_Operator_in_a_for_Loop.ino",
+  "source": "old_test",
+  "index": "123",
+  "code": "// Comma Operator in a for Loop\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 0, b = 10;\n  for (int i = 0; i < 3; i++) {\n    Serial.print(\"Initial a: \");\n    Serial.println(a);\n    a = (a++, b++);\n    Serial.print(\"Final a: \");\n    Serial.println(a);\n  }\n}",
+  "astSize": 334,
+  "commandCount": 42,
+  "generated": "2025-09-02T17:33:05.473Z"
+}

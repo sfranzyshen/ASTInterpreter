@@ -56,7 +56,9 @@
       "Bash(./test_state_machine_fix)",
       "Bash(./test_user_function_params)",
       "Bash(./test_range_based_for)",
-      "Bash(./test_array_struct_access:*)"
+      "Bash(./test_array_struct_access:*)",
+      "Bash(do [ ! -f \"test_data/example_$i.ast\" ])",
+      "Bash(./build/test_cross_platform_validation:*)"
     ],
     "deny": [],
     "ask": [],

@@ -1,0 +1,9 @@
+{
+  "name": "Structs_and_Member_Access.ino",
+  "source": "old_test",
+  "index": "110",
+  "code": "// Structs and Member Access\nstruct Point {\n  int x;\n  int y;\n};\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  struct Point p1;\n  p1.x = 10;\n  p1.y = 20;\n\n  Serial.print(\"Point x: \");\n  Serial.println(p1.x);\n  Serial.print(\"Point y: \");\n  Serial.println(p1.y);\n}",
+  "astSize": 176,
+  "commandCount": 45,
+  "generated": "2025-09-02T17:33:04.576Z"
+}

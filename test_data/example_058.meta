@@ -1,0 +1,9 @@
+{
+  "name": "KeyboardLogout.ino",
+  "source": "examples",
+  "index": "058",
+  "code": "// 09.USB Keyboard/KeyboardLogout\n\n#define OSX 0\n#define WINDOWS 1\n#define UBUNTU 2\n\n#include \"Keyboard.h\"\n\n// change this to match your platform:\nint platform = OSX;\n\nvoid setup() {\n  // make pin 2 an input and turn on the pull-up resistor so it goes high unless\n  // connected to ground:\n  pinMode(2, INPUT_PULLUP);\n  Keyboard.begin();\n}\n\nvoid loop() {\n  while (digitalRead(2) == HIGH) {\n    // do nothing until pin 2 goes low\n    delay(500);\n  }\n  delay(1000);\n\n  switch (platform) {\n    case OSX:\n      Keyboard.press(KEY_LEFT_GUI);\n      Keyboard.press(KEY_LEFT_SHIFT);\n      Keyboard.press('Q');\n      delay(100);\n      Keyboard.releaseAll();\n      Keyboard.write(KEY_RETURN);\n      break;\n    case WINDOWS:\n      Keyboard.press(KEY_LEFT_CTRL);\n      Keyboard.press(KEY_LEFT_ALT);\n      Keyboard.press(KEY_DELETE);\n      delay(100);\n      Keyboard.releaseAll();\n      delay(2000);\n      Keyboard.press(KEY_LEFT_ALT);\n      Keyboard.press('l');\n      Keyboard.releaseAll();\n      break;\n    case UBUNTU:\n      Keyboard.press(KEY_LEFT_CTRL);\n      Keyboard.press(KEY_LEFT_ALT);\n      Keyboard.press(KEY_DELETE);\n      delay(1000);\n      Keyboard.releaseAll();\n      Keyboard.write(KEY_RETURN);\n      break;\n  }\n\n  // do nothing:\n  while (true)\n    ;\n}\n",
+  "astSize": 511,
+  "commandCount": 14,
+  "generated": "2025-09-02T17:32:11.324Z"
+}

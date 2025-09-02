@@ -1,0 +1,9 @@
+{
+  "name": "Smoothing.ino",
+  "source": "examples",
+  "index": "020",
+  "code": "// 03.Analog Smoothing.ino\n\n// Define the number of samples to keep track of.\nconst int numReadings = 10;\n\nint readings[numReadings];\nint readIndex = 0;\nint total = 0;\nint average = 0;\n\nint inputPin = A0;\n\nvoid setup() {\n  // initialize serial communication with computer:\n  Serial.begin(9600);\n  // initialize all the readings to 0:\n  for (int thisReading = 0; thisReading < numReadings; thisReading++) {\n    readings[thisReading] = 0;\n  }\n}\n\nvoid loop() {\n  // subtract the last reading:\n  total = total - readings[readIndex];\n  // read from the sensor:\n  readings[readIndex] = analogRead(inputPin);\n  // add the reading to the total:\n  total = total + readings[readIndex];\n  // advance to the next position in the array:\n  readIndex = readIndex + 1;\n  // if we're at the end of the array...\n  if (readIndex >= numReadings) {\n    // ...wrap around to the beginning:\n    readIndex = 0;\n  }\n\n  // calculate the average:\n  average = total / numReadings;\n  // send it to the computer as ASCII digits\n  Serial.println(average);\n  delay(1);\n}\n",
+  "astSize": 584,
+  "commandCount": 20,
+  "generated": "2025-09-02T17:31:43.845Z"
+}

@@ -1,0 +1,645 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834383299,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834383299,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834383299,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834383299,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834383299,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834383299,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834383299,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834383299
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 0,
+    "timestamp": 1756834383299
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834383300,
+    "message": "while loop started"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834383300,
+    "message": "while loop iteration 0"
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756834383300,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "j",
+    "value": 0,
+    "timestamp": 1756834383300
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834383300,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 0,
+    "timestamp": 1756834383300
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834383301,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834383301,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383301,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383301,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383302,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383302,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383302,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383303,
+    "message": "Serial.println(0)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 1,
+    "timestamp": 1756834383304
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834383309,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383310,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383310,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383310,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383311,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383311,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834383311,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 2,
+    "timestamp": 1756834383311
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834383317,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "j",
+    "value": 1,
+    "timestamp": 1756834383317
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834383322,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 0,
+    "timestamp": 1756834383322
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834383322,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834383322,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383322,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383323,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383323,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834383323,
+    "message": "Serial.print(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383323,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383324,
+    "message": "Serial.println(0)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 1,
+    "timestamp": 1756834383324
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834383330,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383330,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383331,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383331,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834383331,
+    "message": "Serial.print(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383332,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834383332,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 2,
+    "timestamp": 1756834383333
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834383339,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "j",
+    "value": 2,
+    "timestamp": 1756834383339
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756834383345,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 0,
+    "timestamp": 1756834383345
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834383345,
+    "message": "do-while loop started"
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834383345,
+    "message": "do-while loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383346,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383346,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383347,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "2"
+    ],
+    "data": "2",
+    "timestamp": 1756834383347,
+    "message": "Serial.print(2)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383347,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383347,
+    "message": "Serial.println(0)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 1,
+    "timestamp": 1756834383348
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834383354,
+    "message": "do-while loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"i: \""
+    ],
+    "data": "i: ",
+    "timestamp": 1756834383354,
+    "message": "Serial.print(\"i: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756834383354,
+    "message": "Serial.print(0)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", j: \""
+    ],
+    "data": ", j: ",
+    "timestamp": 1756834383355,
+    "message": "Serial.print(\", j: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "2"
+    ],
+    "data": "2",
+    "timestamp": 1756834383355,
+    "message": "Serial.print(2)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\", k: \""
+    ],
+    "data": ", k: ",
+    "timestamp": 1756834383355,
+    "message": "Serial.print(\", k: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756834383356,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "k",
+    "value": 2,
+    "timestamp": 1756834383356
+  },
+  {
+    "type": "DO_WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756834383362,
+    "message": "do-while loop completed (2 iterations)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "j",
+    "value": 3,
+    "timestamp": 1756834383362
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756834383368,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 1,
+    "timestamp": 1756834383368,
+    "message": "while loop completed (1 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834383368
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834383373,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

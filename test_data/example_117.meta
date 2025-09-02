@@ -1,0 +1,9 @@
+{
+  "name": "static_Variables_and_Scope.ino",
+  "source": "old_test",
+  "index": "117",
+  "code": "// static Variables and Scope\nvoid counter() {\n  static int count = 0;\n  count++;\n  Serial.print(\"Count is: \");\n  Serial.println(count);\n}\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  counter();\n  delay(1000);\n}",
+  "astSize": 243,
+  "commandCount": 33,
+  "generated": "2025-09-02T17:33:05.050Z"
+}

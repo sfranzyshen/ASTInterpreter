@@ -22,7 +22,6 @@
 #include <string>
 #include <functional>
 #include <chrono>
-#include <future>
 #include <queue>
 
 namespace arduino_interpreter {
@@ -149,67 +148,6 @@ public:
 // REQUEST-RESPONSE SYSTEM
 // =============================================================================
 
-/**
- * Pending request information for async operations
- */
-struct PendingRequest {
-    RequestId requestId;
-    CommandType requestType;
-    std::chrono::steady_clock::time_point timestamp;
-    std::promise<CommandValue> promise;
-    
-    PendingRequest(const RequestId& id, CommandType type) 
-        : requestId(id), requestType(type), 
-          timestamp(std::chrono::steady_clock::now()) {}
-};
-
-/**
- * Request manager for handling async operations
- */
-class RequestManager {
-private:
-    std::unordered_map<std::string, std::unique_ptr<PendingRequest>> pendingRequests_;
-    uint32_t timeoutMs_;
-    
-public:
-    explicit RequestManager(uint32_t timeout = 5000) : timeoutMs_(timeout) {}
-    
-    std::future<CommandValue> createRequest(const RequestId& requestId, CommandType type) {
-        auto request = std::make_unique<PendingRequest>(requestId, type);
-        auto future = request->promise.get_future();
-        
-        pendingRequests_[requestId.toString()] = std::move(request);
-        return future;
-    }
-    
-    bool handleResponse(const std::string& requestId, const CommandValue& value) {
-        auto it = pendingRequests_.find(requestId);
-        if (it != pendingRequests_.end()) {
-            it->second->promise.set_value(value);
-            pendingRequests_.erase(it);
-            return true;
-        }
-        return false;
-    }
-    
-    void cleanupExpiredRequests() {
-        auto now = std::chrono::steady_clock::now();
-        auto it = pendingRequests_.begin();
-        while (it != pendingRequests_.end()) {
-            auto age = std::chrono::duration_cast<std::chrono::milliseconds>(
-                now - it->second->timestamp).count();
-            
-            if (age > timeoutMs_) {
-                it->second->promise.set_exception(
-                    std::make_exception_ptr(std::runtime_error("Request timeout"))
-                );
-                it = pendingRequests_.erase(it);
-            } else {
-                ++it;
-            }
-        }
-    }
-};
 
 // =============================================================================
 // MAIN AST INTERPRETER CLASS
@@ -228,7 +166,6 @@ private:
     
     // Managers
     std::unique_ptr<ScopeManager> scopeManager_;
-    std::unique_ptr<RequestManager> requestManager_;
     std::unique_ptr<ArduinoLibraryInterface> libraryInterface_;
     
     // Command handling

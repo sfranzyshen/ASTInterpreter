@@ -72,7 +72,6 @@ ASTInterpreter::~ASTInterpreter() {
 
 void ASTInterpreter::initializeInterpreter() {
     scopeManager_ = std::make_unique<ScopeManager>();
-    requestManager_ = std::make_unique<RequestManager>(options_.requestTimeout);
     libraryInterface_ = std::make_unique<ArduinoLibraryInterface>(this);
     
     // Initialize loop iteration counter to 0 (will be incremented before each iteration)
@@ -572,7 +571,16 @@ void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
         executeUserFunction(functionName, dynamic_cast<const arduino_ast::FuncDefNode*>(userFuncIt->second), args);
     } else {
         // Fall back to Arduino/built-in functions
+        // Store current node in case function suspends execution
+        const arduino_ast::ASTNode* previousSuspendedNode = suspendedNode_;
+        
         executeArduinoFunction(functionName, args);
+        
+        // If function suspended (state changed to WAITING_FOR_RESPONSE), set the suspended node
+        if (state_ == ExecutionState::WAITING_FOR_RESPONSE && suspendedNode_ == nullptr) {
+            suspendedNode_ = &node;
+            debugLog("FuncCallNode: Set suspended node for async function: " + functionName);
+        }
     }
 }
 
@@ -804,13 +812,127 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
             
         } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::ARRAY_ACCESS) {
             // Array element assignment (e.g., arr[i] = value)
-            // TODO: Implement array element assignment when array support is added
-            debugLog("Array assignment not yet implemented");
+            debugLog("Performing array element assignment");
+            
+            const auto* arrayAccessNode = dynamic_cast<const arduino_ast::ArrayAccessNode*>(leftNode);
+            if (!arrayAccessNode || !arrayAccessNode->getArray() || !arrayAccessNode->getIndex()) {
+                emitError("Invalid array access in assignment");
+                return;
+            }
+            
+            // Get array name (support simple identifier arrays)
+            std::string arrayName;
+            if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(arrayAccessNode->getArray())) {
+                arrayName = identifier->getName();
+            } else {
+                emitError("Complex array expressions not supported in assignment");
+                return;
+            }
+            
+            // Evaluate index expression
+            CommandValue indexValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(arrayAccessNode->getIndex()));
+            int32_t index = convertToInt(indexValue);
+            
+            debugLog("Array element assignment: " + arrayName + "[" + std::to_string(index) + "] = " + commandValueToString(rightValue));
+            
+            // Get array variable
+            Variable* arrayVar = scopeManager_->getVariable(arrayName);
+            if (!arrayVar) {
+                emitError("Array variable '" + arrayName + "' not found");
+                return;
+            }
+            
+            // Handle array element assignment based on array type
+            if (std::holds_alternative<std::string>(arrayVar->value)) {
+                // String character assignment
+                std::string str = std::get<std::string>(arrayVar->value);
+                if (index >= 0 && index < static_cast<int32_t>(str.length())) {
+                    // Convert right value to character
+                    char newChar = ' ';
+                    if (std::holds_alternative<std::string>(rightValue)) {
+                        std::string rightStr = std::get<std::string>(rightValue);
+                        if (!rightStr.empty()) {
+                            newChar = rightStr[0];
+                        }
+                    } else if (std::holds_alternative<int>(rightValue)) {
+                        newChar = static_cast<char>(std::get<int>(rightValue));
+                    }
+                    
+                    str[index] = newChar;
+                    Variable newVar(str, arrayVar->type);
+                    scopeManager_->setVariable(arrayName, newVar);
+                    debugLog("Updated string character at index " + std::to_string(index) + " to '" + std::string(1, newChar) + "'");
+                } else {
+                    emitError("String index " + std::to_string(index) + " out of bounds (length: " + std::to_string(str.length()) + ")");
+                }
+            } else {
+                // For other types, simulate single-element array assignment
+                if (index == 0) {
+                    Variable newVar(rightValue, arrayVar->type);
+                    scopeManager_->setVariable(arrayName, newVar);
+                    debugLog("Updated single-element array to: " + commandValueToString(rightValue));
+                } else {
+                    emitError("Index " + std::to_string(index) + " out of bounds for single-element array");
+                }
+            }
             
         } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::MEMBER_ACCESS) {
             // Member access assignment (e.g., obj.field = value)  
-            // TODO: Implement member assignment when object/struct support is added
-            debugLog("Member assignment not yet implemented");
+            debugLog("Performing struct member assignment");
+            
+            const auto* memberAccessNode = dynamic_cast<const arduino_ast::MemberAccessNode*>(leftNode);
+            if (!memberAccessNode || !memberAccessNode->getObject() || !memberAccessNode->getProperty()) {
+                emitError("Invalid member access in assignment");
+                return;
+            }
+            
+            // Get object name (support simple identifier objects)
+            std::string objectName;
+            if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccessNode->getObject())) {
+                objectName = identifier->getName();
+            } else {
+                emitError("Complex object expressions not supported in assignment");
+                return;
+            }
+            
+            // Get property name
+            std::string propertyName;
+            if (const auto* propIdentifier = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccessNode->getProperty())) {
+                propertyName = propIdentifier->getName();
+            } else {
+                emitError("Property must be an identifier");
+                return;
+            }
+            
+            std::string accessOp = memberAccessNode->getAccessOperator();
+            debugLog("Struct member assignment: " + objectName + accessOp + propertyName + " = " + commandValueToString(rightValue));
+            
+            // Get object variable
+            Variable* objectVar = scopeManager_->getVariable(objectName);
+            if (!objectVar) {
+                emitError("Object variable '" + objectName + "' not found");
+                return;
+            }
+            
+            // Handle struct member assignment using composite variable names
+            // This simulates struct member storage by creating variables like "objectName_memberName"
+            std::string memberVarName = objectName + "_" + propertyName;
+            
+            // Special handling for common Arduino object properties
+            if (propertyName == "length" && std::holds_alternative<std::string>(objectVar->value)) {
+                // Cannot assign to string.length (read-only property)
+                emitError("Cannot assign to read-only property 'length'");
+                return;
+            } else if (objectName == "Serial") {
+                // Serial object members are typically read-only
+                emitError("Cannot assign to Serial object properties");
+                return;
+            } else {
+                // Create or update the member variable
+                Variable memberVar(rightValue, "auto");
+                scopeManager_->setVariable(memberVarName, memberVar);
+                debugLog("Updated struct member " + memberVarName + " to: " + commandValueToString(rightValue));
+            }
             
         } else {
             emitError("Unsupported assignment target");
@@ -1822,7 +1944,7 @@ void ASTInterpreter::resetControlFlow() {
 }
 
 void ASTInterpreter::processRequestQueue() {
-    requestManager_->cleanupExpiredRequests();
+    // No longer using RequestManager - requests handled directly via ResponseHandler
 }
 
 void ASTInterpreter::debugLog(const std::string& message) {
@@ -1910,7 +2032,7 @@ ASTInterpreter::MemoryStats ASTInterpreter::getMemoryStats() const {
     
     // Calculate actual memory usage - no mock values
     stats.variableCount = 0; // TODO: Calculate actual variable count from scopes
-    stats.pendingRequests = 0; // TODO: Add getPendingRequestCount() method to RequestManager
+    stats.pendingRequests = 0; // No pending requests in current implementation
     
     // These would need real memory tracking implementation
     stats.totalMemory = 0;      // TODO: Implement real memory tracking
@@ -1965,23 +2087,23 @@ void ASTInterpreter::tick() {
     
     try {
         // CRITICAL FIX: Handle resumption from WAITING_FOR_RESPONSE state
-        // If we have suspension context, we're resuming from an async operation
-        if (suspendedNode_ || !suspendedFunction_.empty() || !waitingForRequestId_.empty()) {
+        if (suspendedNode_) {
             debugLog("Tick: Resuming execution from suspended state");
             debugLog("  - Function: " + suspendedFunction_);
             debugLog("  - Request ID: " + waitingForRequestId_);
             debugLog("  - Response value: " + commandValueToString(lastExpressionResult_));
-            
-            // The suspended operation has already completed via resumeWithValue()
-            // The response is now in lastExpressionResult_
-            // Clear suspension state - the function call will use lastExpressionResult_
-            suspendedNode_ = nullptr;
+
+            // The response value is in lastExpressionResult_.
+            // The original execution stack will now be re-entered by visiting the suspended node.
+            // The executeArduinoFunction will see it's resuming and return the cached value.
+            auto* nodeToResume = suspendedNode_;
+            suspendedNode_ = nullptr; // Clear state before re-entry
             waitingForRequestId_.clear();
             suspendedFunction_.clear();
             
-            // Important: Don't execute normal setup/loop flow when resuming
-            // The original execution context will continue naturally
-            debugLog("Tick: Suspension state cleared, continuing normal execution");
+            debugLog("Tick: Re-visiting suspended node to complete execution");
+            nodeToResume->accept(*this);
+            
             inTick = false;
             return;
         }

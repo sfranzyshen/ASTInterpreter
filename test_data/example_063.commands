@@ -1,0 +1,153 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834351537,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834351537,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1756834351538
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "mouseButton",
+    "value": 3,
+    "isConst": true,
+    "timestamp": 1756834351538
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "xAxis",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756834351539
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "yAxis",
+    "value": 15,
+    "isConst": true,
+    "timestamp": 1756834351539
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 5,
+    "isConst": true,
+    "timestamp": 1756834351540
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "range",
+    "value": 12,
+    "timestamp": 1756834351540
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "responseDelay",
+    "value": 5,
+    "timestamp": 1756834351540
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "threshold",
+    "value": 3,
+    "timestamp": 1756834351540
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "center",
+    "value": 6,
+    "timestamp": 1756834351541
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "mouseIsActive",
+    "value": false,
+    "timestamp": 1756834351541
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastSwitchState",
+    "value": 0,
+    "timestamp": 1756834351541
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834351541,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1756834351542
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 3,
+    "mode": 0,
+    "timestamp": 1756834351542
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 5,
+    "mode": 1,
+    "timestamp": 1756834351542
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.begin",
+    "arguments": [],
+    "timestamp": 1756834351543,
+    "message": "Mouse.begin()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834351543,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834351543,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834351543,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834351543
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756834351543_0.6099225075082417",
+    "timestamp": 1756834351543
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756834356538
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834356538,
+    "message": "Program execution stopped"
+  }
+]

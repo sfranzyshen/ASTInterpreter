@@ -1,0 +1,275 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834385060,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834385060,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834385061,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834385062,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834385062,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834385062,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834385062,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834385062
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myConst",
+    "value": 100,
+    "isConst": true,
+    "timestamp": 1756834385063
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myVolatile",
+    "value": 50,
+    "timestamp": 1756834385064
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My constant: \""
+    ],
+    "data": "My constant: ",
+    "timestamp": 1756834385065,
+    "message": "Serial.print(\"My constant: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "100"
+    ],
+    "data": "100",
+    "timestamp": 1756834385065,
+    "message": "Serial.println(100)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My volatile: \""
+    ],
+    "data": "My volatile: ",
+    "timestamp": 1756834385066,
+    "message": "Serial.print(\"My volatile: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "50"
+    ],
+    "data": "50",
+    "timestamp": 1756834385066,
+    "message": "Serial.println(50)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834385066
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834385072,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834385072
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myConst",
+    "value": 100,
+    "isConst": true,
+    "timestamp": 1756834385073
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myVolatile",
+    "value": 50,
+    "timestamp": 1756834385073
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My constant: \""
+    ],
+    "data": "My constant: ",
+    "timestamp": 1756834385074,
+    "message": "Serial.print(\"My constant: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "100"
+    ],
+    "data": "100",
+    "timestamp": 1756834385075,
+    "message": "Serial.println(100)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My volatile: \""
+    ],
+    "data": "My volatile: ",
+    "timestamp": 1756834385075,
+    "message": "Serial.print(\"My volatile: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "50"
+    ],
+    "data": "50",
+    "timestamp": 1756834385076,
+    "message": "Serial.println(50)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834385076
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834385081,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834385081
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myConst",
+    "value": 100,
+    "isConst": true,
+    "timestamp": 1756834385082
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myVolatile",
+    "value": 50,
+    "timestamp": 1756834385082
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My constant: \""
+    ],
+    "data": "My constant: ",
+    "timestamp": 1756834385082,
+    "message": "Serial.print(\"My constant: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "100"
+    ],
+    "data": "100",
+    "timestamp": 1756834385083,
+    "message": "Serial.println(100)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"My volatile: \""
+    ],
+    "data": "My volatile: ",
+    "timestamp": 1756834385083,
+    "message": "Serial.print(\"My volatile: \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "50"
+    ],
+    "data": "50",
+    "timestamp": 1756834385083,
+    "message": "Serial.println(50)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834385083
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834385088,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834385088,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834385088,
+    "message": "Program execution stopped"
+  }
+]

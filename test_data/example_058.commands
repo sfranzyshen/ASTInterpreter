@@ -1,0 +1,82 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834326298,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834326298,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "platform",
+    "value": 0,
+    "timestamp": 1756834326298
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834326298,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 2,
+    "timestamp": 1756834326298
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.begin",
+    "arguments": [],
+    "timestamp": 1756834326299,
+    "message": "Keyboard.begin()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834326299,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834326299,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834326299,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834326299
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834326299,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756834326299_0.39243013700363694",
+    "timestamp": 1756834326299
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756834331299
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834331299,
+    "message": "Program execution stopped"
+  }
+]

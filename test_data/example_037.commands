@@ -1,0 +1,292 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834309976,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834309977,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 0,
+    "isConst": true,
+    "timestamp": 1756834309977
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 600,
+    "isConst": true,
+    "timestamp": 1756834309977
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834309977,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834309978,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834309978,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834309978,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834309978,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834309978
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834309978_0.22238466994146533",
+    "timestamp": 1756834309978
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 761,
+    "timestamp": 1756834309979
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "range",
+    "value": 4,
+    "timestamp": 1756834309980
+  },
+  {
+    "type": "SWITCH_STATEMENT",
+    "discriminant": 4,
+    "timestamp": 1756834309980,
+    "message": "switch (4)"
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 0,
+    "matched": false,
+    "timestamp": 1756834309980
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 1,
+    "matched": false,
+    "timestamp": 1756834309981
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 2,
+    "matched": false,
+    "timestamp": 1756834309981
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 3,
+    "matched": false,
+    "timestamp": 1756834309981
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756834309981
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834309981
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834309986,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834309986
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834309987_0.17269750431144604",
+    "timestamp": 1756834309987
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 785,
+    "timestamp": 1756834309988
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "range",
+    "value": 4,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "SWITCH_STATEMENT",
+    "discriminant": 4,
+    "timestamp": 1756834309989,
+    "message": "switch (4)"
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 0,
+    "matched": false,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 1,
+    "matched": false,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 2,
+    "matched": false,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 3,
+    "matched": false,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834309989
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834309995,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834309995
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834309995_0.30113788198781766",
+    "timestamp": 1756834309995
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 176,
+    "timestamp": 1756834309996
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "range",
+    "value": 1,
+    "timestamp": 1756834309997
+  },
+  {
+    "type": "SWITCH_STATEMENT",
+    "discriminant": 1,
+    "timestamp": 1756834309997,
+    "message": "switch (1)"
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 0,
+    "matched": false,
+    "timestamp": 1756834309997
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 1,
+    "matched": false,
+    "timestamp": 1756834309997
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 2,
+    "matched": false,
+    "timestamp": 1756834309997
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 3,
+    "matched": false,
+    "timestamp": 1756834309997
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756834309998
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834309998
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834310003,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834310003,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834310003,
+    "message": "Program execution stopped"
+  }
+]

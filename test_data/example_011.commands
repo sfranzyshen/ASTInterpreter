@@ -1,0 +1,227 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834298210,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834298210,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "threshold",
+    "value": 10,
+    "isConst": true,
+    "timestamp": 1756834298211
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "notes",
+    "value": [
+      null,
+      null,
+      null
+    ],
+    "timestamp": 1756834298212
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834298212,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834298212,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834298212,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834298212,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834298212
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756834298212,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisSensor",
+    "value": 0,
+    "timestamp": 1756834298213
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834298213,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 0,
+    "requestId": "analogRead_1756834298213_0.1807640276773257",
+    "timestamp": 1756834298213
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 669,
+    "timestamp": 1756834298214
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834298214
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "tone",
+    "arguments": [
+      8,
+      null,
+      20
+    ],
+    "pin": 8,
+    "duration": 20,
+    "timestamp": 1756834298215,
+    "message": "tone(8, undefined, 20)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisSensor",
+    "value": 1,
+    "timestamp": 1756834298216
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834298222,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 1,
+    "requestId": "analogRead_1756834298222_0.3177020364745775",
+    "timestamp": 1756834298222
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 59,
+    "timestamp": 1756834298223
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834298224
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "tone",
+    "arguments": [
+      8,
+      null,
+      20
+    ],
+    "pin": 8,
+    "duration": 20,
+    "timestamp": 1756834298224,
+    "message": "tone(8, undefined, 20)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisSensor",
+    "value": 2,
+    "timestamp": 1756834298225
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756834298230,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 2,
+    "requestId": "analogRead_1756834298230_0.7068848514338719",
+    "timestamp": 1756834298230
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 166,
+    "timestamp": 1756834298232
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834298232
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "tone",
+    "arguments": [
+      8,
+      null,
+      20
+    ],
+    "pin": 8,
+    "duration": 20,
+    "timestamp": 1756834298233,
+    "message": "tone(8, undefined, 20)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisSensor",
+    "value": 3,
+    "timestamp": 1756834298233
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756834298239,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834298239
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834298244,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

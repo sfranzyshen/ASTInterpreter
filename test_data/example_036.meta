@@ -1,0 +1,9 @@
+{
+  "name": "WhileStatementConditional.ino",
+  "source": "examples",
+  "index": "036",
+  "code": "// 05.Control WhileStatementConditional.ino\n\n// These constants won't change:\nconst int sensorPin = A0;\nconst int ledPin = 9;\nconst int indicatorLedPin = 13;\nconst int buttonPin = 2;\n\n\n// These variables will change:\nint sensorMin = 1023;\nint sensorMax = 0;\nint sensorValue = 0;\n\n\nvoid setup() {\n  // set the LED pins as outputs and the switch pin as input:\n  pinMode(indicatorLedPin, OUTPUT);\n  pinMode(ledPin, OUTPUT);\n  pinMode(buttonPin, INPUT);\n}\n\nvoid loop() {\n  // while the button is pressed, take calibration readings:\n  while (digitalRead(buttonPin) == HIGH) {\n    calibrate();\n  }\n  // signal the end of the calibration period\n  digitalWrite(indicatorLedPin, LOW);\n\n  // read the sensor:\n  sensorValue = analogRead(sensorPin);\n\n  // apply the calibration to the sensor reading\n  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);\n\n  // in case the sensor value is outside the range seen during calibration\n  sensorValue = constrain(sensorValue, 0, 255);\n\n  // fade the LED using the calibrated value:\n  analogWrite(ledPin, sensorValue);\n}\n\nvoid calibrate() {\n  // turn on the indicator LED to indicate that calibration is happening:\n  digitalWrite(indicatorLedPin, HIGH);\n\n  // read the sensor:\n  sensorValue = analogRead(sensorPin);\n\n  // record the maximum sensor value\n  if (sensorValue > sensorMax) {\n    sensorMax = sensorValue;\n  }\n\n  // record the minimum sensor value\n  if (sensorValue < sensorMin) {\n    sensorMin = sensorValue;\n  }\n}\n",
+  "astSize": 734,
+  "commandCount": 21,
+  "generated": "2025-09-02T17:31:49.970Z"
+}

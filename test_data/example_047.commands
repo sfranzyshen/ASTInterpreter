@@ -1,0 +1,292 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834315646,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834315646,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": null,
+    "timestamp": 1756834315646
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringTwo",
+    "value": null,
+    "timestamp": 1756834315646
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834315646,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834315646,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756834315646,
+    "message": "while loop started"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1756834315646,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor "
+    },
+    "timestamp": 1756834315647
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringTwo",
+    "value": {
+      "value": "value"
+    },
+    "timestamp": 1756834315647
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"\n\nAppending to a String:\""
+    ],
+    "data": "\n\nAppending to a String:",
+    "timestamp": 1756834315648,
+    "message": "Serial.println(\"\n\nAppending to a String:\")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [],
+    "timestamp": 1756834315648,
+    "message": "Serial.println()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834315648,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834315648,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834315648,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834315648
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor \""
+    ],
+    "data": "Sensor ",
+    "timestamp": 1756834315648,
+    "message": "Serial.println(\"Sensor \")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value"
+    },
+    "timestamp": 1756834315648
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value\""
+    ],
+    "data": "Sensor value",
+    "timestamp": 1756834315648,
+    "message": "Serial.println(\"Sensor value\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value for input "
+    },
+    "timestamp": 1756834315649
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value for input \""
+    ],
+    "data": "Sensor value for input ",
+    "timestamp": 1756834315649,
+    "message": "Serial.println(\"Sensor value for input \")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value for input 65"
+    },
+    "timestamp": 1756834315650
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value for input 65\""
+    ],
+    "data": "Sensor value for input 65",
+    "timestamp": 1756834315650,
+    "message": "Serial.println(\"Sensor value for input 65\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value for input 650"
+    },
+    "timestamp": 1756834315650
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value for input 650\""
+    ],
+    "data": "Sensor value for input 650",
+    "timestamp": 1756834315650,
+    "message": "Serial.println(\"Sensor value for input 650\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value for input 650: "
+    },
+    "timestamp": 1756834315651
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value for input 650: \""
+    ],
+    "data": "Sensor value for input 650: ",
+    "timestamp": 1756834315651,
+    "message": "Serial.println(\"Sensor value for input 650: \")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834315651_0.846116128447004",
+    "timestamp": 1756834315651
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Sensor value for input 650: 22"
+    },
+    "timestamp": 1756834315653
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Sensor value for input 650: 22\""
+    ],
+    "data": "Sensor value for input 650: 22",
+    "timestamp": 1756834315653,
+    "message": "Serial.println(\"Sensor value for input 650: 22\")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"\n\nchanging the Strings' values\""
+    ],
+    "data": "\n\nchanging the Strings' values",
+    "timestamp": 1756834315653,
+    "message": "Serial.println(\"\n\nchanging the Strings' values\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "A long integer: "
+    },
+    "timestamp": 1756834315653
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringTwo",
+    "value": {
+      "value": "The millis(): "
+    },
+    "timestamp": 1756834315654
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "A long integer: 123456789"
+    },
+    "timestamp": 1756834315654
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"A long integer: 123456789\""
+    ],
+    "data": "A long integer: 123456789",
+    "timestamp": 1756834315654,
+    "message": "Serial.println(\"A long integer: 123456789\")"
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1756834315654_0.3820618078525089",
+    "timestamp": 1756834315654
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756834320646
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834320646,
+    "message": "Program execution stopped"
+  }
+]

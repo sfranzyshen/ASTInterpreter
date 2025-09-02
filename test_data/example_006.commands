@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756792304909,
+    "timestamp": 1756834270000,
     "component": "interpreter",
     "version": "6.3.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756792304909,
+    "timestamp": 1756834270000,
     "message": "Program execution started"
   },
   {
@@ -16,51 +16,51 @@
     "variable": "ledPin",
     "value": 13,
     "isConst": true,
-    "timestamp": 1756792304910
+    "timestamp": 1756834270000
   },
   {
     "type": "VAR_SET",
     "variable": "ledState",
     "value": 0,
-    "timestamp": 1756792304911
+    "timestamp": 1756834270000
   },
   {
     "type": "VAR_SET",
     "variable": "previousMillis",
     "value": 0,
-    "timestamp": 1756792304911
+    "timestamp": 1756834270001
   },
   {
     "type": "VAR_SET",
     "variable": "interval",
     "value": 1000,
     "isConst": true,
-    "timestamp": 1756792304911
+    "timestamp": 1756834270001
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756792304912,
+    "timestamp": 1756834270001,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1756792304912
+    "timestamp": 1756834270002
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756792304912,
+    "timestamp": 1756834270002,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756792304912,
+    "timestamp": 1756834270002,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756792304912,
+    "timestamp": 1756834270002,
     "message": "Starting loop iteration 1"
   },
   {
@@ -68,21 +68,21 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756792304912
+    "timestamp": 1756834270002
   },
   {
     "type": "MILLIS_REQUEST",
-    "requestId": "millis_1756792304912_0.46582310553888995",
-    "timestamp": 1756792304912
+    "requestId": "millis_1756834270002_0.6612532693445499",
+    "timestamp": 1756834270002
   },
   {
     "type": "TIMEOUT",
     "message": "Execution timeout after 8 seconds",
-    "timestamp": 1756792312911
+    "timestamp": 1756834278001
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756792312911,
+    "timestamp": 1756834278001,
     "message": "Program execution stopped"
   }
 ]

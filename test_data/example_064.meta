@@ -1,0 +1,9 @@
+{
+  "name": "p02_SpaceshipInterface.ino",
+  "source": "examples",
+  "index": "064",
+  "code": "// 10.StarterKit_BasicKit p02_SpaceshipInterface\n\nint switchstate = 0;\n\nvoid setup() {\n  // declare the LED pins as outputs\n  pinMode(3, OUTPUT);\n  pinMode(4, OUTPUT);\n  pinMode(5, OUTPUT);\n  // declare the switch pin as an input\n  pinMode(2, INPUT);\n}\n\nvoid loop() {\n\n  // read the value of the switch\n  switchstate = digitalRead(2);\n\n  // if the button is not pressed turn on the green LED and off the red LEDs\n  if (switchstate == LOW) {\n    digitalWrite(3, HIGH);\n    digitalWrite(4, LOW);\n    digitalWrite(5, LOW);\n  }\n  // if the switch is not LOW (the button is pressed) turn off the green LED and\n  // blink alternatively the red LEDs\n  else {\n    digitalWrite(3, LOW);\n    digitalWrite(4, LOW);\n    digitalWrite(5, HIGH);\n    // wait for a quarter second before changing the light\n    delay(250);\n    digitalWrite(4, HIGH);\n    digitalWrite(5, LOW);\n    // wait for a quarter second before changing the light\n    delay(250);\n  }\n}\n",
+  "astSize": 303,
+  "commandCount": 15,
+  "generated": "2025-09-02T17:32:41.649Z"
+}

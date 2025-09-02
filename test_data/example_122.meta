@@ -1,0 +1,9 @@
+{
+  "name": "Unary_sizeof_Operator.ino",
+  "source": "old_test",
+  "index": "122",
+  "code": "// Unary sizeof Operator\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 10;\n  char b = 'B';\n  float c = 3.14;\n\n  Serial.print(\"Size of int: \");\n  Serial.println(sizeof(a));\n\n  Serial.print(\"Size of char: \");\n  Serial.println(sizeof(char));\n\n  Serial.print(\"Size of float: \");\n  Serial.println(sizeof(c));\n}",
+  "astSize": 291,
+  "commandCount": 45,
+  "generated": "2025-09-02T17:33:05.413Z"
+}

@@ -176,20 +176,16 @@ CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o: \
  /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.hpp \
  /usr/include/c++/11/stack /usr/include/c++/11/deque \
  /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/future \
- /usr/include/c++/11/mutex /usr/include/c++/11/system_error \
- /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
- /usr/include/c++/11/stdexcept /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h \
- /usr/include/c++/11/condition_variable /usr/include/c++/11/atomic \
- /usr/include/c++/11/bits/atomic_futex.h \
- /usr/include/c++/11/bits/std_thread.h /usr/include/c++/11/queue \
+ /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/queue \
  /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/iostream \
  /usr/include/c++/11/ostream /usr/include/c++/11/ios \
  /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h \
  /usr/include/c++/11/bits/locale_classes.tcc \
- /usr/include/c++/11/streambuf /usr/include/c++/11/bits/streambuf.tcc \
+ /usr/include/c++/11/system_error \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/streambuf \
+ /usr/include/c++/11/bits/streambuf.tcc \
  /usr/include/c++/11/bits/basic_ios.h \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \

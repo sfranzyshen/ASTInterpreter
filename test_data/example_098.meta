@@ -1,0 +1,9 @@
+{
+  "name": "Ternary_Operator_and_Bitwise_Operators.ino",
+  "source": "old_test",
+  "index": "098",
+  "code": "// Ternary Operator and Bitwise Operators\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 10;\n  int b = 20;\n\n  int maxVal = (a > b) ? a : b;\n  Serial.print(\"Max value: \"); Serial.println(maxVal);\n\n  int c = 0b1010;\n  int d = 0b0110;\n  int andResult = c & d;\n  int orResult = c | d;\n  int xorResult = c ^ d;\n  int shiftResult = c << 1;\n\n  Serial.print(\"AND result: \"); Serial.println(andResult);\n  Serial.print(\"OR result: \"); Serial.println(orResult);\n  Serial.print(\"XOR result: \"); Serial.println(xorResult);\n  Serial.print(\"Shift result: \"); Serial.println(shiftResult);\n}",
+  "astSize": 620,
+  "commandCount": 75,
+  "generated": "2025-09-02T17:33:03.733Z"
+}

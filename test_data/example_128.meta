@@ -1,0 +1,9 @@
+{
+  "name": "Unsigned_Integer_Rollover.ino",
+  "source": "old_test",
+  "index": "128",
+  "code": "// Unsigned Integer Rollover\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  unsigned int i = 4294967295;\n  Serial.print(\"Initial value: \");\n  Serial.println(i);\n  i++;\n  Serial.print(\"After increment (rollover): \");\n  Serial.println(i);\n  i = 0;\n  i--;\n  Serial.print(\"After decrement (rollover): \");\n  Serial.println(i);\n}",
+  "astSize": 225,
+  "commandCount": 48,
+  "generated": "2025-09-02T17:33:05.706Z"
+}

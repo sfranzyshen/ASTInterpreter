@@ -1,0 +1,9 @@
+{
+  "name": "switch_statement_with_fall-through_and_nested_blocks.ino",
+  "source": "old_test",
+  "index": "103",
+  "code": "// switch statement with fall-through and nested blocks\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int x = 2;\n  switch (x) {\n    case 1:\n      Serial.println(\"Case 1\");\n    case 2: {\n      int y = 5;\n      Serial.println(\"Case 2\");\n      Serial.print(\"y is: \");\n      Serial.println(y);\n    }\n    case 3:\n      Serial.println(\"Case 3\");\n      break;\n    default:\n      Serial.println(\"Default case\");\n      break;\n  }\n}",
+  "astSize": 338,
+  "commandCount": 42,
+  "generated": "2025-09-02T17:33:04.056Z"
+}

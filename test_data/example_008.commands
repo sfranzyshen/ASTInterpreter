@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756792318010,
+    "timestamp": 1756834283097,
     "component": "interpreter",
     "version": "6.3.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756792318010,
+    "timestamp": 1756834283097,
     "message": "Program execution started"
   },
   {
@@ -16,81 +16,81 @@
     "variable": "buttonPin",
     "value": 2,
     "isConst": true,
-    "timestamp": 1756792318011
+    "timestamp": 1756834283098
   },
   {
     "type": "VAR_SET",
     "variable": "ledPin",
     "value": 13,
     "isConst": true,
-    "timestamp": 1756792318011
+    "timestamp": 1756834283098
   },
   {
     "type": "VAR_SET",
     "variable": "ledState",
     "value": 1,
-    "timestamp": 1756792318012
+    "timestamp": 1756834283099
   },
   {
     "type": "VAR_SET",
     "variable": "buttonState",
     "value": null,
-    "timestamp": 1756792318012
+    "timestamp": 1756834283099
   },
   {
     "type": "VAR_SET",
     "variable": "lastButtonState",
     "value": 0,
-    "timestamp": 1756792318012
+    "timestamp": 1756834283099
   },
   {
     "type": "VAR_SET",
     "variable": "lastDebounceTime",
     "value": 0,
-    "timestamp": 1756792318013
+    "timestamp": 1756834283100
   },
   {
     "type": "VAR_SET",
     "variable": "debounceDelay",
     "value": 50,
-    "timestamp": 1756792318013
+    "timestamp": 1756834283100
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756792318013,
+    "timestamp": 1756834283100,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1756792318013
+    "timestamp": 1756834283101
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1756792318014
+    "timestamp": 1756834283102
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1756792318015
+    "timestamp": 1756834283102
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756792318015,
+    "timestamp": 1756834283102,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756792318015,
+    "timestamp": 1756834283102,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756792318015,
+    "timestamp": 1756834283102,
     "message": "Starting loop iteration 1"
   },
   {
@@ -98,22 +98,22 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756792318015
+    "timestamp": 1756834283102
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 2,
-    "requestId": "digitalRead_1756792318015_0.28838710146837854",
-    "timestamp": 1756792318015
+    "requestId": "digitalRead_1756834283103_0.9210904591185212",
+    "timestamp": 1756834283103
   },
   {
     "type": "TIMEOUT",
     "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756792323012
+    "timestamp": 1756834288098
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756792323012,
+    "timestamp": 1756834288098,
     "message": "Program execution stopped"
   }
 ]

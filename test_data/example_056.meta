@@ -1,0 +1,9 @@
+{
+  "name": "StringSubstring.ino",
+  "source": "examples",
+  "index": "056",
+  "code": "// 08.Strings StringSubstring\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString  substring():\");\n  Serial.println();\n}\n\nvoid loop() {\n  // Set up a String:\n  String stringOne = \"Content-Type: text/html\";\n  Serial.println(stringOne);\n\n  // substring(index) looks for the substring from the index position to the end:\n  if (stringOne.substring(19) == \"html\") {\n    Serial.println(\"It's an html file\");\n  }\n  // you can also look for a substring in the middle of a string:\n  if (stringOne.substring(14, 18) == \"text\") {\n    Serial.println(\"It's a text-based file\");\n  }\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
+  "astSize": 490,
+  "commandCount": 25,
+  "generated": "2025-09-02T17:32:06.227Z"
+}

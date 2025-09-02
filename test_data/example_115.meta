@@ -1,0 +1,9 @@
+{
+  "name": "Type_Promotion_and_Implicit_Conversions.ino",
+  "source": "old_test",
+  "index": "115",
+  "code": "// Type Promotion and Implicit Conversions\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  char c = 'A';\n  int i = 5;\n  float f = 2.5;\n\n  int result1 = c + i;\n  float result2 = i * f;\n\n  Serial.print(\"Result 1: \");\n  Serial.println(result1);\n\n  Serial.print(\"Result 2: \");\n  Serial.println(result2);\n}",
+  "astSize": 391,
+  "commandCount": 45,
+  "generated": "2025-09-02T17:33:04.874Z"
+}

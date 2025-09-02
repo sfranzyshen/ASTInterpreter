@@ -1,0 +1,195 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834310427,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834310427,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "row",
+    "value": [
+      2,
+      7,
+      19,
+      5,
+      13,
+      18,
+      12,
+      16
+    ],
+    "isConst": true,
+    "timestamp": 1756834310429
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "col",
+    "value": [
+      6,
+      11,
+      10,
+      3,
+      17,
+      4,
+      8,
+      9
+    ],
+    "isConst": true,
+    "timestamp": 1756834310430
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixels",
+    "value": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "timestamp": 1756834310430
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "x",
+    "value": 5,
+    "timestamp": 1756834310430
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "y",
+    "value": 5,
+    "timestamp": 1756834310431
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834310431,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756834310431,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 0,
+    "timestamp": 1756834310431
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834310431,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 6,
+    "mode": 1,
+    "timestamp": 1756834310431
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 1,
+    "timestamp": 1756834310432
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 6,
+    "value": 1,
+    "timestamp": 1756834310432
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 1,
+    "timestamp": 1756834310432
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834310438,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 11,
+    "mode": 1,
+    "timestamp": 1756834310438
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 7,
+    "mode": 1,
+    "timestamp": 1756834310438
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 11,
+    "value": 1,
+    "timestamp": 1756834310438
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 2,
+    "timestamp": 1756834310439
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756834310444,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 10,
+    "mode": 1,
+    "timestamp": 1756834310445
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 19,
+    "mode": 1,
+    "timestamp": 1756834310445
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 10,
+    "value": 1,
+    "timestamp": 1756834310446
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 3,
+    "timestamp": 1756834310446
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756834310451,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834310451,
+    "message": "Completed setup() function"
+  }
+]

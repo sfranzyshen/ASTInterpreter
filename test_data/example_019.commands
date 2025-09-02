@@ -1,0 +1,156 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834303710,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834303710,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 9,
+    "timestamp": 1756834303711
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834303711,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834303711,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303711,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303711,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834303711
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756834303711,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "fadeValue",
+    "value": 0,
+    "timestamp": 1756834303711
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756834303712,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756834303713
+  },
+  {
+    "type": "DELAY",
+    "duration": 30,
+    "actualDelay": 30,
+    "timestamp": 1756834303713
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "fadeValue",
+    "value": 5,
+    "timestamp": 1756834303713
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756834303718,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 5,
+    "timestamp": 1756834303718
+  },
+  {
+    "type": "DELAY",
+    "duration": 30,
+    "actualDelay": 30,
+    "timestamp": 1756834303719
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "fadeValue",
+    "value": 10,
+    "timestamp": 1756834303719
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756834303725,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 10,
+    "timestamp": 1756834303725
+  },
+  {
+    "type": "DELAY",
+    "duration": 30,
+    "actualDelay": 30,
+    "timestamp": 1756834303725
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "fadeValue",
+    "value": 15,
+    "timestamp": 1756834303726
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756834303731,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834303731
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834303736,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

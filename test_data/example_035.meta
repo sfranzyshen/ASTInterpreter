@@ -1,0 +1,9 @@
+{
+  "name": "IfStatementConditional.ino",
+  "source": "examples",
+  "index": "035",
+  "code": "// 05.Control IfStatementConditional.ino\n\n// These constants won't change:\nconst int analogPin = A0;\nconst int ledPin = 13;\nconst int threshold = 400;\n\nvoid setup() {\n  // initialize the LED pin as an output:\n  pinMode(ledPin, OUTPUT);\n  // initialize serial communications:\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the value of the potentiometer:\n  int analogValue = analogRead(analogPin);\n\n  // if the analog value is high enough, turn on the LED:\n  if (analogValue > threshold) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n\n  // print the analog value:\n  Serial.println(analogValue);\n  delay(1);\n}\n",
+  "astSize": 421,
+  "commandCount": 40,
+  "generated": "2025-09-02T17:31:44.920Z"
+}

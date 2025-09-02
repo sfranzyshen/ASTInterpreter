@@ -111,8 +111,8 @@ void CompactASTReader::parseHeaderInternal() {
     std::memcpy(&header_, buffer_ + position_, sizeof(CompactASTHeader));
     position_ += sizeof(CompactASTHeader);
     
-    // Magic number is stored in big-endian (corrected format)
-    header_.magic = convertFromBigEndian32(header_.magic);
+    // All header fields are stored in little-endian format per specification
+    header_.magic = convertFromLittleEndian32(header_.magic);
     header_.version = convertFromLittleEndian16(header_.version);
     header_.flags = convertFromLittleEndian16(header_.flags);
     header_.nodeCount = convertFromLittleEndian32(header_.nodeCount);
@@ -453,27 +453,27 @@ ASTValue CompactASTReader::parseValue() {
             
         case ValueType::INT8_VAL:
             validatePosition(1);
-            return static_cast<double>(static_cast<int8_t>(readUint8()));
+            return static_cast<int32_t>(static_cast<int8_t>(readUint8()));
             
         case ValueType::UINT8_VAL:
             validatePosition(1);
-            return static_cast<double>(readUint8());
+            return static_cast<int32_t>(readUint8());
             
         case ValueType::INT16_VAL:
             validatePosition(2);
-            return static_cast<double>(static_cast<int16_t>(convertFromLittleEndian16(readUint16())));
+            return static_cast<int32_t>(static_cast<int16_t>(convertFromLittleEndian16(readUint16())));
             
         case ValueType::UINT16_VAL:
             validatePosition(2);
-            return static_cast<double>(convertFromLittleEndian16(readUint16()));
+            return static_cast<int32_t>(convertFromLittleEndian16(readUint16()));
             
         case ValueType::INT32_VAL:
             validatePosition(4);
-            return static_cast<double>(static_cast<int32_t>(convertFromLittleEndian32(readUint32())));
+            return static_cast<int32_t>(convertFromLittleEndian32(readUint32()));
             
         case ValueType::UINT32_VAL:
             validatePosition(4);
-            return static_cast<double>(convertFromLittleEndian32(readUint32()));
+            return static_cast<int32_t>(convertFromLittleEndian32(readUint32()));
             
         case ValueType::FLOAT32_VAL:
             validatePosition(4);

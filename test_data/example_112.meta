@@ -1,0 +1,9 @@
+{
+  "name": "Empty_and_NULL_statements.ino",
+  "source": "old_test",
+  "index": "112",
+  "code": "// Empty and NULL statements\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int i = 0;\n  while (i < 5) {\n    i++;\n  } ;\n\n  for (int j = 0; j < 5; j++);\n\n  if (1 == 1) {}\n\n  Serial.println(\"Execution finished.\");\n}",
+  "astSize": 365,
+  "commandCount": 19,
+  "generated": "2025-09-02T17:33:04.697Z"
+}

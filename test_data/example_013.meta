@@ -1,0 +1,9 @@
+{
+  "name": "toneMultiple.ino",
+  "source": "examples",
+  "index": "013",
+  "code": "// 02.Digital toneMultiple.ino\n\nvoid setup() {\n}\n\nvoid loop() {\n  // turn off tone function for pin 8:\n  noTone(8);\n\n  // play a note on pin 6 for 200 ms:\n  tone(6, 440, 200);\n  delay(200);\n\n  // turn off tone function for pin 6:\n  noTone(6);\n\n  // play a note on pin 7 for 500 ms:\n  tone(7, 494, 500);\n  delay(500);\n\n  // turn off tone function for pin 7:\n  noTone(7);\n\n  // play a note on pin 8 for 300 ms:\n  tone(8, 523, 300);\n  delay(300);\n}\n",
+  "astSize": 162,
+  "commandCount": 44,
+  "generated": "2025-09-02T17:31:38.408Z"
+}

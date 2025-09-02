@@ -1,0 +1,230 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834377200,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834377200,
+    "message": "Program execution started"
+  },
+  {
+    "type": "LIBRARY_OBJECT_INSTANTIATION",
+    "library": "Servo",
+    "variableName": "myServo",
+    "constructorArgs": [],
+    "timestamp": 1756834377200,
+    "message": "Servo()"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "myServo",
+    "value": {
+      "__type": "ArduinoObject",
+      "className": "Servo",
+      "constructorArgs": [],
+      "objectId": "Servo_1756834377200_a35ewu3cy"
+    },
+    "timestamp": 1756834377200
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "piezo",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756834377201
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1756834377201
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "yellowLed",
+    "value": 3,
+    "isConst": true,
+    "timestamp": 1756834377201
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "greenLed",
+    "value": 4,
+    "isConst": true,
+    "timestamp": 1756834377202
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "redLed",
+    "value": 5,
+    "isConst": true,
+    "timestamp": 1756834377202
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "knockVal",
+    "value": null,
+    "timestamp": 1756834377203
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchVal",
+    "value": null,
+    "timestamp": 1756834377203
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "quietKnock",
+    "value": 10,
+    "isConst": true,
+    "timestamp": 1756834377204
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "loudKnock",
+    "value": 100,
+    "isConst": true,
+    "timestamp": 1756834377204
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "locked",
+    "value": false,
+    "timestamp": 1756834377204
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "numberOfKnocks",
+    "value": 0,
+    "timestamp": 1756834377205
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834377205,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Servo",
+    "object": "Servo_1756834377200_a35ewu3cy",
+    "variableName": "myServo",
+    "method": "attach",
+    "args": [
+      9
+    ],
+    "message": "myServo.attach(9)",
+    "timestamp": 1756834377205
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 3,
+    "mode": 1,
+    "timestamp": 1756834377205
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 5,
+    "mode": 1,
+    "timestamp": 1756834377206
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 4,
+    "mode": 1,
+    "timestamp": 1756834377206
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1756834377206
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834377206,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 4,
+    "value": 1,
+    "timestamp": 1756834377207
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Servo",
+    "object": "Servo_1756834377200_a35ewu3cy",
+    "variableName": "myServo",
+    "method": "write",
+    "args": [
+      0
+    ],
+    "message": "myServo.write(0)",
+    "timestamp": 1756834377208
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"the box is unlocked!\""
+    ],
+    "data": "the box is unlocked!",
+    "timestamp": 1756834377208,
+    "message": "Serial.println(\"the box is unlocked!\")"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834377208,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834377208,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834377208,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834377208
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834377209
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756834377209_0.7157728780537134",
+    "timestamp": 1756834377209
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756834382200
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834382200,
+    "message": "Program execution stopped"
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834303978,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834303978,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834303978,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834303978,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834303978,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303978,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303978,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834303978
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834303979_0.7092052834488858",
+    "timestamp": 1756834303979
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "172"
+    ],
+    "data": "172",
+    "timestamp": 1756834303980,
+    "message": "Serial.println(172)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 2,
+    "actualDelay": 2,
+    "timestamp": 1756834303980
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834303980
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303985,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834303985
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834303986_0.3757216924227169",
+    "timestamp": 1756834303986
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "19"
+    ],
+    "data": "19",
+    "timestamp": 1756834303988,
+    "message": "Serial.println(19)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 2,
+    "actualDelay": 2,
+    "timestamp": 1756834303988
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834303988
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834303993,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834303993
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756834303994_0.6640788087820408",
+    "timestamp": 1756834303994
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "372"
+    ],
+    "data": "372",
+    "timestamp": 1756834303995,
+    "message": "Serial.println(372)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 2,
+    "actualDelay": 2,
+    "timestamp": 1756834303995
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834303995
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834304000,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834304000,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834304000,
+    "message": "Program execution stopped"
+  }
+]

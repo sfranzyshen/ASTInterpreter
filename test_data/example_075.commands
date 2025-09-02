@@ -1,0 +1,267 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756834382251,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756834382251,
+    "message": "Program execution started"
+  },
+  {
+    "type": "ARDUINO_LIBRARY_INSTANTIATION",
+    "library": "CapacitiveSensor",
+    "constructorArgs": [
+      4,
+      2
+    ],
+    "objectId": "CapacitiveSensor_1756834382252_wbla",
+    "timestamp": 1756834382252,
+    "message": "CapacitiveSensor(4, 2)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "capSensor",
+    "value": {
+      "libraryName": "CapacitiveSensor",
+      "constructorArgs": [
+        4,
+        2
+      ],
+      "type": "library_object",
+      "objectId": "CapacitiveSensor_1756834382252_wbla",
+      "initialized": true,
+      "properties": {}
+    },
+    "timestamp": 1756834382252
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "threshold",
+    "value": 1000,
+    "timestamp": 1756834382253
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 12,
+    "isConst": true,
+    "timestamp": 1756834382253
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756834382253,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756834382253,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 12,
+    "mode": 1,
+    "timestamp": 1756834382254
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756834382254,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834382254,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834382254,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756834382254
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 2046,
+    "timestamp": 1756834382254
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "2046"
+    ],
+    "data": "2046",
+    "timestamp": 1756834382255,
+    "message": "Serial.println(2046)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834382255
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 12,
+    "value": 1,
+    "timestamp": 1756834382255
+  },
+  {
+    "type": "DELAY",
+    "duration": 10,
+    "actualDelay": 10,
+    "timestamp": 1756834382256
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756834382256
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834382261,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756834382261
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 1961,
+    "timestamp": 1756834382262
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1961"
+    ],
+    "data": "1961",
+    "timestamp": 1756834382262,
+    "message": "Serial.println(1961)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834382262
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 12,
+    "value": 1,
+    "timestamp": 1756834382262
+  },
+  {
+    "type": "DELAY",
+    "duration": 10,
+    "actualDelay": 10,
+    "timestamp": 1756834382263
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756834382263
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756834382269,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756834382269
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 1334,
+    "timestamp": 1756834382269
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1334"
+    ],
+    "data": "1334",
+    "timestamp": 1756834382269,
+    "message": "Serial.println(1334)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756834382270
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 12,
+    "value": 1,
+    "timestamp": 1756834382270
+  },
+  {
+    "type": "DELAY",
+    "duration": 10,
+    "actualDelay": 10,
+    "timestamp": 1756834382270
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756834382270
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756834382275,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834382275,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756834382275,
+    "message": "Program execution stopped"
+  }
+]
