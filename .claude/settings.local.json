@@ -20,7 +20,43 @@
       "Bash(for file in test_parser_old_test.js test_parser_neopixel.js test_semantic_accuracy_examples.js test_semantic_accuracy.js test_semantic_quick.js)",
       "Bash(if [ -f \"$file\" ])",
       "Bash(then)",
-      "Bash(fi)"
+      "Bash(fi)",
+      "Bash(node:*)",
+      "Bash(cmake:*)",
+      "Bash(make:*)",
+      "Bash(./basic_interpreter_example)",
+      "Bash(./test_cross_platform_validation)",
+      "Bash(timeout:*)",
+      "Bash(g++:*)",
+      "Bash(./simple_test)",
+      "Bash(grep:*)",
+      "Bash(gdb:*)",
+      "Bash(xxd:*)",
+      "Bash(time timeout:*)",
+      "Bash(./build/test_cross_platform_validation)",
+      "Bash(/dev/null)",
+      "Bash(sed:*)",
+      "Bash(./debug_simple_command_stream)",
+      "Bash(gemini:*)",
+      "Bash(./build/basic_interpreter_example)",
+      "Bash(./basic_interpreter_example:*)",
+      "Bash(./build/basic_interpreter_example:*)",
+      "Bash(./test_cpp_direct:*)",
+      "Bash(./test_simple_ast:*)",
+      "Read(/mnt/d/Devel/**)",
+      "Bash(ln:*)",
+      "Bash(printf \"%x\\n\" 0x50545341)",
+      "Bash(printf \"As bytes: \")",
+      "Bash(./test_cross_platform_validation:*)",
+      "Bash(./test_magic_number:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"Testing $file:\")",
+      "Bash(break)",
+      "Bash(./test_interpreter_fixes)",
+      "Bash(./test_state_machine_fix)",
+      "Bash(./test_user_function_params)",
+      "Bash(./test_range_based_for)",
+      "Bash(./test_array_struct_access:*)"
     ],
     "deny": [],
     "ask": [],
@@ -37,7 +73,28 @@
           }
         ]
       }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aplay chime.wav"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aplay boing_x.wav"
+          }
+        ]
+      }
     ]
   }
-}
 }

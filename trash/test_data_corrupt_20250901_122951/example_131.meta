@@ -1,0 +1,20 @@
+name=extern_Keyword.ino
+success=true
+commandCount=28
+error=
+astSize=186
+processingTime=18ms
+content=// extern Keyword
+extern int externalVariable;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  externalVariable = 10;
+  Serial.print("External variable value: ");
+  Serial.println(externalVariable);
+}
+
+int externalVariable = 5;

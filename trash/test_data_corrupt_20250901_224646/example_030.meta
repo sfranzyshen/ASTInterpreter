@@ -1,0 +1,9 @@
+{
+  "name": "SerialEvent.ino",
+  "source": "examples",
+  "index": "030",
+  "code": "// 04.Communication SerialEvent.ino\n\nString inputString = \"\";\nbool stringComplete = false;\n\nvoid setup() {\n  // initialize serial:\n  Serial.begin(9600);\n  // reserve 200 bytes for the inputString:\n  inputString.reserve(200);\n}\n\nvoid loop() {\n  // print the string when a newline arrives:\n  if (stringComplete) {\n    Serial.println(inputString);\n\n    // clear the string:\n    inputString = \"\";\n    stringComplete = false;\n  }\n}\n\n\nvoid serialEvent() {\n  while (Serial.available()) {\n    // get the new byte:\n    char inChar = (char)Serial.read();\n    // add it to the inputString:\n    inputString += inChar;\n\n    // if the incoming character is a newline, set a flag so the main loop can\n    // do something about it:\n    if (inChar == '\\n') {\n      stringComplete = true;\n    }\n  }\n}\n",
+  "astSize": 488,
+  "commandCount": 41,
+  "generated": "2025-09-02T05:31:26.403Z"
+}

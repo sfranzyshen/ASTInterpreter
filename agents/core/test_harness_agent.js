@@ -11,7 +11,7 @@
  * Reports to: Task Manager Agent
  * Integrates with: All existing test harnesses in the project
  * 
- * Version: 1.1.0 - Added Claude Code subagent integration
+ * Version: 1.2.0 - Added C++ test infrastructure and cross-platform validation
  */
 
 const fs = require('fs');
@@ -20,7 +20,7 @@ const { spawn } = require('child_process');
 
 class TestHarnessAgent {
     constructor() {
-        this.version = "1.1.0";
+        this.version = "1.2.0";
         this.projectRoot = path.resolve(__dirname, '../..');
         this.agentName = "Test Harness";
         
@@ -65,6 +65,30 @@ class TestHarnessAgent {
                 path: "test_semantic_accuracy.js",
                 description: "54 comprehensive tests semantic analysis", 
                 expectedResults: { total: 54, semanticAccuracy: 100.0 }
+            },
+            "cpp_basic_interpreter": {
+                path: "./basic_interpreter_example",
+                description: "C++ basic interpreter functionality test",
+                type: "cpp_executable",
+                expectedResults: { successRate: 100.0 }
+            },
+            "cpp_cross_platform_validation": {
+                path: "./test_cross_platform_validation",
+                description: "JavaScript ↔ C++ command stream validation",
+                type: "cpp_executable", 
+                expectedResults: { successRate: 100.0 }
+            },
+            "cpp_simple_test": {
+                path: "./simple_test",
+                description: "C++ AST parsing and interpretation test",
+                type: "cpp_executable",
+                expectedResults: { successRate: 100.0 }
+            },
+            "test_data_generation": {
+                path: "generate_test_data.js",
+                description: "Generate binary AST test data for C++ validation",
+                type: "javascript_generator",
+                expectedResults: { total: 135, successRate: 95.0 }
             }
         };
         

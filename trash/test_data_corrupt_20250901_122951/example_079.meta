@@ -1,0 +1,16 @@
+name=Test_Case_for_Array_Access.ino
+success=true
+commandCount=19
+error=
+astSize=135
+processingTime=18ms
+content=// Test Case for Array Access
+int myPins[] = {2, 4, 8};
+
+void setup() {
+  pinMode(myPins[1], OUTPUT);
+}
+
+void loop() {
+  // empty
+}

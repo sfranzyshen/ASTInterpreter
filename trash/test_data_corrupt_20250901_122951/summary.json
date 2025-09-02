@@ -1,0 +1,1123 @@
+{
+  "timestamp": "2025-09-01T14:48:01.799Z",
+  "totalExamples": 135,
+  "successful": 85,
+  "skipped": 0,
+  "failed": 50,
+  "successRate": 0.6296296296296297,
+  "totalCommands": 3807,
+  "totalAstSize": 52043,
+  "totalProcessingTime": 45071,
+  "averageTimePerTest": 333.85925925925926,
+  "optimizations": [
+    "Complete console output suppression",
+    "Reduced execution timeouts (2s vs 5s)",
+    "Batch file operations",
+    "Memory management with GC hints",
+    "Resume capability for interrupted runs",
+    "Fast mock response handlers"
+  ],
+  "results": [
+    {
+      "name": "AnalogReadSerial.ino",
+      "success": false,
+      "commandCount": 10,
+      "astSize": 147,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1019
+    },
+    {
+      "name": "BareMinimum.ino",
+      "success": true,
+      "commandCount": 17,
+      "astSize": 108,
+      "error": null,
+      "processingTime": 39
+    },
+    {
+      "name": "Blink.ino",
+      "success": true,
+      "commandCount": 30,
+      "astSize": 138,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "DigitalReadSerial.ino",
+      "success": false,
+      "commandCount": 12,
+      "astSize": 170,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "Fade.ino",
+      "success": true,
+      "commandCount": 33,
+      "astSize": 287,
+      "error": null,
+      "processingTime": 29
+    },
+    {
+      "name": "ReadAnalogVoltage.ino",
+      "success": false,
+      "commandCount": 10,
+      "astSize": 166,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1011
+    },
+    {
+      "name": "BlinkWithoutDelay.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 422,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1010
+    },
+    {
+      "name": "Button.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 269,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1014
+    },
+    {
+      "name": "Debounce.ino",
+      "success": false,
+      "commandCount": 19,
+      "astSize": 583,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1013
+    },
+    {
+      "name": "DigitalInputPullup.ino",
+      "success": false,
+      "commandCount": 12,
+      "astSize": 225,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "StateChangeDetection.ino",
+      "success": false,
+      "commandCount": 17,
+      "astSize": 492,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1012
+    },
+    {
+      "name": "toneKeyboard.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 326,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1010
+    },
+    {
+      "name": "toneMelody.ino",
+      "success": true,
+      "commandCount": 30,
+      "astSize": 275,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "toneMultiple.ino",
+      "success": true,
+      "commandCount": 44,
+      "astSize": 162,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "tonePitchFollower.ino",
+      "success": false,
+      "commandCount": 10,
+      "astSize": 170,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1013
+    },
+    {
+      "name": "AnalogInOutSerial.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 246,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1012
+    },
+    {
+      "name": "AnalogInput.ino",
+      "success": false,
+      "commandCount": 13,
+      "astSize": 199,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1010
+    },
+    {
+      "name": "AnalogWriteMega.ino",
+      "success": true,
+      "commandCount": 18,
+      "astSize": 478,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Calibration.ino",
+      "success": false,
+      "commandCount": 13,
+      "astSize": 437,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1009
+    },
+    {
+      "name": "Fading.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 361,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Smoothing.ino",
+      "success": true,
+      "commandCount": 20,
+      "astSize": 421,
+      "error": null,
+      "processingTime": 27
+    },
+    {
+      "name": "ASCIITable.ino",
+      "success": true,
+      "commandCount": 55,
+      "astSize": 331,
+      "error": null,
+      "processingTime": 29
+    },
+    {
+      "name": "Dimmer.ino",
+      "success": true,
+      "commandCount": 29,
+      "astSize": 255,
+      "error": null,
+      "processingTime": 35
+    },
+    {
+      "name": "Graph.ino",
+      "success": false,
+      "commandCount": 10,
+      "astSize": 126,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "Midi.ino",
+      "success": true,
+      "commandCount": 48,
+      "astSize": 371,
+      "error": null,
+      "processingTime": 116
+    },
+    {
+      "name": "MultiSerial.ino",
+      "success": true,
+      "commandCount": 34,
+      "astSize": 300,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "PhysicalPixel.ino",
+      "success": true,
+      "commandCount": 31,
+      "astSize": 378,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "ReadASCIIString.ino",
+      "success": true,
+      "commandCount": 33,
+      "astSize": 470,
+      "error": null,
+      "processingTime": 26
+    },
+    {
+      "name": "SerialCallResponse.ino",
+      "success": true,
+      "commandCount": 27,
+      "astSize": 501,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "SerialCallResponseASCII.ino",
+      "success": true,
+      "commandCount": 27,
+      "astSize": 507,
+      "error": null,
+      "processingTime": 26
+    },
+    {
+      "name": "SerialEvent.ino",
+      "success": true,
+      "commandCount": 35,
+      "astSize": 425,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "SerialPassthrough.ino",
+      "success": true,
+      "commandCount": 31,
+      "astSize": 258,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "VirtualColorMixer.ino",
+      "success": false,
+      "commandCount": 13,
+      "astSize": 207,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1006
+    },
+    {
+      "name": "Arrays.ino",
+      "success": true,
+      "commandCount": 19,
+      "astSize": 412,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "ForLoopIteration.ino",
+      "success": true,
+      "commandCount": 17,
+      "astSize": 378,
+      "error": null,
+      "processingTime": 26
+    },
+    {
+      "name": "IfStatementConditional.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 298,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "WhileStatementConditional.ino",
+      "success": false,
+      "commandCount": 20,
+      "astSize": 556,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1011
+    },
+    {
+      "name": "switchCase.ino",
+      "success": false,
+      "commandCount": 12,
+      "astSize": 210,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "switchCase2.ino",
+      "success": true,
+      "commandCount": 17,
+      "astSize": 318,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "ADXL3xx.ino",
+      "success": false,
+      "commandCount": 19,
+      "astSize": 277,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1016
+    },
+    {
+      "name": "Knock.ino",
+      "success": false,
+      "commandCount": 16,
+      "astSize": 315,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "Memsic2125.ino",
+      "success": true,
+      "commandCount": 67,
+      "astSize": 268,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Ping.ino",
+      "success": true,
+      "commandCount": 85,
+      "astSize": 454,
+      "error": null,
+      "processingTime": 29
+    },
+    {
+      "name": "RowColumnScanning.ino",
+      "success": true,
+      "commandCount": 27,
+      "astSize": 817,
+      "error": null,
+      "processingTime": 30
+    },
+    {
+      "name": "barGraph.ino",
+      "success": true,
+      "commandCount": 19,
+      "astSize": 419,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "CharacterAnalysis",
+      "success": true,
+      "commandCount": 28,
+      "astSize": 1042,
+      "error": null,
+      "processingTime": 39
+    },
+    {
+      "name": "StringAdditionOperator",
+      "success": false,
+      "commandCount": 30,
+      "astSize": 364,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1009
+    },
+    {
+      "name": "StringAppendOperator",
+      "success": false,
+      "commandCount": 29,
+      "astSize": 355,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1010
+    },
+    {
+      "name": "StringCaseChanges.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 274,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "StringCharacters.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 287,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "StringComparisonOperators.ino",
+      "success": false,
+      "commandCount": 54,
+      "astSize": 1198,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1013
+    },
+    {
+      "name": "StringConstructors.ino",
+      "success": false,
+      "commandCount": 24,
+      "astSize": 358,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "StringLength.ino",
+      "success": true,
+      "commandCount": 36,
+      "astSize": 540,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "StringLengthTrim.ino",
+      "success": true,
+      "commandCount": 25,
+      "astSize": 263,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "StringReplace.ino",
+      "success": true,
+      "commandCount": 27,
+      "astSize": 320,
+      "error": null,
+      "processingTime": 33
+    },
+    {
+      "name": "StringStartsWithEndsWith.ino",
+      "success": false,
+      "commandCount": 22,
+      "astSize": 553,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "StringSubstring.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 448,
+      "error": null,
+      "processingTime": 33
+    },
+    {
+      "name": "StringToInt.ino",
+      "success": true,
+      "commandCount": 32,
+      "astSize": 431,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "KeyboardLogout.ino",
+      "success": false,
+      "commandCount": 13,
+      "astSize": 267,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1011
+    },
+    {
+      "name": "KeyboardReprogram.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 342,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "KeyboardSerial.ino",
+      "success": false,
+      "commandCount": 13,
+      "astSize": 544,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "KeyboardAndMouseControl.ino",
+      "success": false,
+      "commandCount": 24,
+      "astSize": 769,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1009
+    },
+    {
+      "name": "ButtonMouseControl.ino",
+      "success": false,
+      "commandCount": 22,
+      "astSize": 738,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1012
+    },
+    {
+      "name": "JoystickMouseControl.ino",
+      "success": false,
+      "commandCount": 24,
+      "astSize": 1038,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1012
+    },
+    {
+      "name": "p02_SpaceshipInterface.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 283,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1008
+    },
+    {
+      "name": "p03_LoveOMeter.ino",
+      "success": true,
+      "commandCount": 22,
+      "astSize": 800,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "p04_ColorMixingLamp.ino",
+      "success": false,
+      "commandCount": 25,
+      "astSize": 490,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1010
+    },
+    {
+      "name": "p05_ServoMoodIndicator.ino",
+      "success": false,
+      "commandCount": 16,
+      "astSize": 260,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1009
+    },
+    {
+      "name": "p06_LightTheremin.ino",
+      "success": false,
+      "commandCount": 17,
+      "astSize": 431,
+      "error": {
+        "type": "ERROR",
+        "message": "Line undefined, Column undefined: millis timeout: Request millis_1756738072065_0.24110877369913397 timed out after 1000ms\n  → binary operation 'undefined'",
+        "originalMessage": "millis timeout: Request millis_1756738072065_0.24110877369913397 timed out after 1000ms",
+        "node": {
+          "type": "BinaryOpNode",
+          "left": {
+            "type": "FuncCallNode",
+            "callee": {
+              "type": "IdentifierNode",
+              "value": "millis"
+            },
+            "arguments": []
+          },
+          "op": {
+            "type": "LT",
+            "value": "<",
+            "line": 18,
+            "column": 19
+          },
+          "right": {
+            "type": "NumberNode",
+            "value": 5000
+          }
+        },
+        "location": {
+          "context": "binary operation 'undefined'"
+        },
+        "timestamp": 1756738073065
+      },
+      "processingTime": 1009
+    },
+    {
+      "name": "p07_Keyboard.ino",
+      "success": false,
+      "commandCount": 11,
+      "astSize": 482,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1011
+    },
+    {
+      "name": "p08_DigitalHourglass.ino",
+      "success": true,
+      "commandCount": 22,
+      "astSize": 670,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "p09_MotorizedPinwheel.ino",
+      "success": false,
+      "commandCount": 14,
+      "astSize": 269,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "p10_Zoetrope.ino",
+      "success": false,
+      "commandCount": 28,
+      "astSize": 849,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1011
+    },
+    {
+      "name": "p11_CrystalBall.ino",
+      "success": false,
+      "commandCount": 20,
+      "astSize": 413,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1009
+    },
+    {
+      "name": "p12_KnockLock.ino",
+      "success": false,
+      "commandCount": 32,
+      "astSize": 1085,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1015
+    },
+    {
+      "name": "p13_TouchSensorLamp.ino",
+      "success": true,
+      "commandCount": 38,
+      "astSize": 322,
+      "error": null,
+      "processingTime": 36
+    },
+    {
+      "name": "p14_TweakTheArduinoLogo.ino",
+      "success": false,
+      "commandCount": 10,
+      "astSize": 126,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1007
+    },
+    {
+      "name": "p15_HackingButtons.ino",
+      "success": true,
+      "commandCount": 31,
+      "astSize": 167,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "ArduinoISP.ino",
+      "success": true,
+      "commandCount": 34,
+      "astSize": 4873,
+      "error": null,
+      "processingTime": 72
+    },
+    {
+      "name": "Test_Case_for_Array_Access.ino",
+      "success": true,
+      "commandCount": 19,
+      "astSize": 135,
+      "error": null,
+      "processingTime": 32
+    },
+    {
+      "name": "To_test_the_Lexer_and_Parser.ino",
+      "success": true,
+      "commandCount": 31,
+      "astSize": 144,
+      "error": null,
+      "processingTime": 21
+    },
+    {
+      "name": "Global_variable_declarations.ino",
+      "success": true,
+      "commandCount": 75,
+      "astSize": 384,
+      "error": null,
+      "processingTime": 52
+    },
+    {
+      "name": "Test_Case_for_Operator_Precedence.ino",
+      "success": true,
+      "commandCount": 21,
+      "astSize": 283,
+      "error": null,
+      "processingTime": 21
+    },
+    {
+      "name": "Test_Case_for_Parentheses_Precedence.ino",
+      "success": true,
+      "commandCount": 21,
+      "astSize": 180,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Test_Case_for_Unary_vs_Binary_Operators.ino",
+      "success": true,
+      "commandCount": 20,
+      "astSize": 163,
+      "error": null,
+      "processingTime": 19
+    },
+    {
+      "name": "Test_Case_for_C-Style_Initialization.ino",
+      "success": true,
+      "commandCount": 18,
+      "astSize": 129,
+      "error": null,
+      "processingTime": 20
+    },
+    {
+      "name": "Test_Rigorous_Brackets_Parentheses.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 235,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Test_Case_for_the_return_statement.ino",
+      "success": true,
+      "commandCount": 17,
+      "astSize": 214,
+      "error": null,
+      "processingTime": 20
+    },
+    {
+      "name": "Test_Case_for_Advanced_Numeric_Literals.ino",
+      "success": true,
+      "commandCount": 20,
+      "astSize": 171,
+      "error": null,
+      "processingTime": 20
+    },
+    {
+      "name": "Test_Case_for_Character_Literals.ino",
+      "success": true,
+      "commandCount": 18,
+      "astSize": 133,
+      "error": null,
+      "processingTime": 21
+    },
+    {
+      "name": "Test_Case_for_the_Dangling_Else.ino",
+      "success": true,
+      "commandCount": 22,
+      "astSize": 238,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Test_Case_for_Pointer_vs_Multiplication.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 4 closes the circle"
+    },
+    {
+      "name": "Test_Case_for_Function_Pointer_Declarations.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoFunctionPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 3 closes the circle"
+    },
+    {
+      "name": "Nested_Loops_and_Variable_Scope.ino",
+      "success": true,
+      "commandCount": 79,
+      "astSize": 361,
+      "error": null,
+      "processingTime": 52
+    },
+    {
+      "name": "Complex_Conditional_Logic.ino",
+      "success": true,
+      "commandCount": 36,
+      "astSize": 541,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "Operator_Precedence_and_Associativity.ino",
+      "success": true,
+      "commandCount": 57,
+      "astSize": 273,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "Function_Calls_and_Parameter_Passing.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 521,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Loop_Control_Statements_break_continue.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 394,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Ternary_Operator_and_Bitwise_Operators.ino",
+      "success": true,
+      "commandCount": 75,
+      "astSize": 331,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "Floating-Point_Arithmetic_and_Mixed_Types.ino",
+      "success": true,
+      "commandCount": 51,
+      "astSize": 347,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "String_and_Character_Literals.ino",
+      "success": true,
+      "commandCount": 48,
+      "astSize": 238,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Multiple_Statements_on_a_Single_Line.ino",
+      "success": true,
+      "commandCount": 25,
+      "astSize": 358,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Mixed-Type_Expressions_and_Casting.ino",
+      "success": true,
+      "commandCount": 51,
+      "astSize": 247,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "switch_statement_with_fall-through_and_nested_blocks.ino",
+      "success": true,
+      "commandCount": 42,
+      "astSize": 141,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Complex_Preprocessor_Directives.ino",
+      "success": true,
+      "commandCount": 30,
+      "astSize": 168,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Array_Indexing_and_Multidimensional_Arrays.ino",
+      "success": true,
+      "commandCount": 51,
+      "astSize": 261,
+      "error": null,
+      "processingTime": 25
+    },
+    {
+      "name": "Function_Pointers_and_Callbacks.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoFunctionPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 9 closes the circle"
+    },
+    {
+      "name": "Chained_Assignments_and_Unary_Operators.ino",
+      "success": true,
+      "commandCount": 90,
+      "astSize": 273,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Complex_for_loop_with_multiple_expressions.ino",
+      "success": true,
+      "commandCount": 37,
+      "astSize": 238,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "do-while_loop_with_a_complex_condition.ino",
+      "success": true,
+      "commandCount": 66,
+      "astSize": 372,
+      "error": null,
+      "processingTime": 53
+    },
+    {
+      "name": "Structs_and_Member_Access.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 176,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Unary_Plus_and_Minus_with_Operator_Precedence.ino",
+      "success": true,
+      "commandCount": 51,
+      "astSize": 239,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Empty_and_NULL_statements.ino",
+      "success": true,
+      "commandCount": 18,
+      "astSize": 316,
+      "error": null,
+      "processingTime": 21
+    },
+    {
+      "name": "Pointers_and_Pointer_Arithmetic.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 9 closes the circle"
+    },
+    {
+      "name": "Initializer_Lists_and_Designated_Initializers.ino",
+      "success": true,
+      "commandCount": 42,
+      "astSize": 197,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Type_Promotion_and_Implicit_Conversions.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 243,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "typedef_and_Structs_with_Pointers.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 12 closes the circle"
+    },
+    {
+      "name": "static_Variables_and_Scope.ino",
+      "success": true,
+      "commandCount": 33,
+      "astSize": 215,
+      "error": null,
+      "processingTime": 82
+    },
+    {
+      "name": "const_and_volatile_Qualifiers.ino",
+      "success": true,
+      "commandCount": 36,
+      "astSize": 200,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Logical_Operators_with_Short-Circuiting.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 349,
+      "error": null,
+      "processingTime": 64
+    },
+    {
+      "name": "Conditional_Operator_in_a_Loop.ino",
+      "success": true,
+      "commandCount": 34,
+      "astSize": 234,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Variable_Declarations_in_a_for_Loop.ino",
+      "success": true,
+      "commandCount": 24,
+      "astSize": 199,
+      "error": null,
+      "processingTime": 22
+    },
+    {
+      "name": "Unary_sizeof_Operator.ino",
+      "success": true,
+      "commandCount": 45,
+      "astSize": 221,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Comma_Operator_in_a_for_Loop.ino",
+      "success": true,
+      "commandCount": 41,
+      "astSize": 234,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Nested_for_and_if_with_break_and_continue.ino",
+      "success": true,
+      "commandCount": 44,
+      "astSize": 478,
+      "error": null,
+      "processingTime": 24
+    },
+    {
+      "name": "Pointer_to_Pointer.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 9 closes the circle"
+    },
+    {
+      "name": "Self-Referential_Structs_Linked_List_Node.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'value' -> object with constructor 'ArduinoPointer'\n    |     property 'interpreter' -> object with constructor 'ArduinoInterpreter'\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 11 closes the circle"
+    },
+    {
+      "name": "static_Global_Variable_and_Function.ino",
+      "success": true,
+      "commandCount": 33,
+      "astSize": 200,
+      "error": null,
+      "processingTime": 35
+    },
+    {
+      "name": "Unsigned_Integer_Rollover.ino",
+      "success": true,
+      "commandCount": 48,
+      "astSize": 201,
+      "error": null,
+      "processingTime": 30
+    },
+    {
+      "name": "Complex_Function_Declarations.ino",
+      "success": false,
+      "commandCount": 0,
+      "astSize": 0,
+      "error": "Converting circular structure to JSON\n    --> starting at object with constructor 'Object'\n    |     property 'arguments' -> object with constructor 'Array'\n    |     index 0 -> object with constructor 'ArduinoFunctionPointer'\n    |     ...\n    |     property 'commandHistory' -> object with constructor 'Array'\n    --- index 8 closes the circle"
+    },
+    {
+      "name": "Bit-Fields_in_Structs.ino",
+      "success": true,
+      "commandCount": 48,
+      "astSize": 182,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "extern_Keyword.ino",
+      "success": true,
+      "commandCount": 28,
+      "astSize": 186,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "Ternary_Operator_with_Complex_Expressions.ino",
+      "success": true,
+      "commandCount": 36,
+      "astSize": 269,
+      "error": null,
+      "processingTime": 23
+    },
+    {
+      "name": "strandtest.ino",
+      "success": true,
+      "commandCount": 37,
+      "astSize": 1458,
+      "error": null,
+      "processingTime": 37
+    },
+    {
+      "name": "strandtest_nodelay.ino",
+      "success": false,
+      "commandCount": 24,
+      "astSize": 2189,
+      "error": "Execution timeout (1s)",
+      "processingTime": 1023
+    }
+  ]
+}

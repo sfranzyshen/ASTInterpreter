@@ -1,0 +1,160 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738061890,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738061890,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738061890,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756738061890,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756738061890,
+    "message": "while loop started"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1756738061890,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"\n\nString startsWith() and endsWith():\""
+    ],
+    "data": "\n\nString startsWith() and endsWith():",
+    "timestamp": 1756738061890,
+    "message": "Serial.println(\"\n\nString startsWith() and endsWith():\")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [],
+    "timestamp": 1756738061890,
+    "message": "Serial.println()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756738061890,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738061890,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738061890,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756738061890
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "HTTP/1.1 200 OK"
+    },
+    "timestamp": 1756738061890
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"HTTP/1.1 200 OK\""
+    ],
+    "data": "HTTP/1.1 200 OK",
+    "timestamp": 1756738061890,
+    "message": "Serial.println(\"HTTP/1.1 200 OK\")"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756738061891
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Server's using http version 1.1\""
+    ],
+    "data": "Server's using http version 1.1",
+    "timestamp": 1756738061891,
+    "message": "Serial.println(\"Server's using http version 1.1\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "HTTP/1.1 200 OK"
+    },
+    "timestamp": 1756738061891
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756738061891
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Got an OK from the server\""
+    ],
+    "data": "Got an OK from the server",
+    "timestamp": 1756738061891,
+    "message": "Serial.println(\"Got an OK from the server\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": {
+      "value": "sensor = "
+    },
+    "timestamp": 1756738061891
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756738061891_0.10862279388663953",
+    "timestamp": 1756738061891
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738062890,
+    "message": "Program execution stopped"
+  }
+]

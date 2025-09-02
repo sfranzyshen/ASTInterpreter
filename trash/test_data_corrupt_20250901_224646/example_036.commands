@@ -1,0 +1,127 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756791096598,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756791096598,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756791096598
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 9,
+    "isConst": true,
+    "timestamp": 1756791096598
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "indicatorLedPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1756791096599
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1756791096599
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 1023,
+    "timestamp": 1756791096600
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 0,
+    "timestamp": 1756791096600
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1756791096600
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756791096600,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756791096601
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 9,
+    "mode": 1,
+    "timestamp": 1756791096601
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1756791096602
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756791096602,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791096602,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791096602,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756791096602
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756791096602,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756791096602_0.4679049355561782",
+    "timestamp": 1756791096602
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756791101599
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756791101599,
+    "message": "Program execution stopped"
+  }
+]

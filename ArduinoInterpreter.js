@@ -82,7 +82,8 @@ const EXECUTION_STATE = {
     PAUSED: 'PAUSED',
     STEPPING: 'STEPPING',
     ERROR: 'ERROR',
-    COMPLETE: 'COMPLETE'
+    COMPLETE: 'COMPLETE',
+    WAITING_FOR_RESPONSE: 'WAITING_FOR_RESPONSE'
 };
 
 const PIN_MODES = {
@@ -136,6 +137,15 @@ const KEYBOARD_KEYS = {
     KEY_F11: 0xCC,
     KEY_F12: 0xCD
 };
+
+// Special error class for state machine execution pausing
+class ExecutionPausedError extends Error {
+    constructor(requestId) {
+        super('Execution paused for external data request');
+        this.name = 'ExecutionPausedError';
+        this.requestId = requestId;
+    }
+}
 
 // Simplified Arduino Object base class for generic library support
 class ArduinoObject {
@@ -1829,6 +1839,12 @@ class ArduinoInterpreter {
         this.pendingRequests = new Map(); // Track pending requests
         this.responseHandlers = new Map(); // Handle responses
         
+        // State machine properties for non-blocking execution
+        this.suspendedNode = null; // AST node where execution was suspended
+        this.waitingForRequestId = null; // Request ID we're waiting for
+        this.lastExpressionResult = null; // Result from resumed operation
+        this.suspendedFunction = null; // Function that was suspended
+        
         // Initialize
         this.reset();
     }
@@ -1888,7 +1904,14 @@ class ArduinoInterpreter {
         
         // Begin interpretation asynchronously
         this.interpretAST().catch(error => {
-            this.emitError(`Execution error: ${error.message}`);
+            if (error instanceof ExecutionPausedError) {
+                // This is expected behavior for state machine - execution is suspended
+                if (this.options.verbose) {
+                    console.log(`Execution suspended for request: ${error.requestId}`);
+                }
+            } else {
+                this.emitError(`Execution error: ${error.message}`);
+            }
         });
         return true;
     }
@@ -1955,7 +1978,14 @@ class ArduinoInterpreter {
             this.setState(EXECUTION_STATE.STEPPING);
             
             this.interpretAST().catch(error => {
-                this.emitError(`Step execution error: ${error.message}`);
+                if (error instanceof ExecutionPausedError) {
+                    // This is expected behavior for state machine - execution is suspended
+                    if (this.options.verbose) {
+                        console.log(`Step execution suspended for request: ${error.requestId}`);
+                    }
+                } else {
+                    this.emitError(`Step execution error: ${error.message}`);
+                }
             });
             return true;
             
@@ -1965,7 +1995,14 @@ class ArduinoInterpreter {
             this.setState(EXECUTION_STATE.STEPPING);
             
             this.interpretAST().catch(error => {
-                this.emitError(`Step execution error: ${error.message}`);
+                if (error instanceof ExecutionPausedError) {
+                    // This is expected behavior for state machine - execution is suspended
+                    if (this.options.verbose) {
+                        console.log(`Step execution suspended for request: ${error.requestId}`);
+                    }
+                } else {
+                    this.emitError(`Step execution error: ${error.message}`);
+                }
             });
             return true;
         }
@@ -2013,6 +2050,27 @@ class ArduinoInterpreter {
         }
     }
     
+    // State machine execution loop
+    tick() {
+        // Only run if we're in the RUNNING state
+        if (this.state !== EXECUTION_STATE.RUNNING) {
+            return;
+        }
+        
+        // Execute until we hit a state transition - interpretAST is async so handle promises
+        this.interpretAST().catch(error => {
+            if (error instanceof ExecutionPausedError) {
+                // Execution was paused for external data - this is expected behavior
+                // The state should already be WAITING_FOR_RESPONSE and waitingForRequestId should be set
+                if (this.options.verbose) {
+                    console.log(`Execution paused for request: ${error.requestId}`);
+                }
+            } else {
+                this.emitError(`Tick execution error: ${error.message}`);
+            }
+        });
+    }
+    
     // =========================================================================
     // REQUEST-RESPONSE MECHANISM FOR EXTERNAL DATA FUNCTIONS
     // =========================================================================
@@ -2052,6 +2110,27 @@ class ArduinoInterpreter {
                 pending.resolve({ value });
             }
         }
+    }
+    
+    // State machine method: Resume execution with external data response
+    resumeWithValue(requestId, value) {
+        // Check if this is the response we are waiting for
+        if (this.state !== EXECUTION_STATE.WAITING_FOR_RESPONSE || 
+            requestId !== this.waitingForRequestId) {
+            return false; // Not the response we need
+        }
+        
+        // Clear the state machine context
+        this.waitingForRequestId = null;
+        this.suspendedNode = null;
+        this.suspendedFunction = null;
+        this.state = EXECUTION_STATE.RUNNING;
+        
+        // Use the existing handleResponse mechanism to resume async execution
+        // Do NOT call tick() - let the existing async chain continue
+        this.handleResponse(requestId, value);
+        
+        return true;
     }
     
     // =========================================================================
@@ -2263,7 +2342,14 @@ class ArduinoInterpreter {
             await this.executeControlledProgram();
             
         } catch (error) {
-            this.emitError(`Interpretation error: ${error.message}`);
+            if (error instanceof ExecutionPausedError) {
+                // This is expected behavior for state machine - execution is suspended
+                if (this.options.verbose) {
+                    console.log(`Execution suspended for request: ${error.requestId}`);
+                }
+            } else {
+                this.emitError(`Interpretation error: ${error.message}`);
+            }
         } finally {
             this.executionContext.isExecuting = false;
         }
@@ -3939,20 +4025,35 @@ class ArduinoInterpreter {
                 return this.arduinoPinMode(args);
             case 'digitalWrite':
                 return this.arduinoDigitalWrite(args);
-            case 'digitalRead':
-                return await this.arduinoDigitalRead(args);
+            case 'digitalRead': {
+                const result = this.arduinoDigitalRead(args, node);
+                if (result && typeof result === 'object' && result.type === 'EXECUTION_PAUSED') {
+                    throw new ExecutionPausedError(result.requestId);
+                }
+                return result;
+            }
             case 'analogWrite':
                 return this.arduinoAnalogWrite(args);
             case 'analogRead':
-                return await this.arduinoAnalogRead(args);
+                return await this.arduinoAnalogRead(args, node);
             case 'delay':
                 return await this.arduinoDelay(args);
             case 'delayMicroseconds':
                 return this.arduinoDelayMicroseconds(args);
-            case 'millis':
-                return await this.arduinoMillis();
-            case 'micros':
-                return await this.arduinoMicros();
+            case 'millis': {
+                const result = this.arduinoMillis(node);
+                if (result && typeof result === 'object' && result.type === 'EXECUTION_PAUSED') {
+                    throw new ExecutionPausedError(result.requestId);
+                }
+                return result;
+            }
+            case 'micros': {
+                const result = this.arduinoMicros(node);
+                if (result && typeof result === 'object' && result.type === 'EXECUTION_PAUSED') {
+                    throw new ExecutionPausedError(result.requestId);
+                }
+                return result;
+            }
             case 'pulseIn':
                 return this.arduinoPulseIn(args);
             case 'tone':
@@ -4052,12 +4153,12 @@ class ArduinoInterpreter {
             }
         }
         
-        this.pinStates.set(pin, { mode: mode, value: 0 });
+        this.pinStates.set(pin, { mode: numericMode, value: 0 });
         
         this.emitCommand({
             type: COMMAND_TYPES.PIN_MODE,
             pin: pin,
-            mode: mode,
+            mode: numericMode,
             timestamp: Date.now()
         });
     }
@@ -4092,13 +4193,13 @@ class ArduinoInterpreter {
         
         // Update pin state
         const pinState = this.pinStates.get(pin) || { mode: 'OUTPUT', value: 0 };
-        pinState.value = value;
+        pinState.value = numericValue; // Store the numeric value
         this.pinStates.set(pin, pinState);
         
         this.emitCommand({
             type: COMMAND_TYPES.DIGITAL_WRITE,
             pin: pin,
-            value: this.sanitizeForCommand(value),
+            value: numericValue, // Emit the numeric value, not the string
             timestamp: Date.now()
         });
     }
@@ -6874,7 +6975,7 @@ class ArduinoInterpreter {
         return null; // No explicit return
     }
     
-    async arduinoDigitalRead(args) {
+    arduinoDigitalRead(args, node = null) {
         if (args.length < 1) {
             this.emitError("digitalRead requires 1 argument: pin");
             return 0;
@@ -6899,16 +7000,14 @@ class ArduinoInterpreter {
             timestamp: Date.now()
         });
         
-        // Wait for parent app response
-        try {
-            const response = await this.waitForResponse(requestId, 5000);
-            return response.value;
-        } catch (error) {
-            this.emitError(`digitalRead timeout: ${error.message}`);
-            // Fallback to pin state or 0
-            const pinState = this.pinStates.get(pin);
-            return pinState ? pinState.value : 0;
-        }
+        // State machine: Suspend execution and wait for response
+        this.state = EXECUTION_STATE.WAITING_FOR_RESPONSE;
+        this.waitingForRequestId = requestId;
+        this.suspendedNode = node;
+        this.suspendedFunction = 'digitalRead';
+        
+        // Return special signal to indicate execution should pause
+        return { type: 'EXECUTION_PAUSED', requestId };
     }
     
     arduinoAnalogWrite(args) {
@@ -6942,7 +7041,7 @@ class ArduinoInterpreter {
         });
     }
     
-    async arduinoAnalogRead(args) {
+    async arduinoAnalogRead(args, node = null) {
         if (args.length < 1) {
             this.emitError("analogRead requires 1 argument: pin");
             return 0;
@@ -6959,6 +7058,12 @@ class ArduinoInterpreter {
         
         const requestId = `analogRead_${Date.now()}_${Math.random()}`;
         
+        // Set state machine context
+        this.state = EXECUTION_STATE.WAITING_FOR_RESPONSE;
+        this.waitingForRequestId = requestId;
+        this.suspendedNode = node;
+        this.suspendedFunction = 'analogRead';
+        
         // Emit request command
         this.emitCommand({
             type: COMMAND_TYPES.ANALOG_READ_REQUEST,
@@ -6967,7 +7072,7 @@ class ArduinoInterpreter {
             timestamp: Date.now()
         });
         
-        // Wait for parent app response
+        // Use existing async response mechanism
         try {
             const response = await this.waitForResponse(requestId, 5000);
             return response.value;
@@ -6993,7 +7098,7 @@ class ArduinoInterpreter {
     }
     
     // Arduino timing functions
-    async arduinoMillis() {
+    arduinoMillis(node = null) {
         const requestId = `millis_${Date.now()}_${Math.random()}`;
         
         // Emit request command
@@ -7003,18 +7108,17 @@ class ArduinoInterpreter {
             timestamp: Date.now()
         });
         
-        try {
-            const response = await this.waitForResponse(requestId, 1000);
-            return new ArduinoNumber(response.value, 'unsigned long');
-        } catch (error) {
-            this.emitError(`millis timeout: ${error.message}`);
-            // Fallback to current time
-            const elapsed = Date.now() - this.programStartTime;
-            return new ArduinoNumber(elapsed, 'unsigned long');
-        }
+        // State machine: Suspend execution and wait for response
+        this.state = EXECUTION_STATE.WAITING_FOR_RESPONSE;
+        this.waitingForRequestId = requestId;
+        this.suspendedNode = node;
+        this.suspendedFunction = 'millis';
+        
+        // Return special signal to indicate execution should pause
+        return { type: 'EXECUTION_PAUSED', requestId };
     }
     
-    async arduinoMicros() {
+    arduinoMicros(node = null) {
         const requestId = `micros_${Date.now()}_${Math.random()}`;
         
         // Emit request command
@@ -7024,15 +7128,14 @@ class ArduinoInterpreter {
             timestamp: Date.now()
         });
         
-        try {
-            const response = await this.waitForResponse(requestId, 1000);
-            return new ArduinoNumber(response.value, 'unsigned long');
-        } catch (error) {
-            this.emitError(`micros timeout: ${error.message}`);
-            // Fallback to current time
-            const elapsed = (Date.now() - this.programStartTime) * 1000;
-            return new ArduinoNumber(elapsed, 'unsigned long');
-        }
+        // State machine: Suspend execution and wait for response
+        this.state = EXECUTION_STATE.WAITING_FOR_RESPONSE;
+        this.waitingForRequestId = requestId;
+        this.suspendedNode = node;
+        this.suspendedFunction = 'micros';
+        
+        // Return special signal to indicate execution should pause
+        return { type: 'EXECUTION_PAUSED', requestId };
     }
     
     // Arduino pulseIn() function - measures pulse duration on a pin

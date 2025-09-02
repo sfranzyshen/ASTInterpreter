@@ -1,0 +1,140 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756791070514,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756791070514,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorPin",
+    "value": 14,
+    "timestamp": 1756791070515
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 13,
+    "timestamp": 1756791070516
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1756791070517
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756791070517,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756791070517
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756791070517,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791070517,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791070517,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756791070517
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756791070518_0.7280843038850231",
+    "timestamp": 1756791070518
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756791075514
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756791075514,
+    "message": "Program execution stopped"
+  },
+  {
+    "type": "ERROR",
+    "message": "Line undefined, Column undefined: analogRead timeout: Request analogRead_1756791070518_0.7280843038850231 timed out after 5000ms\n  → assignment to 'sensorValue'",
+    "originalMessage": "analogRead timeout: Request analogRead_1756791070518_0.7280843038850231 timed out after 5000ms",
+    "node": {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "AssignmentNode",
+        "operator": "=",
+        "left": {
+          "type": "IdentifierNode",
+          "value": "sensorValue"
+        },
+        "right": {
+          "type": "FuncCallNode",
+          "callee": {
+            "type": "IdentifierNode",
+            "value": "analogRead"
+          },
+          "arguments": [
+            {
+              "type": "IdentifierNode",
+              "value": "sensorPin"
+            }
+          ]
+        }
+      }
+    },
+    "location": {
+      "context": "assignment to 'sensorValue'"
+    },
+    "timestamp": 1756791075519
+  },
+  {
+    "type": "ERROR",
+    "message": "[object Object]",
+    "timestamp": 1756791075519
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 604,
+    "timestamp": 1756791075519
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756791075519
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756791075525,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

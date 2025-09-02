@@ -670,28 +670,24 @@ void loop() {
                     case 'ANALOG_READ_REQUEST':
                         // Simulate realistic sensor data
                         const analogValue = Math.floor(Math.random() * 1024);
-                        setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, analogValue);
-                        }, 1); // Minimal delay to simulate async response
+                        // Use new state machine method instead of setTimeout
+                        interpreter.resumeWithValue(command.requestId, analogValue);
                         break;
                         
                     case 'DIGITAL_READ_REQUEST':  
                         const digitalState = Math.random() > 0.5 ? 1 : 0;
-                        setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, digitalState);
-                        }, 1);
+                        // Use new state machine method instead of setTimeout
+                        interpreter.resumeWithValue(command.requestId, digitalState);
                         break;
                         
                     case 'MILLIS_REQUEST':
-                        setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, Date.now());
-                        }, 1);
+                        // Use new state machine method instead of setTimeout
+                        interpreter.resumeWithValue(command.requestId, Date.now());
                         break;
                         
                     case 'MICROS_REQUEST':
-                        setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, Date.now() * 1000);
-                        }, 1);
+                        // Use new state machine method instead of setTimeout
+                        interpreter.resumeWithValue(command.requestId, Date.now() * 1000);
                         break;
                         
                     case 'LIBRARY_METHOD_REQUEST':
@@ -704,9 +700,8 @@ void loop() {
                             case 'canShow': responseValue = true; break;
                             default: responseValue = 0; break;
                         }
-                        setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, responseValue);
-                        }, 1);
+                        // Use new state machine method instead of setTimeout
+                        interpreter.resumeWithValue(command.requestId, responseValue);
                         break;
                 }
                 
@@ -729,7 +724,7 @@ void loop() {
                 console.error('Interpreter error:', error);
             };
             
-            // Start interpretation
+            // Start interpretation - the state machine will handle external data requests
             clearCommands();
             interpreter.start();
         }
@@ -780,13 +775,12 @@ void loop() {
             
             switch (command.type) {
                 case 'PIN_MODE':
-                    const modeNames = {0: 'INPUT', 1: 'OUTPUT', 2: 'INPUT_PULLUP'};
-                    const modeName = modeNames[command.mode] || command.mode;
-                    content += `pinMode(${command.pin}, ${modeName})`;
+                    // Display numeric values directly instead of symbolic names
+                    content += `pinMode(${command.pin}, ${command.mode})`;
                     break;
                 case 'DIGITAL_WRITE':
-                    const valueName = command.value === 1 ? 'HIGH' : (command.value === 0 ? 'LOW' : command.value);
-                    content += `digitalWrite(${command.pin}, ${valueName})`;
+                    // Display numeric values directly instead of symbolic names
+                    content += `digitalWrite(${command.pin}, ${command.value})`;
                     break;
                 case 'ANALOG_WRITE':
                     content += `analogWrite(${command.pin}, ${command.value})`;

@@ -1,0 +1,261 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756791132222,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756791132222,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756791132222,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756791132223,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756791132223,
+    "message": "while loop started"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1756791132223,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"\n\nString Constructors:\""
+    ],
+    "data": "\n\nString Constructors:",
+    "timestamp": 1756791132224,
+    "message": "Serial.println(\"\n\nString Constructors:\")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [],
+    "timestamp": 1756791132224,
+    "message": "Serial.println()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756791132224,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791132224,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791132224,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756791132224
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "Hello String"
+    },
+    "timestamp": 1756791132225
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Hello String\""
+    ],
+    "data": "Hello String",
+    "timestamp": 1756791132225,
+    "message": "Serial.println(\"Hello String\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "97"
+    },
+    "timestamp": 1756791132226
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"97\""
+    ],
+    "data": "97",
+    "timestamp": 1756791132226,
+    "message": "Serial.println(\"97\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringTwo",
+    "value": {
+      "value": "This is a string"
+    },
+    "timestamp": 1756791132227
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"This is a string\""
+    ],
+    "data": "This is a string",
+    "timestamp": 1756791132227,
+    "message": "Serial.println(\"This is a string\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "This is a string with more"
+    },
+    "timestamp": 1756791132228
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"This is a string with more\""
+    ],
+    "data": "This is a string with more",
+    "timestamp": 1756791132229,
+    "message": "Serial.println(\"This is a string with more\")"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "13"
+    },
+    "timestamp": 1756791132230
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"13\""
+    ],
+    "data": "13",
+    "timestamp": 1756791132230,
+    "message": "Serial.println(\"13\")"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756791132231_0.7213684425894062",
+    "timestamp": 1756791132231
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756791137222
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756791137222,
+    "message": "Program execution stopped"
+  },
+  {
+    "type": "ERROR",
+    "message": "Line undefined, Column undefined: analogRead timeout: Request analogRead_1756791132231_0.7213684425894062 timed out after 5000ms\n  → assignment to 'stringOne'",
+    "originalMessage": "analogRead timeout: Request analogRead_1756791132231_0.7213684425894062 timed out after 5000ms",
+    "node": {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "AssignmentNode",
+        "operator": "=",
+        "left": {
+          "type": "IdentifierNode",
+          "value": "stringOne"
+        },
+        "right": {
+          "type": "FuncCallNode",
+          "callee": {
+            "type": "IdentifierNode",
+            "value": "String"
+          },
+          "arguments": [
+            {
+              "type": "FuncCallNode",
+              "callee": {
+                "type": "IdentifierNode",
+                "value": "analogRead"
+              },
+              "arguments": [
+                {
+                  "type": "IdentifierNode",
+                  "value": "A0"
+                }
+              ]
+            },
+            {
+              "type": "ConstantNode",
+              "value": "DEC"
+            }
+          ]
+        }
+      }
+    },
+    "location": {
+      "context": "assignment to 'stringOne'"
+    },
+    "timestamp": 1756791137232
+  },
+  {
+    "type": "ERROR",
+    "message": "[object Object]",
+    "timestamp": 1756791137232
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "stringOne",
+    "value": {
+      "value": "365"
+    },
+    "timestamp": 1756791137232
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756791137232
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756791137237,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

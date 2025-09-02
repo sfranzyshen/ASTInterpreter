@@ -1,0 +1,389 @@
+# CMakeLists.txt - ESP32-S3 Arduino AST Interpreter Build System
+# 
+# Cross-platform build system for host development and testing
+# before Arduino library conversion.
+#
+# Version: 1.0
+# Compatible with: C++17, Linux, Windows, macOS
+
+cmake_minimum_required(VERSION 3.12)
+
+project(ArduinoASTInterpreter 
+    VERSION 1.0.0 
+    DESCRIPTION "ESP32-S3 Arduino AST Interpreter - Host Development"
+    LANGUAGES CXX)
+
+# =============================================================================
+# BUILD CONFIGURATION
+# =============================================================================
+
+# Require C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Build type configuration
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+# Compiler flags
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -Wall -Wextra -Wpedantic")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Od /Wall")
+    set(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
+endif()
+
+# =============================================================================
+# PROJECT OPTIONS
+# =============================================================================
+
+option(BUILD_TESTS "Build test executables" ON)
+option(BUILD_EXAMPLES "Build example executables" ON)
+option(ENABLE_PROFILING "Enable memory and performance profiling" OFF)
+option(ENABLE_COVERAGE "Enable code coverage" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+# ESP32-specific options (for when targeting ESP32)
+option(TARGET_ESP32 "Target ESP32 platform" OFF)
+option(USE_ARDUINO_FRAMEWORK "Use Arduino framework headers" OFF)
+
+# =============================================================================
+# DEPENDENCIES
+# =============================================================================
+
+# Standard library extensions
+find_package(Threads REQUIRED)
+
+# Optional dependencies
+if(ENABLE_PROFILING)
+    find_package(PkgConfig)
+    if(PKG_CONFIG_FOUND)
+        pkg_check_modules(VALGRIND valgrind)
+    endif()
+endif()
+
+if(ENABLE_COVERAGE)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+    endif()
+endif()
+
+# =============================================================================
+# CORE LIBRARY TARGET
+# =============================================================================
+
+# Core AST Interpreter Library
+add_library(arduino_ast_interpreter
+    # AST Node definitions
+    ASTNodes.cpp
+    ASTNodes.hpp
+    
+    # Compact AST binary format
+    CompactAST.cpp
+    CompactAST.hpp
+    
+    # Command protocol
+    CommandProtocol.cpp
+    CommandProtocol.hpp
+    
+    # Main interpreter
+    ASTInterpreter.cpp
+    ASTInterpreter.hpp
+)
+
+# Include directories
+target_include_directories(arduino_ast_interpreter
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# Compiler features and properties
+target_compile_features(arduino_ast_interpreter PUBLIC cxx_std_17)
+
+# Link libraries
+target_link_libraries(arduino_ast_interpreter
+    PUBLIC
+        Threads::Threads
+    PRIVATE
+        $<$<PLATFORM_ID:Linux>:dl>
+        $<$<PLATFORM_ID:Windows>:ws2_32>
+)
+
+# Preprocessor definitions
+target_compile_definitions(arduino_ast_interpreter
+    PUBLIC
+        $<$<CONFIG:Debug>:DEBUG>
+        $<$<CONFIG:Release>:NDEBUG>
+        $<$<BOOL:${TARGET_ESP32}>:TARGET_ESP32>
+        $<$<BOOL:${USE_ARDUINO_FRAMEWORK}>:ARDUINO_FRAMEWORK>
+    PRIVATE
+        CMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
+        PROJECT_VERSION="${PROJECT_VERSION}"
+)
+
+# Platform-specific configurations
+if(WIN32)
+    target_compile_definitions(arduino_ast_interpreter PRIVATE WIN32_LEAN_AND_MEAN)
+elseif(UNIX AND NOT APPLE)
+    target_compile_definitions(arduino_ast_interpreter PRIVATE _GNU_SOURCE)
+endif()
+
+# =============================================================================
+# EXECUTABLE TARGETS
+# =============================================================================
+
+if(BUILD_EXAMPLES)
+    # Basic interpreter example
+    add_executable(basic_interpreter_example
+        examples/basic_interpreter.cpp
+    )
+    
+    target_link_libraries(basic_interpreter_example
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    # Compact AST demo (TODO: Create compact_ast_demo.cpp)
+    # add_executable(compact_ast_demo
+    #     examples/compact_ast_demo.cpp
+    # )
+    # 
+    # target_link_libraries(compact_ast_demo
+    #     PRIVATE arduino_ast_interpreter
+    # )
+endif()
+
+# =============================================================================
+# TEST TARGETS
+# =============================================================================
+
+if(BUILD_TESTS)
+    enable_testing()
+    
+    # Unit tests for each component
+    add_executable(test_ast_nodes
+        tests/test_ast_nodes.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(test_ast_nodes
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    add_test(NAME ASTNodesTest COMMAND test_ast_nodes)
+    
+    # Compact AST format tests
+    add_executable(test_compact_ast
+        tests/test_compact_ast.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(test_compact_ast
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    add_test(NAME CompactASTTest COMMAND test_compact_ast)
+    
+    # Command protocol tests
+    add_executable(test_command_protocol
+        tests/test_command_protocol.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(test_command_protocol
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    add_test(NAME CommandProtocolTest COMMAND test_command_protocol)
+    
+    # Interpreter integration tests
+    add_executable(test_interpreter_integration
+        tests/test_interpreter_integration.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(test_interpreter_integration
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    add_test(NAME InterpreterIntegrationTest COMMAND test_interpreter_integration)
+    
+    # Cross-platform validation tests (compares with JavaScript output)
+    add_executable(test_cross_platform_validation
+        tests/test_cross_platform_validation.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(test_cross_platform_validation
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    add_test(NAME CrossPlatformValidationTest COMMAND test_cross_platform_validation)
+    
+    # Memory usage and performance tests
+    if(ENABLE_PROFILING)
+        add_executable(test_memory_performance
+            tests/test_memory_performance.cpp
+            tests/test_utils.hpp
+        )
+        
+        target_link_libraries(test_memory_performance
+            PRIVATE arduino_ast_interpreter
+        )
+        
+        add_test(NAME MemoryPerformanceTest COMMAND test_memory_performance)
+    endif()
+endif()
+
+# =============================================================================
+# INSTALLATION
+# =============================================================================
+
+# Install library
+install(TARGETS arduino_ast_interpreter
+    EXPORT ArduinoASTInterpreterTargets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
+)
+
+# Install headers
+install(FILES
+    ASTNodes.hpp
+    CompactAST.hpp
+    CommandProtocol.hpp
+    ASTInterpreter.hpp
+    DESTINATION include/arduino_ast_interpreter
+)
+
+# Install CMake config files
+install(EXPORT ArduinoASTInterpreterTargets
+    FILE ArduinoASTInterpreterTargets.cmake
+    NAMESPACE ArduinoASTInterpreter::
+    DESTINATION lib/cmake/ArduinoASTInterpreter
+)
+
+# Create config file
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    ArduinoASTInterpreterConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+
+configure_package_config_file(
+    cmake/ArduinoASTInterpreterConfig.cmake.in
+    ArduinoASTInterpreterConfig.cmake
+    INSTALL_DESTINATION lib/cmake/ArduinoASTInterpreter
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/ArduinoASTInterpreterConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/ArduinoASTInterpreterConfigVersion.cmake"
+    DESTINATION lib/cmake/ArduinoASTInterpreter
+)
+
+# =============================================================================
+# ESP32-S3 MEMORY ANALYSIS
+# =============================================================================
+
+# Custom target for ESP32-S3 memory analysis (only if profiling enabled)
+if(ENABLE_PROFILING)
+    add_custom_target(esp32_memory_analysis
+        COMMAND ${CMAKE_COMMAND} -E echo "Analyzing memory usage for ESP32-S3..."
+        COMMAND $<TARGET_FILE:test_memory_performance> --esp32-analysis
+        DEPENDS test_memory_performance
+        COMMENT "Running ESP32-S3 memory constraint analysis"
+    )
+endif()
+
+# Custom target for cross-platform validation
+add_custom_target(cross_platform_validation
+    COMMAND ${CMAKE_COMMAND} -E echo "Running cross-platform validation..."
+    COMMAND node test_compact_ast.js
+    COMMAND $<TARGET_FILE:test_cross_platform_validation>
+    DEPENDS test_cross_platform_validation
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Validating C++ output against JavaScript reference"
+)
+
+# =============================================================================
+# PACKAGE CONFIGURATION
+# =============================================================================
+
+# CPack configuration for distribution
+include(CPack)
+set(CPACK_PACKAGE_NAME "ArduinoASTInterpreter")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PROJECT_DESCRIPTION}")
+set(CPACK_PACKAGE_VENDOR "Arduino AST Interpreter Project")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+
+# Platform-specific package formats
+if(WIN32)
+    set(CPACK_GENERATOR "ZIP;NSIS")
+elseif(APPLE)
+    set(CPACK_GENERATOR "ZIP;DragNDrop")
+else()
+    set(CPACK_GENERATOR "TGZ;DEB;RPM")
+endif()
+
+# =============================================================================
+# DEVELOPMENT UTILITIES
+# =============================================================================
+
+# Custom target for code formatting (if clang-format is available)
+find_program(CLANG_FORMAT clang-format)
+if(CLANG_FORMAT)
+    file(GLOB_RECURSE SOURCE_FILES
+        "*.cpp" "*.hpp" "*.c" "*.h"
+        "tests/*.cpp" "tests/*.hpp"
+        "examples/*.cpp" "examples/*.hpp"
+    )
+    
+    add_custom_target(format
+        COMMAND ${CLANG_FORMAT} -i ${SOURCE_FILES}
+        COMMENT "Formatting source code with clang-format"
+    )
+endif()
+
+# Custom target for static analysis (if cppcheck is available)
+find_program(CPPCHECK cppcheck)
+if(CPPCHECK)
+    add_custom_target(static_analysis
+        COMMAND ${CPPCHECK}
+            --enable=all
+            --std=c++17
+            --verbose
+            --quiet
+            --error-exitcode=1
+            ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT "Running static analysis with cppcheck"
+    )
+endif()
+
+# =============================================================================
+# BUILD INFORMATION
+# =============================================================================
+
+# Print build configuration
+message(STATUS "=== Arduino AST Interpreter Build Configuration ===")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "Build tests: ${BUILD_TESTS}")
+message(STATUS "Build examples: ${BUILD_EXAMPLES}")
+message(STATUS "Enable profiling: ${ENABLE_PROFILING}")
+message(STATUS "Enable coverage: ${ENABLE_COVERAGE}")
+message(STATUS "Target ESP32: ${TARGET_ESP32}")
+message(STATUS "Use Arduino framework: ${USE_ARDUINO_FRAMEWORK}")
+message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "================================================")

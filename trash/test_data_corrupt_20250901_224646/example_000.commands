@@ -1,0 +1,133 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756791016867,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756791016867,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756791016870,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756791016876,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756791016876,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791016876,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791016876,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756791016876
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756791016878_0.6400250467758732",
+    "timestamp": 1756791016878
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756791021869
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756791021869,
+    "message": "Program execution stopped"
+  },
+  {
+    "type": "ERROR",
+    "message": "Line undefined, Column undefined: analogRead timeout: Request analogRead_1756791016878_0.6400250467758732 timed out after 5000ms\n  → declaration of 'variable'",
+    "originalMessage": "analogRead timeout: Request analogRead_1756791016878_0.6400250467758732 timed out after 5000ms",
+    "node": {
+      "type": "VarDeclNode",
+      "varType": {
+        "type": "TypeNode",
+        "value": "int",
+        "isPointer": false,
+        "pointerLevel": 0,
+        "isReference": false
+      },
+      "declarations": [
+        {
+          "declarator": {
+            "type": "DeclaratorNode",
+            "value": "sensorValue"
+          },
+          "initializer": {
+            "type": "FuncCallNode",
+            "callee": {
+              "type": "IdentifierNode",
+              "value": "analogRead"
+            },
+            "arguments": [
+              {
+                "type": "IdentifierNode",
+                "value": "A0"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "location": {
+      "context": "declaration of 'variable'"
+    },
+    "timestamp": 1756791021878
+  },
+  {
+    "type": "ERROR",
+    "message": "[object Object]",
+    "timestamp": 1756791021879
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 580,
+    "timestamp": 1756791021880
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756791021880
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756791021885,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

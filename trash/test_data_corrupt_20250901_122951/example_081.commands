@@ -1,0 +1,467 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738079340,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738079340,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "counter",
+    "value": 0,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "dutyCycle",
+    "value": 127.5,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738079340,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756738079340,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738079340,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738079340,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756738079340,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 0,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756738079340,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 1,
+    "timestamp": 1756738079340
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756738079345,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079345
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079345
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079345
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079345
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 2,
+    "timestamp": 1756738079345
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756738079350,
+    "message": "for loop completed (2 iterations)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756738079350
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "counter",
+    "value": 1,
+    "timestamp": 1756738079350
+  },
+  {
+    "type": "DELAY",
+    "duration": 500,
+    "actualDelay": 500,
+    "timestamp": 1756738079350
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756738079350
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738079355,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756738079355,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 0,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756738079355,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 1,
+    "timestamp": 1756738079355
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756738079360,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079360
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079360
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079360
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079360
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 2,
+    "timestamp": 1756738079360
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756738079365,
+    "message": "for loop completed (2 iterations)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756738079365
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "counter",
+    "value": 2,
+    "timestamp": 1756738079365
+  },
+  {
+    "type": "DELAY",
+    "duration": 500,
+    "actualDelay": 500,
+    "timestamp": 1756738079365
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756738079365
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738079370,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756738079370,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 0,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756738079370,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 1,
+    "timestamp": 1756738079370
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756738079375,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738079375
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079375
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756738079375
+  },
+  {
+    "type": "DELAY",
+    "duration": 50,
+    "actualDelay": 50,
+    "timestamp": 1756738079375
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "i",
+    "value": 2,
+    "timestamp": 1756738079375
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756738079380,
+    "message": "for loop completed (2 iterations)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756738079380
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "counter",
+    "value": 3,
+    "timestamp": 1756738079380
+  },
+  {
+    "type": "DELAY",
+    "duration": 500,
+    "actualDelay": 500,
+    "timestamp": 1756738079380
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756738079380
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756738079385,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738079385,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738079385,
+    "message": "Program execution stopped"
+  }
+]

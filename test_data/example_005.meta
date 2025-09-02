@@ -1,0 +1,9 @@
+{
+  "name": "ReadAnalogVoltage.ino",
+  "source": "examples",
+  "index": "005",
+  "code": "// 01.Basics ReadAnalogVoltage.ino\n\n// the setup routine runs once when you press reset:\nvoid setup() {\n  // initialize serial communication at 9600 bits per second:\n  Serial.begin(9600);\n}\n\n// the loop routine runs over and over again forever:\nvoid loop() {\n  // read the input on analog pin 0:\n  int sensorValue = analogRead(A0);\n  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):\n  float voltage = sensorValue * (5.0 / 1023.0);\n  // print out the value you read:\n  Serial.println(voltage);\n}\n",
+  "astSize": 295,
+  "commandCount": 30,
+  "generated": "2025-09-02T05:51:44.901Z"
+}

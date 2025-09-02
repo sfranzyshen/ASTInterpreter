@@ -1,0 +1,79 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756792299730,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756792299730,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pushButton",
+    "value": 7,
+    "timestamp": 1756792299731
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756792299731,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756792299732,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 7,
+    "mode": 0,
+    "timestamp": 1756792299733
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756792299733,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756792299733,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756792299733,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756792299733
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 7,
+    "requestId": "digitalRead_1756792299733_0.22910264078922338",
+    "timestamp": 1756792299733
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756792304731
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756792304731,
+    "message": "Program execution stopped"
+  }
+]
