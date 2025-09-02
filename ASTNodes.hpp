@@ -95,6 +95,8 @@ enum class ASTNodeType : uint8_t {
     STRUCT_TYPE = 0x54,
     FUNCTION_POINTER_DECLARATOR = 0x55,
     COMMA_EXPRESSION = 0x56,
+    ARRAY_DECLARATOR = 0x57,
+    POINTER_DECLARATOR = 0x58,
     
     // Unknown/Invalid
     UNKNOWN = 0xFF
@@ -776,6 +778,18 @@ public:
     void accept(ASTVisitor& visitor) override;
 };
 
+class ArrayDeclaratorNode : public ASTNode {
+public:
+    ArrayDeclaratorNode() : ASTNode(ASTNodeType::ARRAY_DECLARATOR) {}
+    void accept(ASTVisitor& visitor) override;
+};
+
+class PointerDeclaratorNode : public ASTNode {
+public:
+    PointerDeclaratorNode() : ASTNode(ASTNodeType::POINTER_DECLARATOR) {}
+    void accept(ASTVisitor& visitor) override;
+};
+
 // Struct type node
 class StructType : public ASTNode {
 public:
@@ -842,6 +856,8 @@ public:
     virtual void visit(DeclaratorNode& node) = 0;
     virtual void visit(ParamNode& node) = 0;
     virtual void visit(FunctionPointerDeclaratorNode& node) = 0;
+    virtual void visit(ArrayDeclaratorNode& node) = 0;
+    virtual void visit(PointerDeclaratorNode& node) = 0;
     virtual void visit(StructDeclaration& node) = 0;
     virtual void visit(TypedefDeclaration& node) = 0;
     virtual void visit(StructType& node) = 0;

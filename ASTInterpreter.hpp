@@ -402,6 +402,8 @@ public:
     void visit(arduino_ast::DeclaratorNode& node) override;
     void visit(arduino_ast::ParamNode& node) override;
     void visit(arduino_ast::FunctionPointerDeclaratorNode& node) override;
+    void visit(arduino_ast::ArrayDeclaratorNode& node) override;
+    void visit(arduino_ast::PointerDeclaratorNode& node) override;
     void visit(arduino_ast::StructDeclaration& node) override;
     void visit(arduino_ast::TypedefDeclaration& node) override;
     void visit(arduino_ast::StructType& node) override;

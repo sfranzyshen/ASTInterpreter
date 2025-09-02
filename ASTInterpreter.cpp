@@ -2114,4 +2114,20 @@ bool ASTInterpreter::resumeWithValue(const std::string& requestId, const Command
     return true;
 }
 
+// =============================================================================
+// MISSING VISITOR METHODS FOR NEW NODE TYPES
+// =============================================================================
+
+void ASTInterpreter::visit(arduino_ast::ArrayDeclaratorNode& node) {
+    debugLog("Visit: ArrayDeclaratorNode (stub implementation)");
+    (void)node; // Suppress unused parameter warning
+    // TODO: Implement array declarator handling if needed
+}
+
+void ASTInterpreter::visit(arduino_ast::PointerDeclaratorNode& node) {
+    debugLog("Visit: PointerDeclaratorNode (stub implementation)");
+    (void)node; // Suppress unused parameter warning
+    // TODO: Implement pointer declarator handling if needed
+}
+
 } // namespace arduino_interpreter

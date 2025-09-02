@@ -200,10 +200,21 @@ ASTNodePtr CompactASTReader::parseNode(size_t nodeIndex) {
     
     // Create specific node types
     switch (nodeType) {
+        // Program structure
         case ASTNodeType::PROGRAM:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ProgramNode" << std::endl;
             node = std::make_unique<ProgramNode>();
             break;
+        case ASTNodeType::ERROR_NODE:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ErrorNode" << std::endl;
+            node = createNode(nodeType); // Use factory for error nodes
+            break;
+        case ASTNodeType::COMMENT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating CommentNode" << std::endl;
+            node = createNode(nodeType); // Use factory for comments
+            break;
+            
+        // Statements
         case ASTNodeType::COMPOUND_STMT:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating CompoundStmtNode" << std::endl;
             node = std::make_unique<CompoundStmtNode>();
@@ -212,18 +223,138 @@ ASTNodePtr CompactASTReader::parseNode(size_t nodeIndex) {
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ExpressionStatement" << std::endl;
             node = std::make_unique<ExpressionStatement>();
             break;
+        case ASTNodeType::IF_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating IfStatement" << std::endl;
+            node = std::make_unique<IfStatement>();
+            break;
+        case ASTNodeType::WHILE_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating WhileStatement" << std::endl;
+            node = std::make_unique<WhileStatement>();
+            break;
+        case ASTNodeType::DO_WHILE_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating DoWhileStatement" << std::endl;
+            node = std::make_unique<DoWhileStatement>();
+            break;
+        case ASTNodeType::FOR_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ForStatement" << std::endl;
+            node = std::make_unique<ForStatement>();
+            break;
+        case ASTNodeType::RANGE_FOR_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating RangeBasedForStatement" << std::endl;
+            node = std::make_unique<RangeBasedForStatement>();
+            break;
+        case ASTNodeType::SWITCH_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating SwitchStatement" << std::endl;
+            node = std::make_unique<SwitchStatement>();
+            break;
+        case ASTNodeType::CASE_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating CaseStatement" << std::endl;
+            node = std::make_unique<CaseStatement>();
+            break;
+        case ASTNodeType::RETURN_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ReturnStatement" << std::endl;
+            node = std::make_unique<ReturnStatement>();
+            break;
+        case ASTNodeType::BREAK_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating BreakStatement" << std::endl;
+            node = std::make_unique<BreakStatement>();
+            break;
+        case ASTNodeType::CONTINUE_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ContinueStatement" << std::endl;
+            node = std::make_unique<ContinueStatement>();
+            break;
+        case ASTNodeType::EMPTY_STMT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating EmptyStatement" << std::endl;
+            node = std::make_unique<EmptyStatement>();
+            break;
+            
+        // Declarations
+        case ASTNodeType::VAR_DECL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating VarDeclNode" << std::endl;
+            node = std::make_unique<VarDeclNode>();
+            break;
+        case ASTNodeType::FUNC_DEF:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncDefNode" << std::endl;
+            node = std::make_unique<FuncDefNode>();
+            break;
+        case ASTNodeType::FUNC_DECL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncDefNode (declaration)" << std::endl;
+            node = std::make_unique<FuncDefNode>(); // Use FuncDefNode for declarations too
+            break;
+        case ASTNodeType::STRUCT_DECL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating StructDeclaration" << std::endl;
+            node = std::make_unique<StructDeclaration>();
+            break;
+        case ASTNodeType::TYPEDEF_DECL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating TypedefDeclaration" << std::endl;
+            node = std::make_unique<TypedefDeclaration>();
+            break;
+            
+        // Expressions
         case ASTNodeType::BINARY_OP:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating BinaryOpNode" << std::endl;
             node = std::make_unique<BinaryOpNode>();
+            break;
+        case ASTNodeType::UNARY_OP:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating UnaryOpNode" << std::endl;
+            node = std::make_unique<UnaryOpNode>();
+            break;
+        case ASTNodeType::ASSIGNMENT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating AssignmentNode" << std::endl;
+            node = std::make_unique<AssignmentNode>();
+            break;
+        case ASTNodeType::FUNC_CALL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncCallNode" << std::endl;
+            node = std::make_unique<FuncCallNode>();
+            break;
+        case ASTNodeType::MEMBER_ACCESS:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating MemberAccessNode" << std::endl;
+            node = std::make_unique<MemberAccessNode>();
+            break;
+        case ASTNodeType::ARRAY_ACCESS:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ArrayAccessNode" << std::endl;
+            node = std::make_unique<ArrayAccessNode>();
+            break;
+        case ASTNodeType::TERNARY_EXPR:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating TernaryExpressionNode" << std::endl;
+            node = std::make_unique<TernaryExpressionNode>();
+            break;
+        case ASTNodeType::POSTFIX_EXPRESSION:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating PostfixExpressionNode" << std::endl;
+            node = std::make_unique<PostfixExpressionNode>();
+            break;
+        case ASTNodeType::COMMA_EXPRESSION:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating CommaExpression" << std::endl;
+            node = std::make_unique<CommaExpression>();
+            break;
+            
+        // Literals and identifiers
+        case ASTNodeType::NUMBER_LITERAL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating NumberNode" << std::endl;
+            node = std::make_unique<NumberNode>(0.0);
+            break;
+        case ASTNodeType::STRING_LITERAL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating StringLiteralNode" << std::endl;
+            node = std::make_unique<StringLiteralNode>("");
+            break;
+        case ASTNodeType::CHAR_LITERAL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating CharLiteralNode" << std::endl;
+            node = std::make_unique<CharLiteralNode>("");
             break;
         case ASTNodeType::IDENTIFIER:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating IdentifierNode" << std::endl;
             node = std::make_unique<IdentifierNode>("");
             break;
-        case ASTNodeType::NUMBER_LITERAL:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating NumberNode" << std::endl;
-            node = std::make_unique<NumberNode>(0.0);
+        case ASTNodeType::CONSTANT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ConstantNode" << std::endl;
+            node = std::make_unique<ConstantNode>("");
             break;
+        case ASTNodeType::ARRAY_INIT:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ArrayInitializerNode" << std::endl;
+            node = std::make_unique<ArrayInitializerNode>();
+            break;
+            
+        // Types and parameters
         case ASTNodeType::TYPE_NODE:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating TypeNode" << std::endl;
             node = std::make_unique<TypeNode>("void");
@@ -236,38 +367,23 @@ ASTNodePtr CompactASTReader::parseNode(size_t nodeIndex) {
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ParamNode" << std::endl;
             node = std::make_unique<ParamNode>();
             break;
-        case ASTNodeType::FUNC_DEF:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncDefNode" << std::endl;
-            node = std::make_unique<FuncDefNode>();
+        case ASTNodeType::STRUCT_TYPE:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating StructType" << std::endl;
+            node = std::make_unique<StructType>();
             break;
-        case ASTNodeType::VAR_DECL:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating VarDeclNode" << std::endl;
-            node = std::make_unique<VarDeclNode>();
+        case ASTNodeType::FUNCTION_POINTER_DECLARATOR:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FunctionPointerDeclaratorNode" << std::endl;
+            node = std::make_unique<FunctionPointerDeclaratorNode>();
             break;
-        case ASTNodeType::ASSIGNMENT:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating AssignmentNode" << std::endl;
-            node = std::make_unique<AssignmentNode>();
+        case ASTNodeType::ARRAY_DECLARATOR:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ArrayDeclaratorNode" << std::endl;
+            node = std::make_unique<ArrayDeclaratorNode>();
             break;
-        case ASTNodeType::FUNC_CALL:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncCallNode" << std::endl;
-            node = std::make_unique<FuncCallNode>();
+        case ASTNodeType::POINTER_DECLARATOR:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating PointerDeclaratorNode" << std::endl;
+            node = std::make_unique<PointerDeclaratorNode>();
             break;
-        case ASTNodeType::IF_STMT:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating IfStatement" << std::endl;
-            node = std::make_unique<IfStatement>();
-            break;
-        case ASTNodeType::WHILE_STMT:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating WhileStatement" << std::endl;
-            node = std::make_unique<WhileStatement>();
-            break;
-        case ASTNodeType::FOR_STMT:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ForStatement" << std::endl;
-            node = std::make_unique<ForStatement>();
-            break;
-        case ASTNodeType::RETURN_STMT:
-            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ReturnStatement" << std::endl;
-            node = std::make_unique<ReturnStatement>();
-            break;
+            
         default:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating node via createNode for type " << static_cast<int>(nodeType) << std::endl;
             // Create generic node for unsupported types

@@ -4627,7 +4627,9 @@ class CompactASTExporter {
             'PostfixExpressionNode': 0x53,
             'StructType': 0x54,
             'FunctionPointerDeclaratorNode': 0x55,
-            'CommaExpression': 0x56
+            'CommaExpression': 0x56,
+            'ArrayDeclaratorNode': 0x57,
+            'PointerDeclaratorNode': 0x58
         };
         
         this.valueTypeMap = {

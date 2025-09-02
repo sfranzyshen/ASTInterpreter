@@ -207,6 +207,14 @@ void StructType::accept(ASTVisitor& visitor) {
     visitor.visit(*this);
 }
 
+void ArrayDeclaratorNode::accept(ASTVisitor& visitor) {
+    visitor.visit(*this);
+}
+
+void PointerDeclaratorNode::accept(ASTVisitor& visitor) {
+    visitor.visit(*this);
+}
+
 // =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
@@ -291,6 +299,10 @@ ASTNodePtr createNode(ASTNodeType type) {
             return std::make_unique<CommaExpression>();
         case ASTNodeType::STRUCT_TYPE:
             return std::make_unique<StructType>();
+        case ASTNodeType::ARRAY_DECLARATOR:
+            return std::make_unique<ArrayDeclaratorNode>();
+        case ASTNodeType::POINTER_DECLARATOR:
+            return std::make_unique<PointerDeclaratorNode>();
         default:
             return nullptr;
     }
@@ -344,6 +356,8 @@ std::string nodeTypeToString(ASTNodeType type) {
         case ASTNodeType::STRUCT_TYPE: return "StructType";
         case ASTNodeType::FUNCTION_POINTER_DECLARATOR: return "FunctionPointerDeclaratorNode";
         case ASTNodeType::COMMA_EXPRESSION: return "CommaExpression";
+        case ASTNodeType::ARRAY_DECLARATOR: return "ArrayDeclaratorNode";
+        case ASTNodeType::POINTER_DECLARATOR: return "PointerDeclaratorNode";
         default: return "UnknownNode";
     }
 }
