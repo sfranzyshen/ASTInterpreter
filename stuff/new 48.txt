@@ -1,0 +1,1336 @@
+// --------------------------------------------------------------------------------------------------------------------
+
+// test1.ino: Test Case for Array Access
+// (C)
+
+int myPins[] = {2, 4, 8};
+
+void setup() {
+  pinMode(myPins[1], OUTPUT);
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test2.ino: To test the Lexer and Parser
+// (C)
+
+void setup() {
+  /*
+    This is the setup function.
+    It runs once at the beginning.
+  */
+  Serial.begin(9600); // Initialize serial communication
+}
+
+void loop() {
+  // Turn the LED on
+  digitalWrite(13, HIGH);
+  delay(1000); // Wait for a second
+
+  // Turn the LED off
+  digitalWrite(13, LOW);
+  delay(1000); // Wait for another second
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test3.ino: To test the Lexer and Parser
+// (C)
+
+#include <Arduino.h>
+
+// Global variable declarations
+const int ledPin = 13;
+int counter = 0;
+float dutyCycle = 127.5; // Test floating point
+
+/*
+  Setup runs once.
+  We will set up the pin mode here.
+*/
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+// Loop runs forever
+void loop() {
+  // Use a for loop for a quick blink
+  for (int i = 0; i < 2; i++) {
+    digitalWrite(ledPin, HIGH);
+    delay(50);
+    digitalWrite(ledPin, LOW);
+    delay(50);
+  }
+
+  // Test if statement with compound operators
+  if (counter >= 5 && counter < 10) {
+    // This block should not execute on the first few loops
+  }
+
+  counter += 1; // Test compound assignment
+  delay(500);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test4.ino: Test Case for Operator Precedence
+// (C)
+
+void setup() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  // This expression combines comparison, logical, and arithmetic operators
+  if (a + b / c == 10 && b > 9) {
+    // Parser should correctly evaluate (b / c) first, then (a + ...),
+    // then (== 10), then (> 9), and finally the &&.
+  }
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test5.ino: Test Case for Parentheses Precedence
+// (C)
+
+void setup() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  // This expression uses parentheses to override the default precedence.
+  int result = (a + b) * c; // Should evaluate (a + b) first.
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test6.ino: Test Case for Unary vs. Binary Operators
+// (C)
+
+void setup() {
+  int x = 10;
+  int y = -x;      // Unary minus
+  int z = 10 - 5;  // Binary minus
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test7.ino: Test Case for C++-Style Initialization
+// (C)
+
+void setup() {
+  // This is valid in C++ and some Arduino cores,
+  // equivalent to "int x = 10;".
+  // It can be confusing for a parser.
+  int x(10);
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test8.ino: Test Rigorous Brackets & Parentheses
+// (C)
+
+int myPins[] = {2, 4, 8};
+
+// A simple function to test function calls inside brackets
+int getIndex() {
+  return 1;
+}
+
+void setup() {
+  // 1. Simple array access
+  int x = myPins[0];
+
+  // 2. Function call used as an array index
+  int y = myPins[getIndex()];
+
+  // 3. Array access used as a function argument
+  pinMode(myPins[2], OUTPUT);
+
+  // 4. A complex combination of all elements
+  int z = (myPins[0] + getIndex()) * myPins[2];
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test9.ino: Test Case for the return statement
+// (C)
+
+int getValue() {
+  return 42; // Test return with a value
+}
+
+void doSomething() {
+  return; // Test return with no value
+}
+
+void setup() {
+  // empty
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test10.ino: Test Case for Advanced Numeric Literals
+// (C)
+
+int hexValue = 0x1A;  // Hexadecimal for 26
+int octValue = 032;   // Octal for 26
+float sciValue = 2.6e1; // Scientific notation for 26.0
+
+void setup() {
+  // empty
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test11.ino: Test Case for Character Literals
+// (C)
+
+char myChar = 'C';
+
+void setup() {
+  // empty
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test12.ino: Test Case for the "Dangling Else"
+// (C)
+
+void setup() {
+  int x = 5;
+  int y = 10;
+  if (x > 0)
+    if (y > 20)
+      pinMode(1, HIGH);
+    else
+      pinMode(1, LOW);
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test13.ino: Test Case for Pointer vs. Multiplication
+// (C)
+
+void setup() {
+  int x = 5 * 10;   // Multiplication
+  int* p = &x;      // Pointer declaration & address-of operator
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test14.ino: Test Case for Function Pointer Declarations
+// (C)
+
+void myInterruptService() {
+  // empty
+}
+
+void setup() {
+  // This declares a variable named 'myFunction' that is a
+  // pointer to a function which takes no arguments and returns void.
+  void (*myFunction)() = &myInterruptService;
+}
+
+void loop() {
+  // empty
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test15.ino: Nested Loops and Variable Scope 
+// This sketch tests your parser's ability to handle deeply nested for and while loops, as well as the correct scoping // of variables within those loops. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i = 0;
+  while (i < 3) {
+    for (int j = 0; j < 3; j++) {
+      int k = 0;
+      do {
+        Serial.print("i: ");
+        Serial.print(i);
+        Serial.print(", j: ");
+        Serial.print(j);
+        Serial.print(", k: ");
+        Serial.println(k);
+        k++;
+      } while (k < 2);
+    }
+    i++;
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test16.ino: Complex Conditional Logic
+// This sketch tests the parsing of complex if/else if/else chains with multiple conditions, including logical and
+// relational operators. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 5;
+  int y = 10;
+  int z = 15;
+
+  if ((x < y && y != z) || (x == 5 && z > 10)) {
+    if (z / x > 2 && y % 2 == 0) {
+      Serial.println("Condition 1 met.");
+    } else {
+      Serial.println("Condition 2 met.");
+    }
+  } else if (x > y || y == 10) {
+    Serial.println("Condition 3 met.");
+  } else {
+    Serial.println("No conditions met.");
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test17.ino: Operator Precedence and Associativity
+// This sketch uses a single, complex expression to test if your parser correctly applies C operator precedence rules
+// (e.g., multiplication before addition) and handles parentheses for overriding precedence. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 20;
+  int b = 5;
+  int c = 2;
+  int d = 3;
+
+  int result1 = a + b * c - d; // 20 + 10 - 3 = 27
+  int result2 = (a + b) * c - d; // 25 * 2 - 3 = 47
+  int result3 = a / (b - d) + c; // 20 / 2 + 2 = 12
+
+  Serial.print("Result 1: "); Serial.println(result1);
+  Serial.print("Result 2: "); Serial.println(result2);
+  Serial.print("Result 3: "); Serial.println(result3);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test18.ino: Function Calls and Parameter Passing
+// This sketch tests nested function calls, passing of variables, and the return of values, pushing the limits of your
+// call stack and symbol table. (C)
+
+int add(int x, int y) {
+  return x + y;
+}
+
+int multiply(int x, int y) {
+  return x * y;
+}
+
+int calculate(int x, int y, int z) {
+  return multiply(add(x, y), z);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  int finalResult = calculate(a, b, c);
+
+  Serial.print("Final result: ");
+  Serial.println(finalResult); // (5 + 10) * 2 = 30
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test19.ino: Loop Control Statements (break, continue)
+// This sketch tests the flow control statements break and continue within a nested loop structure. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      if (j == 2) {
+        Serial.println("Continuing inner loop...");
+        continue;
+      }
+      if (i == 3) {
+        Serial.println("Breaking outer loop...");
+        break;
+      }
+      Serial.print("i: ");
+      Serial.print(i);
+      Serial.print(", j: ");
+      Serial.println(j);
+    }
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test20.ino: Ternary Operator (if supported) and Bitwise Operators
+// This sketch tests advanced operators that are often a challenge for parsers: the ternary operator (? :) and bitwise
+// operators (&, |, ^, ~, <<, >>). (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 10;
+  int b = 20;
+
+  // Ternary operator
+  int maxVal = (a > b) ? a : b;
+  Serial.print("Max value: "); Serial.println(maxVal);
+
+  // Bitwise operators
+  int c = 0b1010; // 10
+  int d = 0b0110; // 6
+  int andResult = c & d; // 0b0010 (2)
+  int orResult = c | d;  // 0b1110 (14)
+  int xorResult = c ^ d; // 0b1100 (12)
+  int shiftResult = c << 1; // 0b10100 (20)
+
+  Serial.print("AND result: "); Serial.println(andResult);
+  Serial.print("OR result: "); Serial.println(orResult);
+  Serial.print("XOR result: "); Serial.println(xorResult);
+  Serial.print("Shift result: "); Serial.println(shiftResult);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test21.ino: Floating-Point Arithmetic and Mixed Types
+// This sketch uses floating-point numbers and mixed-type expressions to test your parser's ability to handle and
+// correctly promote different data types. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  float f1 = 3.14;
+  float f2 = 2.0;
+  int i1 = 5;
+
+  float result1 = f1 * f2;
+  float result2 = (f1 + i1) / f2;
+  
+  // Mixed-type comparison
+  if (result2 > 4.0 && i1 < 10) {
+    Serial.println("Calculation is correct.");
+  } else {
+    Serial.println("Calculation is incorrect.");
+  }
+
+  Serial.print("Result 1: "); Serial.println(result1, 4);
+  Serial.print("Result 2: "); Serial.println(result2, 4);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test22.ino: String and Character Literals
+// This sketch tests the lexer and parser's handling of various string and character literals, including escape
+// sequences and string concatenation (if supported by your interpreter). (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  char myChar = 'A';
+  char escapedChar = '\n'; // Newline character
+  const char* str1 = "Hello";
+  const char* str2 = " world!";
+
+  Serial.print(str1);
+  Serial.println(str2);
+  Serial.print("My character is: ");
+  Serial.println(myChar);
+  
+  // This will print "A" followed by a newline
+  Serial.print(myChar);
+  Serial.print(escapedChar);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test23.ino: Multiple Statements on a Single Line (if supported)
+// This sketch tests your parser's ability to handle multiple statements on one line, separated by semicolons. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 10; int y = 20; if (x < y) { Serial.println("X is less than Y."); }
+  
+  int i = 0; while (i < 3) { Serial.println(i); i++; }
+  
+  for (int j = 0; j < 2; j++) { Serial.print("J is: "); Serial.println(j); }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test24.ino: Mixed-Type Expressions and Casting
+// This sketch tests your interpreter's ability to handle type casting and expressions that mix different data types,
+// which is often a source of subtle bugs. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 10;
+  float b = 3.0;
+
+  // Integer division, then cast to float
+  float result1 = (float)(a / 3);
+
+  // Float division
+  float result2 = a / b;
+
+  // Combining different types
+  float result3 = (float)a * b + 5.5;
+
+  Serial.print("Result 1 (int div, cast): "); Serial.println(result1, 4); // 3.0000
+  Serial.print("Result 2 (float div): "); Serial.println(result2, 4);     // 3.3333
+  Serial.print("Result 3 (mixed): "); Serial.println(result3, 4);         // 35.5000
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test25.ino: switch statement with fall-through and nested blocks
+// This sketch tests the parsing of switch statements, including handling case labels, the default case, and the
+// implicit fall-through behavior. The nested curly braces inside a case also test block scoping. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 2;
+  switch (x) {
+    case 1:
+      Serial.println("Case 1");
+    case 2: {
+      int y = 5;
+      Serial.println("Case 2");
+      Serial.print("y is: ");
+      Serial.println(y);
+    }
+    case 3:
+      Serial.println("Case 3");
+      break;
+    default:
+      Serial.println("Default case");
+      break;
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test26.ino: Complex Preprocessor Directives (if supported)
+// This sketch tests the interpreter's ability to handle preprocessor directives like #define and #ifdef. Even if your
+// interpreter doesn't fully execute these, it needs to parse them correctly or ignore them gracefully. (C)
+
+#define PI 3.14159
+#define CIRCLE_AREA(r) (PI * r * r)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  #ifdef PI
+    float radius = 5.0;
+    float area = CIRCLE_AREA(radius);
+    Serial.print("Area of circle: ");
+    Serial.println(area);
+  #else
+    Serial.println("PI is not defined.");
+  #endif
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test27.ino: Array Indexing and Multidimensional Arrays
+// This sketch tests the parsing of array declarations and accesses, especially with complex expressions inside the
+// index brackets. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int arr[5] = {10, 20, 30, 40, 50};
+  int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}};
+  
+  int i = 2;
+  int j = 1;
+  int k = 1;
+
+  int val1 = arr[i * 2 - 1]; // arr[3] = 40
+  int val2 = matrix[j][k];   // matrix[1][1] = 5
+
+  Serial.print("Val 1: ");
+  Serial.println(val1);
+  Serial.print("Val 2: ");
+  Serial.println(val2);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test28.ino: Function Pointers and Callbacks
+// This sketch tests the parsing and execution of function pointers, a more advanced feature that requires the
+// interpreter to correctly handle a function's address and the dereferencing syntax. (C)
+
+int myFunc(int a, int b) {
+  return a + b;
+}
+
+void callFunc(int (*funcPtr)(int, int)) {
+  Serial.print("Result: ");
+  Serial.println(funcPtr(10, 20));
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int (*ptr)(int, int);
+  ptr = &myFunc;
+  callFunc(ptr);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test29.ino: Chained Assignments and Unary Operators
+// This sketch tests chained assignments and a combination of pre-increment, post-increment, and other unary operators
+// within a single expression. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a, b, c;
+  a = b = c = 5;
+  
+  int x = 10;
+  int y = ++x; // y is 11, x is 11
+  int z = y++; // z is 11, y is 12
+  
+  Serial.print("a: "); Serial.println(a);
+  Serial.print("x: "); Serial.println(x);
+  Serial.print("y: "); Serial.println(y);
+  Serial.print("z: "); Serial.println(z);
+  
+  int result = --x * (y++); // --x is 10, y++ is 12. result = 120. y becomes 13.
+  Serial.print("Final result: "); Serial.println(result);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test30.ino: Complex for loop with multiple expressions
+// This sketch uses a for loop with multiple statements in the initialization, condition, and increment sections,
+// separated by commas. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i = 0;
+  int j = 10;
+
+  for (i = 0, j = 10; i < j; i++, j--) {
+    Serial.print("i: ");
+    Serial.print(i);
+    Serial.print(", j: ");
+    Serial.println(j);
+  }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test31.ino: do-while loop with a complex condition
+// This sketch tests a do-while loop with a complex boolean expression that combines logical operators and function
+// calls, pushing the interpreter to correctly evaluate the condition after each iteration. (C)
+
+bool checkCondition(int val) {
+  return val % 2 == 0;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int count = 0;
+  int val = 10;
+
+  do {
+    count++;
+    val--;
+    Serial.print("Count: ");
+    Serial.println(count);
+  } while (count < 5 && checkCondition(val) == false);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test32.ino: Structs and Member Access
+// This sketch tests the parsing of struct definitions, variable declarations of struct types, and the use of the .
+// operator to access members. (C)
+
+struct Point {
+  int x;
+  int y;
+};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  struct Point p1;
+  p1.x = 10;
+  p1.y = 20;
+
+  Serial.print("Point x: ");
+  Serial.println(p1.x);
+  Serial.print("Point y: ");
+  Serial.println(p1.y);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test33.ino: Unary Plus and Minus with Operator Precedence
+// This sketch tests the unary + and - operators, which have higher precedence than binary operators. It's a common
+// source of parsing errors. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 5;
+  int b = -10;
+
+  int result1 = a + -b; // 5 + (-10), not 5 - (-10)
+  int result2 = -a * b; // -5 * -10 = 50
+  int result3 = 10 - +a; // 10 - (+5) = 5
+  
+  Serial.print("Result 1: "); Serial.println(result1); // -5
+  Serial.print("Result 2: "); Serial.println(result2); // 50
+  Serial.print("Result 3: "); Serial.println(result3); // 5
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test34.ino: Empty and NULL statements
+// This sketch tests the parser's ability to handle NULL statements (just a semicolon) and empty blocks, which are
+// valid in C but can be tricky to parse correctly. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i = 0;
+  while (i < 5) {
+    i++;
+  } ; // NULL statement after a loop
+
+  for (int j = 0; j < 5; j++); // Empty loop body
+  
+  if (1 == 1) {} // Empty if block
+
+  Serial.println("Execution finished.");
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test35.ino: Pointers and Pointer Arithmetic
+// This sketch tests your interpreter's ability to handle pointer declarations, dereferencing, and arithmetic. A
+// robust parser should correctly handle expressions like *ptr++ and *(ptr + 1). (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int arr[3] = {10, 20, 30};
+  int *ptr = arr; // ptr points to the first element
+  
+  Serial.print("First element: ");
+  Serial.println(*ptr); // Should be 10
+
+  ptr++; // Increment the pointer
+  Serial.print("Next element: ");
+  Serial.println(*ptr); // Should be 20
+
+  int nextVal = *(ptr + 1); // Access the element after the current one
+  Serial.print("Next value with arithmetic: ");
+  Serial.println(nextVal); // Should be 30
+}
+
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test36.ino: Initializer Lists and Designated Initializers
+// This sketch tests different ways to initialize arrays and structs. A good parser should handle both standard
+// initializer lists and designated initializers, which allow you to specify elements by index or member name.(C)
+
+struct Point {
+  int x;
+  int y;
+};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int numbers[] = {1, 2, 3}; // Simple array initialization
+  
+  // Designated initializer for a struct
+  // struct Point p = {.y = 20, .x = 10}; 
+  struct Point p = {.x = 10, .y = 20}; 
+
+  Serial.print("Numbers[1]: ");
+  Serial.println(numbers[1]);
+
+  Serial.print("Point x: ");
+  Serial.println(p.x);
+  
+  Serial.print("Point y: ");
+  Serial.println(p.y);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test37.ino: Type Promotion and Implicit Conversions
+// This sketch uses expressions that mix different data types (e.g., char, int, float) to test if your interpreter
+// correctly handles C's type promotion rules and implicit conversions. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  char c = 'A'; // ASCII value 65
+  int i = 5;
+  float f = 2.5;
+
+  // char gets promoted to int
+  int result1 = c + i; // 65 + 5 = 70
+
+  // int gets promoted to float
+  float result2 = i * f; // 5 * 2.5 = 12.5
+
+  Serial.print("Result 1: ");
+  Serial.println(result1);
+
+  Serial.print("Result 2: ");
+  Serial.println(result2);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test38.ino: typedef and Structs with Pointers
+// This sketch tests the typedef keyword and its use with structs. It also involves a pointer to a struct, which
+// requires handling member access with the -> operator. (C)
+
+typedef struct {
+  int x;
+  int y;
+} MyPoint;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  MyPoint p1;
+  MyPoint *p2;
+
+  p1.x = 10;
+  p1.y = 20;
+
+  p2 = &p1; // p2 now points to p1
+
+  Serial.print("Value of x using pointer: ");
+  Serial.println(p2->x); // Should be 10
+
+  p2->y = 30; // Modify the struct member via the pointer
+  Serial.print("Modified value of y: ");
+  Serial.println(p1.y); // Should be 30
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test39.ino: static Variables and Scope
+// This sketch uses static variables inside a function. It tests whether your interpreter correctly maintains the
+// state of a static variable across multiple calls to the same function. (C)
+
+void counter() {
+  static int count = 0;
+  count++;
+  Serial.print("Count is: ");
+  Serial.println(count);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  counter();
+  delay(1000);
+}
+
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test40.ino: const and volatile Qualifiers
+// This sketch tests how your interpreter handles the const and volatile keywords. While they often don't change
+// program execution in a simple interpreter, they are important to parse correctly as a valid part of the C language. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  const int myConst = 100;
+  volatile int myVolatile = 50;
+
+  // This should cause an error if your interpreter checks for const correctness
+  // myConst = 10; 
+  
+  Serial.print("My constant: ");
+  Serial.println(myConst);
+  
+  Serial.print("My volatile: ");
+  Serial.println(myVolatile);
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// test41.ino: Logical Operators with Short-Circuiting
+// This sketch tests the short-circuiting behavior of logical operators (&& and ||). Your interpreter should only
+// evaluate the right side of the expression if necessary. (C)
+
+int myFunc() {
+  Serial.println("myFunc() was called.");
+  return 1;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 0;
+  int y = 5;
+
+  // The second part of the condition should not be executed
+  if (x == 0 || myFunc()) {
+    Serial.println("Condition 1 is true.");
+  }
+  
+  // The second part of the condition should not be executed
+  if (x == 1 && myFunc()) {
+    Serial.println("Condition 2 is true.");
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test42.ino: Conditional Operator in a Loop
+// This sketch combines a loop with the conditional operator (? :), which is a good way to test precedence and how
+// your parser handles a concise, yet complex, expression. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 0;
+  for (int i = 0; i < 5; i++) {
+    // x = (i % 2 == 0) ? i : i * 10
+    x = (i == 0) ? 1 : ((i % 2 == 0) ? i + 10 : i * 10);
+    Serial.print("For i=");
+    Serial.print(i);
+    Serial.print(", x is: ");
+    Serial.println(x);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test43.ino: Variable Declarations in a for Loop
+// This sketch tests the C99 standard feature of declaring a variable directly in the initialization part of a for
+// loop. This variable's scope is limited to the loop itself. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 3; i++) {
+    Serial.print("i: ");
+    Serial.println(i);
+  }
+  
+  // This line should cause a parsing error if 'i' is out of scope
+  // Serial.println(i); 
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test44.ino: Unary sizeof Operator
+// This sketch tests the sizeof operator. Your interpreter's parser needs to recognize sizeof as a keyword and handle
+// its use with both data types and variables. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 10;
+  char b = 'B';
+  float c = 3.14;
+  
+  Serial.print("Size of int: ");
+  Serial.println(sizeof(a));
+  
+  Serial.print("Size of char: ");
+  Serial.println(sizeof(char));
+
+  Serial.print("Size of float: ");
+  Serial.println(sizeof(c));
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test45.ino: Comma Operator in a for Loop
+// This sketch tests the comma operator, which is a low-precedence binary operator. It evaluates its left operand,
+// discards the result, then evaluates its right operand and returns that result. It is most commonly seen in for
+// loops. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 0, b = 10;
+  for (int i = 0; i < 3; i++) {
+    Serial.print("Initial a: ");
+    Serial.println(a);
+    a = (a++, b++); // a becomes 1, b becomes 11, then the result of b++ (11) is assigned to a.
+    Serial.print("Final a: ");
+    Serial.println(a);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test46.ino: Nested for and if with break and continue
+// This sketch uses a deeply nested control flow structure with break and continue statements to test that your
+// interpreter can correctly exit the appropriate loops. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      if (i == 2 && j == 2) {
+        Serial.println("Skipping inner loop...");
+        continue;
+      }
+      if (i == 3) {
+        Serial.println("Breaking outer loop...");
+        break;
+      }
+      Serial.print("i: ");
+      Serial.print(i);
+      Serial.print(", j: ");
+      Serial.println(j);
+    }
+    if (i == 3) {
+      break;
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test47.ino: Pointer to Pointer
+// This sketch tests the declaration and manipulation of a pointer to a pointer. This requires your parser to handle a
+// high level of indirection. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 100;
+  int *p1 = &x;
+  int **p2 = &p1; // p2 is a pointer to a pointer
+
+  // The value of x
+  Serial.print("Value of x: ");
+  Serial.println(x);
+
+  // The value pointed to by p1
+  Serial.print("Value of *p1: ");
+  Serial.println(*p1);
+
+  // The value pointed to by the value pointed to by p2
+  Serial.print("Value of **p2: ");
+  Serial.println(**p2);
+
+  // Modify x through the pointer to a pointer
+  **p2 = 200;
+  Serial.print("New value of x: ");
+  Serial.println(x);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test48.ino: Self-Referential Structs (Linked List Node)
+// This sketch introduces self-referential structs, a fundamental concept for data structures like linked lists. This
+// is a crucial test for your parser's ability to handle recursive type definitions. (C)
+
+struct Node {
+  int data;
+  struct Node* next;
+};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  struct Node n1, n2;
+  n1.data = 10;
+  n1.next = &n2;
+
+  n2.data = 20;
+  n2.next = NULL;
+
+  Serial.print("Data from n1: ");
+  Serial.println(n1.data);
+  Serial.print("Data from n2 via n1: ");
+  Serial.println(n1.next->data);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test49.ino: static Global Variable and Function
+// This sketch tests the visibility and linkage of static variables and functions. A static global variable is only
+// visible within its file, and a static function can only be called from within its file. While this might not affect
+// a simple interpreter's execution, the parser must accept the keyword. (C)
+
+static int global_counter = 0;
+
+static void incrementCounter() {
+  global_counter++;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  incrementCounter();
+  Serial.print("Counter: ");
+  Serial.println(global_counter);
+  delay(1000);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test50.ino: Unsigned Integer Rollover
+// This sketch tests your interpreter's handling of unsigned integer rollover. When an unsigned integer exceeds its
+// maximum value, it wraps around to zero. This is a low-level detail that a good interpreter should handle correctly. (C)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  unsigned int i = 4294967295; // Max value for a 32-bit unsigned int
+  Serial.print("Initial value: ");
+  Serial.println(i);
+  i++;
+  Serial.print("After increment (rollover): ");
+  Serial.println(i);
+  i = 0;
+  i--;
+  Serial.print("After decrement (rollover): ");
+  Serial.println(i);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+
+// test51.ino: Complex Function Declarations
+// This sketch tests the parsing of complex function declarations and definitions, including those with pointers to
+// functions as parameters. (C)
+
+int applyOperation(int (*op)(int, int), int a, int b) {
+  return op(a, b);
+}
+
+int add(int x, int y) {
+  return x + y;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int result = applyOperation(add, 5, 10);
+  Serial.print("Result of applyOperation: ");
+  Serial.println(result);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test52.ino: Bit-Fields in Structs
+// This sketch uses bit-fields within a struct, a unique C feature for memory optimization. Your lexer and parser must
+// correctly handle the colon (:) and integer literal following a member name. (C)
+
+struct MyFlags {
+  unsigned int a : 1; // 1 bit
+  unsigned int b : 1; // 1 bit
+  unsigned int c : 6; // 6 bits
+};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  struct MyFlags flags;
+  flags.a = 1;
+  flags.b = 0;
+  flags.c = 50;
+
+  Serial.print("Flag a: ");
+  Serial.println(flags.a);
+  Serial.print("Flag c: ");
+  Serial.println(flags.c);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// test53.ino: extern Keyword
+// This sketch uses the extern keyword to declare a variable that is defined in another file. Your interpreter's
+// parser should recognize this keyword and not expect an immediate definition. (C)
+
+extern int externalVariable;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  externalVariable = 10;
+  Serial.print("External variable value: ");
+  Serial.println(externalVariable);
+}
+
+// Assume externalVariable is defined in another part of the program
+int externalVariable = 5;
+
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// test54.ino: Ternary Operator with Complex Expressions
+// This sketch combines the ternary operator with complex expressions and nested function calls, testing both
+// operator precedence and the parser's ability to handle nested control flow within a single line. (C)
+
+int getBigger(int x, int y) {
+  return (x > y) ? x : y;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 10, b = 20, c = 30;
+
+  int result = (a < b) ? getBigger(a, c) : (a + b);
+  // (10 < 20) is true, so call getBigger(10, 30)
+  // getBigger returns 30
+  
+  Serial.print("Final result: ");
+  Serial.println(result);
+}
+
+//--------------------------------------------------------------------------------------------------------------------

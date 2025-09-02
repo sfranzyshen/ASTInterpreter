@@ -1,0 +1,139 @@
+[1] good morning ... again I felt you cut me off to early yesterday ... I didn't keep track of my prompts but I will today! do not do anything yet! I have a new plan
+
+[2] I want to reset the project to the files I am sending you this morning ... do not do anything yet ... just wait
+[3] Here are three projects that handle lexar and parser function for the c language ... i'd like you to review these projects lexar and parsar functions and compare them to our code to see if there are palaces that can be inproved from what is learned ... again do not do anything we are just discussing this for now but perform the review and feedback your thoughts afterwards ... I have list the project urls below along with a synopsis of the files transversed to lex and parse c code for each ...
+-------------------------------------------------------------
+tiny c (tcc):	https://github.com/TinyCC/tinycc
+
+Lexing (Tokenizing)
+
+File: tccpp.c
+
+Handles preprocessing and some tokenization.
+
+Functions like:
+
+next() → Reads the next token.
+
+tok_ident() → Handles identifiers.
+
+File: tcc.c
+
+Sometimes has shared token handling, depending on the version.
+
+Parsing
+
+File: tccgen.c
+
+Implements the parser and code generator.
+
+Core functions:
+
+parse_btype() → Parses basic types.
+
+decl(), expr_const(), and expr_eq() → Parse declarations and expressions.
+
+gen_function() → Parses function definitions.
+
+TinyCC uses a recursive descent parser (no separate parser generator like Bison/Yacc).
+
+
+-------------------------------------------------------------
+picoc:	https://gitlab.com/zsaleeba/picoc
+
+High-Level Call Chain
+From source file → token → parsed/executed:
+
+scss
+Copy
+Edit
+PicocParse()                   [picoc.c]
+   → LexInitParser()           [lex.c]
+   → while(!Parser->EndOfFunction)
+        ParseStatement()       [parse.c]
+            → ParseBlock()     [parse.c]
+            → ParseExpression()[expression.c]
+                → LexGetToken()[lex.c]
+                → Evaluate & Execute (interpreter)
+
+-------------------------------------------------------------				
+cling:	https://github.com/root-project/cling
+
+Relevant files: cling/lib/Interpreter/Interpreter.cpp
+
+Main entry point:
+
+cling::Interpreter::process()
+
+Takes a string of C++ code.
+
+Calls:
+
+cling::Interpreter::Declare() for declarations
+
+cling::Interpreter::Evaluate() for expressions/statements
+
+2. Lexing Stage (Clang-based)
+Cling reuses Clang’s lexer:
+
+File: clang/lib/Lex/Lexer.cpp
+
+Functions:
+
+clang::Lexer::Lex(Token &Result)
+
+clang::Preprocessor::Lex(Token &Result)
+
+Flow:
+
+cpp
+Copy
+Edit
+Source file / snippet
+   ↓
+llvm::MemoryBuffer
+   ↓
+clang::Lexer::Lex() → produces clang::Token
+3. Parsing Stage (Clang Recursive Descent)
+Cling invokes Clang parser:
+
+File: clang/lib/Parse/Parser.cpp
+
+Key functions:
+
+clang::Parser::ParseTopLevelDecl()
+
+clang::Parser::ParseStatementOrDeclaration()
+
+Flow:
+
+php
+Copy
+Edit
+clang::Token
+   ↓
+clang::Parser → Builds AST (clang::Decl, clang::Stmt, clang::Expr)
+4. AST → LLVM IR (Codegen)
+Once Cling has an AST:
+
+Semantic analysis (Sema in Clang)
+
+Code generation → LLVM IR
+
+Files:
+
+clang/lib/Sema/ (semantic checks)
+
+clang/lib/CodeGen/CodeGenFunction.cpp
+
+Flow:
+
+scss
+Copy
+Edit
+AST (Decl/Stmt/Expr)
+   ↓
+Sema (checks & lowers)
+   ↓
+CodeGen (Emit LLVM IR)
+				

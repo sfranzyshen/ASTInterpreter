@@ -1,0 +1,1185 @@
+[10:06:35 AM] Console cleared.
+[10:06:39 AM] Ready to load Arduino text file.
+[10:06:42 AM] File "test1.ino" loaded.
+[10:06:43 AM] Interpreter starting (Parser Pass)...
+[10:06:43 AM] --- Abstract Syntax Tree ---
+[10:06:43 AM] └── ProgramNode
+    ├── ArrayDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("myPins")
+    │   └── ArrayInitializerNode
+    │       ├── NumberNode (2)
+    │       ├── NumberNode (4)
+    │       └── NumberNode (8)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── VarNode ("pinMode")
+    │           ├── ArrayAccessNode
+    │           │   ├── VarNode ("myPins")
+    │           │   └── NumberNode (1)
+    │           └── VarNode ("OUTPUT")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:06:43 AM] --- Parser Pass Complete ---
+[10:06:43 AM] Interpreter stopped.
+[10:06:44 AM] Ready to load Arduino text file.
+[10:06:47 AM] File "test2.ino" loaded.
+[10:06:48 AM] Interpreter starting (Parser Pass)...
+[10:06:48 AM] --- Abstract Syntax Tree ---
+[10:06:48 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── FuncCallNode
+            │   ├── VarNode ("digitalWrite")
+            │   ├── NumberNode (13)
+            │   └── VarNode ("HIGH")
+            ├── FuncCallNode
+            │   ├── VarNode ("delay")
+            │   └── NumberNode (1000)
+            ├── FuncCallNode
+            │   ├── VarNode ("digitalWrite")
+            │   ├── NumberNode (13)
+            │   └── VarNode ("LOW")
+            └── FuncCallNode
+                ├── VarNode ("delay")
+                └── NumberNode (1000)
+
+[10:06:48 AM] --- Parser Pass Complete ---
+[10:06:48 AM] Interpreter stopped.
+[10:06:49 AM] Ready to load Arduino text file.
+[10:06:52 AM] File "test3.ino" loaded.
+[10:06:53 AM] Interpreter starting (Parser Pass)...
+[10:06:53 AM] --- Abstract Syntax Tree ---
+[10:06:53 AM] └── ProgramNode
+    ├── PreprocessorNode
+    ├── VarDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("ledPin")
+    │   └── NumberNode (13)
+    ├── VarDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("counter")
+    │   └── NumberNode (0)
+    ├── VarDeclNode
+    │   ├── TypeNode ("float")
+    │   ├── VarNode ("dutyCycle")
+    │   └── NumberNode (127.5)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── VarNode ("pinMode")
+    │           ├── VarNode ("ledPin")
+    │           └── VarNode ("OUTPUT")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── ForNode
+            │   ├── VarDeclNode
+            │   │   ├── TypeNode ("int")
+            │   │   ├── VarNode ("i")
+            │   │   └── NumberNode (0)
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("i")
+            │   │   └── NumberNode (2)
+            │   ├── PostfixOpNode
+            │   │   └── VarNode ("i")
+            │   └── CompoundStmtNode
+            │       ├── FuncCallNode
+            │       │   ├── VarNode ("digitalWrite")
+            │       │   ├── VarNode ("ledPin")
+            │       │   └── VarNode ("HIGH")
+            │       ├── FuncCallNode
+            │       │   ├── VarNode ("delay")
+            │       │   └── NumberNode (50)
+            │       ├── FuncCallNode
+            │       │   ├── VarNode ("digitalWrite")
+            │       │   ├── VarNode ("ledPin")
+            │       │   └── VarNode ("LOW")
+            │       └── FuncCallNode
+            │           ├── VarNode ("delay")
+            │           └── NumberNode (50)
+            ├── IfNode
+            │   ├── BinOpNode
+            │   │   ├── BinOpNode
+            │   │   │   ├── VarNode ("counter")
+            │   │   │   └── NumberNode (5)
+            │   │   └── BinOpNode
+            │   │       ├── VarNode ("counter")
+            │   │       └── NumberNode (10)
+            │   └── CompoundStmtNode
+            ├── AssignNode
+            │   ├── VarNode ("counter")
+            │   └── NumberNode (1)
+            └── FuncCallNode
+                ├── VarNode ("delay")
+                └── NumberNode (500)
+
+[10:06:53 AM] --- Parser Pass Complete ---
+[10:06:53 AM] Interpreter stopped.
+[10:06:55 AM] Ready to load Arduino text file.
+[10:06:58 AM] File "test4.ino" loaded.
+[10:07:00 AM] Interpreter starting (Parser Pass)...
+[10:07:00 AM] --- Abstract Syntax Tree ---
+[10:07:00 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("a")
+    │       │   └── NumberNode (5)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("b")
+    │       │   └── NumberNode (10)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("c")
+    │       │   └── NumberNode (2)
+    │       └── IfNode
+    │           ├── BinOpNode
+    │           │   ├── BinOpNode
+    │           │   │   ├── BinOpNode
+    │           │   │   │   ├── VarNode ("a")
+    │           │   │   │   └── BinOpNode
+    │           │   │   │       ├── VarNode ("b")
+    │           │   │   │       └── VarNode ("c")
+    │           │   │   └── NumberNode (10)
+    │           │   └── BinOpNode
+    │           │       ├── VarNode ("b")
+    │           │       └── NumberNode (9)
+    │           └── CompoundStmtNode
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:07:00 AM] --- Parser Pass Complete ---
+[10:07:00 AM] Interpreter stopped.
+[10:07:02 AM] Ready to load Arduino text file.
+[10:07:05 AM] File "test5.ino" loaded.
+[10:07:06 AM] Interpreter starting (Parser Pass)...
+[10:07:06 AM] --- Abstract Syntax Tree ---
+[10:07:06 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("a")
+    │       │   └── NumberNode (5)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("b")
+    │       │   └── NumberNode (10)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("c")
+    │       │   └── NumberNode (2)
+    │       └── VarDeclNode
+    │           ├── TypeNode ("int")
+    │           ├── VarNode ("result")
+    │           └── BinOpNode
+    │               ├── BinOpNode
+    │               │   ├── VarNode ("a")
+    │               │   └── VarNode ("b")
+    │               └── VarNode ("c")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:07:06 AM] --- Parser Pass Complete ---
+[10:07:06 AM] Interpreter stopped.
+[10:08:45 AM] Console cleared.
+[10:08:47 AM] Ready to load Arduino text file.
+[10:08:50 AM] File "test6.ino" loaded.
+[10:08:51 AM] Interpreter starting (Parser Pass)...
+[10:08:51 AM] --- Abstract Syntax Tree ---
+[10:08:51 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("x")
+    │       │   └── NumberNode (10)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("y")
+    │       │   └── UnaryOpNode
+    │       │       └── VarNode ("x")
+    │       └── VarDeclNode
+    │           ├── TypeNode ("int")
+    │           ├── VarNode ("z")
+    │           └── BinOpNode
+    │               ├── NumberNode (10)
+    │               └── NumberNode (5)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:08:51 AM] --- Parser Pass Complete ---
+[10:08:51 AM] Interpreter stopped.
+[10:08:52 AM] Ready to load Arduino text file.
+[10:08:55 AM] File "test7.ino" loaded.
+[10:08:56 AM] Interpreter starting (Parser Pass)...
+[10:08:56 AM] Interpreter Error: Parser error: Expected RPAREN but found NUMBER ('10') on line 8
+[10:08:56 AM] Interpreter stopped.
+[10:08:58 AM] Ready to load Arduino text file.
+[10:09:01 AM] File "test8.ino" loaded.
+[10:09:03 AM] Interpreter starting (Parser Pass)...
+[10:09:03 AM] --- Abstract Syntax Tree ---
+[10:09:03 AM] └── ProgramNode
+    ├── ArrayDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("myPins")
+    │   └── ArrayInitializerNode
+    │       ├── NumberNode (2)
+    │       ├── NumberNode (4)
+    │       └── NumberNode (8)
+    ├── FuncDefNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("getIndex")
+    │   └── CompoundStmtNode
+    │       └── ReturnNode
+    │           └── NumberNode (1)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("x")
+    │       │   └── ArrayAccessNode
+    │       │       ├── VarNode ("myPins")
+    │       │       └── NumberNode (0)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("y")
+    │       │   └── ArrayAccessNode
+    │       │       ├── VarNode ("myPins")
+    │       │       └── FuncCallNode
+    │       │           └── VarNode ("getIndex")
+    │       ├── FuncCallNode
+    │       │   ├── VarNode ("pinMode")
+    │       │   ├── ArrayAccessNode
+    │       │   │   ├── VarNode ("myPins")
+    │       │   │   └── NumberNode (2)
+    │       │   └── VarNode ("OUTPUT")
+    │       └── VarDeclNode
+    │           ├── TypeNode ("int")
+    │           ├── VarNode ("z")
+    │           └── BinOpNode
+    │               ├── BinOpNode
+    │               │   ├── ArrayAccessNode
+    │               │   │   ├── VarNode ("myPins")
+    │               │   │   └── NumberNode (0)
+    │               │   └── FuncCallNode
+    │               │       └── VarNode ("getIndex")
+    │               └── ArrayAccessNode
+    │                   ├── VarNode ("myPins")
+    │                   └── NumberNode (2)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:09:03 AM] --- Parser Pass Complete ---
+[10:09:03 AM] Interpreter stopped.
+[10:09:04 AM] Ready to load Arduino text file.
+[10:09:07 AM] File "test9.ino" loaded.
+[10:09:07 AM] Interpreter starting (Parser Pass)...
+[10:09:07 AM] --- Abstract Syntax Tree ---
+[10:09:07 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("getValue")
+    │   └── CompoundStmtNode
+    │       └── ReturnNode
+    │           └── NumberNode (42)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("doSomething")
+    │   └── CompoundStmtNode
+    │       └── ReturnNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:09:07 AM] --- Parser Pass Complete ---
+[10:09:07 AM] Interpreter stopped.
+[10:09:09 AM] Ready to load Arduino text file.
+[10:09:11 AM] File "test10.ino" loaded.
+[10:09:13 AM] Interpreter starting (Parser Pass)...
+[10:09:13 AM] --- Abstract Syntax Tree ---
+[10:09:13 AM] └── ProgramNode
+    ├── VarDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("hexValue")
+    │   └── NumberNode (26)
+    ├── VarDeclNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("octValue")
+    │   └── NumberNode (26)
+    ├── VarDeclNode
+    │   ├── TypeNode ("float")
+    │   ├── VarNode ("sciValue")
+    │   └── NumberNode (26)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:09:13 AM] --- Parser Pass Complete ---
+[10:09:13 AM] Interpreter stopped.
+[10:10:59 AM] Console cleared.
+[10:11:04 AM] Ready to load Arduino text file.
+[10:11:07 AM] File "test11.ino" loaded.
+[10:11:09 AM] Interpreter starting (Parser Pass)...
+[10:11:09 AM] --- Abstract Syntax Tree ---
+[10:11:09 AM] └── ProgramNode
+    ├── VarDeclNode
+    │   ├── TypeNode ("char")
+    │   ├── VarNode ("myChar")
+    │   └── CharLiteralNode ("C")
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:11:09 AM] --- Parser Pass Complete ---
+[10:11:09 AM] Interpreter stopped.
+[10:11:12 AM] Ready to load Arduino text file.
+[10:11:15 AM] File "test12.ino" loaded.
+[10:11:17 AM] Interpreter starting (Parser Pass)...
+[10:11:17 AM] --- Abstract Syntax Tree ---
+[10:11:17 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("x")
+    │       │   └── NumberNode (5)
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("y")
+    │       │   └── NumberNode (10)
+    │       └── IfNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("x")
+    │           │   └── NumberNode (0)
+    │           └── IfNode
+    │               ├── BinOpNode
+    │               │   ├── VarNode ("y")
+    │               │   └── NumberNode (20)
+    │               ├── FuncCallNode
+    │               │   ├── VarNode ("pinMode")
+    │               │   ├── NumberNode (1)
+    │               │   └── VarNode ("HIGH")
+    │               └── FuncCallNode
+    │                   ├── VarNode ("pinMode")
+    │                   ├── NumberNode (1)
+    │                   └── VarNode ("LOW")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:11:17 AM] --- Parser Pass Complete ---
+[10:11:17 AM] Interpreter stopped.
+[10:11:18 AM] Ready to load Arduino text file.
+[10:11:21 AM] File "test13.ino" loaded.
+[10:11:22 AM] Interpreter starting (Parser Pass)...
+[10:11:22 AM] --- Abstract Syntax Tree ---
+[10:11:22 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       ├── VarDeclNode
+    │       │   ├── TypeNode ("int")
+    │       │   ├── VarNode ("x")
+    │       │   └── BinOpNode
+    │       │       ├── NumberNode (5)
+    │       │       └── NumberNode (10)
+    │       └── VarDeclNode
+    │           ├── PointerTypeNode
+    │           │   └── TypeNode ("int")
+    │           ├── VarNode ("p")
+    │           └── UnaryOpNode
+    │               └── VarNode ("x")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:11:22 AM] --- Parser Pass Complete ---
+[10:11:22 AM] Interpreter stopped.
+[10:11:25 AM] Ready to load Arduino text file.
+[10:11:28 AM] File "test14.ino" loaded.
+[10:11:34 AM] Interpreter starting (Parser Pass)...
+[10:11:34 AM] --- Abstract Syntax Tree ---
+[10:11:34 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("myInterruptService")
+    │   └── CompoundStmtNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncPtrDeclNode
+    │           ├── TypeNode ("void")
+    │           ├── VarNode ("myFunction")
+    │           └── UnaryOpNode
+    │               └── VarNode ("myInterruptService")
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+
+[10:11:34 AM] --- Parser Pass Complete ---
+[10:11:34 AM] Interpreter stopped.
+[10:11:36 AM] Ready to load Arduino text file.
+[10:11:41 AM] File "test15.ino" loaded.
+[10:11:45 AM] Interpreter starting (Parser Pass)...
+[10:11:45 AM] Interpreter Error: Parser error: Expected SEMICOLON but found WHILE ('while') on line 10
+[10:11:45 AM] Interpreter stopped.
+[10:11:47 AM] Ready to load Arduino text file.
+[10:11:52 AM] File "test16.ino" loaded.
+[10:11:53 AM] Interpreter starting (Parser Pass)...
+[10:11:53 AM] --- Abstract Syntax Tree ---
+[10:11:53 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("x")
+            │   └── NumberNode (5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("y")
+            │   └── NumberNode (10)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("z")
+            │   └── NumberNode (15)
+            └── IfNode
+                ├── BinOpNode
+                │   ├── BinOpNode
+                │   │   ├── BinOpNode
+                │   │   │   ├── VarNode ("x")
+                │   │   │   └── VarNode ("y")
+                │   │   └── BinOpNode
+                │   │       ├── VarNode ("y")
+                │   │       └── VarNode ("z")
+                │   └── BinOpNode
+                │       ├── BinOpNode
+                │       │   ├── VarNode ("x")
+                │       │   └── NumberNode (5)
+                │       └── BinOpNode
+                │           ├── VarNode ("z")
+                │           └── NumberNode (10)
+                ├── CompoundStmtNode
+                │   └── IfNode
+                │       ├── BinOpNode
+                │       │   ├── BinOpNode
+                │       │   │   ├── BinOpNode
+                │       │   │   │   ├── VarNode ("z")
+                │       │   │   │   └── VarNode ("x")
+                │       │   │   └── NumberNode (2)
+                │       │   └── BinOpNode
+                │       │       ├── BinOpNode
+                │       │       │   ├── VarNode ("y")
+                │       │       │   └── NumberNode (2)
+                │       │       └── NumberNode (0)
+                │       ├── CompoundStmtNode
+                │       │   └── FuncCallNode
+                │       │       ├── BinOpNode
+                │       │       │   ├── VarNode ("Serial")
+                │       │       │   └── VarNode ("println")
+                │       │       └── StringNode ("Condition 1 met.")
+                │       └── CompoundStmtNode
+                │           └── FuncCallNode
+                │               ├── BinOpNode
+                │               │   ├── VarNode ("Serial")
+                │               │   └── VarNode ("println")
+                │               └── StringNode ("Condition 2 met.")
+                └── IfNode
+                    ├── BinOpNode
+                    │   ├── BinOpNode
+                    │   │   ├── VarNode ("x")
+                    │   │   └── VarNode ("y")
+                    │   └── BinOpNode
+                    │       ├── VarNode ("y")
+                    │       └── NumberNode (10)
+                    ├── CompoundStmtNode
+                    │   └── FuncCallNode
+                    │       ├── BinOpNode
+                    │       │   ├── VarNode ("Serial")
+                    │       │   └── VarNode ("println")
+                    │       └── StringNode ("Condition 3 met.")
+                    └── CompoundStmtNode
+                        └── FuncCallNode
+                            ├── BinOpNode
+                            │   ├── VarNode ("Serial")
+                            │   └── VarNode ("println")
+                            └── StringNode ("No conditions met.")
+
+[10:11:53 AM] --- Parser Pass Complete ---
+[10:11:53 AM] Interpreter stopped.
+[10:11:54 AM] Ready to load Arduino text file.
+[10:11:58 AM] File "test17.ino" loaded.
+[10:11:59 AM] Interpreter starting (Parser Pass)...
+[10:11:59 AM] --- Abstract Syntax Tree ---
+[10:11:59 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("a")
+            │   └── NumberNode (20)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("b")
+            │   └── NumberNode (5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("c")
+            │   └── NumberNode (2)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("d")
+            │   └── NumberNode (3)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result1")
+            │   └── BinOpNode
+            │       ├── BinOpNode
+            │       │   ├── VarNode ("a")
+            │       │   └── BinOpNode
+            │       │       ├── VarNode ("b")
+            │       │       └── VarNode ("c")
+            │       └── VarNode ("d")
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result2")
+            │   └── BinOpNode
+            │       ├── BinOpNode
+            │       │   ├── BinOpNode
+            │       │   │   ├── VarNode ("a")
+            │       │   │   └── VarNode ("b")
+            │       │   └── VarNode ("c")
+            │       └── VarNode ("d")
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result3")
+            │   └── BinOpNode
+            │       ├── BinOpNode
+            │       │   ├── VarNode ("a")
+            │       │   └── BinOpNode
+            │       │       ├── VarNode ("b")
+            │       │       └── VarNode ("d")
+            │       └── VarNode ("c")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 1: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   └── VarNode ("result1")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 2: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   └── VarNode ("result2")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 3: ")
+            └── FuncCallNode
+                ├── BinOpNode
+                │   ├── VarNode ("Serial")
+                │   └── VarNode ("println")
+                └── VarNode ("result3")
+
+[10:11:59 AM] --- Parser Pass Complete ---
+[10:11:59 AM] Interpreter stopped.
+[10:12:01 AM] Ready to load Arduino text file.
+[10:12:06 AM] File "test18.ino" loaded.
+[10:12:07 AM] Interpreter starting (Parser Pass)...
+[10:12:07 AM] Interpreter Error: Parser error: Expected RPAREN but found INT ('int') on line 5
+[10:12:07 AM] Interpreter stopped.
+[10:12:12 AM] Ready to load Arduino text file.
+[10:12:17 AM] File "test19.ino" loaded.
+[10:12:20 AM] Interpreter starting (Parser Pass)...
+[10:12:20 AM] Interpreter Error: Parser error: Expected SEMICOLON but found CONTINUE ('continue') on line 13
+[10:12:20 AM] Interpreter stopped.
+[10:12:22 AM] Ready to load Arduino text file.
+[10:12:26 AM] File "test20.ino" loaded.
+[10:12:28 AM] Interpreter starting (Parser Pass)...
+[10:12:28 AM] Interpreter Error: Parser error: Expected SEMICOLON but found IDENTIFIER ('a') on line 14
+[10:12:28 AM] Interpreter stopped.
+[10:13:54 AM] Console cleared.
+[10:13:57 AM] Ready to load Arduino text file.
+[10:14:01 AM] File "test21.ino" loaded.
+[10:14:02 AM] Interpreter starting (Parser Pass)...
+[10:14:02 AM] --- Abstract Syntax Tree ---
+[10:14:02 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("f1")
+            │   └── NumberNode (3.14)
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("f2")
+            │   └── NumberNode (2)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("i1")
+            │   └── NumberNode (5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("result1")
+            │   └── BinOpNode
+            │       ├── VarNode ("f1")
+            │       └── VarNode ("f2")
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("result2")
+            │   └── BinOpNode
+            │       ├── BinOpNode
+            │       │   ├── VarNode ("f1")
+            │       │   └── VarNode ("i1")
+            │       └── VarNode ("f2")
+            ├── IfNode
+            │   ├── BinOpNode
+            │   │   ├── BinOpNode
+            │   │   │   ├── VarNode ("result2")
+            │   │   │   └── NumberNode (4)
+            │   │   └── BinOpNode
+            │   │       ├── VarNode ("i1")
+            │   │       └── NumberNode (10)
+            │   ├── CompoundStmtNode
+            │   │   └── FuncCallNode
+            │   │       ├── BinOpNode
+            │   │       │   ├── VarNode ("Serial")
+            │   │       │   └── VarNode ("println")
+            │   │       └── StringNode ("Calculation is correct.")
+            │   └── CompoundStmtNode
+            │       └── FuncCallNode
+            │           ├── BinOpNode
+            │           │   ├── VarNode ("Serial")
+            │           │   └── VarNode ("println")
+            │           └── StringNode ("Calculation is incorrect.")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 1: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   ├── VarNode ("result1")
+            │   └── NumberNode (4)
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 2: ")
+            └── FuncCallNode
+                ├── BinOpNode
+                │   ├── VarNode ("Serial")
+                │   └── VarNode ("println")
+                ├── VarNode ("result2")
+                └── NumberNode (4)
+
+[10:14:02 AM] --- Parser Pass Complete ---
+[10:14:02 AM] Interpreter stopped.
+[10:14:03 AM] Ready to load Arduino text file.
+[10:14:08 AM] File "test22.ino" loaded.
+[10:14:16 AM] Interpreter starting (Parser Pass)...
+[10:14:16 AM] Interpreter Error: Lexer error: Unterminated character literal on line 11
+[10:14:16 AM] Interpreter stopped.
+[10:14:24 AM] Ready to load Arduino text file.
+[10:14:28 AM] File "test23.ino" loaded.
+[10:14:29 AM] Interpreter starting (Parser Pass)...
+[10:14:29 AM] Interpreter Error: Parser error: Expected SEMICOLON but found WHILE ('while') on line 11
+[10:14:29 AM] Interpreter stopped.
+[10:14:36 AM] Ready to load Arduino text file.
+[10:14:40 AM] File "test24.ino" loaded.
+[10:14:44 AM] Interpreter starting (Parser Pass)...
+[10:14:44 AM] Interpreter Error: Parser error: Expected RPAREN but found FLOAT ('float') on line 14
+[10:14:44 AM] Interpreter stopped.
+[10:14:48 AM] Ready to load Arduino text file.
+[10:14:52 AM] File "test25.ino" loaded.
+[10:14:57 AM] Interpreter starting (Parser Pass)...
+[10:14:57 AM] Interpreter Error: Parser error: Expected SEMICOLON but found SWITCH ('switch') on line 11
+[10:14:57 AM] Interpreter stopped.
+[10:14:58 AM] Ready to load Arduino text file.
+[10:15:06 AM] File "test26.ino" loaded.
+[10:15:09 AM] Interpreter starting (Parser Pass)...
+[10:15:09 AM] Interpreter Error: Parser error: Expected SEMICOLON but found HASH ('#') on line 13
+[10:15:09 AM] Interpreter stopped.
+[10:15:11 AM] Ready to load Arduino text file.
+[10:15:15 AM] File "test27.ino" loaded.
+[10:15:16 AM] Interpreter starting (Parser Pass)...
+[10:15:16 AM] Interpreter Error: Parser error: Expected RBRACKET but found NUMBER ('5') on line 10
+[10:15:16 AM] Interpreter stopped.
+[10:15:26 AM] Ready to load Arduino text file.
+[10:15:30 AM] File "test28.ino" loaded.
+[10:15:33 AM] Interpreter starting (Parser Pass)...
+[10:15:33 AM] Interpreter Error: Parser error: Expected RPAREN but found INT ('int') on line 5
+[10:15:33 AM] Interpreter stopped.
+[10:15:38 AM] Ready to load Arduino text file.
+[10:15:42 AM] File "test29.ino" loaded.
+[10:15:43 AM] Interpreter starting (Parser Pass)...
+[10:15:43 AM] Interpreter Error: Parser error: Expected SEMICOLON but found COMMA (',') on line 10
+[10:15:43 AM] Interpreter stopped.
+[10:15:45 AM] Ready to load Arduino text file.
+[10:15:50 AM] File "test30.ino" loaded.
+[10:15:53 AM] Interpreter starting (Parser Pass)...
+[10:15:53 AM] Interpreter Error: Parser error: Expected SEMICOLON but found COMMA (',') on line 13
+[10:15:53 AM] Interpreter stopped.
+[10:17:12 AM] Console cleared.
+[10:17:13 AM] Ready to load Arduino text file.
+[10:17:17 AM] File "test31.ino" loaded.
+[10:17:19 AM] Interpreter starting (Parser Pass)...
+[10:17:19 AM] Interpreter Error: Parser error: Expected RPAREN but found INT ('int') on line 5
+[10:17:19 AM] Interpreter stopped.
+[10:17:25 AM] Ready to load Arduino text file.
+[10:17:30 AM] File "test32.ino" loaded.
+[10:17:32 AM] Interpreter starting (Parser Pass)...
+[10:17:32 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:17:32 AM] Interpreter stopped.
+[10:17:35 AM] Ready to load Arduino text file.
+[10:17:40 AM] File "test33.ino" loaded.
+[10:17:42 AM] Interpreter starting (Parser Pass)...
+[10:17:42 AM] --- Abstract Syntax Tree ---
+[10:17:42 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("a")
+            │   └── NumberNode (5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("b")
+            │   └── UnaryOpNode
+            │       └── NumberNode (10)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result1")
+            │   └── BinOpNode
+            │       ├── VarNode ("a")
+            │       └── UnaryOpNode
+            │           └── VarNode ("b")
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result2")
+            │   └── BinOpNode
+            │       ├── UnaryOpNode
+            │       │   └── VarNode ("a")
+            │       └── VarNode ("b")
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result3")
+            │   └── BinOpNode
+            │       ├── NumberNode (10)
+            │       └── UnaryOpNode
+            │           └── VarNode ("a")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 1: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   └── VarNode ("result1")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 2: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   └── VarNode ("result2")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 3: ")
+            └── FuncCallNode
+                ├── BinOpNode
+                │   ├── VarNode ("Serial")
+                │   └── VarNode ("println")
+                └── VarNode ("result3")
+
+[10:17:42 AM] --- Parser Pass Complete ---
+[10:17:42 AM] Interpreter stopped.
+[10:17:47 AM] Ready to load Arduino text file.
+[10:17:56 AM] File "test34.ino" loaded.
+[10:18:15 AM] Interpreter starting (Parser Pass)...
+[10:18:15 AM] Interpreter Error: Parser error: Expected SEMICOLON but found WHILE ('while') on line 11
+[10:18:15 AM] Interpreter stopped.
+[10:18:17 AM] Ready to load Arduino text file.
+[10:18:24 AM] File "test35.ino" loaded.
+[10:18:28 AM] Interpreter starting (Parser Pass)...
+[10:18:28 AM] Interpreter Error: Parser error: Expected RBRACKET but found NUMBER ('3') on line 10
+[10:18:28 AM] Interpreter stopped.
+[10:18:30 AM] Ready to load Arduino text file.
+[10:18:35 AM] File "test36.ino" loaded.
+[10:18:37 AM] Interpreter starting (Parser Pass)...
+[10:18:37 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:18:37 AM] Interpreter stopped.
+[10:18:41 AM] Ready to load Arduino text file.
+[10:18:45 AM] File "test37.ino" loaded.
+[10:18:46 AM] Interpreter starting (Parser Pass)...
+[10:18:46 AM] --- Abstract Syntax Tree ---
+[10:18:46 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("char")
+            │   ├── VarNode ("c")
+            │   └── CharLiteralNode ("A")
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("i")
+            │   └── NumberNode (5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("f")
+            │   └── NumberNode (2.5)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("result1")
+            │   └── BinOpNode
+            │       ├── VarNode ("c")
+            │       └── VarNode ("i")
+            ├── VarDeclNode
+            │   ├── TypeNode ("float")
+            │   ├── VarNode ("result2")
+            │   └── BinOpNode
+            │       ├── VarNode ("i")
+            │       └── VarNode ("f")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 1: ")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("println")
+            │   └── VarNode ("result1")
+            ├── FuncCallNode
+            │   ├── BinOpNode
+            │   │   ├── VarNode ("Serial")
+            │   │   └── VarNode ("print")
+            │   └── StringNode ("Result 2: ")
+            └── FuncCallNode
+                ├── BinOpNode
+                │   ├── VarNode ("Serial")
+                │   └── VarNode ("println")
+                └── VarNode ("result2")
+
+[10:18:46 AM] --- Parser Pass Complete ---
+[10:18:46 AM] Interpreter stopped.
+[10:18:47 AM] Ready to load Arduino text file.
+[10:18:51 AM] File "test38.ino" loaded.
+[10:18:53 AM] Interpreter starting (Parser Pass)...
+[10:18:53 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:18:53 AM] Interpreter stopped.
+[10:18:54 AM] Ready to load Arduino text file.
+[10:19:01 AM] File "test39.ino" loaded.
+[10:19:04 AM] Interpreter starting (Parser Pass)...
+[10:19:04 AM] Interpreter Error: Parser error: Expected SEMICOLON but found STATIC ('static') on line 6
+[10:19:04 AM] Interpreter stopped.
+[10:19:07 AM] Ready to load Arduino text file.
+[10:19:11 AM] File "test40.ino" loaded.
+[10:19:14 AM] Interpreter starting (Parser Pass)...
+[10:19:14 AM] Interpreter Error: Parser error: Expected SEMICOLON but found VOLATILE ('volatile') on line 11
+[10:19:14 AM] Interpreter stopped.
+[10:20:20 AM] Console cleared.
+[10:20:24 AM] Ready to load Arduino text file.
+[10:20:37 AM] File "test41.ino" loaded.
+[10:20:40 AM] Interpreter starting (Parser Pass)...
+[10:20:40 AM] --- Abstract Syntax Tree ---
+[10:20:40 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("int")
+    │   ├── VarNode ("myFunc")
+    │   └── CompoundStmtNode
+    │       ├── FuncCallNode
+    │       │   ├── BinOpNode
+    │       │   │   ├── VarNode ("Serial")
+    │       │   │   └── VarNode ("println")
+    │       │   └── StringNode ("myFunc() was called.")
+    │       └── ReturnNode
+    │           └── NumberNode (1)
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("x")
+            │   └── NumberNode (0)
+            ├── VarDeclNode
+            │   ├── TypeNode ("int")
+            │   ├── VarNode ("y")
+            │   └── NumberNode (5)
+            ├── IfNode
+            │   ├── BinOpNode
+            │   │   ├── BinOpNode
+            │   │   │   ├── VarNode ("x")
+            │   │   │   └── NumberNode (0)
+            │   │   └── FuncCallNode
+            │   │       └── VarNode ("myFunc")
+            │   └── CompoundStmtNode
+            │       └── FuncCallNode
+            │           ├── BinOpNode
+            │           │   ├── VarNode ("Serial")
+            │           │   └── VarNode ("println")
+            │           └── StringNode ("Condition 1 is true.")
+            └── IfNode
+                ├── BinOpNode
+                │   ├── BinOpNode
+                │   │   ├── VarNode ("x")
+                │   │   └── NumberNode (1)
+                │   └── FuncCallNode
+                │       └── VarNode ("myFunc")
+                └── CompoundStmtNode
+                    └── FuncCallNode
+                        ├── BinOpNode
+                        │   ├── VarNode ("Serial")
+                        │   └── VarNode ("println")
+                        └── StringNode ("Condition 2 is true.")
+
+[10:20:40 AM] --- Parser Pass Complete ---
+[10:20:40 AM] Interpreter stopped.
+[10:20:42 AM] Ready to load Arduino text file.
+[10:20:47 AM] File "test42.ino" loaded.
+[10:20:48 AM] Interpreter starting (Parser Pass)...
+[10:20:48 AM] Interpreter Error: Parser error: Expected SEMICOLON but found NUMBER ('1') on line 13
+[10:20:48 AM] Interpreter stopped.
+[10:20:50 AM] Ready to load Arduino text file.
+[10:20:54 AM] File "test43.ino" loaded.
+[10:20:56 AM] Interpreter starting (Parser Pass)...
+[10:20:56 AM] --- Abstract Syntax Tree ---
+[10:20:56 AM] └── ProgramNode
+    ├── FuncDefNode
+    │   ├── TypeNode ("void")
+    │   ├── VarNode ("setup")
+    │   └── CompoundStmtNode
+    │       └── FuncCallNode
+    │           ├── BinOpNode
+    │           │   ├── VarNode ("Serial")
+    │           │   └── VarNode ("begin")
+    │           └── NumberNode (9600)
+    └── FuncDefNode
+        ├── TypeNode ("void")
+        ├── VarNode ("loop")
+        └── CompoundStmtNode
+            └── ForNode
+                ├── VarDeclNode
+                │   ├── TypeNode ("int")
+                │   ├── VarNode ("i")
+                │   └── NumberNode (0)
+                ├── BinOpNode
+                │   ├── VarNode ("i")
+                │   └── NumberNode (3)
+                ├── PostfixOpNode
+                │   └── VarNode ("i")
+                └── CompoundStmtNode
+                    ├── FuncCallNode
+                    │   ├── BinOpNode
+                    │   │   ├── VarNode ("Serial")
+                    │   │   └── VarNode ("print")
+                    │   └── StringNode ("i: ")
+                    └── FuncCallNode
+                        ├── BinOpNode
+                        │   ├── VarNode ("Serial")
+                        │   └── VarNode ("println")
+                        └── VarNode ("i")
+
+[10:20:56 AM] --- Parser Pass Complete ---
+[10:20:56 AM] Interpreter stopped.
+[10:20:56 AM] Ready to load Arduino text file.
+[10:21:01 AM] File "test44.ino" loaded.
+[10:21:02 AM] Interpreter starting (Parser Pass)...
+[10:21:02 AM] Interpreter Error: Parser error: Expected RPAREN but found CHAR ('char') on line 18
+[10:21:02 AM] Interpreter stopped.
+[10:21:03 AM] Ready to load Arduino text file.
+[10:21:08 AM] File "test45.ino" loaded.
+[10:21:10 AM] Interpreter starting (Parser Pass)...
+[10:21:10 AM] Interpreter Error: Parser error: Expected SEMICOLON but found COMMA (',') on line 11
+[10:21:10 AM] Interpreter stopped.
+[10:21:11 AM] Ready to load Arduino text file.
+[10:21:16 AM] File "test46.ino" loaded.
+[10:21:17 AM] Interpreter starting (Parser Pass)...
+[10:21:17 AM] Interpreter Error: Parser error: Expected SEMICOLON but found CONTINUE ('continue') on line 14
+[10:21:17 AM] Interpreter stopped.
+[10:21:18 AM] Ready to load Arduino text file.
+[10:21:22 AM] File "test47.ino" loaded.
+[10:21:23 AM] Interpreter starting (Parser Pass)...
+[10:21:23 AM] Interpreter Error: Parser error: Expected IDENTIFIER but found STAR ('*') on line 12
+[10:21:23 AM] Interpreter stopped.
+[10:21:24 AM] Ready to load Arduino text file.
+[10:21:29 AM] File "test48.ino" loaded.
+[10:21:30 AM] Interpreter starting (Parser Pass)...
+[10:21:30 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:21:30 AM] Interpreter stopped.
+[10:21:33 AM] Ready to load Arduino text file.
+[10:21:37 AM] File "test49.ino" loaded.
+[10:21:39 AM] Interpreter starting (Parser Pass)...
+[10:21:39 AM] Interpreter Error: Parser error: Expected type specifier but found STATIC
+[10:21:39 AM] Interpreter stopped.
+[10:21:42 AM] Ready to load Arduino text file.
+[10:21:47 AM] File "test50.ino" loaded.
+[10:21:48 AM] Interpreter starting (Parser Pass)...
+[10:21:48 AM] Interpreter Error: Parser error: Expected SEMICOLON but found UNSIGNED ('unsigned') on line 10
+[10:21:48 AM] Interpreter stopped.
+[10:22:26 AM] Console cleared.
+[10:22:27 AM] Ready to load Arduino text file.
+[10:22:31 AM] File "test51.ino" loaded.
+[10:22:33 AM] Interpreter starting (Parser Pass)...
+[10:22:33 AM] Interpreter Error: Parser error: Expected RPAREN but found INT ('int') on line 5
+[10:22:33 AM] Interpreter stopped.
+[10:22:34 AM] Ready to load Arduino text file.
+[10:22:38 AM] File "test52.ino" loaded.
+[10:22:40 AM] Interpreter starting (Parser Pass)...
+[10:22:40 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:22:40 AM] Interpreter stopped.
+[10:22:41 AM] Ready to load Arduino text file.
+[10:22:44 AM] File "test53.ino" loaded.
+[10:22:45 AM] Interpreter starting (Parser Pass)...
+[10:22:45 AM] Interpreter Error: Parser error: Expected type specifier but found IDENTIFIER
+[10:22:45 AM] Interpreter stopped.
+[10:22:47 AM] Ready to load Arduino text file.
+[10:22:51 AM] File "test54.ino" loaded.
+[10:22:53 AM] Interpreter starting (Parser Pass)...
+[10:22:53 AM] Interpreter Error: Parser error: Expected RPAREN but found INT ('int') on line 5
+[10:22:53 AM] Interpreter stopped.
