@@ -1,0 +1,4383 @@
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics AnalogReadSerial.ino
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);
+  // print out the value you read:
+  Serial.println(sensorValue);
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics BareMinimum.ino
+
+void setup() {
+  // put your setup code here, to run once:
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics Blink.ino
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics DigitalReadSerial.ino
+
+// digital pin 2 has a pushbutton attached to it. Give it a name:
+int pushButton = 2;
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  // make the pushbutton's pin an input:
+  pinMode(pushButton, INPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input pin:
+  int buttonState = digitalRead(pushButton);
+  // print out the state of the button:
+  Serial.println(buttonState);
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics Fade.ino 
+
+int led = 9;         // the PWM pin the LED is attached to
+int brightness = 0;  // how bright the LED is
+int fadeAmount = 5;  // how many points to fade the LED by
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // declare pin 9 to be an output:
+  pinMode(led, OUTPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // set the brightness of pin 9:
+  analogWrite(led, brightness);
+
+  // change the brightness for next time through the loop:
+  brightness = brightness + fadeAmount;
+
+  // reverse the direction of the fading at the ends of the fade:
+  if (brightness <= 0 || brightness >= 255) {
+    fadeAmount = -fadeAmount;
+  }
+  // wait for 30 milliseconds to see the dimming effect
+  delay(30);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 01.Basics ReadAnalogVoltage.ino
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);
+  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
+  float voltage = sensorValue * (5.0 / 1023.0);
+  // print out the value you read:
+  Serial.println(voltage);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital BlinkWithoutDelay.ino
+
+
+
+// constants won't change. Used here to set a pin number:
+const int ledPin = LED_BUILTIN;  // the number of the LED pin
+
+// Variables will change:
+int ledState = LOW;  // ledState used to set the LED
+
+// Generally, you should use "unsigned long" for variables that hold time
+// The value will quickly become too large for an int to store
+unsigned long previousMillis = 0;  // will store last time LED was updated
+
+// constants won't change:
+const long interval = 1000;  // interval at which to blink (milliseconds)
+
+void setup() {
+  // set the digital pin as output:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // here is where you'd put code that needs to be running all the time.
+
+  // check to see if it's time to blink the LED; that is, if the difference
+  // between the current time and last time you blinked the LED is bigger than
+  // the interval at which you want to blink the LED.
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital Button.ino
+
+// constants won't change. They're used here to set pin numbers:
+const int buttonPin = 2;  // the number of the pushbutton pin
+const int ledPin = 13;    // the number of the LED pin
+
+// variables will change:
+int buttonState = 0;  // variable for reading the pushbutton status
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital Debounce.ino
+
+// constants won't change. They're used here to set pin numbers:
+const int buttonPin = 2;  // the number of the pushbutton pin
+const int ledPin = 13;    // the number of the LED pin
+
+// Variables will change:
+int ledState = HIGH;        // the current state of the output pin
+int buttonState;            // the current reading from the input pin
+int lastButtonState = LOW;  // the previous reading from the input pin
+
+// the following variables are unsigned longs because the time, measured in
+// milliseconds, will quickly become a bigger number than can be stored in an int.
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+
+  // set initial LED state
+  digitalWrite(ledPin, ledState);
+}
+
+void loop() {
+  // read the state of the switch into a local variable:
+  int reading = digitalRead(buttonPin);
+
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading != lastButtonState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading != buttonState) {
+      buttonState = reading;
+
+      // only toggle the LED if the new button state is HIGH
+      if (buttonState == HIGH) {
+        ledState = !ledState;
+      }
+    }
+  }
+
+  // set the LED:
+  digitalWrite(ledPin, ledState);
+
+  // save the reading. Next time through the loop, it'll be the lastButtonState:
+  lastButtonState = reading;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital DigitalInputPullup.ino
+
+void setup() {
+  //start serial connection
+  Serial.begin(9600);
+  //configure pin 2 as an input and enable the internal pull-up resistor
+  pinMode(2, INPUT_PULLUP);
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  //read the pushbutton value into a variable
+  int sensorVal = digitalRead(2);
+  //print out the value of the pushbutton
+  Serial.println(sensorVal);
+
+  // Keep in mind the pull-up means the pushbutton's logic is inverted. It goes
+  // HIGH when it's open, and LOW when it's pressed. Turn on pin 13 when the
+  // button's pressed, and off when it's not:
+  if (sensorVal == HIGH) {
+    digitalWrite(13, LOW);
+  } else {
+    digitalWrite(13, HIGH);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital StateChangeDetection.ino
+
+// this constant won't change:
+const int buttonPin = 2;  // the pin that the pushbutton is attached to
+const int ledPin = 13;    // the pin that the LED is attached to
+
+// Variables will change:
+int buttonPushCounter = 0;  // counter for the number of button presses
+int buttonState = 0;        // current state of the button
+int lastButtonState = 0;    // previous state of the button
+
+void setup() {
+  // initialize the button pin as a input:
+  pinMode(buttonPin, INPUT);
+  // initialize the LED as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize serial communication:
+  Serial.begin(9600);
+}
+
+
+void loop() {
+  // read the pushbutton input pin:
+  buttonState = digitalRead(buttonPin);
+
+  // compare the buttonState to its previous state
+  if (buttonState != lastButtonState) {
+    // if the state has changed, increment the counter
+    if (buttonState == HIGH) {
+      // if the current state is HIGH then the button went from off to on:
+      buttonPushCounter++;
+      Serial.println("on");
+      Serial.print("number of button pushes: ");
+      Serial.println(buttonPushCounter);
+    } else {
+      // if the current state is LOW then the button went from on to off:
+      Serial.println("off");
+    }
+    // Delay a little bit to avoid bouncing
+    delay(50);
+  }
+  // save the current state as the last state, for next time through the loop
+  lastButtonState = buttonState;
+
+
+  // turns on the LED every four button pushes by checking the modulo of the
+  // button push counter. the modulo function gives you the remainder of the
+  // division of two numbers:
+  if (buttonPushCounter % 4 == 0) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital toneKeyboard.ino
+
+#include "pitches.h"
+
+const int threshold = 10;  // minimum reading of the sensors that generates a note
+
+// notes to play, corresponding to the 3 sensors:
+int notes[] = {
+  NOTE_A4, NOTE_B4, NOTE_C3
+};
+
+void setup() {
+}
+
+void loop() {
+  for (int thisSensor = 0; thisSensor < 3; thisSensor++) {
+    // get a sensor reading:
+    int sensorReading = analogRead(thisSensor);
+
+    // if the sensor is pressed hard enough:
+    if (sensorReading > threshold) {
+      // play the note corresponding to this sensor:
+      tone(8, notes[thisSensor], 20);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital toneMelody.ino
+
+#include "pitches.h"
+
+// notes in the melody:
+int melody[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+  4, 8, 8, 4, 4, 4, 4, 4
+};
+
+void setup() {
+  // iterate over the notes of the melody:
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+    // to calculate the note duration, take one second divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(8, melody[thisNote], noteDuration);
+
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(8);
+  }
+}
+
+void loop() {
+  // no need to repeat the melody.
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital toneMultiple.ino
+
+void setup() {
+}
+
+void loop() {
+  // turn off tone function for pin 8:
+  noTone(8);
+  // play a note on pin 6 for 200 ms:
+  tone(6, 440, 200);
+  delay(200);
+
+  // turn off tone function for pin 6:
+  noTone(6);
+  // play a note on pin 7 for 500 ms:
+  tone(7, 494, 500);
+  delay(500);
+
+  // turn off tone function for pin 7:
+  noTone(7);
+  // play a note on pin 8 for 300 ms:
+  tone(8, 523, 300);
+  delay(300);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 02.Digital tonePitchFollower.ino
+
+void setup() {
+  // initialize serial communications (for debugging only):
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the sensor:
+  int sensorReading = analogRead(A0);
+  // print the sensor reading so you know its range
+  Serial.println(sensorReading);
+  // map the analog input range (in this case, 400 - 1000 from the photoresistor)
+  // to the output pitch range (120 - 1500Hz)
+  // change the minimum and maximum input numbers below depending on the range
+  // your sensor's giving:
+  int thisPitch = map(sensorReading, 400, 1000, 120, 1500);
+
+  // play the pitch:
+  tone(9, thisPitch, 10);
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog AnalogInOutSerial.ino
+
+// These constants won't change. They're used to give names to the pins used:
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+const int analogOutPin = 9;  // Analog output pin that the LED is attached to
+
+int sensorValue = 0;  // value read from the pot
+int outputValue = 0;  // value output to the PWM (analog out)
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the analog in value:
+  sensorValue = analogRead(analogInPin);
+  // map it to the range of the analog out:
+  outputValue = map(sensorValue, 0, 1023, 0, 255);
+  // change the analog out value:
+  analogWrite(analogOutPin, outputValue);
+
+  // print the results to the Serial Monitor:
+  Serial.print("sensor = ");
+  Serial.print(sensorValue);
+  Serial.print("\t output = ");
+  Serial.println(outputValue);
+
+  // wait 2 milliseconds before the next loop for the analog-to-digital
+  // converter to settle after the last reading:
+  delay(2);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog AnalogInput.ino
+
+int sensorPin = A0;   // select the input pin for the potentiometer
+int ledPin = 13;      // select the pin for the LED
+int sensorValue = 0;  // variable to store the value coming from the sensor
+
+void setup() {
+  // declare the ledPin as an OUTPUT:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // read the value from the sensor:
+  sensorValue = analogRead(sensorPin);
+  // turn the ledPin on
+  digitalWrite(ledPin, HIGH);
+  // stop the program for <sensorValue> milliseconds:
+  delay(sensorValue);
+  // turn the ledPin off:
+  digitalWrite(ledPin, LOW);
+  // stop the program for <sensorValue> milliseconds:
+  delay(sensorValue);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog AnalogWriteMega.ino
+
+// These constants won't change. They're used to give names to the pins used:
+const int lowestPin = 2;
+const int highestPin = 13;
+
+
+void setup() {
+  // set pins 2 through 13 as outputs:
+  for (int thisPin = lowestPin; thisPin <= highestPin; thisPin++) {
+    pinMode(thisPin, OUTPUT);
+  }
+}
+
+void loop() {
+  // iterate over the pins:
+  for (int thisPin = lowestPin; thisPin <= highestPin; thisPin++) {
+    // fade the LED on thisPin from off to brightest:
+    for (int brightness = 0; brightness < 255; brightness++) {
+      analogWrite(thisPin, brightness);
+      delay(2);
+    }
+    // fade the LED on thisPin from brightest to off:
+    for (int brightness = 255; brightness >= 0; brightness--) {
+      analogWrite(thisPin, brightness);
+      delay(2);
+    }
+    // pause between LEDs:
+    delay(100);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog Calibration.ino
+
+// These constants won't change:
+const int sensorPin = A0;  // pin that the sensor is attached to
+const int ledPin = 9;      // pin that the LED is attached to
+
+// variables:
+int sensorValue = 0;   // the sensor value
+int sensorMin = 1023;  // minimum sensor value
+int sensorMax = 0;     // maximum sensor value
+
+
+void setup() {
+  // turn on LED to signal the start of the calibration period:
+  pinMode(13, OUTPUT);
+  digitalWrite(13, HIGH);
+
+  // calibrate during the first five seconds
+  while (millis() < 5000) {
+    sensorValue = analogRead(sensorPin);
+
+    // record the maximum sensor value
+    if (sensorValue > sensorMax) {
+      sensorMax = sensorValue;
+    }
+
+    // record the minimum sensor value
+    if (sensorValue < sensorMin) {
+      sensorMin = sensorValue;
+    }
+  }
+
+  // signal the end of the calibration period
+  digitalWrite(13, LOW);
+}
+
+void loop() {
+  // read the sensor:
+  sensorValue = analogRead(sensorPin);
+
+  // in case the sensor value is outside the range seen during calibration
+  sensorValue = constrain(sensorValue, sensorMin, sensorMax);
+
+  // apply the calibration to the sensor reading
+  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);
+
+  // fade the LED using the calibrated value:
+  analogWrite(ledPin, sensorValue);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog Fading.ino
+
+int ledPin = 9;  // LED connected to digital pin 9
+
+void setup() {
+  // nothing happens in setup
+}
+
+void loop() {
+  // fade in from min to max in increments of 5 points:
+  for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+  }
+
+  // fade out from max to min in increments of 5 points:
+  for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 03.Analog Smoothing.ino
+
+// Define the number of samples to keep track of. The higher the number, the
+// more the readings will be smoothed, but the slower the output will respond to
+// the input. Using a constant rather than a normal variable lets us use this
+// value to determine the size of the readings array.
+const int numReadings = 10;
+
+int readings[numReadings];  // the readings from the analog input
+int readIndex = 0;          // the index of the current reading
+int total = 0;              // the running total
+int average = 0;            // the average
+
+int inputPin = A0;
+
+void setup() {
+  // initialize serial communication with computer:
+  Serial.begin(9600);
+  // initialize all the readings to 0:
+  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+    readings[thisReading] = 0;
+  }
+}
+
+void loop() {
+  // subtract the last reading:
+  total = total - readings[readIndex];
+  // read from the sensor:
+  readings[readIndex] = analogRead(inputPin);
+  // add the reading to the total:
+  total = total + readings[readIndex];
+  // advance to the next position in the array:
+  readIndex = readIndex + 1;
+
+  // if we're at the end of the array...
+  if (readIndex >= numReadings) {
+    // ...wrap around to the beginning:
+    readIndex = 0;
+  }
+
+  // calculate the average:
+  average = total / numReadings;
+  // send it to the computer as ASCII digits
+  Serial.println(average);
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication ASCIITable.ino
+
+void setup() {
+  //Initialize serial and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // prints title with ending line break
+  Serial.println("ASCII Table ~ Character Map");
+}
+
+// first visible ASCIIcharacter '!' is number 33:
+int thisByte = 33;
+// you can also write ASCII characters in single quotes.
+// for example, '!' is the same as 33, so you could also use this:
+// int thisByte = '!';
+
+void loop() {
+  // prints value unaltered, i.e. the raw binary version of the byte.
+  // The Serial Monitor interprets all bytes as ASCII, so 33, the first number,
+  // will show up as '!'
+  Serial.write(thisByte);
+
+  Serial.print(", dec: ");
+  // prints value as string as an ASCII-encoded decimal (base 10).
+  // Decimal is the default format for Serial.print() and Serial.println(),
+  // so no modifier is needed:
+  Serial.print(thisByte);
+  // But you can declare the modifier for decimal if you want to.
+  // this also works if you uncomment it:
+
+  // Serial.print(thisByte, DEC);
+
+
+  Serial.print(", hex: ");
+  // prints value as string in hexadecimal (base 16):
+  Serial.print(thisByte, HEX);
+
+  Serial.print(", oct: ");
+  // prints value as string in octal (base 8);
+  Serial.print(thisByte, OCT);
+
+  Serial.print(", bin: ");
+  // prints value as string in binary (base 2) also prints ending line break:
+  Serial.println(thisByte, BIN);
+
+  // if printed last visible character '~' or 126, stop:
+  if (thisByte == 126) {  // you could also use if (thisByte == '~') {
+    // This loop loops forever and does nothing
+    while (true) {
+      continue;
+    }
+  }
+  // go on to the next character
+  thisByte++;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication Dimmer.ino
+
+const int ledPin = 9;  // the pin that the LED is attached to
+
+void setup() {
+  // initialize the serial communication:
+  Serial.begin(9600);
+  // initialize the ledPin as an output:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  byte brightness;
+
+  // check if data has been sent from the computer:
+  if (Serial.available()) {
+    // read the most recent byte (which will be from 0 to 255):
+    brightness = Serial.read();
+    // set the brightness of the LED:
+    analogWrite(ledPin, brightness);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication Graph.ino
+
+void setup() {
+  // initialize the serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // send the value of analog input 0:
+  Serial.println(analogRead(A0));
+  // wait a bit for the analog-to-digital converter to stabilize after the last
+  // reading:
+  delay(2);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication Midi.ino
+
+void setup() {
+  // Set MIDI baud rate:
+  Serial.begin(31250);
+}
+
+void loop() {
+  // play notes from F#-0 (0x1E) to F#-5 (0x5A):
+  for (int note = 0x1E; note < 0x5A; note++) {
+    //Note on channel 1 (0x90), some note value (note), middle velocity (0x45):
+    noteOn(0x90, note, 0x45);
+    delay(100);
+    //Note on channel 1 (0x90), some note value (note), silent velocity (0x00):
+    noteOn(0x90, note, 0x00);
+    delay(100);
+  }
+}
+
+// plays a MIDI note. Doesn't check to see that cmd is greater than 127, or that
+// data values are less than 127:
+void noteOn(int cmd, int pitch, int velocity) {
+  Serial.write(cmd);
+  Serial.write(pitch);
+  Serial.write(velocity);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication MultiSerial.ino
+
+void setup() {
+  // initialize both serial ports:
+  Serial.begin(9600);
+  Serial1.begin(9600);
+}
+
+void loop() {
+  // read from port 1, send to port 0:
+  if (Serial1.available()) {
+    int inByte = Serial1.read();
+    Serial.write(inByte);
+  }
+
+  // read from port 0, send to port 1:
+  if (Serial.available()) {
+    int inByte = Serial.read();
+    Serial1.write(inByte);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+// 04.Communication PhysicalPixel.ino
+
+const int ledPin = 13;  // the pin that the LED is attached to
+int incomingByte;       // a variable to read incoming serial data into
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // see if there's incoming serial data:
+  if (Serial.available() > 0) {
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial.read();
+    // if it's a capital H (ASCII 72), turn on the LED:
+    if (incomingByte == 'H') {
+      digitalWrite(ledPin, HIGH);
+    }
+    // if it's an L (ASCII 76) turn off the LED:
+    if (incomingByte == 'L') {
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication ReadASCIIString.ino
+
+// pins for the LEDs:
+const int redPin = 3;
+const int greenPin = 5;
+const int bluePin = 6;
+
+void setup() {
+  // initialize serial:
+  Serial.begin(9600);
+  // make the pins outputs:
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+  // if there's any serial available, read it:
+  while (Serial.available() > 0) {
+
+    // look for the next valid integer in the incoming serial stream:
+    int red = Serial.parseInt();
+    // do it again:
+    int green = Serial.parseInt();
+    // do it again:
+    int blue = Serial.parseInt();
+
+    // look for the newline. That's the end of your sentence:
+    if (Serial.read() == '\n') {
+      // constrain the values to 0 - 255 and invert
+      // if you're using a common-cathode LED, just use "constrain(color, 0, 255);"
+      red = 255 - constrain(red, 0, 255);
+      green = 255 - constrain(green, 0, 255);
+      blue = 255 - constrain(blue, 0, 255);
+
+      // fade the red, green, and blue legs of the LED:
+      analogWrite(redPin, red);
+      analogWrite(greenPin, green);
+      analogWrite(bluePin, blue);
+
+      // print the three numbers in one string as hexadecimal:
+      Serial.print(red, HEX);
+      Serial.print(green, HEX);
+      Serial.println(blue, HEX);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication SerialCallResponse.ino
+
+int firstSensor = 0;   // first analog sensor
+int secondSensor = 0;  // second analog sensor
+int thirdSensor = 0;   // digital sensor
+int inByte = 0;        // incoming serial byte
+
+void setup() {
+  // start serial port at 9600 bps:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  pinMode(2, INPUT);   // digital sensor is on digital pin 2
+  establishContact();  // send a byte to establish contact until receiver responds
+}
+
+void loop() {
+  // if we get a valid byte, read analog ins:
+  if (Serial.available() > 0) {
+    // get incoming byte:
+    inByte = Serial.read();
+    // read first analog input, divide by 4 to make the range 0-255:
+    firstSensor = analogRead(A0) / 4;
+    // delay 10ms to let the ADC recover:
+    delay(10);
+    // read second analog input, divide by 4 to make the range 0-255:
+    secondSensor = analogRead(1) / 4;
+    // read switch, map it to 0 or 255L
+    thirdSensor = map(digitalRead(2), 0, 1, 0, 255);
+    // send sensor values:
+    Serial.write(firstSensor);
+    Serial.write(secondSensor);
+    Serial.write(thirdSensor);
+  }
+}
+
+void establishContact() {
+  while (Serial.available() <= 0) {
+    Serial.print('A');  // send a capital A
+    delay(300);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication SerialCallResponseASCII.ino
+
+int firstSensor = 0;   // first analog sensor
+int secondSensor = 0;  // second analog sensor
+int thirdSensor = 0;   // digital sensor
+int inByte = 0;        // incoming serial byte
+
+void setup() {
+  // start serial port at 9600 bps and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+
+  pinMode(2, INPUT);   // digital sensor is on digital pin 2
+  establishContact();  // send a byte to establish contact until receiver responds
+}
+
+void loop() {
+  // if we get a valid byte, read analog ins:
+  if (Serial.available() > 0) {
+    // get incoming byte:
+    inByte = Serial.read();
+    // read first analog input:
+    firstSensor = analogRead(A0);
+    // read second analog input:
+    secondSensor = analogRead(A1);
+    // read switch, map it to 0 or 255
+    thirdSensor = map(digitalRead(2), 0, 1, 0, 255);
+    // send sensor values:
+    Serial.print(firstSensor);
+    Serial.print(",");
+    Serial.print(secondSensor);
+    Serial.print(",");
+    Serial.println(thirdSensor);
+  }
+}
+
+void establishContact() {
+  while (Serial.available() <= 0) {
+    Serial.println("0,0,0");  // send an initial string
+    delay(300);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication SerialEvent.ino
+
+String inputString = "";      // a String to hold incoming data
+bool stringComplete = false;  // whether the string is complete
+
+void setup() {
+  // initialize serial:
+  Serial.begin(9600);
+  // reserve 200 bytes for the inputString:
+  inputString.reserve(200);
+}
+
+void loop() {
+  // print the string when a newline arrives:
+  if (stringComplete) {
+    Serial.println(inputString);
+    // clear the string:
+    inputString = "";
+    stringComplete = false;
+  }
+}
+
+/*
+  SerialEvent occurs whenever a new data comes in the hardware serial RX. This
+  routine is run between each time loop() runs, so using delay inside loop can
+  delay response. Multiple bytes of data may be available.
+*/
+void serialEvent() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag so the main loop can
+    // do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication SerialPassthrough.ino
+
+void setup() {
+  Serial.begin(9600);
+  Serial1.begin(9600);
+}
+
+void loop() {
+  if (Serial.available()) {        // If anything comes in Serial (USB),
+    Serial1.write(Serial.read());  // read it and send it out Serial1 (pins 0 & 1)
+  }
+
+  if (Serial1.available()) {       // If anything comes in Serial1 (pins 0 & 1)
+    Serial.write(Serial1.read());  // read it and send it out Serial (USB)
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 04.Communication VirtualColorMixer.ino
+
+const int redPin = A0;    // sensor to control red color
+const int greenPin = A1;  // sensor to control green color
+const int bluePin = A2;   // sensor to control blue color
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.print(analogRead(redPin));
+  Serial.print(",");
+  Serial.print(analogRead(greenPin));
+  Serial.print(",");
+  Serial.println(analogRead(bluePin));
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control Arrays.ino
+
+int timer = 100;  // The higher the number, the slower the timing.
+int ledPins[] = {
+  2, 7, 4, 6, 5, 3
+};                 // an array of pin numbers to which LEDs are attached
+int pinCount = 6;  // the number of pins (i.e. the length of the array)
+
+void setup() {
+  // the array elements are numbered from 0 to (pinCount - 1).
+  // use a for loop to initialize each pin as an output:
+  for (int thisPin = 0; thisPin < pinCount; thisPin++) {
+    pinMode(ledPins[thisPin], OUTPUT);
+  }
+}
+
+void loop() {
+  // loop from the lowest pin to the highest:
+  for (int thisPin = 0; thisPin < pinCount; thisPin++) {
+    // turn the pin on:
+    digitalWrite(ledPins[thisPin], HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(ledPins[thisPin], LOW);
+  }
+
+  // loop from the highest pin to the lowest:
+  for (int thisPin = pinCount - 1; thisPin >= 0; thisPin--) {
+    // turn the pin on:
+    digitalWrite(ledPins[thisPin], HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(ledPins[thisPin], LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control Arrays.ino
+
+int timer = 100;  // The higher the number, the slower the timing.
+int ledPins[] = {
+  2, 7, 4, 6, 5, 3
+};                 // an array of pin numbers to which LEDs are attached
+int pinCount = 6;  // the number of pins (i.e. the length of the array)
+
+void setup() {
+  // the array elements are numbered from 0 to (pinCount - 1).
+  // use a for loop to initialize each pin as an output:
+  for (int thisPin = 0; thisPin < pinCount; thisPin++) {
+    pinMode(ledPins[thisPin], OUTPUT);
+  }
+}
+
+void loop() {
+  // loop from the lowest pin to the highest:
+  for (int thisPin = 0; thisPin < pinCount; thisPin++) {
+    // turn the pin on:
+    digitalWrite(ledPins[thisPin], HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(ledPins[thisPin], LOW);
+  }
+
+  // loop from the highest pin to the lowest:
+  for (int thisPin = pinCount - 1; thisPin >= 0; thisPin--) {
+    // turn the pin on:
+    digitalWrite(ledPins[thisPin], HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(ledPins[thisPin], LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control ForLoopIteration.ino
+
+int timer = 100;  // The higher the number, the slower the timing.
+
+void setup() {
+  // use a for loop to initialize each pin as an output:
+  for (int thisPin = 2; thisPin < 8; thisPin++) {
+    pinMode(thisPin, OUTPUT);
+  }
+}
+
+void loop() {
+  // loop from the lowest pin to the highest:
+  for (int thisPin = 2; thisPin < 8; thisPin++) {
+    // turn the pin on:
+    digitalWrite(thisPin, HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(thisPin, LOW);
+  }
+
+  // loop from the highest pin to the lowest:
+  for (int thisPin = 7; thisPin >= 2; thisPin--) {
+    // turn the pin on:
+    digitalWrite(thisPin, HIGH);
+    delay(timer);
+    // turn the pin off:
+    digitalWrite(thisPin, LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control IfStatementConditional.ino
+
+// These constants won't change:
+const int analogPin = A0;   // pin that the sensor is attached to
+const int ledPin = 13;      // pin that the LED is attached to
+const int threshold = 400;  // an arbitrary threshold level that's in the range of the analog input
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize serial communications:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the value of the potentiometer:
+  int analogValue = analogRead(analogPin);
+
+  // if the analog value is high enough, turn on the LED:
+  if (analogValue > threshold) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  // print the analog value:
+  Serial.println(analogValue);
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control WhileStatementConditional.ino
+
+// These constants won't change:
+const int sensorPin = A0;        // pin that the sensor is attached to
+const int ledPin = 9;            // pin that the LED is attached to
+const int indicatorLedPin = 13;  // pin that the built-in LED is attached to
+const int buttonPin = 2;         // pin that the button is attached to
+
+
+// These variables will change:
+int sensorMin = 1023;  // minimum sensor value
+int sensorMax = 0;     // maximum sensor value
+int sensorValue = 0;   // the sensor value
+
+
+void setup() {
+  // set the LED pins as outputs and the switch pin as input:
+  pinMode(indicatorLedPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // while the button is pressed, take calibration readings:
+  while (digitalRead(buttonPin) == HIGH) {
+    calibrate();
+  }
+  // signal the end of the calibration period
+  digitalWrite(indicatorLedPin, LOW);
+
+  // read the sensor:
+  sensorValue = analogRead(sensorPin);
+
+  // apply the calibration to the sensor reading
+  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);
+
+  // in case the sensor value is outside the range seen during calibration
+  sensorValue = constrain(sensorValue, 0, 255);
+
+  // fade the LED using the calibrated value:
+  analogWrite(ledPin, sensorValue);
+}
+
+void calibrate() {
+  // turn on the indicator LED to indicate that calibration is happening:
+  digitalWrite(indicatorLedPin, HIGH);
+  // read the sensor:
+  sensorValue = analogRead(sensorPin);
+
+  // record the maximum sensor value
+  if (sensorValue > sensorMax) {
+    sensorMax = sensorValue;
+  }
+
+  // record the minimum sensor value
+  if (sensorValue < sensorMin) {
+    sensorMin = sensorValue;
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control switchCase.ino
+
+// these constants won't change. They are the lowest and highest readings you
+// get from your sensor:
+const int sensorMin = 0;    // sensor minimum, discovered through experiment
+const int sensorMax = 600;  // sensor maximum, discovered through experiment
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the sensor:
+  int sensorReading = analogRead(A0);
+  // map the sensor range to a range of four options:
+  int range = map(sensorReading, sensorMin, sensorMax, 0, 3);
+
+  // do something different depending on the range value:
+  switch (range) {
+    case 0:  // your hand is on the sensor
+      Serial.println("dark");
+      break;
+    case 1:  // your hand is close to the sensor
+      Serial.println("dim");
+      break;
+    case 2:  // your hand is a few inches from the sensor
+      Serial.println("medium");
+      break;
+    case 3:  // your hand is nowhere near the sensor
+      Serial.println("bright");
+      break;
+  }
+  delay(1);  // delay in between reads for stability
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 05.Control switchCase2.ino
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+  // initialize the LED pins:
+  for (int thisPin = 2; thisPin < 7; thisPin++) {
+    pinMode(thisPin, OUTPUT);
+  }
+}
+
+void loop() {
+  // read the sensor:
+  if (Serial.available() > 0) {
+    int inByte = Serial.read();
+    // do something different depending on the character received.
+    // The switch statement expects single number values for each case; in this
+    // example, though, you're using single quotes to tell the controller to get
+    // the ASCII value for the character. For example 'a' = 97, 'b' = 98,
+    // and so forth:
+
+    switch (inByte) {
+      case 'a':
+        digitalWrite(2, HIGH);
+        break;
+      case 'b':
+        digitalWrite(3, HIGH);
+        break;
+      case 'c':
+        digitalWrite(4, HIGH);
+        break;
+      case 'd':
+        digitalWrite(5, HIGH);
+        break;
+      case 'e':
+        digitalWrite(6, HIGH);
+        break;
+      default:
+        // turn all the LEDs off:
+        for (int thisPin = 2; thisPin < 7; thisPin++) {
+          digitalWrite(thisPin, LOW);
+        }
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 06.Sensors ADXL3xx.ino
+
+// these constants describe the pins. They won't change:
+const int groundpin = 18;  // analog input pin 4 -- ground
+const int powerpin = 19;   // analog input pin 5 -- voltage
+const int xpin = A3;       // x-axis of the accelerometer
+const int ypin = A2;       // y-axis
+const int zpin = A1;       // z-axis (only on 3-axis models)
+
+void setup() {
+  // initialize the serial communications:
+  Serial.begin(9600);
+
+  // Provide ground and power by using the analog inputs as normal digital pins.
+  // This makes it possible to directly connect the breakout board to the
+  // Arduino. If you use the normal 5V and GND pins on the Arduino,
+  // you can remove these lines.
+  pinMode(groundpin, OUTPUT);
+  pinMode(powerpin, OUTPUT);
+  digitalWrite(groundpin, LOW);
+  digitalWrite(powerpin, HIGH);
+}
+
+void loop() {
+  // print the sensor values:
+  Serial.print(analogRead(xpin));
+  // print a tab between values:
+  Serial.print("\t");
+  Serial.print(analogRead(ypin));
+  // print a tab between values:
+  Serial.print("\t");
+  Serial.print(analogRead(zpin));
+  Serial.println();
+  // delay before next reading:
+  delay(100);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 06.Sensors Knock.ino
+
+// these constants won't change:
+const int ledPin = 13;       // LED connected to digital pin 13
+const int knockSensor = A0;  // the piezo is connected to analog pin 0
+const int threshold = 100;   // threshold value to decide when the detected sound is a knock or not
+
+
+// these variables will change:
+int sensorReading = 0;  // variable to store the value read from the sensor pin
+int ledState = LOW;     // variable used to store the last LED status, to toggle the light
+
+void setup() {
+  pinMode(ledPin, OUTPUT);  // declare the ledPin as as OUTPUT
+  Serial.begin(9600);       // use the serial port
+}
+
+void loop() {
+  // read the sensor and store it in the variable sensorReading:
+  sensorReading = analogRead(knockSensor);
+
+  // if the sensor reading is greater than the threshold:
+  if (sensorReading >= threshold) {
+    // toggle the status of the ledPin:
+    ledState = !ledState;
+    // update the LED pin itself:
+    digitalWrite(ledPin, ledState);
+    // send the string "Knock!" back to the computer, followed by newline
+    Serial.println("Knock!");
+    delay(100);  // delay to avoid overloading the serial port buffer
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 06.Sensors Memsic2125.ino
+
+// these constants won't change:
+const int xPin = 2;  // X output of the accelerometer
+const int yPin = 3;  // Y output of the accelerometer
+
+void setup() {
+  // initialize serial communications:
+  Serial.begin(9600);
+  // initialize the pins connected to the accelerometer as inputs:
+  pinMode(xPin, INPUT);
+  pinMode(yPin, INPUT);
+}
+
+void loop() {
+  // variables to read the pulse widths:
+  int pulseX, pulseY;
+  // variables to contain the resulting accelerations
+  int accelerationX, accelerationY;
+
+  // read pulse from x- and y-axes:
+  pulseX = pulseIn(xPin, HIGH);
+  pulseY = pulseIn(yPin, HIGH);
+
+  // convert the pulse width into acceleration
+  // accelerationX and accelerationY are in milli-g's:
+  // Earth's gravity is 1000 milli-g's, or 1 g.
+  accelerationX = ((pulseX / 10) - 500) * 8;
+  accelerationY = ((pulseY / 10) - 500) * 8;
+
+  // print the acceleration
+  Serial.print(accelerationX);
+  // print a tab character:
+  Serial.print("\t");
+  Serial.print(accelerationY);
+  Serial.println();
+
+  delay(100);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 06.Sensors Ping.ino
+
+// this constant won't change. It's the pin number of the sensor's output:
+const int pingPin = 7;
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // establish variables for duration of the ping, and the distance result
+  // in inches and centimeters:
+  long duration, inches, cm;
+
+  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  pinMode(pingPin, OUTPUT);
+  digitalWrite(pingPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pingPin, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(pingPin, LOW);
+
+  // The same pin is used to read the signal from the PING))): a HIGH pulse
+  // whose duration is the time (in microseconds) from the sending of the ping
+  // to the reception of its echo off of an object.
+  pinMode(pingPin, INPUT);
+  duration = pulseIn(pingPin, HIGH);
+
+  // convert the time into a distance
+  inches = microsecondsToInches(duration);
+  cm = microsecondsToCentimeters(duration);
+
+  Serial.print(inches);
+  Serial.print("in, ");
+  Serial.print(cm);
+  Serial.print("cm");
+  Serial.println();
+
+  delay(100);
+}
+
+long microsecondsToInches(long microseconds) {
+  // According to Parallax's datasheet for the PING))), there are 73.746
+  // microseconds per inch (i.e. sound travels at 1130 feet per second).
+  // This gives the distance travelled by the ping, outbound and return,
+  // so we divide by 2 to get the distance of the obstacle.
+  // See: https://www.parallax.com/package/ping-ultrasonic-distance-sensor-downloads/
+  return microseconds / 74 / 2;
+}
+
+long microsecondsToCentimeters(long microseconds) {
+  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+  // The ping travels out and back, so to find the distance of the object we
+  // take half of the distance travelled.
+  return microseconds / 29 / 2;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 07.Display RowColumnScanning.ino
+
+// 2-dimensional array of row pin numbers:
+const int row[8] = {
+  2, 7, 19, 5, 13, 18, 12, 16
+};
+
+// 2-dimensional array of column pin numbers:
+const int col[8] = {
+  6, 11, 10, 3, 17, 4, 8, 9
+};
+
+// 2-dimensional array of pixels:
+int pixels[8][8];
+
+// cursor position:
+int x = 5;
+int y = 5;
+
+void setup() {
+  // initialize the I/O pins as outputs iterate over the pins:
+  for (int thisPin = 0; thisPin < 8; thisPin++) {
+    // initialize the output pins:
+    pinMode(col[thisPin], OUTPUT);
+    pinMode(row[thisPin], OUTPUT);
+    // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
+    digitalWrite(col[thisPin], HIGH);
+  }
+
+  // initialize the pixel matrix:
+  for (int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+      pixels[x][y] = HIGH;
+    }
+  }
+}
+
+void loop() {
+  // read input:
+  readSensors();
+
+  // draw the screen:
+  refreshScreen();
+}
+
+void readSensors() {
+  // turn off the last position:
+  pixels[x][y] = HIGH;
+  // read the sensors for X and Y values:
+  x = 7 - map(analogRead(A0), 0, 1023, 0, 7);
+  y = map(analogRead(A1), 0, 1023, 0, 7);
+  // set the new pixel position low so that the LED will turn on in the next
+  // screen refresh:
+  pixels[x][y] = LOW;
+}
+
+void refreshScreen() {
+  // iterate over the rows (anodes):
+  for (int thisRow = 0; thisRow < 8; thisRow++) {
+    // take the row pin (anode) high:
+    digitalWrite(row[thisRow], HIGH);
+    // iterate over the cols (cathodes):
+    for (int thisCol = 0; thisCol < 8; thisCol++) {
+      // get the state of the current pixel;
+      int thisPixel = pixels[thisRow][thisCol];
+      // when the row is HIGH and the col is LOW,
+      // the LED where they meet turns on:
+      digitalWrite(col[thisCol], thisPixel);
+      // turn the pixel off:
+      if (thisPixel == LOW) {
+        digitalWrite(col[thisCol], HIGH);
+      }
+    }
+    // take the row pin low to turn off the whole row:
+    digitalWrite(row[thisRow], LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 07.Display barGraph.ino
+
+// these constants won't change:
+const int analogPin = A0;  // the pin that the potentiometer is attached to
+const int ledCount = 10;   // the number of LEDs in the bar graph
+
+int ledPins[] = {
+  2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+};  // an array of pin numbers to which LEDs are attached
+
+
+void setup() {
+  // loop over the pin array and set them all to output:
+  for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+    pinMode(ledPins[thisLed], OUTPUT);
+  }
+}
+
+void loop() {
+  // read the potentiometer:
+  int sensorReading = analogRead(analogPin);
+  // map the result to a range from 0 to the number of LEDs:
+  int ledLevel = map(sensorReading, 0, 1023, 0, ledCount);
+
+  // loop over the LED array:
+  for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+    // if the array element's index is less than ledLevel,
+    // turn the pin for this element on:
+    if (thisLed < ledLevel) {
+      digitalWrite(ledPins[thisLed], HIGH);
+    }
+    // turn off all pins higher than the ledLevel:
+    else {
+      digitalWrite(ledPins[thisLed], LOW);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings CharacterAnalysis
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("send any byte and I'll tell you everything I can about it");
+  Serial.println();
+}
+
+void loop() {
+  // get any incoming bytes:
+  if (Serial.available() > 0) {
+    int thisChar = Serial.read();
+
+    // say what was sent:
+    Serial.print("You sent me: \'");
+    Serial.write(thisChar);
+    Serial.print("\'  ASCII Value: ");
+    Serial.println(thisChar);
+
+    // analyze what was sent:
+    if (isAlphaNumeric(thisChar)) {
+      Serial.println("it's alphanumeric");
+    }
+    if (isAlpha(thisChar)) {
+      Serial.println("it's alphabetic");
+    }
+    if (isAscii(thisChar)) {
+      Serial.println("it's ASCII");
+    }
+    if (isWhitespace(thisChar)) {
+      Serial.println("it's whitespace");
+    }
+    if (isControl(thisChar)) {
+      Serial.println("it's a control character");
+    }
+    if (isDigit(thisChar)) {
+      Serial.println("it's a numeric digit");
+    }
+    if (isGraph(thisChar)) {
+      Serial.println("it's a printable character that's not whitespace");
+    }
+    if (isLowerCase(thisChar)) {
+      Serial.println("it's lower case");
+    }
+    if (isPrintable(thisChar)) {
+      Serial.println("it's printable");
+    }
+    if (isPunct(thisChar)) {
+      Serial.println("it's punctuation");
+    }
+    if (isSpace(thisChar)) {
+      Serial.println("it's a space character");
+    }
+    if (isUpperCase(thisChar)) {
+      Serial.println("it's upper case");
+    }
+    if (isHexadecimalDigit(thisChar)) {
+      Serial.println("it's a valid hexadecimaldigit (i.e. 0 - 9, a - F, or A - F)");
+    }
+
+    // add some space and ask for another byte:
+    Serial.println();
+    Serial.println("Give me another byte:");
+    Serial.println();
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringAdditionOperator
+
+// declare three Strings:
+String stringOne, stringTwo, stringThree;
+
+void setup() {
+  // initialize serial and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  stringOne = String("You added ");
+  stringTwo = String("this string");
+  stringThree = String();
+  // send an intro:
+  Serial.println("\n\nAdding Strings together (concatenation):");
+  Serial.println();
+}
+
+void loop() {
+  // adding a constant integer to a String:
+  stringThree = stringOne + 123;
+  Serial.println(stringThree);  // prints "You added 123"
+
+  // adding a constant long integer to a String:
+  stringThree = stringOne + 123456789;
+  Serial.println(stringThree);  // prints "You added 123456789"
+
+  // adding a constant character to a String:
+  stringThree = stringOne + 'A';
+  Serial.println(stringThree);  // prints "You added A"
+
+  // adding a constant string to a String:
+  stringThree = stringOne + "abc";
+  Serial.println(stringThree);  // prints "You added abc"
+
+  stringThree = stringOne + stringTwo;
+  Serial.println(stringThree);  // prints "You added this string"
+
+  // adding a variable integer to a String:
+  int sensorValue = analogRead(A0);
+  stringOne = "Sensor value: ";
+  stringThree = stringOne + sensorValue;
+  Serial.println(stringThree);  // prints "Sensor Value: 401" or whatever value analogRead(A0) has
+
+  // adding a variable long integer to a String:
+  stringOne = "millis() value: ";
+  stringThree = stringOne + millis();
+  Serial.println(stringThree);  // prints "The millis: 345345" or whatever value millis() has
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringAppendOperator
+
+String stringOne, stringTwo;
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  stringOne = String("Sensor ");
+  stringTwo = String("value");
+  // send an intro:
+  Serial.println("\n\nAppending to a String:");
+  Serial.println();
+}
+
+void loop() {
+  Serial.println(stringOne);  // prints  "Sensor "
+
+  // adding a string to a String:
+  stringOne += stringTwo;
+  Serial.println(stringOne);  // prints "Sensor value"
+
+  // adding a constant string to a String:
+  stringOne += " for input ";
+  Serial.println(stringOne);  // prints "Sensor value for input"
+
+  // adding a constant character to a String:
+  stringOne += 'A';
+  Serial.println(stringOne);  // prints "Sensor value for input A"
+
+  // adding a constant integer to a String:
+  stringOne += 0;
+  Serial.println(stringOne);  // prints "Sensor value for input A0"
+
+  // adding a constant string to a String:
+  stringOne += ": ";
+  Serial.println(stringOne);  // prints "Sensor value for input"
+
+  // adding a variable integer to a String:
+  stringOne += analogRead(A0);
+  Serial.println(stringOne);  // prints "Sensor value for input A0: 456" or whatever analogRead(A0) is
+
+  Serial.println("\n\nchanging the Strings' values");
+  stringOne = "A long integer: ";
+  stringTwo = "The millis(): ";
+
+  // adding a constant long integer to a String:
+  stringOne += 123456789;
+  Serial.println(stringOne);  // prints "A long integer: 123456789"
+
+  // using concat() to add a long variable to a String:
+  stringTwo.concat(millis());
+  Serial.println(stringTwo);  // prints "The millis(): 43534" or whatever the value of the millis() is
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringCaseChanges
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString case changes:");
+  Serial.println();
+}
+
+void loop() {
+  // toUpperCase() changes all letters to upper case:
+  String stringOne = "<html><head><body>";
+  Serial.println(stringOne);
+  stringOne.toUpperCase();
+  Serial.println(stringOne);
+
+  // toLowerCase() changes all letters to lower case:
+  String stringTwo = "</BODY></HTML>";
+  Serial.println(stringTwo);
+  stringTwo.toLowerCase();
+  Serial.println(stringTwo);
+
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringCharacters
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  Serial.println("\n\nString charAt() and setCharAt():");
+}
+
+void loop() {
+  // make a String to report a sensor reading:
+  String reportString = "SensorReading: 456";
+  Serial.println(reportString);
+
+  // the reading's most significant digit is at position 15 in the reportString:
+  char mostSignificantDigit = reportString.charAt(15);
+
+  String message = "Most significant digit of the sensor reading is: ";
+  Serial.println(message + mostSignificantDigit);
+
+  // add blank space:
+  Serial.println();
+
+  // you can also set the character of a String. Change the : to a = character
+  reportString.setCharAt(13, '=');
+  Serial.println(reportString);
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringComparisonOperators
+
+String stringOne, stringTwo;
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+
+  stringOne = String("this");
+  stringTwo = String("that");
+  // send an intro:
+  Serial.println("\n\nComparing Strings:");
+  Serial.println();
+}
+
+void loop() {
+  // two Strings equal:
+  if (stringOne == "this") {
+    Serial.println("StringOne == \"this\"");
+  }
+  // two Strings not equal:
+  if (stringOne != stringTwo) {
+    Serial.println(stringOne + " =! " + stringTwo);
+  }
+
+  // two Strings not equal (case sensitivity matters):
+  stringOne = "This";
+  stringTwo = "this";
+  if (stringOne != stringTwo) {
+    Serial.println(stringOne + " =! " + stringTwo);
+  }
+  // you can also use equals() to see if two Strings are the same:
+  if (stringOne.equals(stringTwo)) {
+    Serial.println(stringOne + " equals " + stringTwo);
+  } else {
+    Serial.println(stringOne + " does not equal " + stringTwo);
+  }
+
+  // or perhaps you want to ignore case:
+  if (stringOne.equalsIgnoreCase(stringTwo)) {
+    Serial.println(stringOne + " equals (ignoring case) " + stringTwo);
+  } else {
+    Serial.println(stringOne + " does not equal (ignoring case) " + stringTwo);
+  }
+
+  // a numeric String compared to the number it represents:
+  stringOne = "1";
+  int numberOne = 1;
+  if (stringOne.toInt() == numberOne) {
+    Serial.println(stringOne + " = " + numberOne);
+  }
+
+
+
+  // two numeric Strings compared:
+  stringOne = "2";
+  stringTwo = "1";
+  if (stringOne >= stringTwo) {
+    Serial.println(stringOne + " >= " + stringTwo);
+  }
+
+  // comparison operators can be used to compare Strings for alphabetic sorting too:
+  stringOne = String("Brown");
+  if (stringOne < "Charles") {
+    Serial.println(stringOne + " < Charles");
+  }
+
+  if (stringOne > "Adams") {
+    Serial.println(stringOne + " > Adams");
+  }
+
+  if (stringOne <= "Browne") {
+    Serial.println(stringOne + " <= Browne");
+  }
+
+
+  if (stringOne >= "Brow") {
+    Serial.println(stringOne + " >= Brow");
+  }
+
+  // the compareTo() operator also allows you to compare Strings
+  // it evaluates on the first character that's different.
+  // if the first character of the String you're comparing to comes first in
+  // alphanumeric order, then compareTo() is greater than 0:
+  stringOne = "Cucumber";
+  stringTwo = "Cucuracha";
+  if (stringOne.compareTo(stringTwo) < 0) {
+    Serial.println(stringOne + " comes before " + stringTwo);
+  } else {
+    Serial.println(stringOne + " comes after " + stringTwo);
+  }
+
+  delay(10000);  // because the next part is a loop:
+
+  // compareTo() is handy when you've got Strings with numbers in them too:
+
+  while (true) {
+    stringOne = "Sensor: ";
+    stringTwo = "Sensor: ";
+
+    stringOne += analogRead(A0);
+    stringTwo += analogRead(A5);
+
+    if (stringOne.compareTo(stringTwo) < 0) {
+      Serial.println(stringOne + " comes before " + stringTwo);
+    } else {
+      Serial.println(stringOne + " comes after " + stringTwo);
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringConstructors
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString Constructors:");
+  Serial.println();
+}
+
+void loop() {
+  // using a constant String:
+  String stringOne = "Hello String";
+  Serial.println(stringOne);  // prints "Hello String"
+
+  // converting a constant char into a String:
+  stringOne = String('a');
+  Serial.println(stringOne);  // prints "a"
+
+  // converting a constant string into a String object:
+  String stringTwo = String("This is a string");
+  Serial.println(stringTwo);  // prints "This is a string"
+
+  // concatenating two strings:
+  stringOne = String(stringTwo + " with more");
+  // prints "This is a string with more":
+  Serial.println(stringOne);
+
+  // using a constant integer:
+  stringOne = String(13);
+  Serial.println(stringOne);  // prints "13"
+
+  // using an int and a base:
+  stringOne = String(analogRead(A0), DEC);
+  // prints "453" or whatever the value of analogRead(A0) is
+  Serial.println(stringOne);
+
+  // using an int and a base (hexadecimal):
+  stringOne = String(45, HEX);
+  // prints "2d", which is the hexadecimal version of decimal 45:
+  Serial.println(stringOne);
+
+  // using an int and a base (binary)
+  stringOne = String(255, BIN);
+  // prints "11111111" which is the binary value of 255
+  Serial.println(stringOne);
+
+  // using a long and a base:
+  stringOne = String(millis(), DEC);
+  // prints "123456" or whatever the value of millis() is:
+  Serial.println(stringOne);
+
+  // using a float and the right decimal places:
+  stringOne = String(5.698, 3);
+  Serial.println(stringOne);
+
+  // using a float and less decimal places to use rounding:
+  stringOne = String(5.698, 2);
+  Serial.println(stringOne);
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringIndexOf
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString indexOf() and lastIndexOf()  functions:");
+  Serial.println();
+}
+
+void loop() {
+  // indexOf() returns the position (i.e. index) of a particular character in a
+  // String. For example, if you were parsing HTML tags, you could use it:
+  String stringOne = "<HTML><HEAD><BODY>";
+  int firstClosingBracket = stringOne.indexOf('>');
+  Serial.println("The index of > in the string " + stringOne + " is " + firstClosingBracket);
+
+  stringOne = "<HTML><HEAD><BODY>";
+  int secondOpeningBracket = firstClosingBracket + 1;
+  int secondClosingBracket = stringOne.indexOf('>', secondOpeningBracket);
+  Serial.println("The index of  the second > in the string " + stringOne + " is " + secondClosingBracket);
+
+  // you can also use indexOf() to search for Strings:
+  stringOne = "<HTML><HEAD><BODY>";
+  int bodyTag = stringOne.indexOf("<BODY>");
+  Serial.println("The index of the body tag in the string " + stringOne + " is " + bodyTag);
+
+  stringOne = "<UL><LI>item<LI>item<LI>item</UL>";
+  int firstListItem = stringOne.indexOf("<LI>");
+  int secondListItem = stringOne.indexOf("<LI>", firstListItem + 1);
+  Serial.println("The index of the second list tag in the string " + stringOne + " is " + secondListItem);
+
+  // lastIndexOf() gives you the last occurrence of a character or string:
+  int lastOpeningBracket = stringOne.lastIndexOf('<');
+  Serial.println("The index of the last < in the string " + stringOne + " is " + lastOpeningBracket);
+
+  int lastListItem = stringOne.lastIndexOf("<LI>");
+  Serial.println("The index of the last list tag in the string " + stringOne + " is " + lastListItem);
+
+
+  // lastIndexOf() can also search for a string:
+  stringOne = "<p>Lorem ipsum dolor sit amet</p><p>Ipsem</p><p>Quod</p>";
+  int lastParagraph = stringOne.lastIndexOf("<p");
+  int secondLastGraf = stringOne.lastIndexOf("<p", lastParagraph - 1);
+  Serial.println("The index of the second to last paragraph tag " + stringOne + " is " + secondLastGraf);
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringLength
+
+String txtMsg = "";                               // a string for incoming text
+unsigned int lastStringLength = txtMsg.length();  // previous length of the String
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString  length():");
+  Serial.println();
+}
+
+void loop() {
+  // add any incoming characters to the String:
+  while (Serial.available() > 0) {
+    char inChar = Serial.read();
+    txtMsg += inChar;
+  }
+
+  // print the message and a notice if it's changed:
+  if (txtMsg.length() != lastStringLength) {
+    Serial.println(txtMsg);
+    Serial.println(txtMsg.length());
+    // if the String's longer than 140 characters, complain:
+    if (txtMsg.length() < 140) {
+      Serial.println("That's a perfectly acceptable text message");
+    } else {
+      Serial.println("That's too long for a text message.");
+    }
+    // note the length for next time through the loop:
+    lastStringLength = txtMsg.length();
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringLengthTrim
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString length() and trim():");
+  Serial.println();
+}
+
+void loop() {
+  // here's a String with empty spaces at the end (called white space):
+  String stringOne = "Hello!       ";
+  Serial.print(stringOne);
+  Serial.print("<--- end of string. Length: ");
+  Serial.println(stringOne.length());
+
+  // trim the white space off the string:
+  stringOne.trim();
+  Serial.print(stringOne);
+  Serial.print("<--- end of trimmed string. Length: ");
+  Serial.println(stringOne.length());
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringReplace
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString replace:\n");
+  Serial.println();
+}
+
+void loop() {
+  String stringOne = "<html><head><body>";
+  Serial.println(stringOne);
+  // replace() changes all instances of one substring with another:
+  // first, make a copy of the original string:
+  String stringTwo = stringOne;
+  // then perform the replacements:
+  stringTwo.replace("<", "</");
+  // print the original:
+  Serial.println("Original string: " + stringOne);
+  // and print the modified string:
+  Serial.println("Modified string: " + stringTwo);
+
+  // you can also use replace() on single characters:
+  String normalString = "bookkeeper";
+  Serial.println("normal: " + normalString);
+  String leetString = normalString;
+  leetString.replace('o', '0');
+  leetString.replace('e', '3');
+  Serial.println("l33tspeak: " + leetString);
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringStartsWithEndsWith
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString startsWith() and endsWith():");
+  Serial.println();
+}
+
+void loop() {
+  // startsWith() checks to see if a String starts with a particular substring:
+  String stringOne = "HTTP/1.1 200 OK";
+  Serial.println(stringOne);
+  if (stringOne.startsWith("HTTP/1.1")) {
+    Serial.println("Server's using http version 1.1");
+  }
+
+  // you can also look for startsWith() at an offset position in the string:
+  stringOne = "HTTP/1.1 200 OK";
+  if (stringOne.startsWith("200 OK", 9)) {
+    Serial.println("Got an OK from the server");
+  }
+
+  // endsWith() checks to see if a String ends with a particular character:
+  String sensorReading = "sensor = ";
+  sensorReading += analogRead(A0);
+  Serial.print(sensorReading);
+  if (sensorReading.endsWith("0")) {
+    Serial.println(". This reading is divisible by ten");
+  } else {
+    Serial.println(". This reading is not divisible by ten");
+  }
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringSubstring
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString  substring():");
+  Serial.println();
+}
+
+void loop() {
+  // Set up a String:
+  String stringOne = "Content-Type: text/html";
+  Serial.println(stringOne);
+
+  // substring(index) looks for the substring from the index position to the end:
+  if (stringOne.substring(19) == "html") {
+    Serial.println("It's an html file");
+  }
+  // you can also look for a substring in the middle of a string:
+  if (stringOne.substring(14, 18) == "text") {
+    Serial.println("It's a text-based file");
+  }
+
+  // do nothing while true:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 08.Strings StringToInt
+
+String inString = "";  // string to hold input
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // send an intro:
+  Serial.println("\n\nString toInt():");
+  Serial.println();
+}
+
+void loop() {
+  // Read serial input:
+  while (Serial.available() > 0) {
+    int inChar = Serial.read();
+    if (isDigit(inChar)) {
+      // convert the incoming byte to a char and add it to the string:
+      inString += (char)inChar;
+    }
+    // if you get a newline, print the string, then the string's value:
+    if (inChar == '\n') {
+      Serial.print("Value:");
+      Serial.println(inString.toInt());
+      Serial.print("String: ");
+      Serial.println(inString);
+      // clear the string for new input:
+      inString = "";
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB Keyboard/KeyboardLogout
+
+#define OSX 0
+#define WINDOWS 1
+#define UBUNTU 2
+
+#include "Keyboard.h"
+
+// change this to match your platform:
+int platform = OSX;
+
+void setup() {
+  // make pin 2 an input and turn on the pull-up resistor so it goes high unless
+  // connected to ground:
+  pinMode(2, INPUT_PULLUP);
+  Keyboard.begin();
+}
+
+void loop() {
+  while (digitalRead(2) == HIGH) {
+    // do nothing until pin 2 goes low
+    delay(500);
+  }
+  delay(1000);
+
+  switch (platform) {
+    case OSX:
+      Keyboard.press(KEY_LEFT_GUI);
+      // Shift-Q logs out:
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press('Q');
+      delay(100);
+      Keyboard.releaseAll();
+      // enter:
+      Keyboard.write(KEY_RETURN);
+      break;
+    case WINDOWS:
+      // CTRL-ALT-DEL:
+      Keyboard.press(KEY_LEFT_CTRL);
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press(KEY_DELETE);
+      delay(100);
+      Keyboard.releaseAll();
+      // ALT-l:
+      delay(2000);
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press('l');
+      Keyboard.releaseAll();
+      break;
+    case UBUNTU:
+      // CTRL-ALT-DEL:
+      Keyboard.press(KEY_LEFT_CTRL);
+      Keyboard.press(KEY_LEFT_ALT);
+      Keyboard.press(KEY_DELETE);
+      delay(1000);
+      Keyboard.releaseAll();
+      // Enter to confirm logout:
+      Keyboard.write(KEY_RETURN);
+      break;
+  }
+
+  // do nothing:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB Keyboard/KeyboardReprogram
+
+#include "Keyboard.h"
+
+const int buttonPin = 4;         // input pin for pushbutton
+int previousButtonState = HIGH;  // for checking the state of a pushButton
+int counter = 0;                 // button push counter
+
+void setup() {
+  // make the pushButton pin an input:
+  pinMode(buttonPin, INPUT);
+  // initialize control over the keyboard:
+  Keyboard.begin();
+}
+
+void loop() {
+  // read the pushbutton:
+  int buttonState = digitalRead(buttonPin);
+  // if the button state has changed,
+  if ((buttonState != previousButtonState)
+      // and it's currently pressed:
+      && (buttonState == HIGH)) {
+    // increment the button counter
+    counter++;
+    // type out a message
+    Keyboard.print("You pressed the button ");
+    Keyboard.print(counter);
+    Keyboard.println(" times.");
+  }
+  // save the current button state for comparison next time:
+  previousButtonState = buttonState;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB Keyboard/KeyboardSerial
+
+#include "Keyboard.h"
+
+// use this option for OSX.
+// Comment it out if using Windows or Linux:
+char ctrlKey = KEY_LEFT_GUI;
+// use this option for Windows and Linux.
+// leave commented out if using OSX:
+//  char ctrlKey = KEY_LEFT_CTRL;
+
+
+void setup() {
+  // make pin 2 an input and turn on the pull-up resistor so it goes high unless
+  // connected to ground:
+  pinMode(2, INPUT_PULLUP);
+  // initialize control over the keyboard:
+  Keyboard.begin();
+}
+
+void loop() {
+  while (digitalRead(2) == HIGH) {
+    // do nothing until pin 2 goes low
+    delay(500);
+  }
+  delay(1000);
+  // new document:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('n');
+  delay(100);
+  Keyboard.releaseAll();
+  // wait for new window to open:
+  delay(1000);
+
+  // versions of the Arduino IDE after 1.5 pre-populate new sketches with
+  // setup() and loop() functions let's clear the window before typing anything new
+  // select all
+  Keyboard.press(ctrlKey);
+  Keyboard.press('a');
+  delay(500);
+  Keyboard.releaseAll();
+  // delete the selected text
+  Keyboard.write(KEY_BACKSPACE);
+  delay(500);
+
+  // Type out "blink":
+  Keyboard.println("void setup() {");
+  Keyboard.println("pinMode(13, OUTPUT);");
+  Keyboard.println("}");
+  Keyboard.println();
+  Keyboard.println("void loop() {");
+  Keyboard.println("digitalWrite(13, HIGH);");
+  Keyboard.print("delay(3000);");
+  // 3000 ms is too long. Delete it:
+  for (int keystrokes = 0; keystrokes < 6; keystrokes++) {
+    delay(500);
+    Keyboard.write(KEY_BACKSPACE);
+  }
+  // make it 1000 instead:
+  Keyboard.println("1000);");
+  Keyboard.println("digitalWrite(13, LOW);");
+  Keyboard.println("delay(1000);");
+  Keyboard.println("}");
+  // tidy up:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('t');
+  delay(100);
+  Keyboard.releaseAll();
+  delay(3000);
+  // upload code:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('u');
+  delay(100);
+  Keyboard.releaseAll();
+
+  // wait for the sweet oblivion of reprogramming:
+  while (true)
+    ;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB KeyboardAndMouseControl
+
+#include "Keyboard.h"
+#include "Mouse.h"
+
+// set pin numbers for the five buttons:
+const int upButton = 2;
+const int downButton = 3;
+const int leftButton = 4;
+const int rightButton = 5;
+const int mouseButton = 6;
+
+void setup() {  // initialize the buttons' inputs:
+  pinMode(upButton, INPUT);
+  pinMode(downButton, INPUT);
+  pinMode(leftButton, INPUT);
+  pinMode(rightButton, INPUT);
+  pinMode(mouseButton, INPUT);
+
+  Serial.begin(9600);
+  // initialize mouse control:
+  Mouse.begin();
+  Keyboard.begin();
+}
+
+void loop() {
+  // use serial input to control the mouse:
+  if (Serial.available() > 0) {
+    char inChar = Serial.read();
+
+    switch (inChar) {
+      case 'u':
+        // move mouse up
+        Mouse.move(0, -40);
+        break;
+      case 'd':
+        // move mouse down
+        Mouse.move(0, 40);
+        break;
+      case 'l':
+        // move mouse left
+        Mouse.move(-40, 0);
+        break;
+      case 'r':
+        // move mouse right
+        Mouse.move(40, 0);
+        break;
+      case 'm':
+        // perform mouse left click
+        Mouse.click(MOUSE_LEFT);
+        break;
+    }
+  }
+
+  // use the pushbuttons to control the keyboard:
+  if (digitalRead(upButton) == HIGH) {
+    Keyboard.write('u');
+  }
+  if (digitalRead(downButton) == HIGH) {
+    Keyboard.write('d');
+  }
+  if (digitalRead(leftButton) == HIGH) {
+    Keyboard.write('l');
+  }
+  if (digitalRead(rightButton) == HIGH) {
+    Keyboard.write('r');
+  }
+  if (digitalRead(mouseButton) == HIGH) {
+    Keyboard.write('m');
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB Mouse/ButtonMouseControl
+
+#include "Mouse.h"
+
+// set pin numbers for the five buttons:
+const int upButton = 2;
+const int downButton = 3;
+const int leftButton = 4;
+const int rightButton = 5;
+const int mouseButton = 6;
+
+int range = 5;           // output range of X or Y movement; affects movement speed
+int responseDelay = 10;  // response delay of the mouse, in ms
+
+
+void setup() {
+  // initialize the buttons' inputs:
+  pinMode(upButton, INPUT);
+  pinMode(downButton, INPUT);
+  pinMode(leftButton, INPUT);
+  pinMode(rightButton, INPUT);
+  pinMode(mouseButton, INPUT);
+  // initialize mouse control:
+  Mouse.begin();
+}
+
+void loop() {
+  // read the buttons:
+  int upState = digitalRead(upButton);
+  int downState = digitalRead(downButton);
+  int rightState = digitalRead(rightButton);
+  int leftState = digitalRead(leftButton);
+  int clickState = digitalRead(mouseButton);
+
+  // calculate the movement distance based on the button states:
+  int xDistance = (leftState - rightState) * range;
+  int yDistance = (upState - downState) * range;
+
+  // if X or Y is non-zero, move:
+  if ((xDistance != 0) || (yDistance != 0)) {
+    Mouse.move(xDistance, yDistance, 0);
+  }
+
+  // if the mouse button is pressed:
+  if (clickState == HIGH) {
+    // if the mouse is not pressed, press it:
+    if (!Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.press(MOUSE_LEFT);
+    }
+  }
+  // else the mouse button is not pressed:
+  else {
+    // if the mouse is pressed, release it:
+    if (Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.release(MOUSE_LEFT);
+    }
+  }
+
+  // a delay so the mouse doesn't move too fast:
+  delay(responseDelay);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 09.USB Mouse/JoystickMouseControl
+
+#include "Mouse.h"
+
+// set pin numbers for switch, joystick axes, and LED:
+const int switchPin = 2;    // switch to turn on and off mouse control
+const int mouseButton = 3;  // input pin for the mouse pushButton
+const int xAxis = A0;       // joystick X axis
+const int yAxis = A1;       // joystick Y axis
+const int ledPin = 5;       // Mouse control LED
+
+// parameters for reading the joystick:
+int range = 12;             // output range of X or Y movement
+int responseDelay = 5;      // response delay of the mouse, in ms
+int threshold = range / 4;  // resting threshold
+int center = range / 2;     // resting position value
+
+bool mouseIsActive = false;  // whether or not to control the mouse
+int lastSwitchState = LOW;   // previous switch state
+
+void setup() {
+  pinMode(switchPin, INPUT);  // the switch pin
+  pinMode(ledPin, OUTPUT);    // the LED pin
+  // take control of the mouse:
+  Mouse.begin();
+}
+
+void loop() {
+  // read the switch:
+  int switchState = digitalRead(switchPin);
+  // if it's changed and it's high, toggle the mouse state:
+  if (switchState != lastSwitchState) {
+    if (switchState == HIGH) {
+      mouseIsActive = !mouseIsActive;
+      // turn on LED to indicate mouse state:
+      digitalWrite(ledPin, mouseIsActive);
+    }
+  }
+  // save switch state for next comparison:
+  lastSwitchState = switchState;
+
+  // read and scale the two axes:
+  int xReading = readAxis(A0);
+  int yReading = readAxis(A1);
+
+  // if the mouse control state is active, move the mouse:
+  if (mouseIsActive) {
+    Mouse.move(xReading, yReading, 0);
+  }
+
+  // read the mouse button and click or not click:
+  // if the mouse button is pressed:
+  if (digitalRead(mouseButton) == HIGH) {
+    // if the mouse is not pressed, press it:
+    if (!Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.press(MOUSE_LEFT);
+    }
+  }
+  // else the mouse button is not pressed:
+  else {
+    // if the mouse is pressed, release it:
+    if (Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.release(MOUSE_LEFT);
+    }
+  }
+
+  delay(responseDelay);
+}
+
+/*
+  reads an axis (0 or 1 for x or y) and scales the analog input range to a range
+  from 0 to <range>
+*/
+
+int readAxis(int thisAxis) {
+  // read the analog input:
+  int reading = analogRead(thisAxis);
+
+  // map the reading from the analog input range to the output range:
+  reading = map(reading, 0, 1023, 0, range);
+
+  // if the output reading is outside from the rest position threshold, use it:
+  int distance = reading - center;
+
+  if (abs(distance) < threshold) {
+    distance = 0;
+  }
+
+  // return the distance for this axis:
+  return distance;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p02_SpaceshipInterface
+
+int switchstate = 0;
+
+void setup() {
+  // declare the LED pins as outputs
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+
+  // declare the switch pin as an input
+  pinMode(2, INPUT);
+}
+
+void loop() {
+
+  // read the value of the switch
+  // digitalRead() checks to see if there is voltage on the pin or not
+  switchstate = digitalRead(2);
+
+  // if the button is not pressed turn on the green LED and off the red LEDs
+  if (switchstate == LOW) {
+    digitalWrite(3, HIGH);  // turn the green LED on pin 3 on
+    digitalWrite(4, LOW);   // turn the red LED on pin 4 off
+    digitalWrite(5, LOW);   // turn the red LED on pin 5 off
+  }
+  // this else is part of the above if() statement.
+  // if the switch is not LOW (the button is pressed) turn off the green LED and
+  // blink alternatively the red LEDs
+  else {
+    digitalWrite(3, LOW);   // turn the green LED on pin 3 off
+    digitalWrite(4, LOW);   // turn the red LED on pin 4 off
+    digitalWrite(5, HIGH);  // turn the red LED on pin 5 on
+    // wait for a quarter second before changing the light
+    delay(250);
+    digitalWrite(4, HIGH);  // turn the red LED on pin 4 on
+    digitalWrite(5, LOW);   // turn the red LED on pin 5 off
+    // wait for a quarter second before changing the light
+    delay(250);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p03_LoveOMeter
+
+// named constant for the pin the sensor is connected to
+const int sensorPin = A0;
+// room temperature in Celsius
+const float baselineTemp = 20.0;
+
+void setup() {
+  // open a serial connection to display values
+  Serial.begin(9600);
+  // set the LED pins as outputs
+  // the for() loop saves some extra coding
+  for (int pinNumber = 2; pinNumber < 5; pinNumber++) {
+    pinMode(pinNumber, OUTPUT);
+    digitalWrite(pinNumber, LOW);
+  }
+}
+
+void loop() {
+  // read the value on AnalogIn pin 0 and store it in a variable
+  int sensorVal = analogRead(sensorPin);
+
+  // send the 10-bit sensor value out the serial port
+  Serial.print("sensor Value: ");
+  Serial.print(sensorVal);
+
+  // convert the ADC reading to voltage
+  float voltage = (sensorVal / 1024.0) * 5.0;
+
+  // Send the voltage level out the Serial port
+  Serial.print(", Volts: ");
+  Serial.print(voltage);
+
+  // convert the voltage to temperature in degrees C
+  // the sensor changes 10 mV per degree
+  // the datasheet says there's a 500 mV offset
+  // ((voltage - 500 mV) times 100)
+  Serial.print(", degrees C: ");
+  float temperature = (voltage - .5) * 100;
+  Serial.println(temperature);
+
+  // if the current temperature is lower than the baseline turn off all LEDs
+  if (temperature < baselineTemp + 2) {
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+  }  // if the temperature rises 2-4 degrees, turn an LED on
+  else if (temperature >= baselineTemp + 2 && temperature < baselineTemp + 4) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+  }  // if the temperature rises 4-6 degrees, turn a second LED on
+  else if (temperature >= baselineTemp + 4 && temperature < baselineTemp + 6) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, LOW);
+  }  // if the temperature rises more than 6 degrees, turn all LEDs on
+  else if (temperature >= baselineTemp + 6) {
+    digitalWrite(2, HIGH);
+    digitalWrite(3, HIGH);
+    digitalWrite(4, HIGH);
+  }
+  delay(1);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p04_ColorMixingLamp
+
+const int greenLEDPin = 9;  // LED connected to digital pin 9
+const int redLEDPin = 10;   // LED connected to digital pin 10
+const int blueLEDPin = 11;  // LED connected to digital pin 11
+
+const int redSensorPin = A0;    // pin with the photoresistor with the red gel
+const int greenSensorPin = A1;  // pin with the photoresistor with the green gel
+const int blueSensorPin = A2;   // pin with the photoresistor with the blue gel
+
+int redValue = 0;    // value to write to the red LED
+int greenValue = 0;  // value to write to the green LED
+int blueValue = 0;   // value to write to the blue LED
+
+int redSensorValue = 0;    // variable to hold the value from the red sensor
+int greenSensorValue = 0;  // variable to hold the value from the green sensor
+int blueSensorValue = 0;   // variable to hold the value from the blue sensor
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+
+  // set the digital pins as outputs
+  pinMode(greenLEDPin, OUTPUT);
+  pinMode(redLEDPin, OUTPUT);
+  pinMode(blueLEDPin, OUTPUT);
+}
+
+void loop() {
+  // Read the sensors first:
+
+  // read the value from the red-filtered photoresistor:
+  redSensorValue = analogRead(redSensorPin);
+  // give the ADC a moment to settle
+  delay(5);
+  // read the value from the green-filtered photoresistor:
+  greenSensorValue = analogRead(greenSensorPin);
+  // give the ADC a moment to settle
+  delay(5);
+  // read the value from the blue-filtered photoresistor:
+  blueSensorValue = analogRead(blueSensorPin);
+
+  // print out the values to the Serial Monitor
+  Serial.print("raw sensor Values \t red: ");
+  Serial.print(redSensorValue);
+  Serial.print("\t green: ");
+  Serial.print(greenSensorValue);
+  Serial.print("\t Blue: ");
+  Serial.println(blueSensorValue);
+
+  /*
+    In order to use the values from the sensor for the LED, you need to do some
+    math. The ADC provides a 10-bit number, but analogWrite() uses 8 bits.
+    You'll want to divide your sensor readings by 4 to keep them in range
+    of the output.
+  */
+  redValue = redSensorValue / 4;
+  greenValue = greenSensorValue / 4;
+  blueValue = blueSensorValue / 4;
+
+  // print out the mapped values
+  Serial.print("Mapped sensor Values \t red: ");
+  Serial.print(redValue);
+  Serial.print("\t green: ");
+  Serial.print(greenValue);
+  Serial.print("\t Blue: ");
+  Serial.println(blueValue);
+
+  /*
+    Now that you have a usable value, it's time to PWM the LED.
+  */
+  analogWrite(redLEDPin, redValue);
+  analogWrite(greenLEDPin, greenValue);
+  analogWrite(blueLEDPin, blueValue);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p05_ServoMoodIndicator
+
+// include the Servo library
+#include <Servo.h>
+
+Servo myServo;  // create a servo object
+
+int const potPin = A0;  // analog pin used to connect the potentiometer
+int potVal;             // variable to read the value from the analog pin
+int angle;              // variable to hold the angle for the servo motor
+
+void setup() {
+  myServo.attach(9);   // attaches the servo on pin 9 to the servo object
+  Serial.begin(9600);  // open a serial connection to your computer
+}
+
+void loop() {
+  potVal = analogRead(potPin);  // read the value of the potentiometer
+  // print out the value to the Serial Monitor
+  Serial.print("potVal: ");
+  Serial.print(potVal);
+
+  // scale the numbers from the pot
+  angle = map(potVal, 0, 1023, 0, 179);
+
+  // print out the angle for the servo motor
+  Serial.print(", angle: ");
+  Serial.println(angle);
+
+  // set the servo position
+  myServo.write(angle);
+
+  // wait for the servo to get there
+  delay(15);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p06_LightTheremin
+
+// variable to hold sensor value
+int sensorValue;
+// variable to calibrate low value
+int sensorLow = 1023;
+// variable to calibrate high value
+int sensorHigh = 0;
+// LED pin
+const int ledPin = 13;
+
+void setup() {
+  // Make the LED pin an output and turn it on
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, HIGH);
+
+  // calibrate for the first five seconds after program runs
+  while (millis() < 5000) {
+    // record the maximum sensor value
+    sensorValue = analogRead(A0);
+    if (sensorValue > sensorHigh) {
+      sensorHigh = sensorValue;
+    }
+    // record the minimum sensor value
+    if (sensorValue < sensorLow) {
+      sensorLow = sensorValue;
+    }
+  }
+  // turn the LED off, signaling the end of the calibration period
+  digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  //read the input from A0 and store it in a variable
+  sensorValue = analogRead(A0);
+
+  // map the sensor values to a wide range of pitches
+  int pitch = map(sensorValue, sensorLow, sensorHigh, 50, 4000);
+
+  // play the tone for 20 ms on pin 8
+  tone(8, pitch, 20);
+
+  // wait for a moment
+  delay(10);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p07_Keyboard
+
+// create an array of notes
+// the numbers below correspond to the frequencies of middle C, D, E, and F
+int notes[] = { 262, 294, 330, 349 };
+
+void setup() {
+  //start serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // create a local variable to hold the input on pin A0
+  int keyVal = analogRead(A0);
+  // send the value from A0 to the Serial Monitor
+  Serial.println(keyVal);
+
+  // play the note corresponding to each value on A0
+  if (keyVal == 1023) {
+    // play the first frequency in the array on pin 8
+    tone(8, notes[0]);
+  } else if (keyVal >= 990 && keyVal <= 1010) {
+    // play the second frequency in the array on pin 8
+    tone(8, notes[1]);
+  } else if (keyVal >= 505 && keyVal <= 515) {
+    // play the third frequency in the array on pin 8
+    tone(8, notes[2]);
+  } else if (keyVal >= 5 && keyVal <= 10) {
+    // play the fourth frequency in the array on pin 8
+    tone(8, notes[3]);
+  } else {
+    // if the value is out of range, play no tone
+    noTone(8);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p08_DigitalHourglass
+
+// named constant for the switch pin
+const int switchPin = 8;
+
+unsigned long previousTime = 0;  // store the last time an LED was updated
+int switchState = 0;             // the current switch state
+int prevSwitchState = 0;         // the previous switch state
+int led = 2;                     // a variable to refer to the LEDs
+
+// 600000 = 10 minutes in milliseconds
+long interval = 600000;  // interval at which to light the next LED
+
+void setup() {
+  // set the LED pins as outputs
+  for (int x = 2; x < 8; x++) {
+    pinMode(x, OUTPUT);
+  }
+  // set the tilt switch pin as input
+  pinMode(switchPin, INPUT);
+}
+
+void loop() {
+  // store the time since the Arduino started running in a variable
+  unsigned long currentTime = millis();
+
+  // compare the current time to the previous time an LED turned on
+  // if it is greater than your interval, run the if statement
+  if (currentTime - previousTime > interval) {
+    // save the current time as the last time you changed an LED
+    previousTime = currentTime;
+    // Turn the LED on
+    digitalWrite(led, HIGH);
+    // increment the led variable
+    // in 10 minutes the next LED will light up
+    led++;
+
+    if (led == 7) {
+      // the hour is up
+      // add your indicator code here
+    }
+  }
+
+  // read the switch value
+  switchState = digitalRead(switchPin);
+
+  // if the switch has changed
+  if (switchState != prevSwitchState) {
+    // turn all the LEDs low
+    for (int x = 2; x < 8; x++) {
+      digitalWrite(x, LOW);
+    }
+
+    // reset the LED variable to the first one
+    led = 2;
+
+    //reset the timer
+    previousTime = currentTime;
+  }
+  // set the previous switch state to the current state
+  prevSwitchState = switchState;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p09_MotorizedPinwheel
+
+// named constants for the switch and motor pins
+const int switchPin = 2;  // the number of the switch pin
+const int motorPin = 9;   // the number of the motor pin
+
+int switchState = 0;  // variable for reading the switch's status
+
+void setup() {
+  // initialize the motor pin as an output:
+  pinMode(motorPin, OUTPUT);
+  // initialize the switch pin as an input:
+  pinMode(switchPin, INPUT);
+}
+
+void loop() {
+  // read the state of the switch value:
+  switchState = digitalRead(switchPin);
+
+  // check if the switch is pressed.
+  if (switchState == HIGH) {
+    // turn motor on:
+    digitalWrite(motorPin, HIGH);
+  } else {
+    // turn motor off:
+    digitalWrite(motorPin, LOW);
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p10_Zoetrope
+
+const int controlPin1 = 2;                // connected to pin 7 on the H-bridge
+const int controlPin2 = 3;                // connected to pin 2 on the H-bridge
+const int enablePin = 9;                  // connected to pin 1 on the H-bridge
+const int directionSwitchPin = 4;         // connected to the switch for direction
+const int onOffSwitchStateSwitchPin = 5;  // connected to the switch for turning the motor on and off
+const int potPin = A0;                    // connected to the potentiometer's output
+
+// create some variables to hold values from your inputs
+int onOffSwitchState = 0;              // current state of the on/off switch
+int previousOnOffSwitchState = 0;      // previous position of the on/off switch
+int directionSwitchState = 0;          // current state of the direction switch
+int previousDirectionSwitchState = 0;  // previous state of the direction switch
+
+int motorEnabled = 0;    // Turns the motor on/off
+int motorSpeed = 0;      // speed of the motor
+int motorDirection = 1;  // current direction of the motor
+
+void setup() {
+  // initialize the inputs and outputs
+  pinMode(directionSwitchPin, INPUT);
+  pinMode(onOffSwitchStateSwitchPin, INPUT);
+  pinMode(controlPin1, OUTPUT);
+  pinMode(controlPin2, OUTPUT);
+  pinMode(enablePin, OUTPUT);
+
+  // pull the enable pin LOW to start
+  digitalWrite(enablePin, LOW);
+}
+
+void loop() {
+  // read the value of the on/off switch
+  onOffSwitchState = digitalRead(onOffSwitchStateSwitchPin);
+  delay(1);
+
+  // read the value of the direction switch
+  directionSwitchState = digitalRead(directionSwitchPin);
+
+  // read the value of the pot and divide by 4 to get a value that can be
+  // used for PWM
+  motorSpeed = analogRead(potPin) / 4;
+
+  // if the on/off button changed state since the last loop()
+  if (onOffSwitchState != previousOnOffSwitchState) {
+    // change the value of motorEnabled if pressed
+    if (onOffSwitchState == HIGH) {
+      motorEnabled = !motorEnabled;
+    }
+  }
+
+  // if the direction button changed state since the last loop()
+  if (directionSwitchState != previousDirectionSwitchState) {
+    // change the value of motorDirection if pressed
+    if (directionSwitchState == HIGH) {
+      motorDirection = !motorDirection;
+    }
+  }
+
+  // change the direction the motor spins by talking to the control pins
+  // on the H-Bridge
+  if (motorDirection == 1) {
+    digitalWrite(controlPin1, HIGH);
+    digitalWrite(controlPin2, LOW);
+  } else {
+    digitalWrite(controlPin1, LOW);
+    digitalWrite(controlPin2, HIGH);
+  }
+
+  // if the motor is supposed to be on
+  if (motorEnabled == 1) {
+    // PWM the enable pin to vary the speed
+    analogWrite(enablePin, motorSpeed);
+  } else {  // if the motor is not supposed to be on
+    //turn the motor off
+    analogWrite(enablePin, 0);
+  }
+  // save the current on/off switch state as the previous
+  previousDirectionSwitchState = directionSwitchState;
+  // save the current switch state as the previous
+  previousOnOffSwitchState = onOffSwitchState;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p11_CrystalBall
+
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// set up a constant for the tilt switch pin
+const int switchPin = 6;
+
+// variable to hold the value of the switch pin
+int switchState = 0;
+
+// variable to hold previous value of the switch pin
+int prevSwitchState = 0;
+
+// a variable to choose which reply from the crystal ball
+int reply;
+
+void setup() {
+  // set up the number of columns and rows on the LCD
+  lcd.begin(16, 2);
+
+  // set up the switch pin as an input
+  pinMode(switchPin, INPUT);
+
+  // Print a message to the LCD.
+  lcd.print("Ask the");
+  // set the cursor to column 0, line 1
+  // line 1 is the second row, since counting begins with 0
+  lcd.setCursor(0, 1);
+  // print to the second line
+  lcd.print("Crystal Ball!");
+}
+
+void loop() {
+  // check the status of the switch
+  switchState = digitalRead(switchPin);
+
+  // compare the switchState to its previous state
+  if (switchState != prevSwitchState) {
+    // if the state has changed from HIGH to LOW you know that the ball has been
+    // tilted from one direction to the other
+    if (switchState == LOW) {
+      // randomly chose a reply
+      reply = random(8);
+      // clean up the screen before printing a new reply
+      lcd.clear();
+      // set the cursor to column 0, line 0
+      lcd.setCursor(0, 0);
+      // print some text
+      lcd.print("the ball says:");
+      // move the cursor to the second line
+      lcd.setCursor(0, 1);
+
+      // choose a saying to print based on the value in reply
+      switch (reply) {
+        case 0:
+          lcd.print("Yes");
+          break;
+
+        case 1:
+          lcd.print("Most likely");
+          break;
+
+        case 2:
+          lcd.print("Certainly");
+          break;
+
+        case 3:
+          lcd.print("Outlook good");
+          break;
+
+        case 4:
+          lcd.print("Unsure");
+          break;
+
+        case 5:
+          lcd.print("Ask again");
+          break;
+
+        case 6:
+          lcd.print("Doubtful");
+          break;
+
+        case 7:
+          lcd.print("No");
+          break;
+      }
+    }
+  }
+  // save the current switch state as the last state
+  prevSwitchState = switchState;
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p12_KnockLock.ino
+
+// import the library
+#include <Servo.h>
+// create an instance of the Servo library
+Servo myServo;
+
+const int piezo = A0;     // pin the piezo is attached to
+const int switchPin = 2;  // pin the switch is attached to
+const int yellowLed = 3;  // pin the yellow LED is attached to
+const int greenLed = 4;   // pin the green LED is attached to
+const int redLed = 5;     // pin the red LED is attached to
+
+// variable for the piezo value
+int knockVal;
+// variable for the switch value
+int switchVal;
+
+// variables for the high and low limits of the knock value
+const int quietKnock = 10;
+const int loudKnock = 100;
+
+// variable to indicate if locked or not
+bool locked = false;
+// how many valid knocks you've received
+int numberOfKnocks = 0;
+
+void setup() {
+  // attach the servo to pin 9
+  myServo.attach(9);
+
+  // make the LED pins outputs
+  pinMode(yellowLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+
+  // set the switch pin as an input
+  pinMode(switchPin, INPUT);
+
+  // start serial communication for debugging
+  Serial.begin(9600);
+
+  // turn the green LED on
+  digitalWrite(greenLed, HIGH);
+
+  // move the servo to the unlocked position
+  myServo.write(0);
+
+  // print status to the Serial Monitor
+  Serial.println("the box is unlocked!");
+}
+
+void loop() {
+
+  // if the box is unlocked
+  if (locked == false) {
+
+    // read the value of the switch pin
+    switchVal = digitalRead(switchPin);
+
+    // if the button is pressed, lock the box
+    if (switchVal == HIGH) {
+      // set the locked variable to "true"
+      locked = true;
+
+      // change the status LEDs
+      digitalWrite(greenLed, LOW);
+      digitalWrite(redLed, HIGH);
+
+      // move the servo to the locked position
+      myServo.write(90);
+
+      // print out status
+      Serial.println("the box is locked!");
+
+      // wait for the servo to move into position
+      delay(1000);
+    }
+  }
+
+  // if the box is locked
+  if (locked == true) {
+
+    // check the value of the piezo
+    knockVal = analogRead(piezo);
+
+    // if there are not enough valid knocks
+    if (numberOfKnocks < 3 && knockVal > 0) {
+
+      // check to see if the knock is in range
+      if (checkForKnock(knockVal) == true) {
+
+        // increment the number of valid knocks
+        numberOfKnocks++;
+      }
+
+      // print status of knocks
+      Serial.print(3 - numberOfKnocks);
+      Serial.println(" more knocks to go");
+    }
+
+    // if there are three knocks
+    if (numberOfKnocks >= 3) {
+      // unlock the box
+      locked = false;
+
+      // move the servo to the unlocked position
+      myServo.write(0);
+
+      // wait for it to move
+      delay(20);
+
+      // change status LEDs
+      digitalWrite(greenLed, HIGH);
+      digitalWrite(redLed, LOW);
+      Serial.println("the box is unlocked!");
+
+      numberOfKnocks = 0;
+    }
+  }
+}
+
+// this function checks to see if a detected knock is within max and min range
+bool checkForKnock(int value) {
+  // if the value of the knock is greater than the minimum, and larger
+  // than the maximum
+  if (value > quietKnock && value < loudKnock) {
+    // turn the status LED on
+    digitalWrite(yellowLed, HIGH);
+    delay(50);
+    digitalWrite(yellowLed, LOW);
+    // print out the status
+    Serial.print("Valid knock of value ");
+    Serial.println(value);
+    // return true
+    return true;
+  }
+  // if the knock is not within range
+  else {
+    // print status
+    Serial.print("Bad knock value ");
+    Serial.println(value);
+    // return false
+    return false;
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p13_TouchSensorLamp.ino
+
+// import the library (must be located in the Arduino/libraries directory)
+#include <CapacitiveSensor.h>
+
+// create an instance of the library
+// pin 4 sends electrical energy
+// pin 2 senses senses a change
+CapacitiveSensor capSensor = CapacitiveSensor(4, 2);
+
+// threshold for turning the lamp on
+int threshold = 1000;
+
+// pin the LED is connected to
+const int ledPin = 12;
+
+
+void setup() {
+  // open a serial connection
+  Serial.begin(9600);
+  // set the LED pin as an output
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // store the value reported by the sensor in a variable
+  long sensorValue = capSensor.capacitiveSensor(30);
+
+  // print out the sensor value
+  Serial.println(sensorValue);
+
+  // if the value is greater than the threshold
+  if (sensorValue > threshold) {
+    // turn the LED on
+    digitalWrite(ledPin, HIGH);
+  }
+  // if it's lower than the threshold
+  else {
+    // turn the LED off
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(10);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p14_TweakTheArduinoLogo.ino
+
+void setup() {
+  // initialize serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the value of A0, divide by 4 and send it as a byte over the
+  // serial connection
+  Serial.write(analogRead(A0) / 4);
+  delay(1);
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 10.StarterKit_BasicKit p15_HackingButtons.ino
+
+const int optoPin = 2;  // the pin the optocoupler is connected to
+
+void setup() {
+  // make the pin with the optocoupler an output
+  pinMode(optoPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(optoPin, HIGH);  // pull pin 2 HIGH, activating the optocoupler
+
+  delay(15);  // give the optocoupler a moment to activate
+
+  digitalWrite(optoPin, LOW);  // pull pin 2 low until you're ready to activate again
+  delay(21000);                // wait for 21 seconds
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+
+// 11.ArduinoISP ArduinoISP.ino
+
+#include "Arduino.h"
+#undef SERIAL
+
+
+#define PROG_FLICKER true
+
+// Configure SPI clock (in Hz).
+// E.g. for an ATtiny @ 128 kHz: the datasheet states that both the high and low
+// SPI clock pulse must be > 2 CPU cycles, so take 3 cycles i.e. divide target
+// f_cpu by 6:
+//     #define SPI_CLOCK            (128000/6)
+//
+// A clock slow enough for an ATtiny85 @ 1 MHz, is a reasonable default:
+
+#define SPI_CLOCK (1000000 / 6)
+
+
+// Select hardware or software SPI, depending on SPI clock.
+// Currently only for AVR, for other architectures (Due, Zero,...), hardware SPI
+// is probably too fast anyway.
+
+#if defined(ARDUINO_ARCH_AVR)
+
+#if SPI_CLOCK > (F_CPU / 128)
+#define USE_HARDWARE_SPI
+#endif
+
+#endif
+
+// Configure which pins to use:
+
+// The standard pin configuration.
+#ifndef ARDUINO_HOODLOADER2
+
+#define RESET 10  // Use pin 10 to reset the target rather than SS
+#define LED_HB 9
+#define LED_ERR 8
+#define LED_PMODE 7
+
+// Uncomment following line to use the old Uno style wiring
+// (using pin 11, 12 and 13 instead of the SPI header) on Leonardo, Due...
+
+// #define USE_OLD_STYLE_WIRING
+
+#ifdef USE_OLD_STYLE_WIRING
+
+#define ARDUINOISP_PIN_MOSI 11
+#define ARDUINOISP_PIN_MISO 12
+#define ARDUINOISP_PIN_SCK 13
+
+#endif
+
+// HOODLOADER2 means running sketches on the ATmega16U2 serial converter chips
+// on Uno or Mega boards. We must use pins that are broken out:
+#else
+
+#define RESET 4
+#define LED_HB 7
+#define LED_ERR 6
+#define LED_PMODE 5
+
+#endif
+
+// By default, use hardware SPI pins:
+#ifndef ARDUINOISP_PIN_MOSI
+#define ARDUINOISP_PIN_MOSI MOSI
+#endif
+
+#ifndef ARDUINOISP_PIN_MISO
+#define ARDUINOISP_PIN_MISO MISO
+#endif
+
+#ifndef ARDUINOISP_PIN_SCK
+#define ARDUINOISP_PIN_SCK SCK
+#endif
+
+// Force bitbanged SPI if not using the hardware SPI pins:
+#if (ARDUINOISP_PIN_MISO != MISO) || (ARDUINOISP_PIN_MOSI != MOSI) || (ARDUINOISP_PIN_SCK != SCK)
+#undef USE_HARDWARE_SPI
+#endif
+
+
+// Configure the serial port to use.
+//
+// Prefer the USB virtual serial port (aka. native USB port), if the Arduino has one:
+//   - it does not autoreset (except for the magic baud rate of 1200).
+//   - it is more reliable because of USB handshaking.
+//
+// Leonardo and similar have an USB virtual serial port: 'Serial'.
+// Due and Zero have an USB virtual serial port: 'SerialUSB'.
+//
+// On the Due and Zero, 'Serial' can be used too, provided you disable autoreset.
+// To use 'Serial': #define SERIAL Serial
+
+#ifdef SERIAL_PORT_USBVIRTUAL
+#define SERIAL SERIAL_PORT_USBVIRTUAL
+#else
+#define SERIAL Serial
+#endif
+
+
+// Configure the baud rate:
+
+#define BAUDRATE 19200
+// #define BAUDRATE	115200
+// #define BAUDRATE	1000000
+
+
+#define HWVER 2
+#define SWMAJ 1
+#define SWMIN 18
+
+// STK Definitions
+#define STK_OK 0x10
+#define STK_FAILED 0x11
+#define STK_UNKNOWN 0x12
+#define STK_INSYNC 0x14
+#define STK_NOSYNC 0x15
+#define CRC_EOP 0x20  //ok it is a space...
+
+void pulse(int pin, int times);
+
+#ifdef USE_HARDWARE_SPI
+#include "SPI.h"
+#else
+
+#define SPI_MODE0 0x00
+
+#if !defined(ARDUINO_API_VERSION) || ARDUINO_API_VERSION != 10001  // A SPISettings class is declared by ArduinoCore-API 1.0.1
+class SPISettings {
+public:
+  // clock is in Hz
+  SPISettings(uint32_t clock, uint8_t bitOrder, uint8_t dataMode)
+    : clockFreq(clock) {
+    (void)bitOrder;
+    (void)dataMode;
+  };
+
+  uint32_t getClockFreq() const {
+    return clockFreq;
+  }
+
+private:
+  uint32_t clockFreq;
+};
+#endif                                                             // !defined(ARDUINO_API_VERSION)
+
+class BitBangedSPI {
+public:
+  void begin() {
+    digitalWrite(ARDUINOISP_PIN_SCK, LOW);
+    digitalWrite(ARDUINOISP_PIN_MOSI, LOW);
+    pinMode(ARDUINOISP_PIN_SCK, OUTPUT);
+    pinMode(ARDUINOISP_PIN_MOSI, OUTPUT);
+    pinMode(ARDUINOISP_PIN_MISO, INPUT);
+  }
+
+  void beginTransaction(SPISettings settings) {
+    pulseWidth = (500000 + settings.getClockFreq() - 1) / settings.getClockFreq();
+    if (pulseWidth == 0) {
+      pulseWidth = 1;
+    }
+  }
+
+  void end() {}
+
+  uint8_t transfer(uint8_t b) {
+    for (unsigned int i = 0; i < 8; ++i) {
+      digitalWrite(ARDUINOISP_PIN_MOSI, (b & 0x80) ? HIGH : LOW);
+      digitalWrite(ARDUINOISP_PIN_SCK, HIGH);
+      delayMicroseconds(pulseWidth);
+      b = (b << 1) | digitalRead(ARDUINOISP_PIN_MISO);
+      digitalWrite(ARDUINOISP_PIN_SCK, LOW);  // slow pulse
+      delayMicroseconds(pulseWidth);
+    }
+    return b;
+  }
+
+private:
+  unsigned long pulseWidth;  // in microseconds
+};
+
+static BitBangedSPI SPI;
+
+#endif
+
+void setup() {
+  SERIAL.begin(BAUDRATE);
+
+  pinMode(LED_PMODE, OUTPUT);
+  pulse(LED_PMODE, 2);
+  pinMode(LED_ERR, OUTPUT);
+  pulse(LED_ERR, 2);
+  pinMode(LED_HB, OUTPUT);
+  pulse(LED_HB, 2);
+}
+
+int ISPError = 0;
+int pmode = 0;
+// address for reading and writing, set by 'U' command
+unsigned int here;
+uint8_t buff[256];  // global block storage
+
+#define beget16(addr) (*addr * 256 + *(addr + 1))
+typedef struct param {
+  uint8_t devicecode;
+  uint8_t revision;
+  uint8_t progtype;
+  uint8_t parmode;
+  uint8_t polling;
+  uint8_t selftimed;
+  uint8_t lockbytes;
+  uint8_t fusebytes;
+  uint8_t flashpoll;
+  uint16_t eeprompoll;
+  uint16_t pagesize;
+  uint16_t eepromsize;
+  uint32_t flashsize;
+} parameter;
+
+parameter param;
+
+// this provides a heartbeat on pin 9, so you can tell the software is running.
+uint8_t hbval = 128;
+int8_t hbdelta = 8;
+void heartbeat() {
+  static unsigned long last_time = 0;
+  unsigned long now = millis();
+  if ((now - last_time) < 40) {
+    return;
+  }
+  last_time = now;
+  if (hbval > 192) {
+    hbdelta = -hbdelta;
+  }
+  if (hbval < 32) {
+    hbdelta = -hbdelta;
+  }
+  hbval += hbdelta;
+  analogWrite(LED_HB, hbval);
+}
+
+static bool rst_active_high;
+
+void reset_target(bool reset) {
+  digitalWrite(RESET, ((reset && rst_active_high) || (!reset && !rst_active_high)) ? HIGH : LOW);
+}
+
+void loop(void) {
+  // is pmode active?
+  if (pmode) {
+    digitalWrite(LED_PMODE, HIGH);
+  } else {
+    digitalWrite(LED_PMODE, LOW);
+  }
+  // is there an error?
+  if (ISPError) {
+    digitalWrite(LED_ERR, HIGH);
+  } else {
+    digitalWrite(LED_ERR, LOW);
+  }
+
+  // light the heartbeat LED
+  heartbeat();
+  if (SERIAL.available()) {
+    avrisp();
+  }
+}
+
+uint8_t getch() {
+  while (!SERIAL.available())
+    ;
+  return SERIAL.read();
+}
+void fill(int n) {
+  for (int x = 0; x < n; x++) {
+    buff[x] = getch();
+  }
+}
+
+#define PTIME 30
+void pulse(int pin, int times) {
+  do {
+    digitalWrite(pin, HIGH);
+    delay(PTIME);
+    digitalWrite(pin, LOW);
+    delay(PTIME);
+  } while (times--);
+}
+
+void prog_lamp(int state) {
+  if (PROG_FLICKER) {
+    digitalWrite(LED_PMODE, state);
+  }
+}
+
+uint8_t spi_transaction(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
+  SPI.transfer(a);
+  SPI.transfer(b);
+  SPI.transfer(c);
+  return SPI.transfer(d);
+}
+
+void empty_reply() {
+  if (CRC_EOP == getch()) {
+    SERIAL.print((char)STK_INSYNC);
+    SERIAL.print((char)STK_OK);
+  } else {
+    ISPError++;
+    SERIAL.print((char)STK_NOSYNC);
+  }
+}
+
+void breply(uint8_t b) {
+  if (CRC_EOP == getch()) {
+    SERIAL.print((char)STK_INSYNC);
+    SERIAL.print((char)b);
+    SERIAL.print((char)STK_OK);
+  } else {
+    ISPError++;
+    SERIAL.print((char)STK_NOSYNC);
+  }
+}
+
+void get_version(uint8_t c) {
+  switch (c) {
+    case 0x80:
+      breply(HWVER);
+      break;
+    case 0x81:
+      breply(SWMAJ);
+      break;
+    case 0x82:
+      breply(SWMIN);
+      break;
+    case 0x93:
+      breply('S');  // serial programmer
+      break;
+    default:
+      breply(0);
+  }
+}
+
+void set_parameters() {
+  // call this after reading parameter packet into buff[]
+  param.devicecode = buff[0];
+  param.revision = buff[1];
+  param.progtype = buff[2];
+  param.parmode = buff[3];
+  param.polling = buff[4];
+  param.selftimed = buff[5];
+  param.lockbytes = buff[6];
+  param.fusebytes = buff[7];
+  param.flashpoll = buff[8];
+  // ignore buff[9] (= buff[8])
+  // following are 16 bits (big endian)
+  param.eeprompoll = beget16(&buff[10]);
+  param.pagesize = beget16(&buff[12]);
+  param.eepromsize = beget16(&buff[14]);
+
+  // 32 bits flashsize (big endian)
+  param.flashsize = buff[16] * 0x01000000
+                    + buff[17] * 0x00010000
+                    + buff[18] * 0x00000100
+                    + buff[19];
+
+  // AVR devices have active low reset, AT89Sx are active high
+  rst_active_high = (param.devicecode >= 0xe0);
+}
+
+void start_pmode() {
+
+  // Reset target before driving ARDUINOISP_PIN_SCK or ARDUINOISP_PIN_MOSI
+
+  // SPI.begin() will configure SS as output, so SPI master mode is selected.
+  // We have defined RESET as pin 10, which for many Arduinos is not the SS pin.
+  // So we have to configure RESET as output here,
+  // (reset_target() first sets the correct level)
+  reset_target(true);
+  pinMode(RESET, OUTPUT);
+  SPI.begin();
+  SPI.beginTransaction(SPISettings(SPI_CLOCK, MSBFIRST, SPI_MODE0));
+
+  // See AVR datasheets, chapter "SERIAL_PRG Programming Algorithm":
+
+  // Pulse RESET after ARDUINOISP_PIN_SCK is low:
+  digitalWrite(ARDUINOISP_PIN_SCK, LOW);
+  delay(20);  // discharge ARDUINOISP_PIN_SCK, value arbitrarily chosen
+  reset_target(false);
+  // Pulse must be minimum 2 target CPU clock cycles so 100 usec is ok for CPU
+  // speeds above 20 KHz
+  delayMicroseconds(100);
+  reset_target(true);
+
+  // Send the enable programming command:
+  delay(50);  // datasheet: must be > 20 msec
+  spi_transaction(0xAC, 0x53, 0x00, 0x00);
+  pmode = 1;
+}
+
+void end_pmode() {
+  SPI.end();
+  // We're about to take the target out of reset so configure SPI pins as input
+  pinMode(ARDUINOISP_PIN_MOSI, INPUT);
+  pinMode(ARDUINOISP_PIN_SCK, INPUT);
+  reset_target(false);
+  pinMode(RESET, INPUT);
+  pmode = 0;
+}
+
+void universal() {
+  uint8_t ch;
+
+  fill(4);
+  ch = spi_transaction(buff[0], buff[1], buff[2], buff[3]);
+  breply(ch);
+}
+
+void flash(uint8_t hilo, unsigned int addr, uint8_t data) {
+  spi_transaction(0x40 + 8 * hilo,
+                  addr >> 8 & 0xFF,
+                  addr & 0xFF,
+                  data);
+}
+void commit(unsigned int addr) {
+  if (PROG_FLICKER) {
+    prog_lamp(LOW);
+  }
+  spi_transaction(0x4C, (addr >> 8) & 0xFF, addr & 0xFF, 0);
+  if (PROG_FLICKER) {
+    delay(PTIME);
+    prog_lamp(HIGH);
+  }
+}
+
+unsigned int current_page() {
+  if (param.pagesize == 32) {
+    return here & 0xFFFFFFF0;
+  }
+  if (param.pagesize == 64) {
+    return here & 0xFFFFFFE0;
+  }
+  if (param.pagesize == 128) {
+    return here & 0xFFFFFFC0;
+  }
+  if (param.pagesize == 256) {
+    return here & 0xFFFFFF80;
+  }
+  return here;
+}
+
+
+void write_flash(int length) {
+  fill(length);
+  if (CRC_EOP == getch()) {
+    SERIAL.print((char)STK_INSYNC);
+    SERIAL.print((char)write_flash_pages(length));
+  } else {
+    ISPError++;
+    SERIAL.print((char)STK_NOSYNC);
+  }
+}
+
+uint8_t write_flash_pages(int length) {
+  int x = 0;
+  unsigned int page = current_page();
+  while (x < length) {
+    if (page != current_page()) {
+      commit(page);
+      page = current_page();
+    }
+    flash(LOW, here, buff[x++]);
+    flash(HIGH, here, buff[x++]);
+    here++;
+  }
+
+  commit(page);
+
+  return STK_OK;
+}
+
+#define EECHUNK (32)
+uint8_t write_eeprom(unsigned int length) {
+  // here is a word address, get the byte address
+  unsigned int start = here * 2;
+  unsigned int remaining = length;
+  if (length > param.eepromsize) {
+    ISPError++;
+    return STK_FAILED;
+  }
+  while (remaining > EECHUNK) {
+    write_eeprom_chunk(start, EECHUNK);
+    start += EECHUNK;
+    remaining -= EECHUNK;
+  }
+  write_eeprom_chunk(start, remaining);
+  return STK_OK;
+}
+// write (length) bytes, (start) is a byte address
+uint8_t write_eeprom_chunk(unsigned int start, unsigned int length) {
+  // this writes byte-by-byte, page writing may be faster (4 bytes at a time)
+  fill(length);
+  prog_lamp(LOW);
+  for (unsigned int x = 0; x < length; x++) {
+    unsigned int addr = start + x;
+    spi_transaction(0xC0, (addr >> 8) & 0xFF, addr & 0xFF, buff[x]);
+    delay(45);
+  }
+  prog_lamp(HIGH);
+  return STK_OK;
+}
+
+void program_page() {
+  char result = (char)STK_FAILED;
+  unsigned int length = 256 * getch();
+  length += getch();
+  char memtype = getch();
+  // flash memory @here, (length) bytes
+  if (memtype == 'F') {
+    write_flash(length);
+    return;
+  }
+  if (memtype == 'E') {
+    result = (char)write_eeprom(length);
+    if (CRC_EOP == getch()) {
+      SERIAL.print((char)STK_INSYNC);
+      SERIAL.print(result);
+    } else {
+      ISPError++;
+      SERIAL.print((char)STK_NOSYNC);
+    }
+    return;
+  }
+  SERIAL.print((char)STK_FAILED);
+  return;
+}
+
+uint8_t flash_read(uint8_t hilo, unsigned int addr) {
+  return spi_transaction(0x20 + hilo * 8,
+                         (addr >> 8) & 0xFF,
+                         addr & 0xFF,
+                         0);
+}
+
+char flash_read_page(int length) {
+  for (int x = 0; x < length; x += 2) {
+    uint8_t low = flash_read(LOW, here);
+    SERIAL.print((char)low);
+    uint8_t high = flash_read(HIGH, here);
+    SERIAL.print((char)high);
+    here++;
+  }
+  return STK_OK;
+}
+
+char eeprom_read_page(int length) {
+  // here again we have a word address
+  int start = here * 2;
+  for (int x = 0; x < length; x++) {
+    int addr = start + x;
+    uint8_t ee = spi_transaction(0xA0, (addr >> 8) & 0xFF, addr & 0xFF, 0xFF);
+    SERIAL.print((char)ee);
+  }
+  return STK_OK;
+}
+
+void read_page() {
+  char result = (char)STK_FAILED;
+  int length = 256 * getch();
+  length += getch();
+  char memtype = getch();
+  if (CRC_EOP != getch()) {
+    ISPError++;
+    SERIAL.print((char)STK_NOSYNC);
+    return;
+  }
+  SERIAL.print((char)STK_INSYNC);
+  if (memtype == 'F') {
+    result = flash_read_page(length);
+  }
+  if (memtype == 'E') {
+    result = eeprom_read_page(length);
+  }
+  SERIAL.print(result);
+}
+
+void read_signature() {
+  if (CRC_EOP != getch()) {
+    ISPError++;
+    SERIAL.print((char)STK_NOSYNC);
+    return;
+  }
+  SERIAL.print((char)STK_INSYNC);
+  uint8_t high = spi_transaction(0x30, 0x00, 0x00, 0x00);
+  SERIAL.print((char)high);
+  uint8_t middle = spi_transaction(0x30, 0x00, 0x01, 0x00);
+  SERIAL.print((char)middle);
+  uint8_t low = spi_transaction(0x30, 0x00, 0x02, 0x00);
+  SERIAL.print((char)low);
+  SERIAL.print((char)STK_OK);
+}
+//////////////////////////////////////////
+//////////////////////////////////////////
+
+
+////////////////////////////////////
+////////////////////////////////////
+void avrisp() {
+  uint8_t ch = getch();
+  switch (ch) {
+    case '0':  // signon
+      ISPError = 0;
+      empty_reply();
+      break;
+    case '1':
+      if (getch() == CRC_EOP) {
+        SERIAL.print((char)STK_INSYNC);
+        SERIAL.print("AVR ISP");
+        SERIAL.print((char)STK_OK);
+      } else {
+        ISPError++;
+        SERIAL.print((char)STK_NOSYNC);
+      }
+      break;
+    case 'A':
+      get_version(getch());
+      break;
+    case 'B':
+      fill(20);
+      set_parameters();
+      empty_reply();
+      break;
+    case 'E':  // extended parameters - ignore for now
+      fill(5);
+      empty_reply();
+      break;
+    case 'P':
+      if (!pmode) {
+        start_pmode();
+      }
+      empty_reply();
+      break;
+    case 'U':  // set address (word)
+      here = getch();
+      here += 256 * getch();
+      empty_reply();
+      break;
+
+    case 0x60:  //STK_PROG_FLASH
+      getch();  // low addr
+      getch();  // high addr
+      empty_reply();
+      break;
+    case 0x61:  //STK_PROG_DATA
+      getch();  // data
+      empty_reply();
+      break;
+
+    case 0x64:  //STK_PROG_PAGE
+      program_page();
+      break;
+
+    case 0x74:  //STK_READ_PAGE 't'
+      read_page();
+      break;
+
+    case 'V':  //0x56
+      universal();
+      break;
+    case 'Q':  //0x51
+      ISPError = 0;
+      end_pmode();
+      empty_reply();
+      break;
+
+    case 0x75:  //STK_READ_SIGN 'u'
+      read_signature();
+      break;
+
+    // expecting a command, not CRC_EOP
+    // this is how we can get back in sync
+    case CRC_EOP:
+      ISPError++;
+      SERIAL.print((char)STK_NOSYNC);
+      break;
+
+    // anything else we will return STK_UNKNOWN
+    default:
+      ISPError++;
+      if (CRC_EOP == getch()) {
+        SERIAL.print((char)STK_UNKNOWN);
+      } else {
+        SERIAL.print((char)STK_NOSYNC);
+      }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------

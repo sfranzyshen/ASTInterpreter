@@ -1,0 +1,29 @@
+good morning! I felt you cut me off too early yesterday ... is that due to the deep reasearch I had you do yesterday?
+
+can you show me on the screen the series of changes to the interpreter.js file that you made starting 5 versions back ... don't show me the whole file just show me in series the "individual" changes you made starting 5 versions back ...
+
+what reference material for the "c lanuguage" or "arduino language" documents did you reference and refer to when building the lexar and parser? 
+
+here are my current thoughts about my experience working with you on this project ... and how I think HOW we need to continue ...
+
+meticulous - review and re-review ALL available option and weight the best option ... pay very close attention to the details of overlapping\interacting code ... be careful not to break something to fix something ...
+
+cautious - check, check, and re-check again. be very cautious about breaking existing function or introducing new problems.
+
+SLOW DOWN! - do not be in such a hurry to go to the next step, advance to the next checkpoint ... this is not a race ... we are taking too many shortcuts in a hurry to finish the project ... I set the tempo ... not you ... you only concentrate on exactly what we are working on ... and not concerning yourself with progress or what's next ... only on the task at hand and the output (generated code) "QUALITY" 
+
+... got it?
+
+
+https://docs.arduino.cc/built-in-examples/
+https://github.com/arduino/arduino-examples/tree/main/examples
+
+The C Programming Language by Brian W. Kernighan and Dennis M. Ritchie (K&R)
+C: A Reference Manual by Samuel P. Harbison and Guy R. Steele
+C: The Complete Reference by Herbert Schildt
+https://c-faq.com/
+
+
+
+
+I am glad you agree option A should be our direction becuase I agree ... we do not have a stable, verified v31 parser ... we have a early start to a parser ... I have expanded our test code collection ... we now have 54 test files ... they are name test1.ino to test54.ino and they are located within the test/ folder of the project  (example: test/test1.ino) I will post the new test source code in a latter post ... I have manually verified each test file within the arduino ide (1.x) and verify that the code(s) compiles ... I have also perform test against our current interpreter.js code and have a log file that I will also share with you in a upcomming post ... 

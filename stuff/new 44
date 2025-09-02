@@ -1,0 +1,607 @@
+before you give me your next plan here are the analyses of your code changes review this material and wait for further instruction! ... Lexer Issues ⚠️
+
+Your lexer handles many token types well, but there are a few areas that deviate from standard C lexer behavior, which can cause subtle parsing failures.
+
+Ambiguous Identifier and Keyword Handling: Your current approach of checking if a token is a keyword after identifying it as an identifier is a standard and robust technique. However, the lexer's reliance on the symbolTable to identify a TYPENAME token is a non-standard practice. Lexing should be a context-free process; it shouldn't need to know about the symbol table to categorize tokens. A standard C compiler uses a "trick" where the lexer returns a generic IDENTIFIER token, and the parser then decides if that identifier is a type name (e.g., typedef alias) based on its current context in the grammar.
+
+Numeric Literals: While your lexer attempts to handle various numeric bases and suffixes, the number() function logic is complex and prone to errors. For example, the check for a floating-point number (.) is buried in the decimal parsing logic, which could be brittle. A more robust approach is to first identify the base (0x, 0b, 0) and then parse the digits and suffixes specific to that base.
+
+Error Reporting: Your LexerError provides line and column information, which is excellent. However, an industry-standard lexer often tries to recover from errors (e.g., by skipping to the next newline or semicolon) rather than immediately halting, which can provide more comprehensive error reports for the entire file.
+
+Parser Issues ⚠️
+
+The parser is a more complex component, and it's where most of the AST generation failures are likely to occur. Your parser's logic for handling C's ambiguities needs refinement to follow established, time-tested algorithms.
+
+The "Dangling Else" Problem: The test test12.ino is a classic example of the "dangling else" problem. Your grammar rule for if_statement() correctly associates the else with the closest preceding if statement, which is the standard solution for this ambiguity.
+
+The "Most Vexing Parse" / Ambiguous Declarations: C has several syntactic ambiguities where a sequence of tokens can be interpreted in multiple ways. Your test type_test_ambiguous_cast_deref.ino highlights this. A common example is (type) * identifier. This could be a cast expression or a pointer declaration. Your parser's current solution of trying to parse it one way and then backtracking on failure is a valid but potentially inefficient technique. A more robust and widely adopted approach for this is to use a context-sensitive grammar or employ more powerful parsing algorithms like GLR (Generalized LR) that can handle multiple parse trees simultaneously and resolve the ambiguity later. A simpler, more common technique is to use a specific token type for type names, as mentioned in the lexer section, which requires the parser to inform the lexer of the context.
+
+Declaration vs. Expression Ambiguity: Your parser attempts to solve this with a try-catch block and backtracking. This is a sign of a fundamental ambiguity in the grammar that is not being resolved by standard lookahead. A better approach is to use a unified grammar that can parse both a declaration and an expression at the same point, and then perform semantic checks to determine which is correct. Another solution is to always prioritize the declaration and then try to parse an expression if the declaration fails. This is often an implicit part of top-down parsers like recursive descent.
+
+Initializer List Parsing: Your initializer_list() function has a comma-eating loop if (this.currentToken.type === TokenType.COMMA) this.eat(TokenType.COMMA); which is non-standard. The standard approach is to parse a single initializer, then loop to check for the comma and the next initializer. This prevents infinite loops on malformed input.
+
+Established Techniques to Adopt
+
+To align your interpreter with industry standards, consider these changes:
+
+Lexical Analysis: Keep the lexer simple and stateless. It should only produce generic tokens like IDENTIFIER and NUMBER. A separate, more sophisticated mechanism in the parser or semantic analyzer should determine their final meaning.
+
+Parser and Grammar:
+
+Grammar Formalism: A common practice is to define your grammar using a formalism like EBNF (Extended Backus-Naur Form). This clarifies the language rules and is a prerequisite for using parser generators.
+
+Parser Generators: Tools like Yacc/Bison (for LALR parsers) or ANTLR (for LL parsers) are the industry standard for building parsers. They take a grammar file and automatically generate the lexer and parser code, handling all ambiguities and complex state management for you. This avoids the need to "recreate the wheel" and ensures your parser is based on a solid, proven algorithm.
+
+Recursive Descent with Lookahead: If you prefer to write the parser manually, a Recursive Descent Parser is a great choice. It's often combined with a small amount of lookahead (e.g., peeking at the next token) to resolve simple ambiguities.
+
+Semantic Analysis:
+
+Symbol Table Management: Your SymbolTable and Interpreter have the correct structure (scopes, symbols). This is the right approach. Continue to build upon this by adding checks for type compatibility, implicit conversions, and correct usage of qualifiers like const and static.
+
+Abstract Syntax Tree: Your ASTNode classes are well-defined. This is a crucial and standard component. The visitor pattern you are using in the Interpreter is the textbook method for traversing and analyzing an AST. ... Parser and Lexer Failures 💔
+
+The logs reveal several instances where the parser or lexer fails, often due to an inability to handle C's complex grammar rules.
+
+
+
+Complex Declarators (test28.ino, test51.ino, type_test_typedef_func_ptr.ino): Your parser consistently fails on C's more advanced declarator syntax, particularly with function pointers. The parser expects a simple identifier after the type, but it encounters a more complex structure (e.g., a function pointer in a parameter list or as a return type) and gets lost. This indicates that the declarator() rule in your grammar needs to be rewritten to correctly handle C's recursive and convoluted declarator syntax. A robust parser for C needs to handle constructs like int (*my_func)(void) without getting confused.
+
+Numeric and Float Suffixes (numeric_test_float_malformed.ino, numeric_test_float_no_digit.ino): The lexer correctly identifies several invalid numeric literals but struggles with others. For example, 1.2.3 causes a parser error instead of a lexer error, suggesting the lexer incorrectly tokenized 1.2 and then the parser failed on the unexpected second .. This highlights that the lexer's logic for parsing floating-point numbers is not robust enough to handle all edge cases and should be refactored into a more explicit, state-machine-like process.
+
+The "Most Vexing Parse" (type_test_ambiguous_cast_deref.ino): The test output shows the parser misinterprets (MyType) *ptr;. Instead of recognizing this as a cast, it parses it as a multiplication, leading to an incorrect AST. This is a textbook example of a C grammar ambiguity. Your current backtracking mechanism seems to be failing here, reinforcing the need for a more reliable, context-aware parsing strategy.
+
+Invalid Numeric Literals (numeric_test_invalid_*): Your lexer correctly flags invalid hexadecimal, octal, and binary literals, which is a good sign. The error messages are helpful and precise, indicating that this part of your lexer is working as intended. This confirms that the test harness and your lexer can successfully identify and report this class of errors. ... Parser Failures on Complex Declarations
+
+The test output confirms that the parser is not robust enough to handle C's complex declaration syntax. This is the most significant and consistent failure point.
+
+
+
+test28.ino and test51.ino: Both of these tests deal with function pointers, either as a variable or as a function parameter/return type. The output shows [FAILURE - Parser] Parser Error: Expected a variable name or declarator on line 6 (token: ',', type: COMMA). This indicates that the parser's declarator() function expects a simple identifier and fails when it encounters the parentheses and asterisks of a function pointer. A standard C parser uses a recursive descent approach where declarator() calls itself to handle nested declarations and complex pointer syntax correctly.
+
+test59_function_pointer_return.ino: This test also fails with the same parser error, confirming the problem isn't isolated to function pointer variables but extends to their use in function signatures. Your parser incorrectly expects a simple declarator, but the syntax int (*getFuncPtr(void))(int, int) requires a more sophisticated parsing strategy to correctly associate the function pointer with its return type.
+
+type_test_typedef_func_ptr.ino: The parser fails here as well, highlighting that even when a function pointer is defined via a typedef, the parser's declarator() rule cannot handle the complex parenthetical syntax (*MyFuncPtr)(int).
+
+The core issue is that your declarator() function is likely structured as a linear, single-pass rule that doesn't account for C's recursive and right-to-left declaration rules.
+
+Lexer / Parser Failures on Numeric Literals
+
+The tests reveal a few areas where the lexer and parser's handling of numeric literals is flawed.
+
+
+
+numeric_test_bin_valid.ino: The AST shows NumberNode (0) for a binary literal, indicating the lexer's number() function is likely misinterpreting or failing to convert binary values. A correct lexer would convert 0b101 to 5 and 0B11110000 to 240.
+
+numeric_test_float_malformed.ino and numeric_test_float_no_digit.ino: These tests highlight a weakness in the float parsing logic. The error Expected SEMICOLON but found NUMBER on 1.2.3 and Unexpected token in primary expression on . suggests the lexer produces a valid token 1.2, but then fails to handle the unexpected dot that follows. A more robust lexer should consume the entire invalid literal and throw a lexer error for an ill-formed number, like it successfully does for 018 or 0x.
+
+num_valid_float_trailing_dot.ino: The AST for float f3 = 1.0; shows NumberNode (1), indicating the decimal .0 is being discarded. The lexer or parser incorrectly handles this trailing dot, demonstrating a gap in its floating-point number recognition.
+
+Ambiguity Failures
+
+The test output confirms the parser's struggle with C's inherent ambiguities.
+
+
+
+type_test_ambiguous_cast_deref.ino: The AST for (MyType) *ptr is BinOpNode (binary operator), not a CastNode and a UnaryOpNode as expected. This means the parser is misinterpreting the parentheses around MyType as grouping for multiplication, a classic C parsing problem. This strongly validates the previous point about needing a more sophisticated parsing strategy to distinguish between a cast and a multiplication. The parser's backtracking logic is insufficient for this case.
+
+Conclusion
+
+The test harness output is a valuable diagnostic tool that pinpoints the specific implementation weaknesses of your lexer and parser. The failures are not random; they consistently appear in the same categories:
+
+
+
+Complex Declarators: The parser's declarator() rule cannot handle recursion or function pointer syntax.
+
+Number Parsing: The lexer's number() rule has issues with binary conversions and floating-point edge cases.
+
+Syntactic Ambiguity: The parser's simple backtracking or lookahead mechanism fails on classic C ambiguities, leading to incorrect ASTs.
+
+To address these, focus on refactoring the parser's core functions, particularly declarator(), to handle recursion, and refine the lexer's number parsing logic to be more explicit and error-resilient. This is a crucial step towards a solid and industry-standard parser. ... I've analyzed your C interpreter's lexer and parser code. Here's my comprehensive diagnostic report focusing on design weaknesses and AST generation failure points:
+
+
+
+CRITICAL DESIGN ISSUES
+
+1. Lexer Token Recognition Problems
+
+Issue: Your SLASH_EQUAL token has incorrect mapping:
+
+
+
+
+
+javascript
+
+SLASH_EQUAL: 'STAR_EQUAL'  // Should be 'SLASH_EQUAL'
+
+This causes AST generation failures when parsing /= operators.
+
+Issue: Missing comprehensive operator tokenization coverage. Your lexer lacks some C operators that could appear in real code, causing "unrecognized character" errors.
+
+
+
+2. Parser Grammar Structural Weaknesses
+
+Critical Flaw: Your declaration_specifiers() method doesn't properly handle the full C grammar for type specifiers. It uses a sequential approach rather than the standard recursive grammar, leading to:
+
+
+
+Incorrect parsing of complex type combinations like const unsigned long long
+
+Failure to properly recognize all valid C type specifier sequences
+
+AST generation failures for legitimate C declarations
+
+Critical Flaw: The declarator() method has architectural issues:
+
+
+
+Creates nested DeclaratorNode structures incorrectly for complex declarators
+
+Function parameter parsing logic is flawed - it assigns functionParams to intermediate nodes rather than the final declarator
+
+This causes AST corruption for function declarations and function pointers
+
+3. Context-Sensitive Parsing Issues
+
+Major Design Weakness: Your typedef/type name tracking is incomplete:
+
+
+
+The typedefNames set in the parser is separate from the lexer's symbol table
+
+Context-sensitive tokenization isn't properly implemented (you have a TYPENAME token type but don't use it)
+
+This leads to the classic "typedef name vs variable name" ambiguity not being resolved correctly
+
+4. Statement vs Declaration Ambiguity
+
+Critical Parser Flaw: Your statement() method uses try/catch backtracking for declaration vs expression ambiguity. This is:
+
+
+
+Inefficient and fragile
+
+Not how production C parsers handle this (they use proper lookahead or GLR parsing)
+
+Causes AST generation to fail when the backtracking logic breaks
+
+5. Error Recovery Deficiencies
+
+Major Issue: Your error handling lacks proper recovery mechanisms:
+
+
+
+Lexer errors immediately throw without attempting to continue
+
+Parser errors don't provide synchronization points
+
+No support for cascading error recovery
+
+AST GENERATION FAILURE PATTERNS
+
+1. Function Declaration Parsing
+
+Your FuncDefNode creation in declaration() has this bug:
+
+
+
+
+
+javascript
+
+const params = declarator.functionParams;declarator.functionParams = null; // This corrupts the AST structure
+
+Industry Standard Approach: Function declarations should maintain their parameter structure in the AST without destructive modification.
+
+
+
+2. Complex Declarator Handling
+
+Your declarator parsing doesn't follow the standard C grammar pattern:
+
+
+
+
+
+declarator: pointer? direct_declaratordirect_declarator: IDENTIFIER | '(' declarator ')' | direct_declarator '[' ']' | direct_declarator '(' ')'
+
+Current Issue: You're wrapping declarators in additional DeclaratorNode layers rather than using the recursive structure properly.
+
+
+
+RECOMMENDATIONS BASED ON INDUSTRY STANDARDS
+
+1. Adopt Proven Lexer Architecture
+
+Study GCC's lexer design - use a state machine approach for number parsing and implement proper context-sensitive keyword recognition.
+
+
+
+2. Implement Standard Parser Architecture
+
+Reference the Clang parser's handling of:
+
+
+
+Declaration specifier sequences (using proper grammar rules)
+
+Declarator parsing (following C11 standard grammar exactly)
+
+Type vs expression disambiguation (using proper lookahead)
+
+3. Fix Symbol Table Integration
+
+Your lexer needs direct access to the parser's symbol table for proper typedef recognition - this is how all production C compilers work.
+
+
+
+4. Implement Proper Error Recovery
+
+Study Bison/Yacc error recovery techniques:
+
+
+
+Synchronization tokens (semicolon, closing braces)
+
+Error production rules
+
+Panic-mode recovery
+
+5. Grammar Structure Alignment
+
+Your grammar should match the C11 standard exactly. Key areas needing correction:
+
+
+
+declaration-specifiers production
+
+declarator production
+
+statement vs declaration disambiguation
+
+IMMEDIATE FIXES NEEDED
+
+Fix the SLASH_EQUAL token mapping
+
+Rewrite declaration_specifiers() to follow C grammar exactly
+
+Fix the declarator() method's AST node creation
+
+Implement proper typedef name tracking between lexer and parser
+
+Replace try/catch backtracking with proper lookahead techniques
+
+Your current architecture has fundamental deviations from proven compiler design patterns. The AST failures stem from these architectural choices rather than minor bugs. ... Quick findings (from your files)
+
+Concrete bugs I found in interpreter.js that will produce incorrect tokens / ASTs
+
+
+
+TokenType / SLASH_EQUAL bug — SLASH_EQUAL is set to the string 'STAR_EQUAL'. This makes the lexer produce the wrong token for /= (it will behave like *=). Fix: give SLASH_EQUAL the correct string.
+
+KEYWORDS mappings for some pin mode names map different tokens (e.g. "INPUT_PULLDOWN": TokenType.INPUT, "OUTPUT_OPENDRAIN": TokenType.OUTPUT). If you intend to preserve those distinct token types you must map them to their own TokenType entries (add INPUT_PULLDOWN, OUTPUT_OPENDRAIN to TokenType and map them in KEYWORDS). Otherwise they’ll be indistinguishable from regular INPUT/OUTPUT.
+
+Context-sensitive tokenization missing — the lexer currently uses KEYWORDS only to decide if an identifier is a keyword. C requires a small amount of context sensitivity: identifiers which are typedef names should be lexed as TYPENAME (or otherwise known to the parser). Your Lexer constructor accepts a symbolTable but id() never consults it; the Parser maintains a separate typedefNames set. These must be unified so the lexer can emit TYPENAME where appropriate. If not handled, constructs like typedef struct { ... } Foo; Foo x; will parse incorrectly and break AST generation.
+
+Numeric literal handling: you handle hex (0x), binary (0b), octal, decimal and decimal floats — good — but no support for C hex floating constants (e.g. 0x1.2p3) which are legal in C99/C11. If your tests or real inputs include those, the lexer will mis-tokenize or throw errors. You also defensively detect invalid octal digits (8/9) — good — but be aware of more edge cases (leading . floats, . starting identifiers, suffix combinations).
+
+Preprocessor is extremely rudimentary. It fakes an #include and does only very simple #define substitution (object-like macros) and does not support #if/#ifdef/#ifndef/#else/#elif logic, function-like macros, macro expansion order/tokenization rules, or macro argument substitution. The preprocessor is the most common cause of subtle parser/AST differences; real compilers either use the existing system C preprocessor (cpp) or implement a production-grade preprocessor.
+
+Error reporting: LexerError reports line/column which is good — but the column calculation in some places uses startPos - this.text.lastIndexOf('\n', startPos - 1). That is fine in many cases but ensure lastIndexOf returns -1 at file start (so column calc becomes startPos - (-1) which is startPos + 1) — just verify you get expected column numbers near beginning of file.
+
+Parser / symbol tracking mismatch: the Parser has typedefNames preseeded and the SymbolTable class exists in your code, but the Parser's typedefNames and SymbolTable's typedefNames are separate. Make them the same underlying store so when you define a typedef in semantic analysis it affects lexing & parsing.
+
+Concrete, minimal code fixes (apply these first)
+
+Fix SLASH_EQUAL constant
+
+js
+
+CopyEdit
+
+// in TokenTypeSLASH_EQUAL: 'SLASH_EQUAL', // instead of 'STAR_EQUAL'
+
+Add specific pin mode token types (if you want to keep them distinct)
+
+js
+
+CopyEdit
+
+// in TokenTypeINPUT_PULLDOWN: 'INPUT_PULLDOWN',OUTPUT_OPENDRAIN: 'OUTPUT_OPENDRAIN',
+
+and in KEYWORDS
+
+
+
+js
+
+CopyEdit
+
+"INPUT_PULLDOWN": TokenType.INPUT_PULLDOWN,"OUTPUT_OPENDRAIN": TokenType.OUTPUT_OPENDRAIN,
+
+Or if you don't need those distinctions, leave them mapped to INPUT/OUTPUT but be explicit in code/comments.
+
+
+
+Make the lexer treat typedef names as TYPENAME — change id() to consult the symbolTable (if provided) and emit TYPENAME. Example:
+
+js
+
+CopyEdit
+
+id() {
+
+    let result = '';
+
+    while (this.currentChar !== null && this._isAlphaNumeric(this.currentChar)) {
+
+        result += this.currentChar; this.advance();
+
+    }
+
+    // check keyword table first
+
+    if (KEYWORDS[result]) return new Token(KEYWORDS[result], result, this.line);
+
+
+
+    // if symbolTable provided and it knows this is a type name,
+
+
+
+You said:
+
+we are concentrating on the lexer / parser code for right now so present you findings and ignore the state of the Semantic Analysis for now ... ok?
+
+
+
+ChatGPT said:
+
+
+
+Thought for 22s
+
+Perfect — I’ll focus only on the lexer + parser (no semantic-analysis changes) and give you a concrete, industry-grounded checklist of problems, fixes, and techniques you can adopt right away. I also list canonical reference implementations and docs to follow so you’re not re-inventing anything. I used real, time-tested references (chibicc/8cc/8cc successors, TCC, LCC, Clang docs, and the standard lexical rules) to make every recommendation practical and proven. GitHubBellarddrh.github.ioCppreferenceGCC
+
+High-level summary (why your current failures are happening)
+
+Most AST generation failures coming from lexer/parser bugs fall into a few predictable categories:
+
+
+
+Wrong tokens for common operators or keywords (simple typos in TokenType / KEYWORDS) — causes parser to take wrong grammar branch. (You already have at least one /= name bug and some pin mode keyword mismaps.)
+
+Incorrect or incomplete numeric/char/string lexing (edge cases like hex floats, .-starting floats, escape sequences) — causes literal nodes to be wrong or to throw.
+
+Preprocessor handling is too small / not standards-compatible — #define, #include, and conditional compilation are what real C code uses to change the token stream before parsing; an inadequate preprocessor produces tokens the parser never expects.
+
+Operator longest-match / lookahead bugs — missing longest-match or wrong peek/advance order makes >>= or <<= or -> get split incorrectly.
+
+Parser combinator / declarator parsing complexity — C declarators (pointers, arrays, function pointers, typedefs) are famously tricky. Small parser mistakes produce wrong AST shapes for functions/arrays/pointers. Use proven declarator parsing algorithms.
+
+Error handling and token position tracking — parser recovers poorly after token errors, leading to cascades of AST failures.
+
+All of these are consistent with the symptoms you described (ASTs failing or malformed). The fixes below are concrete and prioritized.
+
+Concrete lexer bugs I found in your interpreter.js (must fix first)
+
+(These are focused purely on lexer/parsing behavior.)
+
+
+
+SLASH_EQUAL Typo — TokenType.SLASH_EQUAL is assigned 'STAR_EQUAL'. This will make /= produce a *= token. Fix: set SLASH_EQUAL: 'SLASH_EQUAL'.
+
+
+
+— Why: Simple name mismatches are fatal because parser checks token types, not text. (Easy one-line fix.)
+
+Multi-word pin-mode keyword mappings — you map "INPUT_PULLDOWN": TokenType.INPUT and "OUTPUT_OPENDRAIN": TokenType.OUTPUT. If you need those distinct, add them as separate token types; otherwise make a comment + explicit mapping so behaviour is intentional.
+
+
+
+— Why: Ambiguity here changes parse choices (e.g., pinMode(INPUT_PULLDOWN) vs pinMode(INPUT)).
+
+Longest-match errors / peek-advance flow — your getNextToken often does if (peek() === '=') { this.advance(); token = new Token(...); } else ... then calls this.advance() again at end of loop. That double-advance pattern is prone to off-by-one or skipping the second character when multi-char tokens are 2 or 3 chars long (e.g., <<= / >>=).
+
+
+
+— Fix: Use a canonical pattern: read first char into ch = currentChar, then attempt to consume extra chars inside the case without adding a second unconditional advance() afterwards — or only advance once per produced token. Make the code uniform and test with >>, >>=, <<=, ->, ++, --.
+
+Numeric literals — missing C hex-floating constants and some suffix combos — you handle decimal/hex/binary/octal and floats, but not 0x1.2p3 style hex-floats (C99/C11 allowed). Also check combined suffixes like 123ULL, 1e3F, etc.
+
+
+
+— Fix: Either implement hex-float parsing (recognize 0x followed by hex digits, optional . hex digits, p exponent with signed decimal integer) or explicitly disallow and document it. Use cppreference / gcc docs for full grammar. CppreferenceGCC
+
+Character & string escape handling — ensure you accept full range of C escapes (\xhh, \0 octal, \u/\U if supporting C11 universal char names), and detect unterminated strings with correct position. Current code handles common escapes, but add \x hex escapes and octal sequences, plus robust error checking.
+
+Comment skipping — your skipComment() handles // and /* ... */ correctly, but ensure nested /* aren't assumed (C does not support nested block comments), and ensure EOF inside block comment is an error rather than silently continuing. Also, if you consume /* you must stop when reaching EOF without */ and report a LexerError.
+
+Token suffix handling for numeric literals — you attach suffix string to token which is great, but ensure the parser uses it and that the lexer never mixes suffix characters into identifier tokens (e.g., 10myVar should be an error, not 10 + myVar). You already do a check — keep it and add tests.
+
+Identifiers vs. keywords — your id() checks KEYWORDS and otherwise returns IDENTIFIER. That's fine, but be explicit about case sensitivity and reserved-word sets (use cppreference list) so you don't miss C23 additions. Cppreference
+
+Column calculation for errors near file start — startPos - this.text.lastIndexOf('\n', startPos - 1) returns correct 1-based column even at file start only if lastIndexOf returns -1 and you treat appropriately; add a small helper to compute column robustly.
+
+Parser issues and recommended fixes (recursive-descent + expression parsing)
+
+You said focus on lexer/parser. Here are parser-specific items (no semantic table changes assumed).
+
+
+
+Prefer an established approach for expressions: use precedence climbing (a.k.a. Pratt or precedence-based recursive descent) for binary/unary/ternary operators. It’s compact, correct for C operator precedence and associative rules, and used widely (chibicc, many tutorials). See Pratt parser / precedence climbing references. GitHubAustin Henley
+
+Declarator parsing (the hard part) — C declarators (pointer, array, function pointer, parentheses) are non-trivial. Use the "read-declarator" algorithm used in LCC and Rui’s chibicc: parse a direct-declarator recursively (identifier, ( declarator ), identifier followed by array or function parameter list, etc.), then wrap pointer qualifiers. The chibicc code and LCC book are the best short references. GitHubdrh.github.io
+
+Function definitions vs. declarations — ensure the parser distinguishes int f(); (prototype) vs int f() { ... } (def). Your code mostly does this but make sure you consume the { only after confirming it's a function body — otherwise you can confuse brace-delimited initializers with function bodies.
+
+Parsing typedef names as types — since you asked to ignore semantic, you can keep treating typedef names as IDENTIFIER in the lexer and let the parser use a typedefNames set (which you already have). But the parser must be able to reclassify identifiers as type tokens when needed during parsing of declaration_specifiers and declarators. That is a standard approach: lexer is simple, parser consults typedefNames set as it tries to parse declarations. (If you later want to move to lexer-level TYPENAME, add a symbol-table link, but that’s a semantic enhancement — defer for now.)
+
+Compound initializer lists and designated initializers — ensure parser accepts { .x = 3, [2] = 5 } style designated initializers. This syntax is often the source of parser mis-interpretation when your token stream returns . and [ tokens — the parser must allow them in initializer context.
+
+Ternary operator parsing — implement ternary (?:) as right-associative with proper precedence. Precedence climbing handles it well.
+
+Error recovery — when parser fails on a token, implement a small panic-mode where you skip to the next semicolon or } to avoid cascading parsing failures in the test harness.
+
+Tests you should add / run immediately (lexer & parser unit tests)
+
+(These are small, focused unit tests — run them before full test harness.)
+
+
+
+Token dump tests:
+
+a /= b; — expect SLASH_EQUAL token.
+
+a <<= 2; a >>= 3; a >>= 3; — expect LESS_LESS, LESS_LESS_EQUAL, GREATER_GREATER, GREATER_GREATER_EQUAL.
+
+-> ++ -- == != && || etc. (longest-match).
+
+Numeric tests:
+
+0x1.2p3 (hex float) — if you implement it.
+
+0123, 09 (invalid octal should error), 0b1010, 123u, 123ULL.
+
+String/char tests:
+
+"hello\n\0" '\n' '\x41' '\101' "\\" and unterminated string error.
+
+Preprocessor tokenization:
+
+#define A 10 then A + 1 expands to 10 + 1.
+
+#if / #ifdef / nested conditionals (if you implement).
+
+Declarator tests:
+
+int (*fptr)(int, char*); parse as VarDecl with pointer-to-function declarator.
+
+typedef struct { int x; } Foo; Foo a; — parser recognizes Foo as type (using parser-side typedefNames).
+
+Initializer tests:
+
+int arr[] = { [1] = 5, 7 }; parse initializer list correctly.
+
+Add token dumping mode to test_harness.html so you can compare actual token streams to expected for each test quickly.
+
+“Use proven techniques” — recommended design pattern & references
+
+If you want to copy battle-tested patterns rather than inventing new ones:
+
+
+
+Lexer + Preprocessor: Follow GCC/Clang tokenization phases concept — preprocessor first (preprocessing-tokens), then lexical analysis to C tokens. See GCC cpp tokenization docs and Clang Lexer docs. GCCClang
+
+Expression parsing: Pratt / precedence-climbing (used in many small compilers such as chibicc). Austin HenleyGitHub
+
+Declarator parsing + overall architecture: consult LCC book + chibicc implementation — LCC explains the classic, well-documented algorithm for parsing declarations and generating AST. drh.github.io
+
+Small, instructive C compilers to copy from:
+
+chibicc / 8cc (compact, readable, good for learning real C features). GitHub+1
+
+TinyCC (tcc) (production-small, fast, real-world features). Bellard
+
+lcc and its book (retargetable compiler design). drh.github.io
+
+Immediate prioritized action list (what I’ll do if you want me to patch)
+
+If you want me to produce a patchset, I’ll do these in order (small commits you can review):
+
+
+
+Fix token-type typos (SLASH_EQUAL, etc.) and ensure KEYWORDS correctness.
+
+Normalize case in getNextToken() so advance is called in one place only — fix all longest-match cases and add unit tests for multi-char operators.
+
+Harden numeric literal parsing (add hex-float support OR make sure behavior is documented + tests).
+
+Improve char/string escape parsing (\x, octal), and robust unterminated literal errors.
+
+Add token-dump mode and test harness small test set for token sequences.
+
+Parser: replace expression logic with precedence-climbing / Pratt implementation and add tests for operator precedence and ternary.
+
+Parser: audit declarator parsing against chibicc / lcc patterns; fix mismatches (function pointers, arrays, nested parens).
+
+Add parser panic-mode error recovery (skip to ; or }) to keep subsequent tests running.
+
+Quick code snippets / small fixes you can drop in now
+
+Fix SLASH_EQUAL:
+
+js
+
+CopyEdit
+
+// TokenTypeSLASH_EQUAL: 'SLASH_EQUAL',
+
+Safer longest-match pattern (example for < / << / <<=):
+
+js
+
+CopyEdit
+
+case '<': {
+
+    const first = this.currentChar;
+
+    const next = this.peek();
+
+    if (next === '<') {
+
+        this.advance(); // consume first '<'
+
+        if (this.peek() === '=') {
+
+            this.advance(); // consume second '<'
+
+            this.advance(); // consume '='
+
+            return new Token(TokenType.LESS_LESS_EQUAL, '<<=', this.line);
+
+        } else {
+
+            this.advance(); // consume second '<'
+
+            return new Token(TokenType.LESS_LESS, '<<', this.line);
+
+        }
+
+    } else if (next === '=') {
+
+        this.advance(); // consume '<'
+
+        this.advance(); // consume '='
+
+        return new Token(TokenType.LESS_EQUAL, '<=', this.line);
+
+    } else {
+
+        this.advance(); // consume '<'
+
+        return new Token(TokenType.LESS, '<', this.line);
+
+    }
+
+}
+
+(Adopt a similar pattern for >, +, -, &, |, etc. — centralize the logic so you don't rely on a trailing unconditional advance().)
+
+
+
+Preprocessor expansion (very small improvement): When you encounter #define NAME value, replace only whole-word occurrences using \bNAME\b regex in the preprocessor stage, and expand macros before lexing tokens. (Your Preprocessor already does this; make the replacement operate on preprocessing-token boundaries for safety — see gcc docs.) GCC
+
+Helpful references (read these; minimal, targeted)
+
+Chibicc (compact real-world example you can read top-to-bottom): Rui Ueyama — chibicc repo. GitHub
+
+Tiny C Compiler (practical small compiler with production use): tcc docs. Bellard
+
+LCC book & sources — canonical declarator parsing algorithm. drh.github.io
+
+C lexical grammar / tokens reference: cppreference / GCC tokenization docs (preprocessing vs tokens). CppreferenceGCC
+
+Clang lexer internals (for robust, industry-grade ideas about token streams & preprocessor interaction). Clang ... 
