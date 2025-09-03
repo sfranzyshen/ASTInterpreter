@@ -670,24 +670,32 @@ void loop() {
                     case 'ANALOG_READ_REQUEST':
                         // Simulate realistic sensor data
                         const analogValue = Math.floor(Math.random() * 1024);
-                        // Use new state machine method instead of setTimeout
-                        interpreter.resumeWithValue(command.requestId, analogValue);
+                        // Add small delay to prevent race condition with async Promise setup
+                        setTimeout(() => {
+                            interpreter.resumeWithValue(command.requestId, analogValue);
+                        }, 1);
                         break;
                         
                     case 'DIGITAL_READ_REQUEST':  
                         const digitalState = Math.random() > 0.5 ? 1 : 0;
-                        // Use new state machine method instead of setTimeout
-                        interpreter.resumeWithValue(command.requestId, digitalState);
+                        // Add small delay to prevent race condition with async Promise setup
+                        setTimeout(() => {
+                            interpreter.resumeWithValue(command.requestId, digitalState);
+                        }, 1);
                         break;
                         
                     case 'MILLIS_REQUEST':
-                        // Use new state machine method instead of setTimeout
-                        interpreter.resumeWithValue(command.requestId, Date.now());
+                        // Add small delay to prevent race condition with async Promise setup
+                        setTimeout(() => {
+                            interpreter.resumeWithValue(command.requestId, Date.now());
+                        }, 1);
                         break;
                         
                     case 'MICROS_REQUEST':
-                        // Use new state machine method instead of setTimeout
-                        interpreter.resumeWithValue(command.requestId, Date.now() * 1000);
+                        // Add small delay to prevent race condition with async Promise setup
+                        setTimeout(() => {
+                            interpreter.resumeWithValue(command.requestId, Date.now() * 1000);
+                        }, 1);
                         break;
                         
                     case 'LIBRARY_METHOD_REQUEST':
@@ -700,8 +708,10 @@ void loop() {
                             case 'canShow': responseValue = true; break;
                             default: responseValue = 0; break;
                         }
-                        // Use new state machine method instead of setTimeout
-                        interpreter.resumeWithValue(command.requestId, responseValue);
+                        // Add small delay to prevent race condition with async Promise setup
+                        setTimeout(() => {
+                            interpreter.resumeWithValue(command.requestId, responseValue);
+                        }, 1);
                         break;
                 }
                 

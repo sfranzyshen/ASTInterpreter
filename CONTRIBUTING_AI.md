@@ -15,6 +15,8 @@ Adherence to these rules is not optional. They prevent common failures like infi
 5.  **NEVER** invent new testing patterns. Use the proven templates provided in this guide.
 6.  **NEVER** run tests in parallel. All test harnesses must execute sequentially.
 7.  **NEVER** use `rm` commands. Move unnecessary files to the `trash/` directory instead.
+8.  **NEVER** modify the hybrid state machine without understanding both async/await and state machine patterns.
+9.  **NEVER** break the step/resume workflow - always preserve `previousExecutionState` tracking.
 
 ### **✅ ALWAYS Follow These Procedures**
 
@@ -23,6 +25,8 @@ Adherence to these rules is not optional. They prevent common failures like infi
 3.  **ALWAYS** wrap test execution with console suppression and restore it afterward.
 4.  **ALWAYS** use the integrated preprocessor for any code containing `#define` or `#include` by passing the `{ platform: '...' }` option to the `parse()` function.
 5.  **ALWAYS** move unwanted files to the `trash/` directory.
+6.  **ALWAYS** use setTimeout 1ms delays for browser playground response handlers to prevent race conditions.
+7.  **ALWAYS** include proper request-response handlers in interpreter tests to prevent timeout errors.
 
 ## 📁 Project Structure
 
@@ -96,6 +100,30 @@ async function runTests() {
             });
 
             interpreter.onCommand = (command) => {
+                // CRITICAL: Handle request-response pattern to prevent timeouts
+                if (command.type === 'ANALOG_READ_REQUEST') {
+                    setTimeout(() => {
+                        interpreter.resumeWithValue(command.requestId, Math.floor(Math.random() * 1024));
+                    }, 1); // 1ms delay prevents browser race conditions
+                } else if (command.type === 'DIGITAL_READ_REQUEST') {
+                    setTimeout(() => {
+                        interpreter.resumeWithValue(command.requestId, Math.random() > 0.5 ? 1 : 0);
+                    }, 1);
+                } else if (command.type === 'MILLIS_REQUEST') {
+                    setTimeout(() => {
+                        interpreter.resumeWithValue(command.requestId, Date.now() % 100000);
+                    }, 1);
+                } else if (command.type === 'MICROS_REQUEST') {
+                    setTimeout(() => {
+                        interpreter.resumeWithValue(command.requestId, Date.now() * 1000 % 1000000);
+                    }, 1);
+                } else if (command.type === 'LIBRARY_METHOD_REQUEST') {
+                    setTimeout(() => {
+                        const mockResponse = command.method === 'numPixels' ? 60 : 0;
+                        interpreter.resumeWithValue(command.requestId, mockResponse);
+                    }, 1);
+                }
+                
                 if (command.type === 'PROGRAM_END' || command.type === 'ERROR') {
                     executionCompleted = true;
                 }

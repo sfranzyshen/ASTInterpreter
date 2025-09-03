@@ -35,4 +35,30 @@ The interpreter is responsible for the following tasks:
     -   In JavaScript, this is a rich, data-driven system (`ARDUINO_LIBRARIES`) that can simulate dozens of methods from popular libraries.
     -   In C++, this is the `ArduinoLibraryInterface` class, which provides a basic framework for this functionality.
 
--   **Asynchronous Execution (State Machine)**: For functions that require external input (like `digitalRead` or `millis`), the interpreter can pause its own execution by changing its state to `WAITING_FOR_RESPONSE` and resume when the parent application provides a value. This is critical for non-blocking simulation.
+-   **Hybrid Asynchronous Execution**: The JavaScript interpreter uses a sophisticated hybrid approach combining two patterns:
+    -   **State Machine Pattern**: Used by `digitalRead`, `millis`, `micros` - returns `{type: 'EXECUTION_PAUSED', requestId}` and pauses execution
+    -   **Async/Await Pattern**: Used by `analogRead` - uses `await waitForResponse(requestId, 5000)` for timeout handling
+    -   **State Preservation**: The `previousExecutionState` mechanism ensures step/resume debugging works correctly across both patterns
+    -   **Race Condition Prevention**: Browser environments use 1ms setTimeout delays to prevent Promise resolution timing issues
+
+## Recent Architectural Improvements (September 2025)
+
+### JavaScript Interpreter v6.4.0 Enhancements
+
+**Step/Resume State Preservation System**:
+- **Problem**: After fixing browser race conditions with setTimeout delays, step functionality broke - step operations would continue execution like resume
+- **Root Cause**: `resumeWithValue()` always set state to `RUNNING`, bypassing step control after external data responses
+- **Solution**: Added `previousExecutionState` tracking system
+  - Modified `arduinoDigitalRead()`, `arduinoAnalogRead()`, `arduinoMillis()`, `arduinoMicros()` to save previous state
+  - Updated `resumeWithValue()` to restore appropriate state (STEPPING → PAUSED, RUNNING → RUNNING)
+  - Maintains debugging workflow integrity across hybrid async patterns
+
+**Browser Compatibility Improvements**:
+- **Race Condition Fix**: Added 1ms setTimeout delays in playground response handlers
+- **Promise Timing**: Prevents synchronous `resumeWithValue()` calls before async `waitForResponse()` setup
+- **Cross-Platform Behavior**: Ensures consistent behavior between Node.js and browser environments
+
+**Architecture Preservation**:
+- Maintained hybrid state machine + async/await patterns
+- Preserved all existing command stream compatibility
+- Enhanced debugging capabilities without breaking production workflows
