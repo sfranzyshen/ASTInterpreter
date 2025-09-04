@@ -25,7 +25,7 @@ global.window.ArduinoPreprocessor = ArduinoPreprocessor;
 global.ArduinoPreprocessor = ArduinoPreprocessor;
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test the exact NeoPixel code that was failing
 const neopixelCode = `
@@ -116,7 +116,7 @@ async function testPlaygroundIntegration() {
         console.log('🔄 Step 3: Testing interpreter integration...');
         
         // Create interpreter like playground does
-        const interpreter = new ArduinoInterpreter(ast, {
+        const interpreter = new ASTInterpreter(ast, {
             verbose: false,
             debug: false,
             stepDelay: 0,

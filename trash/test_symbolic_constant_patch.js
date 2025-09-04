@@ -8,7 +8,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🧪 Testing Symbolic Constant Corruption Fix Patch\n');
 
@@ -30,7 +30,7 @@ async function testPatch() {
         const ast = parse(testCode);
         
         console.log('⚡ Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             stepDelay: 0,
             maxLoopIterations: 1

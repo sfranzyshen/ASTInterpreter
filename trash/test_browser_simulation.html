@@ -64,7 +64,7 @@ void loop() {}
             }
             
             // Test 3: Create interpreter and check variable resolution
-            const interpreter = new ArduinoInterpreter(ast, {
+            const interpreter = new ASTInterpreter(ast, {
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

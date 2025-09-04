@@ -1,5 +1,5 @@
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 console.log('🔍 FINDING MISSING FUNCTIONS');
@@ -13,7 +13,7 @@ for (let i = 0; i < examplesFiles.length; i++) {
     
     try {
         const ast = parse(example.content, { enablePreprocessor: true });
-        const interpreter = new ArduinoInterpreter(ast, {
+        const interpreter = new ASTInterpreter(ast, {
             verbose: false,
             debug: false,
             stepDelay: 0,

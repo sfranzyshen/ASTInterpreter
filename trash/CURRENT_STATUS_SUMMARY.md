@@ -81,7 +81,7 @@ We successfully completed the **C++ Arduino AST Interpreter** implementation for
 
 ### File Structure (35 Essential Files)
 ```
-/mnt/d/Devel/ArduinoInterpreter_Arduino/
+/mnt/d/Devel/ASTInterpreter_Arduino/
 ├── JavaScript Implementation (13 files)
 │   ├── parser.js, interpreter.js, preprocessor.js
 │   ├── examples.js, old_test.js, neopixel.js

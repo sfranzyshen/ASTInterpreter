@@ -5,7 +5,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🎮 STEP/RESUME TEST FOR ALL EXTERNAL FUNCTIONS');
 console.log('==============================================');
@@ -15,7 +15,7 @@ async function testStepResume(functionName, testCode) {
     console.log('-------------------------------------------');
     
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         stepDelay: 0,
         maxLoopIterations: 2

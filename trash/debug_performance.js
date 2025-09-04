@@ -5,7 +5,7 @@
  */
 
 const { parse, exportCompactAST } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 /**
@@ -28,7 +28,7 @@ async function quickTest(index) {
         
         // Step 3: Interpreter execution (measure execution time)
         const execStart = Date.now();
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             maxLoopIterations: 3, 
             stepDelay: 0,
             verbose: false,

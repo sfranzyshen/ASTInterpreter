@@ -4,7 +4,7 @@ console.log('📊 Full Phase 6 Compatibility Test');
 console.log('====================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./extracted_examples.js');
 
 async function fastFullTest() {
@@ -23,7 +23,7 @@ async function fastFullTest() {
             const ast = parse(example.code);
             
             // Create interpreter
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 stepDelay: 0,
                 maxLoopIterations: 1  // Very fast

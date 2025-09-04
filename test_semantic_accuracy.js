@@ -12,7 +12,7 @@ console.log('======================================');
 
 // Load dependencies
 const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { CommandStreamValidator } = require('./command_stream_validator.js');
 
 // Load test data
@@ -68,7 +68,7 @@ function testSemanticAccuracy(test, index) {
             const ast = parse(preprocessResult.processedCode);
             
             // Step 3: Create interpreter with proven settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false, 
                 debug: false, 
                 stepDelay: 0, 

@@ -5,7 +5,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🔍 Testing analogRead Architectural Inconsistency');
 console.log('================================================');
@@ -26,7 +26,7 @@ void loop() {
 
 async function testAnalogReadInconsistency() {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         debug: false,
         maxLoopIterations: 2

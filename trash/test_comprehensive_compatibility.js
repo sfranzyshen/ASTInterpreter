@@ -17,7 +17,7 @@ const path = require('path');
 
 // Load modules
 const { Parser, parse, prettyPrintAST } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const comprehensiveTestCollection = require('./comprehensive_tests.js');
 
 // Test configuration
@@ -153,7 +153,7 @@ function testParser(test) {
 function testInterpreter(ast) {
     try {
         const startTime = config.timing ? Date.now() : 0;
-        const interpreter = new ArduinoInterpreter(ast, { verbose: false });
+        const interpreter = new ASTInterpreter(ast, { verbose: false });
         const result = interpreter.start();
         const interpreterTime = config.timing ? Date.now() - startTime : 0;
         

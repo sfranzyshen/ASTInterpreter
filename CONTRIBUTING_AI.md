@@ -34,7 +34,7 @@ The project contains two main JavaScript modules supported by C++ counterparts a
 
 -   **Core Engine**:
     -   `ArduinoParser.js`: All-in-one Parser, Preprocessor, and Platform Emulator.
-    -   `ArduinoInterpreter.js`: AST execution engine and hardware simulator.
+    -   `ASTInterpreter.js`: AST execution engine and hardware simulator.
     -   `ASTInterpreter.cpp` / `.hpp`: C++ version of the interpreter.
     -   `CompactAST.cpp` / `.hpp`: C++ logic for reading the binary AST format.
 -   **Test Data**:
@@ -84,7 +84,7 @@ This is the required pattern for running interpreter tests. It includes all nece
 
 ```javascript
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 async function runTests() {
@@ -95,7 +95,7 @@ async function runTests() {
 
         try {
             const ast = parse(code, { platform: 'ARDUINO_UNO' });
-            const interpreter = new ArduinoInterpreter(ast, {
+            const interpreter = new ASTInterpreter(ast, {
                 verbose: false, debug: false, stepDelay: 0, maxLoopIterations: 3
             });
 

@@ -4,7 +4,7 @@ console.log('🔢 Testing Version Numbers');
 console.log('===========================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Simple test code
 const testCode = 'void setup() { pinMode(13, OUTPUT); }';
@@ -24,7 +24,7 @@ async function testVersions() {
         console.log('\n2️⃣ Testing Interpreter Version...');
         
         // Create interpreter and check version
-        const interpreter = new ArduinoInterpreter(ast, { verbose: false });
+        const interpreter = new ASTInterpreter(ast, { verbose: false });
         console.log('✅ Interpreter created');
         
         // Check if version is reported in commands

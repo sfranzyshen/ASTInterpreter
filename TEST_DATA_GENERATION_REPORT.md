@@ -10,7 +10,7 @@
 
 ### Root Cause Investigation
 
-**Critical Discovery**: The performance bottleneck was caused by **198 hardcoded console.log statements** in `ArduinoInterpreter.js`.
+**Critical Discovery**: The performance bottleneck was caused by **198 hardcoded console.log statements** in `ASTInterpreter.js`.
 
 #### Evidence:
 ```

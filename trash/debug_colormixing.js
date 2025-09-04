@@ -1,5 +1,5 @@
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 // Find the ColorMixingLamp test
@@ -13,7 +13,7 @@ console.log('🔍 DEBUGGING p04_ColorMixingLamp.ino');
 console.log('=====================================');
 
 const ast = parse(test.content, { enablePreprocessor: true });
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
     verbose: false,
     debug: false, 
     stepDelay: 0,

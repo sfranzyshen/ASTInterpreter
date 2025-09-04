@@ -2,7 +2,7 @@
  * test_cross_platform_validation.cpp - Cross-Platform Validation Tests
  * 
  * Validates that the C++ Arduino AST Interpreter produces identical
- * command streams to the JavaScript ArduinoInterpreter.js implementation.
+ * command streams to the JavaScript ASTInterpreter.js implementation.
  * 
  * Tests all 135 examples from the JavaScript test suite:
  * - examples.js (79 Arduino examples)
@@ -10,7 +10,7 @@
  * - neopixel.js (2 NeoPixel tests)
  * 
  * Version: 1.0
- * Compatible with: ArduinoInterpreter.js v6.3.0
+ * Compatible with: ASTInterpreter.js v6.3.0
  */
 
 #include "test_utils.hpp"

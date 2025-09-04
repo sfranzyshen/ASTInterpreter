@@ -4,7 +4,7 @@ console.log('🔧 Testing Basic Interpreter Functionality');
 console.log('==========================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test simple Arduino code with basic functions
 const testCode = `
@@ -31,7 +31,7 @@ async function testBasicFunctionality() {
         console.log('✅ Parsed successfully');
         
         console.log('\n2️⃣ Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             maxLoopIterations: 2  // Just run loop twice for testing
         });

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test first available test from old_test.js
 const { oldTestFiles } = require('./old_test.js');
@@ -14,7 +14,7 @@ console.log('Testing single case...');
 try {
   const ast = parse(testCode);
   
-  const interpreter = new ArduinoInterpreter(ast, { 
+  const interpreter = new ASTInterpreter(ast, { 
     verbose: true, debug: true, stepDelay: 0, maxLoopIterations: 3 
   });
   

@@ -5,7 +5,7 @@
  * JavaScript interpreter produces different command formats
  */
 
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { parse } = require('./ArduinoParser.js');
 
 const code = `void setup() {
@@ -49,7 +49,7 @@ function suppressAllOutput() {
 function generateCommandsOptimized(ast) {
     return new Promise((resolve) => {
         try {
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,
@@ -117,7 +117,7 @@ async function main() {
         console.log(JSON.stringify(result.commands[0], null, 2));
         
         console.log('\n=== vs DIRECT EXECUTION ===');
-        const directInterpreter = new ArduinoInterpreter(ast, { maxLoopIterations: 3, verbose: false, debug: false });
+        const directInterpreter = new ASTInterpreter(ast, { maxLoopIterations: 3, verbose: false, debug: false });
         let directCommands = [];
         directInterpreter.onCommand = (cmd) => { directCommands.push(cmd); };
         directInterpreter.start();

@@ -1,5 +1,5 @@
 const { Parser, parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 /**
  * Test request-response pattern for external data functions
@@ -25,7 +25,7 @@ async function testRequestResponse() {
         const ast = parse(testCode);
         
         console.log('2. Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, {
+        const interpreter = new ASTInterpreter(ast, {
             verbose: true,
             debug: false,
             maxLoopIterations: 2

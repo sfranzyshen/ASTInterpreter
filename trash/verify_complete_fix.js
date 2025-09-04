@@ -7,7 +7,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // The problematic analogReadSerial.ino example
 const analogReadSerial = `
@@ -39,7 +39,7 @@ async function comprehensiveTest() {
     
     try {
         const ast = parse(analogReadSerial);
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             stepDelay: 0,
             maxLoopIterations: 3

@@ -25,8 +25,8 @@ class VersionManagementAgent {
         
         // Version-controlled files in the project
         this.versionedFiles = {
-            "ArduinoInterpreter.js": {
-                path: "ArduinoInterpreter.js",
+            "ASTInterpreter.js": {
+                path: "ASTInterpreter.js",
                 versionPattern: /const INTERPRETER_VERSION = "([^"]+)"/,
                 versionVariable: "INTERPRETER_VERSION",
                 currentVersion: null,

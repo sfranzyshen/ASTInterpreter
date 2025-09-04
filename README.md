@@ -1,8 +1,8 @@
-# ArduinoInterpreter
+# ASTInterpreter
 
 **A complete Arduino/C++ code interpreter system for browser and Node.js environments**
 
-ArduinoInterpreter is a production-ready parser and interpreter that transforms Arduino/C++ source code into executable command streams through a sophisticated multi-stage processing pipeline. It provides full Arduino language support with hardware simulation, making it perfect for educational tools, code validation, and Arduino development environments.
+ASTInterpreter is a production-ready parser and interpreter that transforms Arduino/C++ source code into executable command streams through a sophisticated multi-stage processing pipeline. It provides full Arduino language support with hardware simulation, making it perfect for educational tools, code validation, and Arduino development environments.
 
 ## 🎯 Current Status (September 2, 2025)
 
@@ -38,11 +38,11 @@ ArduinoInterpreter is a production-ready parser and interpreter that transforms 
 ## Funding
 We are urgently in need of funding for this project to continue the longer term goals ... We will be start a tradition funding campaign but for now we are asking for small amount donations to help keep paying for a minimal subscription to claude code ... $20 per month minimum or $100 per month maximum is what we need ... If you can help please click the button
 
-[<img width="10%" height="10%" src="https://raw.githubusercontent.com/sfranzyshen/ArduinoInterpreter/refs/heads/main/paypal.png">](https://www.paypal.com/donate/?hosted_button_id=ZHGG4TAC94E86)
+[<img width="10%" height="10%" src="https://raw.githubusercontent.com/sfranzyshen/ASTInterpreter/refs/heads/main/paypal.png">](https://www.paypal.com/donate/?hosted_button_id=ZHGG4TAC94E86)
 
 ## 🚀 Architecture Overview
 
-ArduinoInterpreter uses a clean, modular architecture that processes Arduino code in three distinct stages:
+ASTInterpreter uses a clean, modular architecture that processes Arduino code in three distinct stages:
 
 ```
 Arduino Code → Parser (Integrated Preprocessor & Platform Emulation) → AST → Interpreter → Command Stream
@@ -55,7 +55,7 @@ Arduino Code → Parser (Integrated Preprocessor & Platform Emulation) → AST �
 ### Processing Pipeline
 
 1. **Parsing**: The `ArduinoParser.js` module takes raw Arduino code, internally handles all preprocessing directives (`#define`, `#ifdef`, etc.) and applies platform-specific context (e.g., for ESP32 vs. Uno), and generates a clean Abstract Syntax Tree (AST).
-2. **Interpretation**: The `ArduinoInterpreter.js` module executes the AST nodes, simulates Arduino hardware behavior (pins, timing, serial), and manages the program state.
+2. **Interpretation**: The `ASTInterpreter.js` module executes the AST nodes, simulates Arduino hardware behavior (pins, timing, serial), and manages the program state.
 3. **Command Emission**: The interpreter generates a structured stream of commands representing the program's hardware interactions.
 
 ## 🏗️ Core Modules
@@ -70,7 +70,7 @@ Arduino Code → Parser (Integrated Preprocessor & Platform Emulation) → AST �
   - **Error Recovery**: Provides robust error handling for malformed code.
 - **Output**: A clean Abstract Syntax Tree (AST) and metadata about the compilation (e.g., active libraries).
 
-### [`ArduinoInterpreter.js`](ArduinoInterpreter.js) - AST Interpreter & Hardware Simulator
+### [`ASTInterpreter.js`](ASTInterpreter.js) - AST Interpreter & Hardware Simulator
 - **Purpose**: Executes a parsed AST and simulates Arduino hardware behavior.
 - **Input**: An Abstract Syntax Tree from `ArduinoParser.js`.
 - **Features**:
@@ -117,7 +117,7 @@ Commands contain only primitive data types for maximum compatibility with parent
 
 ```javascript
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // 1. Define Arduino code
 const arduinoCode = `
@@ -134,7 +134,7 @@ void loop() {
 const ast = parse(arduinoCode, { platform: 'ARDUINO_UNO' });
 
 // 3. Create interpreter
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
   maxLoopIterations: 3, // Prevent infinite loops in testing
 });
 
@@ -155,7 +155,7 @@ interpreter.start();
 <html>
 <head>
     <script src="ArduinoParser.js"></script>
-    <script src="ArduinoInterpreter.js"></script>
+    <script src="ASTInterpreter.js"></script>
 </head>
 <body>
     <script>
@@ -165,7 +165,7 @@ interpreter.start();
         const ast = parse(arduinoCode, { platform: 'ARDUINO_UNO' });
         
         // 2. Create interpreter
-        const interpreter = new ArduinoInterpreter(ast);
+        const interpreter = new ASTInterpreter(ast);
         
         // 3. Handle commands
         interpreter.onCommand = (command) => {
@@ -227,7 +227,7 @@ const astForUno = parse(code, { platform: 'ARDUINO_UNO' });
 ### Hardware Simulation Configuration
 
 ```javascript
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
   maxLoopIterations: 10,      // Control loop execution
   stepDelay: 0,               // Execution timing (0 = no delay)
   verbose: false,             // Suppress debug output
@@ -273,16 +273,16 @@ interpreter.responseHandler = (request) => {
 
 
 ## 🔭 Other Option
-The ArduinoInterpreter project is not a full Simulator for the Arduino ... The goal for this project is to be the "preprocessor, parser, and interpreter" part for a simulated Arduino environment (not provided). There are other projects that perform full "emulation" or full "simulation" of the Arduino environment ... most notably [**wokwi.com**](https://wokwi.com/) and [**Tinkercad**](https://www.tinkercad.com/things?type=circuits) ... the closet in scope to this project would be the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) project that converts Arduino sketches to a portable C++ that then gets used by '[**JSCPP**](https://github.com/felixhao28/JSCPP)' to simulate the Arduino environment within the browser (or nodejs) . While the projects have similar goals ... the complexity and inclusion of the [**JSCPP**](https://github.com/felixhao28/JSCPP) library into the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) makes it unessarly bloated code ... 
+The ASTInterpreter project is not a full Simulator for the Arduino ... The goal for this project is to be the "preprocessor, parser, and interpreter" part for a simulated Arduino environment (not provided). There are other projects that perform full "emulation" or full "simulation" of the Arduino environment ... most notably [**wokwi.com**](https://wokwi.com/) and [**Tinkercad**](https://www.tinkercad.com/things?type=circuits) ... the closet in scope to this project would be the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) project that converts Arduino sketches to a portable C++ that then gets used by '[**JSCPP**](https://github.com/felixhao28/JSCPP)' to simulate the Arduino environment within the browser (or nodejs) . While the projects have similar goals ... the complexity and inclusion of the [**JSCPP**](https://github.com/felixhao28/JSCPP) library into the [**ArduinoSimulator**](https://github.com/lrusso/ArduinoSimulator) makes it unessarly bloated code ... 
 
 ## This project began as a 30-day experiment 
 This project began as a 30-day experiment using AI technologies to solve a previously unsuccessful programming challenge. The result is now available to the open source educational community under dual licensing (Source-Available License and AGPLv3), with commercial licensing available.
 
 ## 📜 Licensing
 
-This project is dual-licensed under the [**sfranzyshen.com Source-Available License 1.0**](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/sfranzyshen_source_available_license.md) 
+This project is dual-licensed under the [**sfranzyshen.com Source-Available License 1.0**](https://github.com/sfranzyshen/ASTInterpreter/blob/main/sfranzyshen_source_available_license.md) 
 
-and **sfranzyshen.org with [GNU AGPLv3](https://github.com/sfranzyshen/ArduinoInterpreter/blob/main/gnu-agpl-v3.0.md)**.
+and **sfranzyshen.org with [GNU AGPLv3](https://github.com/sfranzyshen/ASTInterpreter/blob/main/gnu-agpl-v3.0.md)**.
 
 * You may use this software under the terms of the **Source-Available License** for non-production purposes (e.g., development, testing).
 * After the Change Date of **8/26/2030**, the software will automatically be governed by the **AGPLv3**.

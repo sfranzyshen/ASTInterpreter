@@ -4,7 +4,7 @@ console.log('🔍 Diagnosing Compatibility Issues');
 console.log('==================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./extracted_examples.js');
 
 // Test a simple, known-working example first
@@ -23,7 +23,7 @@ async function diagnoseIssues() {
         
         // Create interpreter
         console.log('\n2️⃣ Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             debug: false,
             maxLoopIterations: 1

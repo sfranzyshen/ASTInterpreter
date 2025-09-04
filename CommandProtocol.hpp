@@ -1,11 +1,11 @@
 /**
  * CommandProtocol.hpp - C++ Command Protocol for Arduino AST Interpreter
  * 
- * Command types and structures that exactly match the JavaScript ArduinoInterpreter.js
+ * Command types and structures that exactly match the JavaScript ASTInterpreter.js
  * implementation. Ensures identical command stream output for cross-platform compatibility.
  * 
  * Version: 1.0
- * Compatible with: ArduinoInterpreter.js v6.3.0
+ * Compatible with: ASTInterpreter.js v6.3.0
  */
 
 #pragma once

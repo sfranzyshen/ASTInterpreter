@@ -4,7 +4,7 @@ console.log('🔧 Testing Fixes for Phase 6.4');
 console.log('===============================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./extracted_examples.js');
 
 // Test the examples that were failing with specific error types
@@ -35,7 +35,7 @@ async function testFixes() {
             const ast = parse(example.code);
             
             // Create interpreter
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 maxLoopIterations: 1

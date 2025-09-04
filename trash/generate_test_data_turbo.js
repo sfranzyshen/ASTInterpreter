@@ -47,7 +47,7 @@ process.stderr.write = () => true;
 const fs = require('fs');
 const path = require('path');
 const { parse, exportCompactAST } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { examplesFiles } = require('./examples.js');
 const { oldTestFiles } = require('./old_test.js');
 const { neopixelFiles } = require('./neopixel.js');
@@ -74,7 +74,7 @@ function captureCommandStreamTurbo(example) {
             const ast = parse(code);
             
             // Create interpreter with minimal settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

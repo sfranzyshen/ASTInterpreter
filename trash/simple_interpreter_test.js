@@ -3,7 +3,7 @@
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Simple test code
 const testCode = `
@@ -25,7 +25,7 @@ try {
     console.log('   ✅ Parse successful');
     
     console.log('2. Creating interpreter...');
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         debug: false,
         stepDelay: 0,

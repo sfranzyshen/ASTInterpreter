@@ -1,5 +1,5 @@
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 console.log('🔍 DEBUGGING ARDUINOISP IMMEDIATE COMPLETION');
@@ -44,7 +44,7 @@ try {
     }
     
     console.log('\n🎯 Creating interpreter...');
-    const interpreter = new ArduinoInterpreter(ast, {
+    const interpreter = new ASTInterpreter(ast, {
         verbose: false,
         debug: false,
         stepDelay: 0,

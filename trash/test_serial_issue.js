@@ -5,7 +5,7 @@
  */
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🔍 Testing Serial Boolean Conversion Issue');
 console.log('==========================================');
@@ -30,7 +30,7 @@ console.log('\n--- Execution Results ---');
 
 try {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: true,  // Enable verbose to see error messages
         debug: true,    // Enable debug to see detailed execution
         stepDelay: 0,

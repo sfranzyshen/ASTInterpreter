@@ -21,7 +21,7 @@
 const fs = require('fs');
 const path = require('path');
 const { parse, exportCompactAST } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Load test data sources
 const { examplesFiles } = require('./examples.js');
@@ -143,7 +143,7 @@ class CleanTestDataGenerator {
             
             try {
                 // Create interpreter with proper settings
-                const interpreter = new ArduinoInterpreter(ast, { 
+                const interpreter = new ASTInterpreter(ast, { 
                     verbose: false,
                     debug: false,
                     stepDelay: 0,

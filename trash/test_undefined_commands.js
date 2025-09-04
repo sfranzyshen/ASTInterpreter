@@ -5,7 +5,7 @@
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🔍 Testing Undefined Command Entries');
 console.log('====================================');
@@ -26,7 +26,7 @@ void loop() {
 
 try {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         stepDelay: 0,
         maxLoopIterations: 1

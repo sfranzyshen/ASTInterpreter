@@ -5,7 +5,7 @@
  * 
  * SOLUTION: Use child_process to run interpreter in isolated environment
  * where all output is redirected to /dev/null, completely bypassing the
- * 198 hardcoded console.log statements in ArduinoInterpreter.js
+ * 198 hardcoded console.log statements in ASTInterpreter.js
  * 
  * This is the only way to achieve true silence with the current interpreter.
  */
@@ -30,14 +30,14 @@ const { neopixelFiles } = require('./neopixel.js');
 function createInterpreterScript(example, scriptPath) {
     const scriptContent = `
 // Isolated interpreter execution for: ${example.name}
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Parse the AST (passed as argument)
 const astData = process.argv[2];
 const ast = JSON.parse(astData);
 
 // Create interpreter
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false,
     debug: false,
     stepDelay: 0,

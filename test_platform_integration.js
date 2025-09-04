@@ -8,7 +8,7 @@
  */
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { PlatformEmulation } = require('./platform_emulation.js');
 
 console.log('🧪 Testing Platform Integration with Preprocessor');
@@ -75,7 +75,7 @@ try {
     
     console.log('\n📊 Running interpreter to see platform-specific execution...');
     
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false, 
         debug: false, 
         stepDelay: 0, 
@@ -163,7 +163,7 @@ function testPlatformSwitch() {
             platformContext: unoPlatform
         });
         
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false, 
             debug: false, 
             stepDelay: 0, 

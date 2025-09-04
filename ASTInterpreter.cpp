@@ -2,7 +2,7 @@
  * ASTInterpreter.cpp - C++ Arduino AST Interpreter Implementation
  * 
  * Core interpreter implementation that executes AST nodes and generates
- * command streams matching JavaScript ArduinoInterpreter.js exactly.
+ * command streams matching JavaScript ASTInterpreter.js exactly.
  * 
  * Version: 1.0
  */

@@ -10,7 +10,7 @@ console.log('===============================================');
 
 // Load dependencies
 const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 // Load examples.js file
 let testFiles;
 try {
@@ -49,7 +49,7 @@ function testExample(example, index) {
             const ast = parse(preprocessResult.processedCode);
             
             // Step 3: Create interpreter with proven settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false, 
                 stepDelay: 0, 
                 maxLoopIterations: 3

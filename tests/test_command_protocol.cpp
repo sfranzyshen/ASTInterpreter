@@ -2,7 +2,7 @@
  * test_command_protocol.cpp - Unit tests for Command Protocol
  * 
  * Tests the C++ command protocol implementation for compatibility
- * with the JavaScript ArduinoInterpreter.js command system.
+ * with the JavaScript ASTInterpreter.js command system.
  */
 
 #include "test_utils.hpp"

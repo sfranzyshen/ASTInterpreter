@@ -2,7 +2,7 @@
  * Test script for the new state machine architecture
  */
 
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { parse } = require('./ArduinoParser.js');
 
 // Simple test program that uses analogRead
@@ -27,7 +27,7 @@ try {
     console.log("✓ Code parsed successfully");
     
     // Create interpreter
-    const interpreter = new ArduinoInterpreter(ast, {
+    const interpreter = new ASTInterpreter(ast, {
         verbose: true,
         debug: false,
         maxLoopIterations: 2 // Only run 2 loop iterations

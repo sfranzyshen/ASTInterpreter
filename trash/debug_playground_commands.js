@@ -1,5 +1,5 @@
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🔍 DEBUGGING PLAYGROUND COMMAND ISSUE');
 console.log('=====================================');
@@ -23,7 +23,7 @@ const ast = parse(testCode, { enablePreprocessor: true });
 console.log('✅ Parse successful');
 
 console.log('\n🎯 Creating interpreter...');
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
     verbose: false,
     debug: false, 
     stepDelay: 0,

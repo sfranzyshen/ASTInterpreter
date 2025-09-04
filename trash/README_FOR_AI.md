@@ -56,14 +56,14 @@ open parser_playground.html                     # Interactive parser
 1. Create interpreter without `maxLoopIterations: 3`
 2. Run tests without timeouts (5-10 seconds)
 3. Skip console suppression (`console.log = () => {}`)
-4. Use `new ArduinoInterpreter(code)` - parse to AST first with preprocessor
+4. Use `new ASTInterpreter(code)` - parse to AST first with preprocessor
 5. Create new test patterns - use proven ones only
 
 ### **✅ ALWAYS DO:**
 ```javascript
 // PROVEN SAFE PATTERN WITH PREPROCESSOR:
 const ast = parse(code, { enablePreprocessor: true });
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false, debug: false, stepDelay: 0, maxLoopIterations: 3 
 });
 
@@ -179,10 +179,10 @@ node test_interpreter_neopixel.js    # NeoPixel tests (100.0% success)
 ### **Debug Single Test:**
 ```javascript
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 const ast = parse(yourCode);
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false, debug: false, stepDelay: 0, maxLoopIterations: 3 
 });
 const result = interpreter.start();

@@ -291,8 +291,8 @@ class PlanManagerAgent {
                 { complexity: "COMPLEX", category: "IMPLEMENTATION", dependencies: ["ARCHITECTURE_DESIGN"] }
             ),
             this.createTodoTask(
-                "Update ArduinoInterpreter.js to use parser preprocessing",
-                "Updating ArduinoInterpreter.js to use parser preprocessing",
+                "Update ASTInterpreter.js to use parser preprocessing",
+                "Updating ASTInterpreter.js to use parser preprocessing",
                 "pending",
                 { complexity: "COMPLEX", category: "IMPLEMENTATION", dependencies: ["PARSER_IMPLEMENTATION"] }
             ),

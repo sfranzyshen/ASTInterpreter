@@ -6,7 +6,7 @@
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🎯 Testing NeoPixel Display Improvements');
 console.log('=======================================');
@@ -33,7 +33,7 @@ void loop() {
 try {
     // Parse and create interpreter
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         stepDelay: 0,
         maxLoopIterations: 1

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test code with String concatenation (previously had quote issues)
 const testCode = `
@@ -25,7 +25,7 @@ console.log('🔍 Testing Serial Quote Fix');
 console.log('Code:', testCode);
 
 const ast = parse(testCode);
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false, 
     debug: false, 
     stepDelay: 0, 

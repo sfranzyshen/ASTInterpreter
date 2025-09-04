@@ -10,7 +10,7 @@ console.log('📅 Created:', new Date().toISOString());
 // Test basic functionality
 function testFileSystemOperations() {
     console.log('✅ File created and updated successfully');
-    console.log('📁 Location: /mnt/d/Devel/ArduinoInterpreter/filesystem_test.js');
+    console.log('📁 Location: /mnt/d/Devel/ASTInterpreter/filesystem_test.js');
     
     return {
         status: 'updated',

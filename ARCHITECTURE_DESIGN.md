@@ -1,11 +1,11 @@
 # Architecture Design
 
-This document outlines the architecture of the ArduinoInterpreter system, a dual-language (JavaScript and C++) solution for parsing and interpreting Arduino/C++ code.
+This document outlines the architecture of the ASTInterpreter system, a dual-language (JavaScript and C++) solution for parsing and interpreting Arduino/C++ code.
 
 The system is designed around two primary, high-cohesion modules:
 
 1.  **The Parser (`ArduinoParser.js`)**: An all-in-one module that consumes raw Arduino source code and produces a clean Abstract Syntax Tree (AST).
-2.  **The Interpreter (`ArduinoInterpreter.js` / `ASTInterpreter.cpp`)**: An execution engine that consumes an AST and produces a hardware-agnostic command stream.
+2.  **The Interpreter (`ASTInterpreter.js` / `ASTInterpreter.cpp`)**: An execution engine that consumes an AST and produces a hardware-agnostic command stream.
 
 ## Processing Pipeline
 
@@ -32,7 +32,7 @@ This is the entry point for all source code. It is a comprehensive module that f
 -   **Input**: Raw Arduino/C++ source code string.
 -   **Output**: A clean, preprocessed Abstract Syntax Tree (AST).
 
-### 2. The Interpreter (`ArduinoInterpreter.js` and `ASTInterpreter.cpp`)
+### 2. The Interpreter (`ASTInterpreter.js` and `ASTInterpreter.cpp`)
 
 The interpreter is the execution engine. It exists in two parallel implementations (JavaScript and C++) that share the same fundamental design.
 

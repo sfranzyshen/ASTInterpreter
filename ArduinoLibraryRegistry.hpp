@@ -1,11 +1,11 @@
 /**
  * ArduinoLibraryRegistry.hpp - Comprehensive Arduino Library System
  * 
- * Implements the same library architecture as JavaScript ArduinoInterpreter.js
+ * Implements the same library architecture as JavaScript ASTInterpreter.js
  * with internal methods (calculated locally) and external methods (hardware commands).
  * 
  * Version: 1.0
- * Compatible with: ArduinoInterpreter.js library system
+ * Compatible with: ASTInterpreter.js library system
  */
 
 #pragma once

@@ -9,7 +9,7 @@ console.log('🎯 Testing LED_COUNT Substitution Fix');
 console.log('=====================================');
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 const testCode = `
 #define LED_COUNT 60
@@ -43,7 +43,7 @@ if (ast.preprocessorInfo && ast.preprocessorInfo.macros.LED_COUNT === '60') {
 
 console.log('🔄 Step 2: Create interpreter and test variable resolution...');
 
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
     verbose: false,
     debug: false,
     stepDelay: 0,

@@ -8,7 +8,7 @@
  */
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🧪 Testing Platform-Specific Conditional Compilation');
 console.log('===================================================');
@@ -83,7 +83,7 @@ try {
     
     console.log('\n📊 Running interpreter to see what actually executes...');
     
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false, 
         debug: false, 
         stepDelay: 0, 

@@ -6,7 +6,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Test code that uses ALL external data functions
 const testCode = `
@@ -45,7 +45,7 @@ console.log('========================================');
 async function testAllExternalFunctions() {
     try {
         const ast = parse(testCode);
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             stepDelay: 0,
             maxLoopIterations: 2

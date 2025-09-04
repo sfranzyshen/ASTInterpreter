@@ -48,8 +48,8 @@ class DocumentationSyncAgent {
         
         // Source files that contain version information
         this.sourceFiles = {
-            "ArduinoInterpreter.js": {
-                path: "ArduinoInterpreter.js",
+            "ASTInterpreter.js": {
+                path: "ASTInterpreter.js",
                 versionPattern: /const INTERPRETER_VERSION = "([^"]+)"/,
                 currentVersion: null
             },
@@ -153,7 +153,7 @@ class DocumentationSyncAgent {
         const updates = [];
         
         // Get current versions from source
-        const interpreterVersion = this.sourceFiles["ArduinoInterpreter.js"].currentVersion;
+        const interpreterVersion = this.sourceFiles["ASTInterpreter.js"].currentVersion;
         const parserVersion = this.sourceFiles["ArduinoParser.js"].currentVersion;
         // Read preprocessorVersion from ArduinoParser.js
         const fs = require('fs');
@@ -202,8 +202,8 @@ class DocumentationSyncAgent {
             }
             
             // Update file structure section
-            const fileStructurePattern = /├── ArduinoInterpreter\.js\s+# Core interpreter \(v[\d.]+\)/;
-            const newFileStructureLine = `├── ArduinoInterpreter.js                       # Core interpreter (v${interpreterVersion})`;
+            const fileStructurePattern = /├── ASTInterpreter\.js\s+# Core interpreter \(v[\d.]+\)/;
+            const newFileStructureLine = `├── ASTInterpreter.js                       # Core interpreter (v${interpreterVersion})`;
             if (content.match(fileStructurePattern)) {
                 content = content.replace(fileStructurePattern, newFileStructureLine);
                 modified = true;

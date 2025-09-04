@@ -18,7 +18,7 @@ console.log('================================================');
 
 // Load dependencies
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test cases
 const testCases = [
@@ -131,7 +131,7 @@ async function runTest(testCase, index) {
         
         // Step 3: Create interpreter
         console.log('🔄 Step 2: Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, {
+        const interpreter = new ASTInterpreter(ast, {
             verbose: true,
             debug: false,
             stepDelay: 0,

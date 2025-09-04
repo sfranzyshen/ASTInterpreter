@@ -13,7 +13,7 @@ This document contains ESSENTIAL knowledge for any AI working with this Arduino 
 1. **❌ NEVER** create interpreter tests without `maxLoopIterations: 3`
 2. **❌ NEVER** run interpreter tests without proper timeouts (5-10 seconds)
 3. **❌ NEVER** run interpreter tests without console suppression
-4. **❌ NEVER** use `new ArduinoInterpreter(code)` - always parse to AST first with preprocessor support
+4. **❌ NEVER** use `new ASTInterpreter(code)` - always parse to AST first with preprocessor support
 4a. **❌ NEVER** forget to enable preprocessor with `{ enablePreprocessor: true }` when needed
 4b. **❌ NEVER** assume macros will work without preprocessor integration
 5. **❌ NEVER** create new testing patterns - use proven patterns only
@@ -172,7 +172,7 @@ neopixelFiles = [...]
 ```javascript
 // ✅ CORRECT - This pattern works and prevents runaway execution:
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Step 1: Load test data with correct variable names
 const { examplesFiles } = require('./examples.js');
@@ -185,7 +185,7 @@ const code = test.content || test.code;  // Handle both formats
 const ast = parse(code, { enablePreprocessor: true }); // Parse to AST with preprocessor
 
 // Step 3: Create interpreter with ESSENTIAL settings
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false,           // ❗ CRITICAL: Suppresses debug spam
     debug: false,             // ❗ CRITICAL: Suppresses debug spam
     stepDelay: 0,             // ❗ CRITICAL: No execution delays
@@ -246,17 +246,17 @@ checkCompletion();
 
 ```javascript
 // ❌ WRONG - Missing maxLoopIterations
-const interpreter = new ArduinoInterpreter(ast, { verbose: false });
+const interpreter = new ASTInterpreter(ast, { verbose: false });
 
 // ❌ WRONG - No console suppression  
-const interpreter = new ArduinoInterpreter(ast, options);
+const interpreter = new ASTInterpreter(ast, options);
 interpreter.start();  // Will spam debug output
 
 // ❌ WRONG - No timeout
 interpreter.start();  // May hang forever
 
 // ❌ WRONG - Passing code directly
-const interpreter = new ArduinoInterpreter(code);  // Must pass AST
+const interpreter = new ASTInterpreter(code);  // Must pass AST
 
 // ❌ WRONG - Parallel execution
 for (let test of tests) {
@@ -411,7 +411,7 @@ if (ast.preprocessorInfo.macros.NEO_GRB === '0x52') {
 ### **Basic Test Runner:**
 ```javascript
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { examplesFiles } = require('./examples.js');
 
 async function runTests() {
@@ -421,7 +421,7 @@ async function runTests() {
         
         try {
             const ast = parse(code, { enablePreprocessor: true });
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false, debug: false, stepDelay: 0, maxLoopIterations: 3 
             });
             
@@ -443,7 +443,7 @@ runTests();
 ### **Single Test Debug:**
 ```javascript
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 const code = `
 void setup() {
@@ -456,7 +456,7 @@ void loop() {
 `;
 
 const ast = parse(code, { enablePreprocessor: true });
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false, debug: false, stepDelay: 0, maxLoopIterations: 3 
 });
 

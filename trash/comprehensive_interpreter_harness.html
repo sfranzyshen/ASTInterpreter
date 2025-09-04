@@ -504,7 +504,7 @@
                 
                 // Create interpreter
                 const verbose = document.getElementById('verboseMode').value === 'true';
-                const interpreter = new ArduinoInterpreter(ast, { verbose });
+                const interpreter = new ASTInterpreter(ast, { verbose });
                 
                 // Execute the interpretation
                 const result = interpreter.start();

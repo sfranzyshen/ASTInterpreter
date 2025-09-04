@@ -4,7 +4,7 @@ This document describes the architecture of the AST interpreter component of the
 
 This component has two parallel implementations with a shared design:
 
--   **`ArduinoInterpreter.js`**: A mature, feature-rich interpreter for Node.js and browser environments.
+-   **`ASTInterpreter.js`**: A mature, feature-rich interpreter for Node.js and browser environments.
 -   **`ASTInterpreter.cpp`**: A C++ implementation designed for performance and portability, intended to match the behavior of the JavaScript version.
 
 ## Core Responsibilities
@@ -25,7 +25,7 @@ The interpreter is responsible for the following tasks:
 
 ## Key Architectural Components
 
--   **Interpreter Class (`ArduinoInterpreter` / `ASTInterpreter`)**: The main engine that orchestrates the entire execution process.
+-   **Interpreter Class (`ASTInterpreter` / `ASTInterpreter`)**: The main engine that orchestrates the entire execution process.
 
 -   **Scope Manager**: A stack-based data structure that holds all declared variables. When a new scope (e.g., a function call) is entered, a new map is pushed onto the stack. When the scope is exited, the map is popped.
 

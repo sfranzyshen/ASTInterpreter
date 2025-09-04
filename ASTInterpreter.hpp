@@ -2,11 +2,11 @@
  * ASTInterpreter.hpp - C++ Arduino AST Interpreter Core
  * 
  * Main interpreter class that executes parsed AST nodes and generates command streams
- * identical to the JavaScript ArduinoInterpreter.js implementation. Designed for
+ * identical to the JavaScript ASTInterpreter.js implementation. Designed for
  * ESP32-S3 memory constraints and cross-platform compatibility.
  * 
  * Version: 1.0
- * Compatible with: ArduinoInterpreter.js v6.3.0
+ * Compatible with: ASTInterpreter.js v6.3.0
  * Command Protocol: CommandProtocol.hpp v1.0
  */
 

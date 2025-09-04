@@ -4,7 +4,7 @@ console.log('🔍 Testing Enhanced Error Reporting');
 console.log('===================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test code with intentional errors at specific locations
 const testCode = `
@@ -33,7 +33,7 @@ async function testEnhancedErrors() {
         
         // Create interpreter
         console.log('\n2️⃣ Creating interpreter...');
-        const interpreter = new ArduinoInterpreter(ast, { verbose: false });
+        const interpreter = new ASTInterpreter(ast, { verbose: false });
         console.log('✅ Interpreter created');
         
         // Collect errors 

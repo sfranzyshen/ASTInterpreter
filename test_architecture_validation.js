@@ -9,7 +9,7 @@ console.log('🔬 Architecture Validation Test - Clean Command Streams');
 console.log('======================================================');
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test code that would previously cause "[object Object]" issues
 const testCode = `
@@ -46,7 +46,7 @@ async function runTest() {
         console.log('✅ Code parsed successfully');
         
         // Create interpreter
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false, 
             stepDelay: 0, 
             maxLoopIterations: 2  // Limit loop iterations for testing

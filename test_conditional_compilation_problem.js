@@ -8,7 +8,7 @@
  */
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🧪 Testing Conditional Compilation Problem');
 console.log('==========================================');
@@ -74,7 +74,7 @@ function analyzeAST(node, depth = 0) {
 analyzeAST(ast);
 
 console.log('\n🔍 Step 2: Run interpreter to see what actually executes');
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false, 
     debug: false, 
     stepDelay: 0, 

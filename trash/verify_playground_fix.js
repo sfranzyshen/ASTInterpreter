@@ -1,5 +1,5 @@
 const { Parser, parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 /**
  * Verify the playground fix by simulating browser-like behavior
@@ -34,7 +34,7 @@ async function verifyPlaygroundFix() {
 
 async function testWithTimeout() {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, {
+    const interpreter = new ASTInterpreter(ast, {
         verbose: false,
         maxLoopIterations: 1
     });
@@ -89,7 +89,7 @@ async function testWithTimeout() {
 
 async function testWithoutTimeout() {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, {
+    const interpreter = new ASTInterpreter(ast, {
         verbose: false,
         maxLoopIterations: 1
     });

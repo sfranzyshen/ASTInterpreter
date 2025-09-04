@@ -380,7 +380,7 @@ void loop() {
     </div>
 
     <script src="ArduinoParser.js"></script>
-    <script src="ArduinoInterpreter.js"></script>
+    <script src="ASTInterpreter.js"></script>
     <!-- Load test files directly -->
     <script src="examples.js"></script>
     <script>
@@ -656,7 +656,7 @@ void loop() {
             }
             
             // Create new interpreter
-            interpreter = new ArduinoInterpreter(currentAST, {
+            interpreter = new ASTInterpreter(currentAST, {
                 verbose: true
                 // No loop limit - runs continuously like real Arduino
             });

@@ -217,7 +217,7 @@ async function generateHybridData() {
     console.log('AST generation complete, now generating commands for simple examples...');
     
     // Load the original interpreter for simple examples
-    const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+    const { ASTInterpreter } = require('./ASTInterpreter.js');
     
     // Identify simple examples (short code, no complex loops)
     const simpleExamples = [

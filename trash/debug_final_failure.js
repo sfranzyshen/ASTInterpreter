@@ -4,7 +4,7 @@ console.log('🔍 Debugging Final Failure - ArduinoISP.ino');
 console.log('==============================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./extracted_examples.js');
 
 const example = examples.find(ex => ex.name === 'ArduinoISP.ino');
@@ -25,7 +25,7 @@ try {
     
     // Create interpreter 
     console.log('2️⃣ Creating interpreter...');
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: true, // Enable verbose for debugging
         stepDelay: 0,
         maxLoopIterations: 1

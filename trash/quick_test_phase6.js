@@ -4,7 +4,7 @@ console.log('🔬 Quick Phase 6A Test - Library Objects');
 console.log('=========================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./extracted_examples.js');
 
 // Test the 3 previously failing examples that should now work with ArduinoLibraryObject
@@ -32,7 +32,7 @@ async function quickTest() {
             console.log('  ✅ Parsed successfully');
             
             // Create interpreter
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 stepDelay: 0,
                 maxLoopIterations: 2  // Very fast for testing

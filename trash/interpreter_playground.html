@@ -873,7 +873,7 @@ void loop() {
             }
             
             // Create new interpreter
-            interpreter = new ArduinoInterpreter(currentAST, {
+            interpreter = new ASTInterpreter(currentAST, {
                 verbose: true
                 // No loop limit - runs continuously like real Arduino
             });

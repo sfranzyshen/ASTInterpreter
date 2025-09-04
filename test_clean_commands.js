@@ -8,7 +8,7 @@ console.log('🔬 Testing Clean Command Emission');
 console.log('=================================');
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Simple test to capture raw commands
 const testCode = `
@@ -23,7 +23,7 @@ void setup() {
 async function testCleanCommands() {
     try {
         const ast = parse(testCode);
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false, 
             stepDelay: 0, 
             maxLoopIterations: 1

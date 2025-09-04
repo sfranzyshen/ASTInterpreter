@@ -67,7 +67,7 @@
 
 ## 🎯 EXACT BUG LOCATION
 
-**File**: `/mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoParser.js`  
+**File**: `/mnt/d/Devel/ASTInterpreter_Arduino/ArduinoParser.js`  
 **Line**: 4746  
 **Function**: `getNamedChildren()`  
 

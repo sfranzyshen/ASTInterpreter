@@ -12,7 +12,7 @@ console.log('✅ Parser loaded');
 
 // Load interpreter (Node.js style)
 console.log('📖 Loading interpreter...');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 console.log('✅ Interpreter loaded');
 
 // Load examples
@@ -41,7 +41,7 @@ function testExample(example, index) {
             console.log('  ✅ Parsed successfully');
             
             // Step 2: Create interpreter with limited loop iterations
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false, // Disable verbose to reduce output
                 stepDelay: 0, // No delay for fast testing
                 maxLoopIterations: 3 // Limit loop() to 3 iterations for testing

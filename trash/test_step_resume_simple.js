@@ -5,7 +5,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Very simple test - just analogRead in setup
 const testCode = `
@@ -24,7 +24,7 @@ console.log('===========================');
 
 async function testSimple() {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         stepDelay: 0,
         maxLoopIterations: 1

@@ -4,7 +4,7 @@ console.log('🔍 Testing Debug & Development Features');
 console.log('======================================');
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Test code with recursive function to test stack overflow detection
 const testCode = `
@@ -47,7 +47,7 @@ async function testDebugFeatures() {
         
         // Create interpreter with advanced debugging enabled
         console.log('\n2️⃣ Creating interpreter with debug features...');
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: true,
             debug: true,
             traceLevel: 2  // Detailed tracing

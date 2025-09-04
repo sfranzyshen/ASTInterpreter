@@ -8,7 +8,7 @@
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { neopixelFiles } = require('./neopixel.js');
 
 console.log('🔍 Playground Display Simulation Test');
@@ -213,7 +213,7 @@ async function runPlaygroundSimulationTest() {
         console.log('✅ Parsed successfully');
         console.log('\\n🧪 Creating interpreter with loop limit 2...');
         
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             stepDelay: 0,
             maxLoopIterations: 2  // Same as user's output

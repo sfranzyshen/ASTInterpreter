@@ -21,7 +21,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Load modules
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 const { examplesFiles } = require('./examples.js');
 const { oldTestFiles } = require('./old_test.js');
 const { neopixelFiles } = require('./neopixel.js');
@@ -91,7 +91,7 @@ function classifyExamples() {
 function generateCommandsQuick(ast, example) {
     return new Promise((resolve) => {
         try {
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

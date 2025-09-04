@@ -2,7 +2,7 @@
 // Focuses specifically on complex #if defined() expressions and platform-specific conditionals
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { PlatformEmulation } = require('./platform_emulation.js');
 const { examplesFiles } = require('./examples.js');
 
@@ -73,7 +73,7 @@ async function testInterpreter() {
                 throw new Error('Failed to generate valid AST');
             }
             
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

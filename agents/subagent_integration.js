@@ -24,7 +24,7 @@ class SubagentIntegration {
             },
             'interpreter-specialist': {
                 description: 'Arduino code execution, hardware simulation, library integration',
-                contextFiles: ['ArduinoInterpreter.js', 'command_stream_validator.js'],
+                contextFiles: ['ASTInterpreter.js', 'command_stream_validator.js'],
                 specialties: ['execution', 'hardware_simulation', 'library_integration', 'command_streams']
             },
             'test-diagnostician': {

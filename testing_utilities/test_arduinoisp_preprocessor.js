@@ -4,7 +4,7 @@
 // Focus: Complex #if defined() expressions and conditional compilation
 
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { PlatformEmulation } = require('./platform_emulation.js');
 const { ArduinoPreprocessor } = require('./preprocessor.js');
 const { examplesFiles } = require('./examples.js');
@@ -137,7 +137,7 @@ try {
     console.log('🚀 TESTING INTERPRETER EXECUTION:');
     
     if (ast && ast.type === 'ProgramNode') {
-        const interpreter = new ArduinoInterpreter(ast, {
+        const interpreter = new ASTInterpreter(ast, {
             verbose: false,
             debug: false,
             stepDelay: 0,

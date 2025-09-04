@@ -6,7 +6,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🎮 PLAYGROUND SIMULATION TEST');
 console.log('============================');
@@ -39,7 +39,7 @@ async function simulatePlayground() {
     console.log('\n🏗️ Setting up interpreter (like playground)...');
     
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, {
+    const interpreter = new ASTInterpreter(ast, {
         verbose: false,
         maxLoopIterations: 2 // Limit like playground
     });

@@ -1,5 +1,5 @@
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 const testCode = `
 void setup() {
@@ -28,7 +28,7 @@ async function runDebugTest() {
     
     const ast = parse(testCode, { platform: 'ARDUINO_UNO' });
     
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false, // Keep verbose off for now, we'll add specific logs
         debug: false,   // Keep debug off for now
         stepDelay: 0,

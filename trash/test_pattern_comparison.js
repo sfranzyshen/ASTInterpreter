@@ -5,7 +5,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🔍 State Machine vs Async/Await Pattern Comparison');
 console.log('==================================================');
@@ -37,7 +37,7 @@ async function testPattern(code, patternName, expectedPattern) {
     console.log('----------------------------');
     
     const ast = parse(code);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         debug: false,
         maxLoopIterations: 1

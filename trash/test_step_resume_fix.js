@@ -6,7 +6,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Test code that uses analogRead - this should trigger the external data request pattern
 const testCode = `
@@ -28,7 +28,7 @@ async function testStepResumeLogic() {
     try {
         // Parse the test code
         const ast = parse(testCode);
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             stepDelay: 0,
             maxLoopIterations: 2

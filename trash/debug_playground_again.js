@@ -1,5 +1,5 @@
 const { parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 console.log('🔍 DEBUGGING PLAYGROUND DISPLAY ISSUE');
 console.log('====================================');
@@ -16,7 +16,7 @@ void loop() {
 }`;
 
 const ast = parse(testCode, { enablePreprocessor: true });
-const interpreter = new ArduinoInterpreter(ast, {
+const interpreter = new ASTInterpreter(ast, {
     verbose: true // This should trigger VERSION_INFO commands
 });
 

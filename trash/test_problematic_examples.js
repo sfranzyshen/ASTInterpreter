@@ -4,7 +4,7 @@
  */
 
 const { parse } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 console.log('🔧 Testing Problematic Examples');
 console.log('================================');
@@ -113,7 +113,7 @@ async function testExample(code, name) {
         return { success: false, stage: 'parse', error: error.message };
     }
     
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         debug: false,
         maxLoopIterations: 2  // Keep it short to avoid infinite loops

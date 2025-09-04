@@ -241,11 +241,11 @@ Both parser.js and interpreter.js support universal Node.js/browser usage:
 ```javascript
 // Node.js usage (requires Node.js module exports)
 const { Parser, parse, prettyPrintAST } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const { PlatformEmulation } = require('./platform_emulation.js');
 
 // Browser usage (auto-exported to window globals)
-// window.Parser, window.parse, window.ArduinoInterpreter, window.PlatformEmulation available
+// window.Parser, window.parse, window.ASTInterpreter, window.PlatformEmulation available
 ```
 
 ### Correct Parsing Methods
@@ -268,15 +268,15 @@ const ast = parser.parse(); // IMPORTANT: Method is parse(), NOT parseProgram()
 ```javascript
 // CRITICAL: Interpreter takes parsed AST, not raw code
 const ast = parse(example.code);  // Parse first
-const interpreter = new ArduinoInterpreter(ast, { 
+const interpreter = new ASTInterpreter(ast, { 
     verbose: false,
     debug: false,
     stepDelay: 0,
     maxLoopIterations: 3  // ESSENTIAL: Prevents infinite loops
 });
 
-// Common mistake: new ArduinoInterpreter(code) - WRONG!
-// Correct pattern: new ArduinoInterpreter(ast) - RIGHT!
+// Common mistake: new ASTInterpreter(code) - WRONG!
+// Correct pattern: new ASTInterpreter(ast) - RIGHT!
 ```
 
 ### Proven Testing Template
@@ -291,7 +291,7 @@ function testExample(example, index) {
             const ast = parse(code);
             
             // Step 2: Create interpreter with ESSENTIAL settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,     // Suppress debug output
                 debug: false,       // Suppress debug output
                 stepDelay: 0,       // No delays for testing
@@ -647,7 +647,7 @@ These directives override default behaviors and apply to ALL sessions.
 ## File Structure Summary
 
 ```
-/mnt/d/Devel/ArduinoInterpreter_Arduino/
+/mnt/d/Devel/ASTInterpreter_Arduino/
 ├── parser.js                                    # Core parser (v5.0.0)
 ├── interpreter.js                               # Core interpreter (v6.4.0)
 ├── preprocessor.js                              # Arduino preprocessor (v1.2.0)  
@@ -788,7 +788,7 @@ These directives override default behaviors and apply to ALL sessions.
 ### ✅ **COMPLETED THIS SESSION** (September 2, 2025 - Continuation)
 
 1. **JavaScript Interpreter Step/Resume State Preservation Fix** ✅
-   - **CRITICAL FIX**: Fixed `resumeWithValue()` method in `ArduinoInterpreter.js` (lines ~2116-2136)
+   - **CRITICAL FIX**: Fixed `resumeWithValue()` method in `ASTInterpreter.js` (lines ~2116-2136)
    - **Issue**: Step functionality broke after setTimeout race condition fix - step would behave like resume
    - **Root Cause**: `resumeWithValue()` always set state to RUNNING, bypassing step control after analogRead responses
    - **Solution**: Added `previousExecutionState` tracking to preserve STEPPING → PAUSED transition
@@ -872,19 +872,19 @@ These directives override default behaviors and apply to ALL sessions.
 
 1. **Complete C++ User Function Parameters** 🔴 **TOP PRIORITY**
    - **File**: `ASTInterpreter.cpp` executeUserFunction() method
-   - **JavaScript Reference**: `ArduinoInterpreter.js` lines ~4540-4580 (FuncDefNode handling)
+   - **JavaScript Reference**: `ASTInterpreter.js` lines ~4540-4580 (FuncDefNode handling)
    - **Missing**: Parameter parsing from FuncDefNode, proper scope management for function arguments
    - **Impact**: User-defined functions currently don't handle parameters correctly
 
 2. **Implement C++ Array/Struct Assignment** 🔴
    - **File**: `ASTInterpreter.cpp` AssignmentNode visit method
-   - **JavaScript Reference**: `ArduinoInterpreter.js` lines ~4950-5020 (assignment operations)
+   - **JavaScript Reference**: `ASTInterpreter.js` lines ~4950-5020 (assignment operations)
    - **Missing**: `myArray[i] = value` and `myStruct.field = value` operations
    - **Impact**: Array element and struct member assignments fail
 
 3. **Complete C++ Range-Based For Loops** 🔴
    - **File**: `ASTInterpreter.cpp` RangeBasedForStatement visit method
-   - **JavaScript Reference**: `ArduinoInterpreter.js` lines ~5200-5280 (range-based iteration)
+   - **JavaScript Reference**: `ASTInterpreter.js` lines ~5200-5280 (range-based iteration)
    - **Missing**: String/numeric iteration edge cases, proper variable scoping
    - **Impact**: Modern C++ for loop syntax incomplete
 

@@ -7,7 +7,7 @@
  * 
  * PROBLEM ANALYSIS:
  * - Original script times out after 120s at test 56/135
- * - Root cause: 198 hardcoded console.log statements in ArduinoInterpreter.js
+ * - Root cause: 198 hardcoded console.log statements in ASTInterpreter.js
  * - Debug output causes ~3000ms execution time per test (should be ~50ms)
  * - Cannot suppress debug output due to hardcoded console.log calls
  * 
@@ -187,9 +187,9 @@ function classifyExamples(allExamples) {
 function generateCommandsOptimized(ast, example) {
     return new Promise((resolve) => {
         try {
-            const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+            const { ASTInterpreter } = require('./ASTInterpreter.js');
             
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

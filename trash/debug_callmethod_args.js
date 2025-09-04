@@ -5,10 +5,10 @@
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 
 // Monkey patch the ArduinoObject callMethod to see what arguments it receives
-const originalCallMethod = require('./interpreter.js').ArduinoInterpreter.prototype.executeMemberAccess;
+const originalCallMethod = require('./interpreter.js').ASTInterpreter.prototype.executeMemberAccess;
 
 console.log('🔍 Debugging callMethod Arguments');
 console.log('=================================');
@@ -61,7 +61,7 @@ class DebugArduinoObject {
 
 try {
     const ast = parse(testCode);
-    const interpreter = new ArduinoInterpreter(ast, { 
+    const interpreter = new ASTInterpreter(ast, { 
         verbose: false,
         stepDelay: 0,
         maxLoopIterations: 1

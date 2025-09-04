@@ -25,7 +25,7 @@ const os = require('os');
 
 // Load JavaScript modules
 const { parse, exportCompactAST } = require('./ArduinoParser.js');
-const { ArduinoInterpreter } = require('./ArduinoInterpreter.js');
+const { ASTInterpreter } = require('./ASTInterpreter.js');
 
 // Load test data
 const { examplesFiles } = require('./examples.js');
@@ -115,7 +115,7 @@ function captureCommandStreamOptimized(example, maxLoopIterations = 3) {
             const ast = parse(code);
             
             // Create interpreter with aggressive performance settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,        // Disable verbose mode
                 debug: false,          // Disable debug mode 
                 stepDelay: 0,          // No delays
@@ -551,7 +551,7 @@ function captureCommandStream(example, maxLoopIterations = 3) {
             const ast = parse(code);
             
             // Create interpreter with test settings
-            const interpreter = new ArduinoInterpreter(ast, { 
+            const interpreter = new ASTInterpreter(ast, { 
                 verbose: false,
                 debug: false,
                 stepDelay: 0,

@@ -1,10 +1,10 @@
 /**
  * Node.js Interpreter Test Script for examples.js
- * Tests ArduinoInterpreter against all 79 Arduino examples
+ * Tests ASTInterpreter against all 79 Arduino examples
  */
 
 const { Parser, parse } = require('./parser.js');
-const { ArduinoInterpreter } = require('./interpreter.js');
+const { ASTInterpreter } = require('./interpreter.js');
 const examples = require('./trash/extracted_examples.js');
 
 console.log('🧪 Arduino Interpreter Test Suite - Examples.js');
@@ -26,7 +26,7 @@ async function runTest(example, testName) {
         }
         
         // Create interpreter with AST and limited loop iterations
-        const interpreter = new ArduinoInterpreter(ast, { 
+        const interpreter = new ASTInterpreter(ast, { 
             verbose: false,
             debug: false,
             stepDelay: 0,

@@ -71,7 +71,8 @@
       "Bash(./test_integrated_simple)",
       "Bash(./test_library_registry)",
       "Bash(./test_library_integration)",
-      "Bash(./test_direct_validation)"
+      "Bash(./test_direct_validation)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": [],
