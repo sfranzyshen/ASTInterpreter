@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834310363,
+    "timestamp": 1756958423056,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834310363,
+    "timestamp": 1756958423056,
     "message": "Program execution started"
   },
   {
@@ -16,11 +16,11 @@
     "variable": "pingPin",
     "value": 7,
     "isConst": true,
-    "timestamp": 1756834310364
+    "timestamp": 1756958423057
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834310364,
+    "timestamp": 1756958423057,
     "message": "Executing setup() function"
   },
   {
@@ -30,22 +30,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834310364,
+    "timestamp": 1756958423057,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834310364,
+    "timestamp": 1756958423057,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310364,
+    "timestamp": 1756958423057,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310364,
+    "timestamp": 1756958423057,
     "message": "Starting loop iteration 1"
   },
   {
@@ -53,65 +53,65 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834310364
+    "timestamp": 1756958423057
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": null,
-    "timestamp": 1756834310364
+    "timestamp": 1756958423057
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": null,
-    "timestamp": 1756834310364
+    "timestamp": 1756958423057
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": null,
-    "timestamp": 1756834310365
+    "timestamp": 1756958423057
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 1,
-    "timestamp": 1756834310365
+    "timestamp": 1756958423057
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310366
+    "timestamp": 1756958423057
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 2,
-    "timestamp": 1756834310366
+    "timestamp": 1756958423057
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 1,
-    "timestamp": 1756834310366
+    "timestamp": 1756958423058
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 5,
-    "timestamp": 1756834310367
+    "timestamp": 1756958423058
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310367
+    "timestamp": 1756958423058
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 0,
-    "timestamp": 1756834310367
+    "timestamp": 1756958423058
   },
   {
     "type": "FUNCTION_CALL",
@@ -124,14 +124,14 @@
     "pin": 7,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310368,
+    "timestamp": 1756958423058,
     "message": "pulseIn(7, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": 1500,
-    "timestamp": 1756834310368
+    "timestamp": 1756958423058
   },
   {
     "type": "FUNCTION_CALL",
@@ -139,14 +139,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310369,
+    "timestamp": 1756958423058,
     "message": "microsecondsToInches(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": 10.135135135135135,
-    "timestamp": 1756834310369
+    "timestamp": 1756958423059
   },
   {
     "type": "FUNCTION_CALL",
@@ -154,14 +154,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310370,
+    "timestamp": 1756958423059,
     "message": "microsecondsToCentimeters(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": 25.862068965517242,
-    "timestamp": 1756834310371
+    "timestamp": 1756958423059
   },
   {
     "type": "FUNCTION_CALL",
@@ -170,7 +170,7 @@
       "10.135135135135135"
     ],
     "data": "10.135135135135135",
-    "timestamp": 1756834310371,
+    "timestamp": 1756958423059,
     "message": "Serial.print(10.135135135135135)"
   },
   {
@@ -180,7 +180,7 @@
       "\"in, \""
     ],
     "data": "in, ",
-    "timestamp": 1756834310371,
+    "timestamp": 1756958423059,
     "message": "Serial.print(\"in, \")"
   },
   {
@@ -190,7 +190,7 @@
       "25.862068965517242"
     ],
     "data": "25.862068965517242",
-    "timestamp": 1756834310371,
+    "timestamp": 1756958423059,
     "message": "Serial.print(25.862068965517242)"
   },
   {
@@ -200,21 +200,21 @@
       "\"cm\""
     ],
     "data": "cm",
-    "timestamp": 1756834310372,
+    "timestamp": 1756958423060,
     "message": "Serial.print(\"cm\")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310372,
+    "timestamp": 1756958423060,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310372
+    "timestamp": 1756958423060
   },
   {
     "type": "FUNCTION_CALL",
@@ -222,11 +222,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834310372
+    "timestamp": 1756958423060
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310377,
+    "timestamp": 1756958423065,
     "message": "Starting loop iteration 2"
   },
   {
@@ -234,65 +234,65 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834310377
+    "timestamp": 1756958423065
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": null,
-    "timestamp": 1756834310377
+    "timestamp": 1756958423065
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": null,
-    "timestamp": 1756834310378
+    "timestamp": 1756958423065
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": null,
-    "timestamp": 1756834310378
+    "timestamp": 1756958423065
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 1,
-    "timestamp": 1756834310378
+    "timestamp": 1756958423065
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310378
+    "timestamp": 1756958423066
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 2,
-    "timestamp": 1756834310378
+    "timestamp": 1756958423066
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 1,
-    "timestamp": 1756834310379
+    "timestamp": 1756958423066
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 5,
-    "timestamp": 1756834310379
+    "timestamp": 1756958423066
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310379
+    "timestamp": 1756958423066
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 0,
-    "timestamp": 1756834310379
+    "timestamp": 1756958423066
   },
   {
     "type": "FUNCTION_CALL",
@@ -305,14 +305,14 @@
     "pin": 7,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310380,
+    "timestamp": 1756958423066,
     "message": "pulseIn(7, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": 1500,
-    "timestamp": 1756834310380
+    "timestamp": 1756958423067
   },
   {
     "type": "FUNCTION_CALL",
@@ -320,14 +320,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310381,
+    "timestamp": 1756958423067,
     "message": "microsecondsToInches(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": 10.135135135135135,
-    "timestamp": 1756834310382
+    "timestamp": 1756958423067
   },
   {
     "type": "FUNCTION_CALL",
@@ -335,14 +335,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310382,
+    "timestamp": 1756958423067,
     "message": "microsecondsToCentimeters(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": 25.862068965517242,
-    "timestamp": 1756834310383
+    "timestamp": 1756958423067
   },
   {
     "type": "FUNCTION_CALL",
@@ -351,7 +351,7 @@
       "10.135135135135135"
     ],
     "data": "10.135135135135135",
-    "timestamp": 1756834310383,
+    "timestamp": 1756958423067,
     "message": "Serial.print(10.135135135135135)"
   },
   {
@@ -361,7 +361,7 @@
       "\"in, \""
     ],
     "data": "in, ",
-    "timestamp": 1756834310383,
+    "timestamp": 1756958423068,
     "message": "Serial.print(\"in, \")"
   },
   {
@@ -371,7 +371,7 @@
       "25.862068965517242"
     ],
     "data": "25.862068965517242",
-    "timestamp": 1756834310384,
+    "timestamp": 1756958423069,
     "message": "Serial.print(25.862068965517242)"
   },
   {
@@ -381,21 +381,21 @@
       "\"cm\""
     ],
     "data": "cm",
-    "timestamp": 1756834310384,
+    "timestamp": 1756958423069,
     "message": "Serial.print(\"cm\")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310385,
+    "timestamp": 1756958423069,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310385
+    "timestamp": 1756958423069
   },
   {
     "type": "FUNCTION_CALL",
@@ -403,11 +403,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834310385
+    "timestamp": 1756958423070
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310390,
+    "timestamp": 1756958423075,
     "message": "Starting loop iteration 3"
   },
   {
@@ -415,65 +415,65 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834310390
+    "timestamp": 1756958423075
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": null,
-    "timestamp": 1756834310390
+    "timestamp": 1756958423075
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": null,
-    "timestamp": 1756834310391
+    "timestamp": 1756958423075
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": null,
-    "timestamp": 1756834310391
+    "timestamp": 1756958423075
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 1,
-    "timestamp": 1756834310391
+    "timestamp": 1756958423075
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310391
+    "timestamp": 1756958423075
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 2,
-    "timestamp": 1756834310391
+    "timestamp": 1756958423075
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 1,
-    "timestamp": 1756834310392
+    "timestamp": 1756958423075
   },
   {
     "type": "DELAY_MICROSECONDS",
     "duration": 5,
-    "timestamp": 1756834310392
+    "timestamp": 1756958423075
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 7,
     "value": 0,
-    "timestamp": 1756834310392
+    "timestamp": 1756958423076
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 0,
-    "timestamp": 1756834310392
+    "timestamp": 1756958423076
   },
   {
     "type": "FUNCTION_CALL",
@@ -486,14 +486,14 @@
     "pin": 7,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310393,
+    "timestamp": 1756958423076,
     "message": "pulseIn(7, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "duration",
     "value": 1500,
-    "timestamp": 1756834310393
+    "timestamp": 1756958423076
   },
   {
     "type": "FUNCTION_CALL",
@@ -501,14 +501,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310393,
+    "timestamp": 1756958423076,
     "message": "microsecondsToInches(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "inches",
     "value": 10.135135135135135,
-    "timestamp": 1756834310394
+    "timestamp": 1756958423076
   },
   {
     "type": "FUNCTION_CALL",
@@ -516,14 +516,14 @@
     "arguments": [
       1500
     ],
-    "timestamp": 1756834310394,
+    "timestamp": 1756958423076,
     "message": "microsecondsToCentimeters(1500)"
   },
   {
     "type": "VAR_SET",
     "variable": "cm",
     "value": 25.862068965517242,
-    "timestamp": 1756834310395
+    "timestamp": 1756958423077
   },
   {
     "type": "FUNCTION_CALL",
@@ -532,7 +532,7 @@
       "10.135135135135135"
     ],
     "data": "10.135135135135135",
-    "timestamp": 1756834310395,
+    "timestamp": 1756958423077,
     "message": "Serial.print(10.135135135135135)"
   },
   {
@@ -542,7 +542,7 @@
       "\"in, \""
     ],
     "data": "in, ",
-    "timestamp": 1756834310395,
+    "timestamp": 1756958423077,
     "message": "Serial.print(\"in, \")"
   },
   {
@@ -552,7 +552,7 @@
       "25.862068965517242"
     ],
     "data": "25.862068965517242",
-    "timestamp": 1756834310396,
+    "timestamp": 1756958423077,
     "message": "Serial.print(25.862068965517242)"
   },
   {
@@ -562,21 +562,21 @@
       "\"cm\""
     ],
     "data": "cm",
-    "timestamp": 1756834310396,
+    "timestamp": 1756958423077,
     "message": "Serial.print(\"cm\")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310396,
+    "timestamp": 1756958423077,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310396
+    "timestamp": 1756958423077
   },
   {
     "type": "FUNCTION_CALL",
@@ -584,23 +584,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834310396
+    "timestamp": 1756958423077
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834310401,
+    "timestamp": 1756958423083,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310401,
+    "timestamp": 1756958423083,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310401,
+    "timestamp": 1756958423083,
     "message": "Program execution stopped"
   }
 ]

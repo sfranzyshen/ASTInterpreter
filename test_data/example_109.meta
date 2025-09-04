@@ -5,5 +5,5 @@
   "code": "// do-while loop with a complex condition\nbool checkCondition(int val) {\n  return val % 2 == 0;\n}\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int count = 0;\n  int val = 10;\n\n  do {\n    count++;\n    val--;\n    Serial.print(\"Count: \");\n    Serial.println(count);\n  } while (count < 5 && checkCondition(val) == false);\n}",
   "astSize": 412,
   "commandCount": 66,
-  "generated": "2025-09-02T17:33:04.516Z"
+  "generated": "2025-09-04T04:00:29.170Z"
 }

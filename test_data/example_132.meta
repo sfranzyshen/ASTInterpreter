@@ -3,7 +3,7 @@
   "source": "old_test",
   "index": "132",
   "code": "// Ternary Operator with Complex Expressions\nint getBigger(int x, int y) {\n  return (x > y) ? x : y;\n}\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 10, b = 20, c = 30;\n\n  int result = (a < b) ? getBigger(a, c) : (a + b);\n\n  Serial.print(\"Final result: \");\n  Serial.println(result);\n}",
-  "astSize": 406,
+  "astSize": 487,
   "commandCount": 36,
-  "generated": "2025-09-02T17:33:05.953Z"
+  "generated": "2025-09-04T04:00:31.172Z"
 }

@@ -343,6 +343,54 @@ ASTNodes.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s
 .PHONY : ASTNodes.cpp.s
 
+ArduinoDataTypes.o: ArduinoDataTypes.cpp.o
+.PHONY : ArduinoDataTypes.o
+
+# target to build an object file
+ArduinoDataTypes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o
+.PHONY : ArduinoDataTypes.cpp.o
+
+ArduinoDataTypes.i: ArduinoDataTypes.cpp.i
+.PHONY : ArduinoDataTypes.i
+
+# target to preprocess a source file
+ArduinoDataTypes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i
+.PHONY : ArduinoDataTypes.cpp.i
+
+ArduinoDataTypes.s: ArduinoDataTypes.cpp.s
+.PHONY : ArduinoDataTypes.s
+
+# target to generate assembly for a file
+ArduinoDataTypes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s
+.PHONY : ArduinoDataTypes.cpp.s
+
+ArduinoLibraryRegistry.o: ArduinoLibraryRegistry.cpp.o
+.PHONY : ArduinoLibraryRegistry.o
+
+# target to build an object file
+ArduinoLibraryRegistry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o
+.PHONY : ArduinoLibraryRegistry.cpp.o
+
+ArduinoLibraryRegistry.i: ArduinoLibraryRegistry.cpp.i
+.PHONY : ArduinoLibraryRegistry.i
+
+# target to preprocess a source file
+ArduinoLibraryRegistry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i
+.PHONY : ArduinoLibraryRegistry.cpp.i
+
+ArduinoLibraryRegistry.s: ArduinoLibraryRegistry.cpp.s
+.PHONY : ArduinoLibraryRegistry.s
+
+# target to generate assembly for a file
+ArduinoLibraryRegistry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s
+.PHONY : ArduinoLibraryRegistry.cpp.s
+
 CommandProtocol.o: CommandProtocol.cpp.o
 .PHONY : CommandProtocol.o
 
@@ -390,6 +438,30 @@ CompactAST.s: CompactAST.cpp.s
 CompactAST.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s
 .PHONY : CompactAST.cpp.s
+
+EnhancedInterpreter.o: EnhancedInterpreter.cpp.o
+.PHONY : EnhancedInterpreter.o
+
+# target to build an object file
+EnhancedInterpreter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o
+.PHONY : EnhancedInterpreter.cpp.o
+
+EnhancedInterpreter.i: EnhancedInterpreter.cpp.i
+.PHONY : EnhancedInterpreter.i
+
+# target to preprocess a source file
+EnhancedInterpreter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i
+.PHONY : EnhancedInterpreter.cpp.i
+
+EnhancedInterpreter.s: EnhancedInterpreter.cpp.s
+.PHONY : EnhancedInterpreter.s
+
+# target to generate assembly for a file
+EnhancedInterpreter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s
+.PHONY : EnhancedInterpreter.cpp.s
 
 examples/basic_interpreter.o: examples/basic_interpreter.cpp.o
 .PHONY : examples/basic_interpreter.o
@@ -564,12 +636,21 @@ help:
 	@echo "... ASTNodes.o"
 	@echo "... ASTNodes.i"
 	@echo "... ASTNodes.s"
+	@echo "... ArduinoDataTypes.o"
+	@echo "... ArduinoDataTypes.i"
+	@echo "... ArduinoDataTypes.s"
+	@echo "... ArduinoLibraryRegistry.o"
+	@echo "... ArduinoLibraryRegistry.i"
+	@echo "... ArduinoLibraryRegistry.s"
 	@echo "... CommandProtocol.o"
 	@echo "... CommandProtocol.i"
 	@echo "... CommandProtocol.s"
 	@echo "... CompactAST.o"
 	@echo "... CompactAST.i"
 	@echo "... CompactAST.s"
+	@echo "... EnhancedInterpreter.o"
+	@echo "... EnhancedInterpreter.i"
+	@echo "... EnhancedInterpreter.s"
 	@echo "... examples/basic_interpreter.o"
 	@echo "... examples/basic_interpreter.i"
 	@echo "... examples/basic_interpreter.s"

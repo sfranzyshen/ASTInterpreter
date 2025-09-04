@@ -93,6 +93,18 @@ add_library(arduino_ast_interpreter
     # Main interpreter
     ASTInterpreter.cpp
     ASTInterpreter.hpp
+    
+    # Data model classes
+    ArduinoDataTypes.cpp
+    ArduinoDataTypes.hpp
+    
+    # Enhanced interpreter
+    EnhancedInterpreter.cpp
+    EnhancedInterpreter.hpp
+    
+    # Arduino library registry
+    ArduinoLibraryRegistry.cpp
+    ArduinoLibraryRegistry.hpp
 )
 
 # Include directories
@@ -260,6 +272,9 @@ install(FILES
     CompactAST.hpp
     CommandProtocol.hpp
     ASTInterpreter.hpp
+    ArduinoDataTypes.hpp
+    EnhancedInterpreter.hpp
+    ArduinoLibraryRegistry.hpp
     DESTINATION include/arduino_ast_interpreter
 )
 

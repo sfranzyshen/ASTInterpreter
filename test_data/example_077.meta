@@ -5,5 +5,5 @@
   "code": "// 10.StarterKit_BasicKit p15_HackingButtons\n\nconst int optoPin = 2;\n\nvoid setup() {\n  // make the pin with the optocoupler an output\n  pinMode(optoPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(optoPin, HIGH);\n  delay(15);\n  digitalWrite(optoPin, LOW);\n  delay(10000);\n}\n",
   "astSize": 195,
   "commandCount": 31,
-  "generated": "2025-09-02T17:33:02.433Z"
+  "generated": "2025-09-04T04:00:26.442Z"
 }

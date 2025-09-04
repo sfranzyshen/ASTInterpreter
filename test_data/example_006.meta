@@ -4,6 +4,6 @@
   "index": "006",
   "code": "// 02.Digital BlinkWithoutDelay.ino\n\n\n\n// constants won't change.\nconst int ledPin = LED_BUILTIN;\n\n// Variables will change:\nint ledState = LOW;\n\n// Generally, you should use \"unsigned long\" for variables that hold time\n// The value will quickly become too large for an int to store\nunsigned long previousMillis = 0;\n\n// constants won't change:\nconst long interval = 1000;\n\nvoid setup() {\n  // set the digital pin as output:\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  // here is where you'd put code that needs to be running all the time.\n  // check to see if it's time to blink the LED;\n  unsigned long currentMillis = millis();\n\n  if (currentMillis - previousMillis >= interval) {\n    // save the last time you blinked the LED\n    previousMillis = currentMillis;\n\n    // if the LED is off turn it on and vice-versa:\n    if (ledState == LOW) {\n      ledState = HIGH;\n    } else {\n      ledState = LOW;\n    }\n\n    // set the LED with the ledState of the variable:\n    digitalWrite(ledPin, ledState);\n  }\n}\n",
   "astSize": 542,
-  "commandCount": 15,
-  "generated": "2025-09-02T17:31:18.044Z"
+  "commandCount": 35,
+  "generated": "2025-09-04T04:00:18.912Z"
 }

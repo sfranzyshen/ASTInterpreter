@@ -52,6 +52,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.hpp"
     "/mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.hpp"
     "/mnt/d/Devel/ArduinoInterpreter_Arduino/ASTInterpreter.hpp"
+    "/mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.hpp"
+    "/mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.hpp"
+    "/mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.hpp"
     )
 endif()
 

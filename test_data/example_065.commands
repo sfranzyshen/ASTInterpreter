@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834361656,
+    "timestamp": 1756958425271,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834361656,
+    "timestamp": 1756958425271,
     "message": "Program execution started"
   },
   {
@@ -16,18 +16,18 @@
     "variable": "sensorPin",
     "value": 14,
     "isConst": true,
-    "timestamp": 1756834361656
+    "timestamp": 1756958425271
   },
   {
     "type": "VAR_SET",
     "variable": "baselineTemp",
     "value": 20,
     "isConst": true,
-    "timestamp": 1756834361656
+    "timestamp": 1756958425271
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834361657,
+    "timestamp": 1756958425271,
     "message": "Executing setup() function"
   },
   {
@@ -37,106 +37,106 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834361657,
+    "timestamp": 1756958425272,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "FOR_LOOP",
     "phase": "start",
-    "timestamp": 1756834361657,
+    "timestamp": 1756958425272,
     "message": "for loop started"
   },
   {
     "type": "VAR_SET",
     "variable": "pinNumber",
     "value": 2,
-    "timestamp": 1756834361658
+    "timestamp": 1756958425272
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 0,
-    "timestamp": 1756834361658,
+    "timestamp": 1756958425272,
     "message": "for loop iteration 0"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 1,
-    "timestamp": 1756834361658
+    "timestamp": 1756958425272
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 2,
     "value": 0,
-    "timestamp": 1756834361658
+    "timestamp": 1756958425273
   },
   {
     "type": "VAR_SET",
     "variable": "pinNumber",
     "value": 3,
-    "timestamp": 1756834361659
+    "timestamp": 1756958425273
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 1,
-    "timestamp": 1756834361664,
+    "timestamp": 1756958425278,
     "message": "for loop iteration 1"
   },
   {
     "type": "PIN_MODE",
     "pin": 3,
     "mode": 1,
-    "timestamp": 1756834361665
+    "timestamp": 1756958425279
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 3,
     "value": 0,
-    "timestamp": 1756834361665
+    "timestamp": 1756958425279
   },
   {
     "type": "VAR_SET",
     "variable": "pinNumber",
     "value": 4,
-    "timestamp": 1756834361665
+    "timestamp": 1756958425279
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 2,
-    "timestamp": 1756834361671,
+    "timestamp": 1756958425285,
     "message": "for loop iteration 2"
   },
   {
     "type": "PIN_MODE",
     "pin": 4,
     "mode": 1,
-    "timestamp": 1756834361671
+    "timestamp": 1756958425285
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 4,
     "value": 0,
-    "timestamp": 1756834361671
+    "timestamp": 1756958425285
   },
   {
     "type": "VAR_SET",
     "variable": "pinNumber",
     "value": 5,
-    "timestamp": 1756834361671
+    "timestamp": 1756958425286
   },
   {
     "type": "LOOP_LIMIT_REACHED",
     "phase": "end",
     "iterations": 3,
-    "timestamp": 1756834361677,
+    "timestamp": 1756958425291,
     "message": "For loop limit reached: completed 3 iterations (max: 3)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834361677,
+    "timestamp": 1756958425291,
     "message": "Completed setup() function"
   }
 ]

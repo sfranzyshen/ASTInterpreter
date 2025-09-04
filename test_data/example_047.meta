@@ -4,6 +4,6 @@
   "index": "047",
   "code": "// 08.Strings StringAppendOperator\n\nString stringOne, stringTwo;\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  stringOne = String(\"Sensor \");\n  stringTwo = String(\"value\");\n\n  // send an intro:\n  Serial.println(\"\\n\\nAppending to a String:\");\n  Serial.println();\n}\n\nvoid loop() {\n  Serial.println(stringOne);\n\n  // adding a string to a String:\n  stringOne += stringTwo;\n  Serial.println(stringOne);\n\n  // adding a constant string to a String:\n  stringOne += \" for input \";\n  Serial.println(stringOne);\n\n  // adding a constant character to a String:\n  stringOne += 'A';\n  Serial.println(stringOne);\n\n  // adding a constant integer to a String:\n  stringOne += 0;\n  Serial.println(stringOne);\n\n  // adding a constant string to a String:\n  stringOne += \": \";\n  Serial.println(stringOne);\n\n  // adding a variable integer to a String:\n  stringOne += analogRead(A0);\n  Serial.println(stringOne);\n\n  Serial.println(\"\\n\\nchanging the Strings' values\");\n  stringOne = \"A long integer: \";\n  stringTwo = \"The millis(): \";\n\n  // adding a constant long integer to a String:\n  stringOne += 123456789;\n  Serial.println(stringOne);\n\n  // using concat() to add a long variable to a String:\n  stringTwo.concat(millis());\n  Serial.println(stringTwo);\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
   "astSize": 393,
-  "commandCount": 38,
-  "generated": "2025-09-02T17:32:00.683Z"
+  "commandCount": 44,
+  "generated": "2025-09-04T04:00:23.542Z"
 }

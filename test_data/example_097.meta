@@ -5,5 +5,5 @@
   "code": "// Loop Control Statements (break, continue)\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  for (int i = 0; i < 5; i++) {\n    for (int j = 0; j < 5; j++) {\n      if (j == 2) {\n        Serial.println(\"Continuing inner loop...\");\n        continue;\n      }\n      if (i == 3) {\n        Serial.println(\"Breaking outer loop...\");\n        break;\n      }\n      Serial.print(\"i: \");\n      Serial.print(i);\n      Serial.print(\", j: \");\n      Serial.print(j);\n      Serial.println(j);\n    }\n  }\n}",
   "astSize": 452,
   "commandCount": 46,
-  "generated": "2025-09-02T17:33:03.661Z"
+  "generated": "2025-09-04T04:00:27.973Z"
 }

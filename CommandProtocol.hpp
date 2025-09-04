@@ -416,6 +416,21 @@ struct ErrorCommand : public Command {
     CommandValue getValue(const std::string& key) const override;
 };
 
+/**
+ * Library method commands for Arduino libraries
+ */
+struct LibraryCommand : public Command {
+    std::string libraryName;
+    std::string methodName;
+    std::string objectId;
+    std::vector<std::string> args;
+    
+    LibraryCommand() : Command(CommandType::LIBRARY_METHOD_REQUEST) {}
+    
+    std::string toString() const override;
+    CommandValue getValue(const std::string& key) const override;
+};
+
 // =============================================================================
 // COMMAND LISTENER INTERFACE
 // =============================================================================

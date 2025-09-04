@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834341440,
+    "timestamp": 1756958424629,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834341440,
+    "timestamp": 1756958424629,
     "message": "Program execution started"
   },
   {
@@ -16,70 +16,70 @@
     "variable": "upButton",
     "value": 2,
     "isConst": true,
-    "timestamp": 1756834341440
+    "timestamp": 1756958424630
   },
   {
     "type": "VAR_SET",
     "variable": "downButton",
     "value": 3,
     "isConst": true,
-    "timestamp": 1756834341440
+    "timestamp": 1756958424630
   },
   {
     "type": "VAR_SET",
     "variable": "leftButton",
     "value": 4,
     "isConst": true,
-    "timestamp": 1756834341441
+    "timestamp": 1756958424630
   },
   {
     "type": "VAR_SET",
     "variable": "rightButton",
     "value": 5,
     "isConst": true,
-    "timestamp": 1756834341441
+    "timestamp": 1756958424630
   },
   {
     "type": "VAR_SET",
     "variable": "mouseButton",
     "value": 6,
     "isConst": true,
-    "timestamp": 1756834341441
+    "timestamp": 1756958424630
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834341441,
+    "timestamp": 1756958424630,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1756834341442
+    "timestamp": 1756958424630
   },
   {
     "type": "PIN_MODE",
     "pin": 3,
     "mode": 0,
-    "timestamp": 1756834341442
+    "timestamp": 1756958424630
   },
   {
     "type": "PIN_MODE",
     "pin": 4,
     "mode": 0,
-    "timestamp": 1756834341442
+    "timestamp": 1756958424631
   },
   {
     "type": "PIN_MODE",
     "pin": 5,
     "mode": 0,
-    "timestamp": 1756834341443
+    "timestamp": 1756958424631
   },
   {
     "type": "PIN_MODE",
     "pin": 6,
     "mode": 0,
-    "timestamp": 1756834341443
+    "timestamp": 1756958424631
   },
   {
     "type": "FUNCTION_CALL",
@@ -88,36 +88,36 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834341443,
+    "timestamp": 1756958424632,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Mouse.begin",
     "arguments": [],
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
     "message": "Mouse.begin()"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Keyboard.begin",
     "arguments": [],
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
     "message": "Keyboard.begin()"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
     "message": "Starting loop iteration 1"
   },
   {
@@ -125,13 +125,188 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834341444
+    "timestamp": 1756958424632
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834341444,
+    "timestamp": 1756958424632,
+    "message": "Serial.available()"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.read",
+    "arguments": [],
+    "timestamp": 1756958424633,
+    "message": "Serial.read()"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "inChar",
+    "value": 65,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "SWITCH_STATEMENT",
+    "discriminant": 65,
+    "timestamp": 1756958424633,
+    "message": "switch (65)"
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 117,
+    "matched": false,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 100,
+    "matched": false,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 108,
+    "matched": false,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 114,
+    "matched": false,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 109,
+    "matched": false,
+    "timestamp": 1756958424633
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424634_0.7815319954541315",
+    "timestamp": 1756958424634
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424635
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      117
+    ],
+    "timestamp": 1756958424635,
+    "message": "Keyboard.write(117)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958424635_0.8739057638326506",
+    "timestamp": 1756958424635
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424637
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958424637_0.8082013512950286",
+    "timestamp": 1756958424637
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424638
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      108
+    ],
+    "timestamp": 1756958424638,
+    "message": "Keyboard.write(108)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958424638_0.7539887029555297",
+    "timestamp": 1756958424638
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424639
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      114
+    ],
+    "timestamp": 1756958424639,
+    "message": "Keyboard.write(114)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 6,
+    "requestId": "digitalRead_1756958424640_0.15990833578521935",
+    "timestamp": 1756958424640
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424641
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958424641
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424646,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958424646
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.available",
+    "arguments": [],
+    "timestamp": 1756958424647,
     "message": "Serial.available()"
   },
   {
@@ -139,22 +314,249 @@
     "condition": false,
     "result": false,
     "branch": "else",
-    "timestamp": 1756834341444
+    "timestamp": 1756958424647
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 2,
-    "requestId": "digitalRead_1756834341446_0.7995996204538875",
-    "timestamp": 1756834341446
+    "requestId": "digitalRead_1756958424647_0.11706316915997594",
+    "timestamp": 1756958424647
   },
   {
-    "type": "TIMEOUT",
-    "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756834346440
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424648
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958424648_0.829073401013309",
+    "timestamp": 1756958424648
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424650
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      100
+    ],
+    "timestamp": 1756958424650,
+    "message": "Keyboard.write(100)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958424650_0.7395659463018396",
+    "timestamp": 1756958424650
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424651
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      108
+    ],
+    "timestamp": 1756958424651,
+    "message": "Keyboard.write(108)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958424652_0.3790729241525217",
+    "timestamp": 1756958424652
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424653
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      114
+    ],
+    "timestamp": 1756958424653,
+    "message": "Keyboard.write(114)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 6,
+    "requestId": "digitalRead_1756958424653_0.9358667455821741",
+    "timestamp": 1756958424653
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424654
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      109
+    ],
+    "timestamp": 1756958424654,
+    "message": "Keyboard.write(109)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958424654
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424659,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958424659
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.available",
+    "arguments": [],
+    "timestamp": 1756958424660,
+    "message": "Serial.available()"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424660
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424660_0.15491783151298621",
+    "timestamp": 1756958424660
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424661
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958424661_0.10159544783042929",
+    "timestamp": 1756958424661
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424662
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958424662_0.6821385426481001",
+    "timestamp": 1756958424662
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424664
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      108
+    ],
+    "timestamp": 1756958424664,
+    "message": "Keyboard.write(108)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958424664_0.937376254705149",
+    "timestamp": 1756958424664
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424665
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 6,
+    "requestId": "digitalRead_1756958424665_0.2263917396087396",
+    "timestamp": 1756958424665
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424666
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      109
+    ],
+    "timestamp": 1756958424667,
+    "message": "Keyboard.write(109)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958424667
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958424672,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834346440,
+    "timestamp": 1756958424672,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958424672,
     "message": "Program execution stopped"
   }
 ]

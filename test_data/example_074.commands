@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834377200,
+    "timestamp": 1756958426018,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834377200,
+    "timestamp": 1756958426018,
     "message": "Program execution started"
   },
   {
@@ -16,7 +16,7 @@
     "library": "Servo",
     "variableName": "myServo",
     "constructorArgs": [],
-    "timestamp": 1756834377200,
+    "timestamp": 1756958426018,
     "message": "Servo()"
   },
   {
@@ -26,123 +26,123 @@
       "__type": "ArduinoObject",
       "className": "Servo",
       "constructorArgs": [],
-      "objectId": "Servo_1756834377200_a35ewu3cy"
+      "objectId": "Servo_1756958426018_5fl6aizx7"
     },
-    "timestamp": 1756834377200
+    "timestamp": 1756958426018
   },
   {
     "type": "VAR_SET",
     "variable": "piezo",
     "value": 14,
     "isConst": true,
-    "timestamp": 1756834377201
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "switchPin",
     "value": 2,
     "isConst": true,
-    "timestamp": 1756834377201
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "yellowLed",
     "value": 3,
     "isConst": true,
-    "timestamp": 1756834377201
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "greenLed",
     "value": 4,
     "isConst": true,
-    "timestamp": 1756834377202
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "redLed",
     "value": 5,
     "isConst": true,
-    "timestamp": 1756834377202
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "knockVal",
     "value": null,
-    "timestamp": 1756834377203
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "switchVal",
     "value": null,
-    "timestamp": 1756834377203
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "quietKnock",
     "value": 10,
     "isConst": true,
-    "timestamp": 1756834377204
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "loudKnock",
     "value": 100,
     "isConst": true,
-    "timestamp": 1756834377204
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "locked",
     "value": false,
-    "timestamp": 1756834377204
+    "timestamp": 1756958426019
   },
   {
     "type": "VAR_SET",
     "variable": "numberOfKnocks",
     "value": 0,
-    "timestamp": 1756834377205
+    "timestamp": 1756958426019
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834377205,
+    "timestamp": 1756958426019,
     "message": "Executing setup() function"
   },
   {
     "type": "LIBRARY_METHOD_CALL",
     "library": "Servo",
-    "object": "Servo_1756834377200_a35ewu3cy",
+    "object": "Servo_1756958426018_5fl6aizx7",
     "variableName": "myServo",
     "method": "attach",
     "args": [
       9
     ],
     "message": "myServo.attach(9)",
-    "timestamp": 1756834377205
+    "timestamp": 1756958426020
   },
   {
     "type": "PIN_MODE",
     "pin": 3,
     "mode": 1,
-    "timestamp": 1756834377205
+    "timestamp": 1756958426020
   },
   {
     "type": "PIN_MODE",
     "pin": 5,
     "mode": 1,
-    "timestamp": 1756834377206
+    "timestamp": 1756958426020
   },
   {
     "type": "PIN_MODE",
     "pin": 4,
     "mode": 1,
-    "timestamp": 1756834377206
+    "timestamp": 1756958426020
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1756834377206
+    "timestamp": 1756958426020
   },
   {
     "type": "FUNCTION_CALL",
@@ -151,26 +151,26 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834377206,
+    "timestamp": 1756958426020,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 4,
     "value": 1,
-    "timestamp": 1756834377207
+    "timestamp": 1756958426020
   },
   {
     "type": "LIBRARY_METHOD_CALL",
     "library": "Servo",
-    "object": "Servo_1756834377200_a35ewu3cy",
+    "object": "Servo_1756958426018_5fl6aizx7",
     "variableName": "myServo",
     "method": "write",
     "args": [
       0
     ],
     "message": "myServo.write(0)",
-    "timestamp": 1756834377208
+    "timestamp": 1756958426020
   },
   {
     "type": "FUNCTION_CALL",
@@ -179,22 +179,22 @@
       "\"the box is unlocked!\""
     ],
     "data": "the box is unlocked!",
-    "timestamp": 1756834377208,
+    "timestamp": 1756958426020,
     "message": "Serial.println(\"the box is unlocked!\")"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834377208,
+    "timestamp": 1756958426020,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834377208,
+    "timestamp": 1756958426020,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834377208,
+    "timestamp": 1756958426020,
     "message": "Starting loop iteration 1"
   },
   {
@@ -202,29 +202,375 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834377208
+    "timestamp": 1756958426020
   },
   {
     "type": "IF_STATEMENT",
     "condition": true,
     "result": true,
     "branch": "then",
-    "timestamp": 1756834377209
+    "timestamp": 1756958426021
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 2,
-    "requestId": "digitalRead_1756834377209_0.7157728780537134",
-    "timestamp": 1756834377209
+    "requestId": "digitalRead_1756958426021_0.9184819875501122",
+    "timestamp": 1756958426021
   },
   {
-    "type": "TIMEOUT",
-    "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756834382200
+    "type": "VAR_SET",
+    "variable": "switchVal",
+    "value": 0,
+    "timestamp": 1756958426022
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426022
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426022
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958426022
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426027,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958426027
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426028
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958426028_0.803403159934603",
+    "timestamp": 1756958426028
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchVal",
+    "value": 1,
+    "timestamp": 1756958426029
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426029
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "locked",
+    "value": true,
+    "timestamp": 1756958426029
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 4,
+    "value": 0,
+    "timestamp": 1756958426029
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 5,
+    "value": 1,
+    "timestamp": 1756958426029
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Servo",
+    "object": "Servo_1756958426018_5fl6aizx7",
+    "variableName": "myServo",
+    "method": "write",
+    "args": [
+      90
+    ],
+    "message": "myServo.write(90)",
+    "timestamp": 1756958426030
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"the box is locked!\""
+    ],
+    "data": "the box is locked!",
+    "timestamp": 1756958426030,
+    "message": "Serial.println(\"the box is locked!\")"
+  },
+  {
+    "type": "DELAY",
+    "duration": 1000,
+    "actualDelay": 1000,
+    "timestamp": 1756958426030
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426030
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958426030_0.45989502435982454",
+    "timestamp": 1756958426030
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "knockVal",
+    "value": 253,
+    "timestamp": 1756958426031
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426031
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkForKnock",
+    "arguments": [
+      253
+    ],
+    "timestamp": 1756958426031,
+    "message": "checkForKnock(253)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426032
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Bad knock value \""
+    ],
+    "data": "Bad knock value ",
+    "timestamp": 1756958426032,
+    "message": "Serial.print(\"Bad knock value \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "253"
+    ],
+    "data": "253",
+    "timestamp": 1756958426032,
+    "message": "Serial.println(253)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426037
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "3"
+    ],
+    "data": "3",
+    "timestamp": 1756958426037,
+    "message": "Serial.print(3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\" more knocks to go\""
+    ],
+    "data": " more knocks to go",
+    "timestamp": 1756958426038,
+    "message": "Serial.println(\" more knocks to go\")"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426038
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958426038
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426043,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958426043
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426043
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426043
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958426043_0.7009986609864816",
+    "timestamp": 1756958426043
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "knockVal",
+    "value": 729,
+    "timestamp": 1756958426044
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958426045
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "checkForKnock",
+    "arguments": [
+      729
+    ],
+    "timestamp": 1756958426045,
+    "message": "checkForKnock(729)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426045
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "\"Bad knock value \""
+    ],
+    "data": "Bad knock value ",
+    "timestamp": 1756958426045,
+    "message": "Serial.print(\"Bad knock value \")"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "729"
+    ],
+    "data": "729",
+    "timestamp": 1756958426045,
+    "message": "Serial.println(729)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426050
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.print",
+    "arguments": [
+      "3"
+    ],
+    "data": "3",
+    "timestamp": 1756958426051,
+    "message": "Serial.print(3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\" more knocks to go\""
+    ],
+    "data": " more knocks to go",
+    "timestamp": 1756958426051,
+    "message": "Serial.println(\" more knocks to go\")"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958426051
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958426051
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958426056,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834382200,
+    "timestamp": 1756958426056,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958426056,
     "message": "Program execution stopped"
   }
 ]

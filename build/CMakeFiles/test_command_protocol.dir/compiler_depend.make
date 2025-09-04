@@ -214,22 +214,16 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
   /usr/include/c++/11/limits \
   /usr/include/c++/11/ctime \
   ../CompactAST.hpp \
+  ../EnhancedInterpreter.hpp \
+  ../ArduinoDataTypes.hpp \
+  ../ArduinoLibraryRegistry.hpp \
+  /usr/include/c++/11/unordered_set \
+  /usr/include/c++/11/bits/unordered_set.h \
   /usr/include/c++/11/stack \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
   /usr/include/c++/11/bits/deque.tcc \
   /usr/include/c++/11/bits/stl_stack.h \
-  /usr/include/c++/11/future \
-  /usr/include/c++/11/mutex \
-  /usr/include/c++/11/system_error \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
-  /usr/include/c++/11/stdexcept \
-  /usr/include/c++/11/bits/std_mutex.h \
-  /usr/include/c++/11/bits/unique_lock.h \
-  /usr/include/c++/11/condition_variable \
-  /usr/include/c++/11/atomic \
-  /usr/include/c++/11/bits/atomic_futex.h \
-  /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/queue \
   /usr/include/c++/11/bits/stl_queue.h \
   /usr/include/c++/11/iostream \
@@ -238,6 +232,9 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
   /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
+  /usr/include/c++/11/system_error \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+  /usr/include/c++/11/stdexcept \
   /usr/include/c++/11/streambuf \
   /usr/include/c++/11/bits/streambuf.tcc \
   /usr/include/c++/11/bits/basic_ios.h \
@@ -254,6 +251,7 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
   /usr/include/c++/11/thread \
+  /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
   /usr/include/c++/11/sstream \
   /usr/include/c++/11/bits/sstream.tcc
@@ -261,11 +259,15 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 
 /usr/include/c++/11/sstream:
 
+/usr/include/c++/11/bits/std_thread.h:
+
 /usr/include/c++/11/bits/istream.tcc:
 
 /usr/include/c++/11/istream:
 
 /usr/include/c++/11/bits/basic_ios.tcc:
+
+/usr/include/c++/11/bits/locale_facets.tcc:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
 
@@ -277,29 +279,23 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 
 /usr/include/c++/11/bits/basic_ios.h:
 
+/usr/include/c++/11/stdexcept:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
+
 /usr/include/c++/11/bits/locale_classes.tcc:
 
 /usr/include/c++/11/bits/locale_classes.h:
 
 /usr/include/c++/11/bits/ios_base.h:
 
-/usr/include/c++/11/bits/std_thread.h:
-
-/usr/include/c++/11/bits/atomic_futex.h:
-
-/usr/include/c++/11/bits/unique_lock.h:
-
-/usr/include/c++/11/stdexcept:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
-
-/usr/include/c++/11/bits/locale_facets.tcc:
-
-/usr/include/c++/11/future:
-
 /usr/include/c++/11/bits/stl_stack.h:
 
 /usr/include/c++/11/bits/stl_deque.h:
+
+/usr/include/c++/11/bits/unordered_set.h:
+
+../ArduinoDataTypes.hpp:
 
 ../CompactAST.hpp:
 
@@ -459,8 +455,6 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
-/usr/include/c++/11/atomic:
-
 /usr/include/c++/11/bits/exception_defines.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
@@ -493,10 +487,6 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
-/usr/include/c++/11/condition_variable:
-
-/usr/include/c++/11/bits/std_mutex.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
@@ -516,6 +506,8 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 ../ASTInterpreter.hpp:
 
 /usr/include/c++/11/cstdint:
+
+../EnhancedInterpreter.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
@@ -592,6 +584,8 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 /usr/include/c++/11/bits/predefined_ops.h:
 
 ../tests/test_command_protocol.cpp:
+
+/usr/include/c++/11/unordered_set:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
@@ -679,6 +673,8 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
+../ArduinoLibraryRegistry.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/locale.h:
@@ -724,8 +720,6 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: ../tests
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
-
-/usr/include/c++/11/mutex:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
 

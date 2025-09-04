@@ -213,22 +213,16 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
   /usr/include/c++/11/limits \
   /usr/include/c++/11/ctime \
   ../CompactAST.hpp \
+  ../EnhancedInterpreter.hpp \
+  ../ArduinoDataTypes.hpp \
+  ../ArduinoLibraryRegistry.hpp \
+  /usr/include/c++/11/unordered_set \
+  /usr/include/c++/11/bits/unordered_set.h \
   /usr/include/c++/11/stack \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
   /usr/include/c++/11/bits/deque.tcc \
   /usr/include/c++/11/bits/stl_stack.h \
-  /usr/include/c++/11/future \
-  /usr/include/c++/11/mutex \
-  /usr/include/c++/11/system_error \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
-  /usr/include/c++/11/stdexcept \
-  /usr/include/c++/11/bits/std_mutex.h \
-  /usr/include/c++/11/bits/unique_lock.h \
-  /usr/include/c++/11/condition_variable \
-  /usr/include/c++/11/atomic \
-  /usr/include/c++/11/bits/atomic_futex.h \
-  /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/queue \
   /usr/include/c++/11/bits/stl_queue.h \
   /usr/include/c++/11/iostream \
@@ -237,6 +231,9 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
   /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
+  /usr/include/c++/11/system_error \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+  /usr/include/c++/11/stdexcept \
   /usr/include/c++/11/streambuf \
   /usr/include/c++/11/bits/streambuf.tcc \
   /usr/include/c++/11/bits/basic_ios.h \
@@ -282,10 +279,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/c++/11/bits/quoted_string.h:
 
-/usr/include/c++/11/bits/locale_conv.h:
-
-/usr/include/c++/11/bits/locale_facets_nonio.tcc:
-
 /usr/include/stdlib.h:
 
 /usr/include/c++/11/bits/string_view.tcc:
@@ -312,11 +305,11 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
-/usr/include/c++/11/mutex:
-
 /usr/include/c++/11/ext/atomicity.h:
 
 /usr/include/c++/11/bits/stl_pair.h:
+
+/usr/include/c++/11/bits/locale_facets_nonio.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
@@ -351,6 +344,8 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+../ArduinoLibraryRegistry.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
@@ -396,8 +391,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/pthread.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/c++/11/bits/memoryfwd.h:
@@ -417,6 +410,10 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/c++/11/bits/hash_bytes.h:
 
 /usr/include/c++/11/bits/move.h:
+
+/usr/include/c++/11/bits/cpp_type_traits.h:
+
+/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
@@ -440,6 +437,10 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+../EnhancedInterpreter.hpp:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
@@ -460,6 +461,8 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/c++/11/unordered_set:
+
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
@@ -476,8 +479,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
-/usr/include/c++/11/bits/std_mutex.h:
-
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
@@ -493,6 +494,8 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/c++/11/debug/debug.h:
 
 /usr/include/features-time64.h:
+
+/usr/include/c++/11/ext/string_conversions.h:
 
 /usr/include/c++/11/bits/exception_ptr.h:
 
@@ -523,8 +526,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
 /usr/include/c++/11/bits/exception_defines.h:
-
-/usr/include/c++/11/atomic:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
@@ -578,8 +579,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
-/usr/include/c++/11/clocale:
-
 /usr/include/c++/11/bits/ostream.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
@@ -595,6 +594,10 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/c++/11/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
@@ -664,6 +667,8 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/c++/11/bits/stl_raw_storage_iter.h:
 
+/usr/include/c++/11/bits/uses_allocator.h:
+
 /usr/include/c++/11/bits/unique_ptr.h:
 
 /usr/include/c++/11/ostream:
@@ -722,13 +727,17 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/c++/11/bits/stl_heap.h:
 
-/usr/include/c++/11/condition_variable:
-
 /usr/include/c++/11/ratio:
 
 /usr/include/c++/11/limits:
 
 ../CompactAST.hpp:
+
+/usr/include/c++/11/clocale:
+
+../ArduinoDataTypes.hpp:
+
+/usr/include/c++/11/bits/unordered_set.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
@@ -736,15 +745,11 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 
 /usr/include/c++/11/bits/stl_stack.h:
 
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/include/c++/11/bits/ios_base.h:
 
-/usr/include/c++/11/ext/aligned_buffer.h:
+/usr/include/c++/11/bits/locale_classes.h:
 
-/usr/include/c++/11/future:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
-
-/usr/include/c++/11/bits/locale_facets.tcc:
+/usr/include/c++/11/bits/locale_classes.tcc:
 
 /usr/include/c++/11/ios:
 
@@ -753,26 +758,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
 
 /usr/include/c++/11/stdexcept:
-
-/usr/include/c++/11/bits/uses_allocator.h:
-
-/usr/include/c++/11/bits/unique_lock.h:
-
-/usr/include/c++/11/ext/string_conversions.h:
-
-/usr/include/c++/11/bits/atomic_futex.h:
-
-/usr/include/c++/11/bits/cpp_type_traits.h:
-
-/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
-
-/usr/include/c++/11/bits/std_thread.h:
-
-/usr/include/c++/11/bits/ios_base.h:
-
-/usr/include/c++/11/bits/locale_classes.h:
-
-/usr/include/c++/11/bits/locale_classes.tcc:
 
 /usr/include/c++/11/bits/uniform_int_dist.h:
 
@@ -787,6 +772,10 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/c++/11/bits/streambuf_iterator.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/c++/11/bits/locale_facets.tcc:
 
 /usr/include/c++/11/bits/codecvt.h:
 
@@ -803,3 +792,5 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: ../ex
 /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h:
+
+/usr/include/c++/11/bits/locale_conv.h:

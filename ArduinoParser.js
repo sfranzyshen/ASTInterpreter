@@ -30,6 +30,9 @@
  * Architecture: Code → Platform Context → Preprocessor → Parser → Clean AST
  * 
  * CHANGELOG v5.1.0:
+ *   + CRITICAL FIX: CompactAST export mapping for ternary expressions
+ *   + Fixed 'TernaryExpressionNode' → 'TernaryExpression' mapping for cross-platform compatibility
+ *   + Ensures JavaScript ↔ C++ ternary expression parity in CompactAST format
  *   + MERGED: platform_emulation.js and preprocessor.js into single file
  *   + Added simplified API with platform string support
  *   + Maintained full backward compatibility
@@ -4743,7 +4746,7 @@ class CompactASTExporter {
             'SwitchStatement': ['discriminant', 'cases'], 
             'CaseStatement': ['test', 'consequent'],
             'RangeBasedForStatement': ['variable', 'iterable', 'body'],
-            'TernaryExpressionNode': ['condition', 'consequent', 'alternate'],
+            'TernaryExpression': ['condition', 'consequent', 'alternate'],
             'PostfixExpressionNode': ['operand'],
             'CommaExpression': ['left', 'right']
         };
@@ -5061,9 +5064,23 @@ class CompactASTExporter {
         for (const childName of namedChildren) {
             if (node[childName]) {
                 if (Array.isArray(node[childName])) {
-                    for (const child of node[childName]) {
-                        if (this.nodeMap.has(child)) {
-                            indices.push(this.nodeMap.get(child));
+                    // Special handling for VarDeclNode declarations array
+                    if (node.type === 'VarDeclNode' && childName === 'declarations') {
+                        for (const decl of node[childName]) {
+                            // Process declarator and initializer directly (skip declaration wrapper)
+                            if (decl.declarator && this.nodeMap.has(decl.declarator)) {
+                                indices.push(this.nodeMap.get(decl.declarator));
+                            }
+                            if (decl.initializer && this.nodeMap.has(decl.initializer)) {
+                                indices.push(this.nodeMap.get(decl.initializer));
+                            }
+                        }
+                    } else {
+                        // Normal array processing for other node types
+                        for (const child of node[childName]) {
+                            if (this.nodeMap.has(child)) {
+                                indices.push(this.nodeMap.get(child));
+                            }
                         }
                     }
                 } else {

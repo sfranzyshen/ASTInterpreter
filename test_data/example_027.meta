@@ -4,6 +4,6 @@
   "index": "027",
   "code": "// 04.Communication ReadASCIIString.ino\n\n// pins for the LEDs:\nconst int redPin = 3;\nconst int greenPin = 5;\nconst int bluePin = 6;\n\nvoid setup() {\n  // initialize serial:\n  Serial.begin(9600);\n  // make the pins outputs:\n  pinMode(redPin, OUTPUT);\n  pinMode(greenPin, OUTPUT);\n  pinMode(bluePin, OUTPUT);\n}\n\nvoid loop() {\n  // if there's any serial available, read it:\n  while (Serial.available() > 0) {\n\n    // look for the next valid integer in the incoming serial stream:\n    int red = Serial.parseInt();\n    // do it again:\n    int green = Serial.parseInt();\n    // do it again:\n    int blue = Serial.parseInt();\n\n    // look for the newline.\n    if (Serial.read() == '\\n') {\n      // constrain the values to 0 - 255 and invert\n      red = 255 - constrain(red, 0, 255);\n      green = 255 - constrain(green, 0, 255);\n      blue = 255 - constrain(blue, 0, 255);\n\n      // fade the red, green, and blue legs of the LED:\n      analogWrite(redPin, red);\n      analogWrite(greenPin, green);\n      analogWrite(bluePin, blue);\n\n      // print the three numbers in one string as hexadecimal:\n      Serial.print(red, HEX);\n      Serial.print(green, HEX);\n      Serial.println(blue, HEX);\n    }\n  }\n}\n",
   "astSize": 704,
-  "commandCount": 53,
-  "generated": "2025-09-02T17:31:44.388Z"
+  "commandCount": 33,
+  "generated": "2025-09-04T04:00:21.609Z"
 }

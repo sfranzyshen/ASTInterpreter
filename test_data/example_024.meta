@@ -5,5 +5,5 @@
   "code": "// 04.Communication Midi.ino\n\nvoid setup() {\n  // Set MIDI baud rate:\n  Serial.begin(31250);\n}\n\nvoid loop() {\n  // play notes from F#-0 (0x1E) to F#-5 (0x5A):\n  for (int note = 0x1E; note < 0x5A; note++) {\n    //Note on channel 1 (0x90), some note value (note), middle velocity (0x45):\n    noteOn(0x90, note, 0x45);\n    delay(100);\n    //Note on channel 1 (0x90), some note value (note), silent velocity (0x00):\n    noteOn(0x90, note, 0x00);\n    delay(100);\n  }\n}\n\n// plays a MIDI note. Doesn't check to see that cmd is greater than 127, or that\n// data values are less than 127:\nvoid noteOn(int cmd, int pitch, int velocity) {\n  Serial.write(cmd);\n  Serial.write(pitch);\n  Serial.write(velocity);\n}\n",
   "astSize": 400,
   "commandCount": 49,
-  "generated": "2025-09-02T17:31:44.202Z"
+  "generated": "2025-09-04T04:00:21.379Z"
 }

@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834304591,
+    "timestamp": 1756958421863,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834304591,
+    "timestamp": 1756958421863,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421863,
     "message": "Executing setup() function"
   },
   {
@@ -23,7 +23,7 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421863,
     "message": "Serial.begin(9600)"
   },
   {
@@ -33,22 +33,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421864,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421864,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421864,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421864,
     "message": "Starting loop iteration 1"
   },
   {
@@ -56,13 +56,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834304592
+    "timestamp": 1756958421864
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304592,
+    "timestamp": 1756958421864,
     "message": "Serial.available()"
   },
   {
@@ -70,13 +70,13 @@
     "condition": 0,
     "result": 0,
     "branch": "else",
-    "timestamp": 1756834304592
+    "timestamp": 1756958421864
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304593,
+    "timestamp": 1756958421864,
     "message": "Serial.available()"
   },
   {
@@ -84,7 +84,7 @@
     "condition": 0,
     "result": 0,
     "branch": "else",
-    "timestamp": 1756834304593
+    "timestamp": 1756958421864
   },
   {
     "type": "FUNCTION_CALL",
@@ -92,11 +92,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834304593
+    "timestamp": 1756958421864
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304598,
+    "timestamp": 1756958421869,
     "message": "Starting loop iteration 2"
   },
   {
@@ -104,13 +104,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834304598
+    "timestamp": 1756958421869
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304598,
+    "timestamp": 1756958421870,
     "message": "Serial.available()"
   },
   {
@@ -118,13 +118,13 @@
     "condition": 0,
     "result": 0,
     "branch": "else",
-    "timestamp": 1756834304598
+    "timestamp": 1756958421870
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304598,
+    "timestamp": 1756958421870,
     "message": "Serial.available()"
   },
   {
@@ -132,7 +132,7 @@
     "condition": 0,
     "result": 0,
     "branch": "else",
-    "timestamp": 1756834304598
+    "timestamp": 1756958421870
   },
   {
     "type": "FUNCTION_CALL",
@@ -140,11 +140,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834304598
+    "timestamp": 1756958421870
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304604,
+    "timestamp": 1756958421875,
     "message": "Starting loop iteration 3"
   },
   {
@@ -152,13 +152,43 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834304604
+    "timestamp": 1756958421875
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304604,
+    "timestamp": 1756958421875,
+    "message": "Serial.available()"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": 1,
+    "result": 1,
+    "branch": "then",
+    "timestamp": 1756958421876
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.read",
+    "arguments": [],
+    "timestamp": 1756958421876,
+    "message": "Serial.read()"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.write",
+    "arguments": [
+      65
+    ],
+    "timestamp": 1756958421876,
+    "message": "Serial.write(65)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.available",
+    "arguments": [],
+    "timestamp": 1756958421877,
     "message": "Serial.available()"
   },
   {
@@ -166,21 +196,7 @@
     "condition": 0,
     "result": 0,
     "branch": "else",
-    "timestamp": 1756834304604
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "Serial.available",
-    "arguments": [],
-    "timestamp": 1756834304604,
-    "message": "Serial.available()"
-  },
-  {
-    "type": "IF_STATEMENT",
-    "condition": 0,
-    "result": 0,
-    "branch": "else",
-    "timestamp": 1756834304604
+    "timestamp": 1756958421877
   },
   {
     "type": "FUNCTION_CALL",
@@ -188,23 +204,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834304604
+    "timestamp": 1756958421877
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834304610,
+    "timestamp": 1756958421882,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834304610,
+    "timestamp": 1756958421882,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834304610,
+    "timestamp": 1756958421882,
     "message": "Program execution stopped"
   }
 ]

@@ -16,6 +16,10 @@
 #include <chrono>
 #include <random>
 
+using ::EnhancedCommandValue;
+using arduino_interpreter::EnhancedScopeManager;
+using arduino_interpreter::MemberAccessHelper;
+
 // Disable debug output for command stream parity testing
 class NullStream {
 public:
@@ -72,7 +76,9 @@ ASTInterpreter::~ASTInterpreter() {
 
 void ASTInterpreter::initializeInterpreter() {
     scopeManager_ = std::make_unique<ScopeManager>();
-    libraryInterface_ = std::make_unique<ArduinoLibraryInterface>(this);
+    enhancedScopeManager_ = std::make_unique<EnhancedScopeManager>();
+    libraryInterface_ = std::make_unique<ArduinoLibraryInterface>(this);  // Legacy
+    libraryRegistry_ = std::make_unique<ArduinoLibraryRegistry>(this);   // New system
     
     // Initialize loop iteration counter to 0 (will be incremented before each iteration)
     currentLoopIteration_ = 0;
@@ -627,34 +633,13 @@ void ASTInterpreter::visit(arduino_ast::MemberAccessNode& node) {
             return;
         }
         
-        // For now, simulate struct member access with simple logic
-        // In a full implementation, we'd need struct definitions and member storage
-        // This simplified version handles common Arduino object patterns
+        // Use enhanced member access system for proper struct/object handling
+        EnhancedCommandValue result = 
+            MemberAccessHelper::getMemberValue(enhancedScopeManager_.get(), objectName, propertyName);
         
-        // Simulate some common Arduino object properties
-        if (objectName == "Serial" && propertyName == "available") {
-            // Serial.available() - simulate as function call
-            lastExpressionResult_ = static_cast<int32_t>(0); // No data available
-            debugLog("Member access result (Serial.available): 0");
-        } else if (propertyName == "length" && std::holds_alternative<std::string>(objectVar->value)) {
-            // String.length property
-            std::string str = std::get<std::string>(objectVar->value);
-            lastExpressionResult_ = static_cast<int32_t>(str.length());
-            debugLog("Member access result (length): " + std::to_string(str.length()));
-        } else {
-            // For unknown members, try to create a composite variable name
-            std::string memberVarName = objectName + "_" + propertyName;
-            Variable* memberVar = scopeManager_->getVariable(memberVarName);
-            
-            if (memberVar) {
-                lastExpressionResult_ = memberVar->value;
-                debugLog("Member access result: " + commandValueToString(memberVar->value));
-            } else {
-                // Default to 0 for unknown struct members
-                lastExpressionResult_ = static_cast<int32_t>(0);
-                debugLog("Member access result (default): 0");
-            }
-        }
+        // Convert EnhancedCommandValue back to CommandValue for compatibility
+        lastExpressionResult_ = downgradeCommandValue(result);
+        debugLog("Member access result: " + enhancedCommandValueToString(result));
         
     } catch (const std::exception& e) {
         emitError("Member access error: " + std::string(e.what()));
@@ -685,37 +670,98 @@ void ASTInterpreter::visit(arduino_ast::IdentifierNode& node) {
 void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
     debugLog("Declaring variable");
     
-    // Get type information
+    // Get type information from TypeNode
     const auto* typeNode = node.getVarType();
-    std::string typeName = "int"; // Default type for now - TODO: extract from TypeNode
+    std::string typeName = "int"; // Default fallback
+    debugLog(std::string("TypeNode pointer: ") + (typeNode ? "valid" : "null"));
+    if (typeNode) {
+        debugLog("TypeNode type: " + std::to_string(static_cast<int>(typeNode->getType())));
+        try {
+            typeName = typeNode->getValueAs<std::string>();
+            debugLog("TypeNode value read as string: '" + typeName + "'");
+        } catch (const std::exception& e) {
+            debugLog("ERROR reading TypeNode value: " + std::string(e.what()));
+            typeName = "int"; // fallback
+        }
+        if (typeName.empty()) {
+            debugLog("TypeNode value is empty, using default 'int'");
+            typeName = "int";
+        }
+    } else {
+        debugLog("TypeNode is null, using default 'int'");
+    }
     
     // Process declarations
-    for (const auto& declarator : node.getDeclarations()) {
+    debugLog("VarDeclNode has " + std::to_string(node.getDeclarations().size()) + " declarations");
+    for (size_t i = 0; i < node.getDeclarations().size(); ++i) {
+        const auto& declarator = node.getDeclarations()[i];
+        debugLog("Processing declaration " + std::to_string(i));
+        if (!declarator) {
+            debugLog("Declaration " + std::to_string(i) + " is null");
+            continue;
+        }
+        debugLog("Declaration " + std::to_string(i) + " type: " + std::to_string(static_cast<int>(declarator->getType())));
+        
         if (auto* declNode = dynamic_cast<arduino_ast::DeclaratorNode*>(declarator.get())) {
             std::string varName = declNode->getName();
             
-            // TODO: Implement initializer support when AST structure supports it
-            CommandValue initialValue;
-            {
-                // Default initialization based on type
-                if (typeName == "int" || typeName == "unsigned int" || typeName == "byte") {
-                    initialValue = 0;
-                } else if (typeName == "float" || typeName == "double") {
-                    initialValue = 0.0;
-                } else if (typeName == "bool") {
-                    initialValue = false;
-                } else if (typeName == "String" || typeName == "char*") {
-                    initialValue = std::string("");
+            debugLog("=== DEBUGGING DECLARATOR NODE ===");
+            debugLog("Variable name: " + varName);
+            debugLog("DeclaratorNode children count: " + std::to_string(declNode->getChildren().size()));
+            
+            // Debug: Print each child node type
+            const auto& children = declNode->getChildren();
+            for (size_t i = 0; i < children.size(); ++i) {
+                if (children[i]) {
+                    debugLog("Child " + std::to_string(i) + " type: " + std::to_string(static_cast<int>(children[i]->getType())));
                 } else {
-                    initialValue = 0; // Default to 0 for unknown types
+                    debugLog("Child " + std::to_string(i) + " is null");
                 }
             }
             
+            // Initialize with default value first
+            CommandValue initialValue;
+            if (typeName == "int" || typeName == "unsigned int" || typeName == "byte") {
+                initialValue = 0;
+            } else if (typeName == "float" || typeName == "double") {
+                initialValue = 0.0;
+            } else if (typeName == "bool") {
+                initialValue = false;
+            } else if (typeName == "String" || typeName == "char*") {
+                initialValue = std::string("");
+            } else {
+                initialValue = 0; // Default to 0 for unknown types
+            }
+            
+            debugLog("Default value set: " + commandValueToString(initialValue));
+            
+            // Check for initializer in children
+            // In the CompactAST format, initializers should be stored as the first child
+            if (!children.empty()) {
+                // Evaluate the initializer expression
+                debugLog("Processing initializer for variable: " + varName);
+                debugLog("Initializer node type: " + std::to_string(static_cast<int>(children[0]->getType())));
+                debugLog("About to call evaluateExpression...");
+                initialValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(children[0].get()));
+                debugLog("evaluateExpression returned: " + commandValueToString(initialValue));
+                debugLog("Variable " + varName + " initialized with value: " + commandValueToString(initialValue));
+            } else {
+                debugLog("No initializer found for variable: " + varName);
+            }
+            
+            debugLog("=== END DEBUGGING ===");
+            
+            // Convert initialValue to the declared type
+            CommandValue typedValue = convertToType(initialValue, typeName);
+            debugLog("Type conversion: " + commandValueToString(initialValue) + " -> " + commandValueToString(typedValue) + " (" + typeName + ")");
+            
             // Create and store variable
-            Variable var(initialValue, typeName);
+            Variable var(typedValue, typeName);
             scopeManager_->setVariable(varName, var);
             
-            debugLog("Declared variable: " + varName + " (" + typeName + ")");
+            debugLog("Declared variable: " + varName + " (" + typeName + ") = " + commandValueToString(typedValue));
+        } else {
+            debugLog("Declaration " + std::to_string(i) + " is not a DeclaratorNode, skipping");
         }
     }
 }
@@ -842,39 +888,12 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
                 return;
             }
             
-            // Handle array element assignment based on array type
-            if (std::holds_alternative<std::string>(arrayVar->value)) {
-                // String character assignment
-                std::string str = std::get<std::string>(arrayVar->value);
-                if (index >= 0 && index < static_cast<int32_t>(str.length())) {
-                    // Convert right value to character
-                    char newChar = ' ';
-                    if (std::holds_alternative<std::string>(rightValue)) {
-                        std::string rightStr = std::get<std::string>(rightValue);
-                        if (!rightStr.empty()) {
-                            newChar = rightStr[0];
-                        }
-                    } else if (std::holds_alternative<int>(rightValue)) {
-                        newChar = static_cast<char>(std::get<int>(rightValue));
-                    }
-                    
-                    str[index] = newChar;
-                    Variable newVar(str, arrayVar->type);
-                    scopeManager_->setVariable(arrayName, newVar);
-                    debugLog("Updated string character at index " + std::to_string(index) + " to '" + std::string(1, newChar) + "'");
-                } else {
-                    emitError("String index " + std::to_string(index) + " out of bounds (length: " + std::to_string(str.length()) + ")");
-                }
-            } else {
-                // For other types, simulate single-element array assignment
-                if (index == 0) {
-                    Variable newVar(rightValue, arrayVar->type);
-                    scopeManager_->setVariable(arrayName, newVar);
-                    debugLog("Updated single-element array to: " + commandValueToString(rightValue));
-                } else {
-                    emitError("Index " + std::to_string(index) + " out of bounds for single-element array");
-                }
-            }
+            // Use enhanced array access system for proper array element assignment
+            EnhancedCommandValue enhancedRightValue = std::visit([](auto&& arg) -> EnhancedCommandValue {
+                return arg;  // Direct conversion for shared types
+            }, rightValue);
+            MemberAccessHelper::setArrayElement(enhancedScopeManager_.get(), arrayName, static_cast<size_t>(index), enhancedRightValue);
+            debugLog("Array element assignment completed: " + arrayName + "[" + std::to_string(index) + "] = " + enhancedCommandValueToString(enhancedRightValue));
             
         } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::MEMBER_ACCESS) {
             // Member access assignment (e.g., obj.field = value)  
@@ -914,25 +933,12 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
                 return;
             }
             
-            // Handle struct member assignment using composite variable names
-            // This simulates struct member storage by creating variables like "objectName_memberName"
-            std::string memberVarName = objectName + "_" + propertyName;
-            
-            // Special handling for common Arduino object properties
-            if (propertyName == "length" && std::holds_alternative<std::string>(objectVar->value)) {
-                // Cannot assign to string.length (read-only property)
-                emitError("Cannot assign to read-only property 'length'");
-                return;
-            } else if (objectName == "Serial") {
-                // Serial object members are typically read-only
-                emitError("Cannot assign to Serial object properties");
-                return;
-            } else {
-                // Create or update the member variable
-                Variable memberVar(rightValue, "auto");
-                scopeManager_->setVariable(memberVarName, memberVar);
-                debugLog("Updated struct member " + memberVarName + " to: " + commandValueToString(rightValue));
-            }
+            // Use enhanced member access system for proper struct member assignment
+            EnhancedCommandValue enhancedRightValue = std::visit([](auto&& arg) -> EnhancedCommandValue {
+                return arg;  // Direct conversion for shared types
+            }, rightValue);
+            MemberAccessHelper::setMemberValue(enhancedScopeManager_.get(), objectName, propertyName, enhancedRightValue);
+            debugLog("Member assignment completed: " + objectName + "." + propertyName + " = " + enhancedCommandValueToString(enhancedRightValue));
             
         } else {
             emitError("Unsupported assignment target");
@@ -1208,32 +1214,13 @@ void ASTInterpreter::visit(arduino_ast::ArrayAccessNode& node) {
             return;
         }
         
-        // For now, simulate array access with simple logic
-        // In a full implementation, we'd need array data structures
-        // This is a simplified version that treats strings as character arrays
-        // and other values as single-element arrays
+        // Use enhanced array access system for proper array handling
+        EnhancedCommandValue result = 
+            MemberAccessHelper::getArrayElement(enhancedScopeManager_.get(), arrayName, static_cast<size_t>(index));
         
-        if (std::holds_alternative<std::string>(arrayVar->value)) {
-            // String character access
-            std::string str = std::get<std::string>(arrayVar->value);
-            if (index >= 0 && index < static_cast<int32_t>(str.length())) {
-                char c = str[index];
-                lastExpressionResult_ = std::string(1, c);
-                debugLog("Array access result: '" + std::string(1, c) + "'");
-            } else {
-                emitError("String index " + std::to_string(index) + " out of bounds (length: " + std::to_string(str.length()) + ")");
-                lastExpressionResult_ = std::monostate{};
-            }
-        } else {
-            // For other types, simulate single-element array
-            if (index == 0) {
-                lastExpressionResult_ = arrayVar->value;
-                debugLog("Array access result: " + commandValueToString(arrayVar->value));
-            } else {
-                emitError("Index " + std::to_string(index) + " out of bounds for single-element array");
-                lastExpressionResult_ = std::monostate{};
-            }
-        }
+        // Convert EnhancedCommandValue back to CommandValue for compatibility
+        lastExpressionResult_ = downgradeCommandValue(result);
+        debugLog("Array access result: " + enhancedCommandValueToString(result));
         
     } catch (const std::exception& e) {
         emitError("Array access error: " + std::string(e.what()));
@@ -1242,24 +1229,54 @@ void ASTInterpreter::visit(arduino_ast::ArrayAccessNode& node) {
 }
 
 void ASTInterpreter::visit(arduino_ast::TernaryExpressionNode& node) {
-    debugLog("Visiting TernaryExpressionNode");
+    debugLog("Visiting TernaryExpressionNode - START");
+    
+    // Initialize result to a known value
+    lastExpressionResult_ = std::monostate{};
+    debugLog("Initialized lastExpressionResult_ to monostate");
     
     try {
+        debugLog("About to evaluate ternary condition...");
+        // Check condition node type
+        auto* conditionNode = node.getCondition();
+        if (conditionNode) {
+            debugLog("Condition node type: " + std::to_string(static_cast<int>(conditionNode->getType())));
+        } else {
+            debugLog("Condition node is null!");
+        }
+        
         // Evaluate condition
         CommandValue condition = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getCondition()));
+        debugLog("Ternary condition evaluated successfully");
+        debugLog("Ternary condition value: " + commandValueToString(condition));
         
-        // Execute true or false expression based on condition
-        if (convertToBool(condition)) {
+        // Execute true or false expression based on condition and store result
+        CommandValue result = std::monostate{};
+        bool conditionResult = convertToBool(condition);
+        debugLog("Ternary condition bool: " + std::string(conditionResult ? "true" : "false"));
+        
+        if (conditionResult) {
+            debugLog("Taking true branch");
             if (node.getTrueExpression()) {
-                CommandValue result = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getTrueExpression()));
+                result = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getTrueExpression()));
+                debugLog("True expression result: " + commandValueToString(result));
             }
         } else {
+            debugLog("Taking false branch");
             if (node.getFalseExpression()) {
-                CommandValue result = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getFalseExpression()));
+                result = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getFalseExpression()));
+                debugLog("False expression result: " + commandValueToString(result));
             }
         }
+        
+        debugLog("Final ternary result: " + commandValueToString(result));
+        
+        // Store result for expression evaluation
+        lastExpressionResult_ = result;
     } catch (const std::exception& e) {
+        debugLog("Exception in ternary expression: " + std::string(e.what()));
         emitError("Ternary expression error: " + std::string(e.what()));
+        lastExpressionResult_ = std::monostate{};
     }
 }
 
@@ -1349,11 +1366,14 @@ CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
     if (!expr) return std::monostate{};
     
     auto nodeType = expr->getType();
+    debugLog("evaluateExpression: NodeType = " + std::to_string(static_cast<int>(nodeType)));
     
     switch (nodeType) {
         case arduino_ast::ASTNodeType::NUMBER_LITERAL:
             if (auto* numNode = dynamic_cast<arduino_ast::NumberNode*>(expr)) {
-                return numNode->getNumber();
+                double value = numNode->getNumber();
+                debugLog("evaluateExpression: NumberNode value = " + std::to_string(value));
+                return value;
             }
             break;
             
@@ -1366,10 +1386,13 @@ CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
         case arduino_ast::ASTNodeType::IDENTIFIER:
             if (auto* idNode = dynamic_cast<arduino_ast::IdentifierNode*>(expr)) {
                 std::string name = idNode->getName();
+                debugLog("evaluateExpression: Looking up identifier '" + name + "'");
                 Variable* var = scopeManager_->getVariable(name);
                 if (var) {
+                    debugLog("evaluateExpression: Found variable '" + name + "' with value: " + commandValueToString(var->value));
                     return var->value;
                 } else {
+                    debugLog("evaluateExpression: Variable '" + name + "' not found in scope");
                     emitError("Undefined variable: " + name);
                     return std::monostate{};
                 }
@@ -1416,6 +1439,33 @@ CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
             // Handle member access by calling visitor and returning result
             expr->accept(*this);
             return lastExpressionResult_;
+            
+        case arduino_ast::ASTNodeType::TERNARY_EXPR:
+            // Handle ternary expression by calling visitor and returning result
+            debugLog("evaluateExpression: Calling ternary expression visitor");
+            expr->accept(*this);
+            debugLog("evaluateExpression: Ternary visitor completed, result: " + commandValueToString(lastExpressionResult_));
+            return lastExpressionResult_;
+            
+        case arduino_ast::ASTNodeType::CONSTANT:
+            if (auto* constNode = dynamic_cast<arduino_ast::ConstantNode*>(expr)) {
+                std::string value = constNode->getConstantValue();
+                debugLog("evaluateExpression: ConstantNode value = '" + value + "'");
+                
+                // Handle boolean constants
+                if (value == "true") {
+                    debugLog("evaluateExpression: Returning boolean true");
+                    return true;
+                } else if (value == "false") {
+                    debugLog("evaluateExpression: Returning boolean false");
+                    return false;
+                } else {
+                    // Handle other constants (HIGH, LOW, etc.)
+                    debugLog("evaluateExpression: Returning string constant: " + value);
+                    return value;
+                }
+            }
+            break;
             
         default:
             debugLog("Unhandled expression type: " + arduino_ast::nodeTypeToString(nodeType));
@@ -2250,6 +2300,80 @@ void ASTInterpreter::visit(arduino_ast::PointerDeclaratorNode& node) {
     debugLog("Visit: PointerDeclaratorNode (stub implementation)");
     (void)node; // Suppress unused parameter warning
     // TODO: Implement pointer declarator handling if needed
+}
+
+// =============================================================================
+// TYPE CONVERSION UTILITIES
+// =============================================================================
+
+CommandValue ASTInterpreter::convertToType(const CommandValue& value, const std::string& typeName) {
+    debugLog("convertToType: Converting to type '" + typeName + "'");
+    
+    // Handle conversion from any CommandValue type to the target type
+    if (typeName == "int" || typeName == "unsigned int" || typeName == "byte") {
+        // Convert to integer
+        if (std::holds_alternative<double>(value)) {
+            int intValue = static_cast<int>(std::get<double>(value));
+            debugLog("convertToType: double " + std::to_string(std::get<double>(value)) + " -> int " + std::to_string(intValue));
+            return intValue;
+        } else if (std::holds_alternative<bool>(value)) {
+            int intValue = std::get<bool>(value) ? 1 : 0;
+            debugLog(std::string("convertToType: bool ") + (std::get<bool>(value) ? "true" : "false") + " -> int " + std::to_string(intValue));
+            return intValue;
+        } else if (std::holds_alternative<int>(value)) {
+            debugLog("convertToType: int value unchanged");
+            return value; // Already int
+        }
+    } else if (typeName == "float" || typeName == "double") {
+        // Convert to float/double
+        if (std::holds_alternative<int>(value)) {
+            double doubleValue = static_cast<double>(std::get<int>(value));
+            debugLog("convertToType: int " + std::to_string(std::get<int>(value)) + " -> double " + std::to_string(doubleValue));
+            return doubleValue;
+        } else if (std::holds_alternative<bool>(value)) {
+            double doubleValue = std::get<bool>(value) ? 1.0 : 0.0;
+            debugLog(std::string("convertToType: bool ") + (std::get<bool>(value) ? "true" : "false") + " -> double " + std::to_string(doubleValue));
+            return doubleValue;
+        } else if (std::holds_alternative<double>(value)) {
+            debugLog("convertToType: double value unchanged");
+            return value; // Already double
+        }
+    } else if (typeName == "bool") {
+        // Convert to bool
+        if (std::holds_alternative<int>(value)) {
+            bool boolValue = std::get<int>(value) != 0;
+            debugLog("convertToType: int " + std::to_string(std::get<int>(value)) + " -> bool " + (boolValue ? "true" : "false"));
+            return boolValue;
+        } else if (std::holds_alternative<double>(value)) {
+            bool boolValue = std::get<double>(value) != 0.0;
+            debugLog("convertToType: double " + std::to_string(std::get<double>(value)) + " -> bool " + (boolValue ? "true" : "false"));
+            return boolValue;
+        } else if (std::holds_alternative<bool>(value)) {
+            debugLog("convertToType: bool value unchanged");
+            return value; // Already bool
+        }
+    } else if (typeName == "String" || typeName == "char*") {
+        // Convert to string
+        if (std::holds_alternative<std::string>(value)) {
+            debugLog("convertToType: string value unchanged");
+            return value; // Already string
+        } else if (std::holds_alternative<int>(value)) {
+            std::string stringValue = std::to_string(std::get<int>(value));
+            debugLog("convertToType: int " + std::to_string(std::get<int>(value)) + " -> string '" + stringValue + "'");
+            return stringValue;
+        } else if (std::holds_alternative<double>(value)) {
+            std::string stringValue = std::to_string(std::get<double>(value));
+            debugLog("convertToType: double " + std::to_string(std::get<double>(value)) + " -> string '" + stringValue + "'");
+            return stringValue;
+        } else if (std::holds_alternative<bool>(value)) {
+            std::string stringValue = std::get<bool>(value) ? "true" : "false";
+            debugLog(std::string("convertToType: bool ") + (std::get<bool>(value) ? "true" : "false") + " -> string '" + stringValue + "'");
+            return stringValue;
+        }
+    }
+    
+    debugLog("convertToType: No conversion rule found, returning original value");
+    return value; // Return unchanged if no conversion rule
 }
 
 } // namespace arduino_interpreter

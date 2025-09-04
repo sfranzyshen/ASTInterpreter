@@ -23,7 +23,7 @@ public:
 };
 
 static NullStream nullStream;
-#define DEBUG_OUT nullStream
+#define DEBUG_OUT std::cout
 
 // Platform-specific headers
 #ifdef ARDUINO_ARCH_ESP32
@@ -443,6 +443,8 @@ ASTValue CompactASTReader::parseValue() {
     uint8_t valueTypeRaw = readUint8();
     ValueType valueType = static_cast<ValueType>(valueTypeRaw);
     
+    DEBUG_OUT << "parseValue(): valueType = " << static_cast<int>(valueType) << std::endl;
+    
     switch (valueType) {
         case ValueType::VOID_VAL:
             return std::monostate{};
@@ -457,7 +459,14 @@ ASTValue CompactASTReader::parseValue() {
             
         case ValueType::UINT8_VAL:
             validatePosition(1);
-            return static_cast<int32_t>(readUint8());
+            {
+                uint8_t rawValue = readUint8();
+                // For NumberNode compatibility, return as double
+                double result = static_cast<double>(rawValue);
+                DEBUG_OUT << "parseValue(): UINT8_VAL rawValue=" << static_cast<int>(rawValue) 
+                         << ", returning double=" << result << std::endl;
+                return result;
+            }
             
         case ValueType::INT16_VAL:
             validatePosition(2);
@@ -550,7 +559,7 @@ void CompactASTReader::linkNodeChildren() {
             // if the child also has children that need to be processed
             auto childNode = std::move(nodes_[childIndex]);
             
-            // Special handling for FuncDefNode to set up proper structure
+            // Special handling for specific node types to set up proper structure
             if (parentNode->getType() == ASTNodeType::FUNC_DEF) {
                 auto* funcDefNode = dynamic_cast<arduino_ast::FuncDefNode*>(parentNode.get());
                 if (funcDefNode) {
@@ -569,6 +578,81 @@ void CompactASTReader::linkNodeChildren() {
                         funcDefNode->setBody(std::move(childNode));
                     } else {
                         DEBUG_OUT << "linkNodeChildren(): Adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(childNode));
+                    }
+                } else {
+                    parentNode->addChild(std::move(childNode));
+                }
+            } else if (parentNode->getType() == ASTNodeType::VAR_DECL) {
+                auto* varDeclNode = dynamic_cast<arduino_ast::VarDeclNode*>(parentNode.get());
+                if (varDeclNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up VarDeclNode child " << childIndex << std::endl;
+                    
+                    auto childType = childNode->getType();
+                    if (childType == ASTNodeType::TYPE_NODE && !varDeclNode->getVarType()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting var type" << std::endl;
+                        varDeclNode->setVarType(std::move(childNode));
+                    } else if (childType == ASTNodeType::DECLARATOR_NODE) {
+                        DEBUG_OUT << "linkNodeChildren(): Adding DeclaratorNode to declarations" << std::endl;
+                        varDeclNode->addDeclaration(std::move(childNode));
+                    } else if (childType == ASTNodeType::NUMBER_LITERAL || 
+                               childType == ASTNodeType::STRING_LITERAL ||
+                               childType == ASTNodeType::CHAR_LITERAL ||
+                               childType == ASTNodeType::IDENTIFIER ||
+                               childType == ASTNodeType::TERNARY_EXPR ||
+                               childType == ASTNodeType::BINARY_OP ||
+                               childType == ASTNodeType::UNARY_OP ||
+                               childType == ASTNodeType::FUNC_CALL ||
+                               childType == ASTNodeType::ARRAY_INIT ||
+                               childType == ASTNodeType::CONSTANT) {
+                        // This is an initializer - add it as a child to the last DeclaratorNode
+                        DEBUG_OUT << "linkNodeChildren(): Found expression initializer (type: " << static_cast<int>(childType) << ")" << std::endl;
+                        const auto& declarations = varDeclNode->getDeclarations();
+                        if (!declarations.empty()) {
+                            auto* lastDecl = declarations.back().get();
+                            if (lastDecl && lastDecl->getType() == ASTNodeType::DECLARATOR_NODE) {
+                                DEBUG_OUT << "linkNodeChildren(): Adding initializer as child to DeclaratorNode" << std::endl;
+                                const_cast<arduino_ast::ASTNode*>(lastDecl)->addChild(std::move(childNode));
+                            } else {
+                                DEBUG_OUT << "linkNodeChildren(): No DeclaratorNode to attach initializer to" << std::endl;
+                                parentNode->addChild(std::move(childNode));
+                            }
+                        } else {
+                            DEBUG_OUT << "linkNodeChildren(): No declarations to attach initializer to" << std::endl;
+                            parentNode->addChild(std::move(childNode));
+                        }
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(childNode));
+                    }
+                } else {
+                    parentNode->addChild(std::move(childNode));
+                }
+            } else if (parentNode->getType() == ASTNodeType::TERNARY_EXPR) {
+                DEBUG_OUT << "linkNodeChildren(): Found TERNARY_EXPR parent node!" << std::endl;
+                auto* ternaryNode = dynamic_cast<arduino_ast::TernaryExpressionNode*>(parentNode.get());
+                if (ternaryNode) {
+                    // Count how many children this ternary already has
+                    int ternaryChildCount = 0;
+                    if (ternaryNode->getCondition()) ternaryChildCount++;
+                    if (ternaryNode->getTrueExpression()) ternaryChildCount++;
+                    if (ternaryNode->getFalseExpression()) ternaryChildCount++;
+                    
+                    DEBUG_OUT << "linkNodeChildren(): Setting up TernaryExpressionNode child " << childIndex 
+                             << " (relative position: " << ternaryChildCount << ")" << std::endl;
+                    
+                    // Ternary expressions expect 3 children in order: condition, trueExpression, falseExpression
+                    if (ternaryChildCount == 0) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting condition" << std::endl;
+                        ternaryNode->setCondition(std::move(childNode));
+                    } else if (ternaryChildCount == 1) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting true expression" << std::endl;
+                        ternaryNode->setTrueExpression(std::move(childNode));
+                    } else if (ternaryChildCount == 2) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting false expression" << std::endl;
+                        ternaryNode->setFalseExpression(std::move(childNode));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for ternary expression, adding as generic child" << std::endl;
                         parentNode->addChild(std::move(childNode));
                     }
                 } else {

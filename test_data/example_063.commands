@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834351537,
+    "timestamp": 1756958424844,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834351537,
+    "timestamp": 1756958424844,
     "message": "Program execution started"
   },
   {
@@ -16,115 +16,115 @@
     "variable": "switchPin",
     "value": 2,
     "isConst": true,
-    "timestamp": 1756834351538
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "mouseButton",
     "value": 3,
     "isConst": true,
-    "timestamp": 1756834351538
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "xAxis",
     "value": 14,
     "isConst": true,
-    "timestamp": 1756834351539
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "yAxis",
     "value": 15,
     "isConst": true,
-    "timestamp": 1756834351539
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "ledPin",
     "value": 5,
     "isConst": true,
-    "timestamp": 1756834351540
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "range",
     "value": 12,
-    "timestamp": 1756834351540
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "responseDelay",
     "value": 5,
-    "timestamp": 1756834351540
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "threshold",
     "value": 3,
-    "timestamp": 1756834351540
+    "timestamp": 1756958424844
   },
   {
     "type": "VAR_SET",
     "variable": "center",
     "value": 6,
-    "timestamp": 1756834351541
+    "timestamp": 1756958424845
   },
   {
     "type": "VAR_SET",
     "variable": "mouseIsActive",
     "value": false,
-    "timestamp": 1756834351541
+    "timestamp": 1756958424845
   },
   {
     "type": "VAR_SET",
     "variable": "lastSwitchState",
     "value": 0,
-    "timestamp": 1756834351541
+    "timestamp": 1756958424845
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834351541,
+    "timestamp": 1756958424845,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1756834351542
+    "timestamp": 1756958424845
   },
   {
     "type": "PIN_MODE",
     "pin": 3,
     "mode": 0,
-    "timestamp": 1756834351542
+    "timestamp": 1756958424845
   },
   {
     "type": "PIN_MODE",
     "pin": 5,
     "mode": 1,
-    "timestamp": 1756834351542
+    "timestamp": 1756958424845
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Mouse.begin",
     "arguments": [],
-    "timestamp": 1756834351543,
+    "timestamp": 1756958424845,
     "message": "Mouse.begin()"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834351543,
+    "timestamp": 1756958424845,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834351543,
+    "timestamp": 1756958424845,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834351543,
+    "timestamp": 1756958424845,
     "message": "Starting loop iteration 1"
   },
   {
@@ -132,22 +132,619 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834351543
+    "timestamp": 1756958424845
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 2,
-    "requestId": "digitalRead_1756834351543_0.6099225075082417",
-    "timestamp": 1756834351543
+    "requestId": "digitalRead_1756958424845_0.025317105329274447",
+    "timestamp": 1756958424845
   },
   {
-    "type": "TIMEOUT",
-    "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756834356538
+    "type": "VAR_SET",
+    "variable": "switchState",
+    "value": 1,
+    "timestamp": 1756958424854
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424854
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424854
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "mouseIsActive",
+    "value": true,
+    "timestamp": 1756958424855
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 5,
+    "value": 1,
+    "timestamp": 1756958424855
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastSwitchState",
+    "value": 1,
+    "timestamp": 1756958424855
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      14
+    ],
+    "timestamp": 1756958424855,
+    "message": "readAxis(14)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958424855_0.023981516466692554",
+    "timestamp": 1756958424855
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 829,
+    "timestamp": 1756958424857
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 10,
+    "timestamp": 1756958424863
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 4,
+    "timestamp": 1756958424871
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424877
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "xReading",
+    "value": 4,
+    "timestamp": 1756958424882
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      15
+    ],
+    "timestamp": 1756958424883,
+    "message": "readAxis(15)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756958424883_0.6406939416774207",
+    "timestamp": 1756958424883
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 527,
+    "timestamp": 1756958424884
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 6,
+    "timestamp": 1756958424890
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 0,
+    "timestamp": 1756958424895
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424900
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 0,
+    "timestamp": 1756958424900
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "yReading",
+    "value": 0,
+    "timestamp": 1756958424906
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424906
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.move",
+    "arguments": [
+      4,
+      0,
+      0
+    ],
+    "timestamp": 1756958424906,
+    "message": "Mouse.move(4, 0, 0)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958424906_0.7910067949168922",
+    "timestamp": 1756958424906
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424908
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.isPressed",
+    "arguments": [
+      null
+    ],
+    "timestamp": 1756958424908,
+    "message": "Mouse.isPressed(undefined)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424908
+  },
+  {
+    "type": "DELAY",
+    "duration": 5,
+    "actualDelay": 5,
+    "timestamp": 1756958424908
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958424908
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424914,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958424914
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424914_0.4125284820007411",
+    "timestamp": 1756958424914
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchState",
+    "value": 1,
+    "timestamp": 1756958424915
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424915
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastSwitchState",
+    "value": 1,
+    "timestamp": 1756958424916
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      14
+    ],
+    "timestamp": 1756958424916,
+    "message": "readAxis(14)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958424916_0.08979267460866036",
+    "timestamp": 1756958424916
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 764,
+    "timestamp": 1756958424918
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 9,
+    "timestamp": 1756958424923
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 3,
+    "timestamp": 1756958424929
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424934
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "xReading",
+    "value": 3,
+    "timestamp": 1756958424940
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      15
+    ],
+    "timestamp": 1756958424940,
+    "message": "readAxis(15)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756958424940_0.0012926652977980346",
+    "timestamp": 1756958424940
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 655,
+    "timestamp": 1756958424942
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 8,
+    "timestamp": 1756958424947
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 2,
+    "timestamp": 1756958424953
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424959
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 0,
+    "timestamp": 1756958424959
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "yReading",
+    "value": 0,
+    "timestamp": 1756958424964
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424964
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.move",
+    "arguments": [
+      3,
+      0,
+      0
+    ],
+    "timestamp": 1756958424965,
+    "message": "Mouse.move(3, 0, 0)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958424965_0.7067782988117601",
+    "timestamp": 1756958424965
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424966
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.isPressed",
+    "arguments": [
+      null
+    ],
+    "timestamp": 1756958424966,
+    "message": "Mouse.isPressed(undefined)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424966
+  },
+  {
+    "type": "DELAY",
+    "duration": 5,
+    "actualDelay": 5,
+    "timestamp": 1756958424967
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958424967
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424972,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958424972
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424972_0.969428352105961",
+    "timestamp": 1756958424972
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchState",
+    "value": 0,
+    "timestamp": 1756958424973
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424973
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424974
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastSwitchState",
+    "value": 0,
+    "timestamp": 1756958424974
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      14
+    ],
+    "timestamp": 1756958424974,
+    "message": "readAxis(14)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958424974_0.3735066354791028",
+    "timestamp": 1756958424974
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 288,
+    "timestamp": 1756958424976
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 3,
+    "timestamp": 1756958424981
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": -3,
+    "timestamp": 1756958424987
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424993
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "xReading",
+    "value": -3,
+    "timestamp": 1756958424998
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "readAxis",
+    "arguments": [
+      15
+    ],
+    "timestamp": 1756958424998,
+    "message": "readAxis(15)"
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 15,
+    "requestId": "analogRead_1756958424999_0.5951941682919655",
+    "timestamp": 1756958424999
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 832,
+    "timestamp": 1756958425000
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 10,
+    "timestamp": 1756958425006
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "distance",
+    "value": 4,
+    "timestamp": 1756958425011
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425017
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "yReading",
+    "value": 4,
+    "timestamp": 1756958425022
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958425022
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.move",
+    "arguments": [
+      -3,
+      4,
+      0
+    ],
+    "timestamp": 1756958425022,
+    "message": "Mouse.move(-3, 4, 0)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1756958425023_0.5929865686392235",
+    "timestamp": 1756958425023
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425024
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.isPressed",
+    "arguments": [
+      null
+    ],
+    "timestamp": 1756958425024,
+    "message": "Mouse.isPressed(undefined)"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425024
+  },
+  {
+    "type": "DELAY",
+    "duration": 5,
+    "actualDelay": 5,
+    "timestamp": 1756958425024
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958425024
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958425029,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834356538,
+    "timestamp": 1756958425029,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958425029,
     "message": "Program execution stopped"
   }
 ]

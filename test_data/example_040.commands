@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834310181,
+    "timestamp": 1756958422824,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834310181,
+    "timestamp": 1756958422824,
     "message": "Program execution started"
   },
   {
@@ -16,44 +16,44 @@
     "variable": "ledPin",
     "value": 13,
     "isConst": true,
-    "timestamp": 1756834310181
+    "timestamp": 1756958422825
   },
   {
     "type": "VAR_SET",
     "variable": "knockSensor",
     "value": 14,
     "isConst": true,
-    "timestamp": 1756834310182
+    "timestamp": 1756958422825
   },
   {
     "type": "VAR_SET",
     "variable": "threshold",
     "value": 100,
     "isConst": true,
-    "timestamp": 1756834310182
+    "timestamp": 1756958422825
   },
   {
     "type": "VAR_SET",
     "variable": "sensorReading",
     "value": 0,
-    "timestamp": 1756834310183
+    "timestamp": 1756958422825
   },
   {
     "type": "VAR_SET",
     "variable": "ledState",
     "value": 0,
-    "timestamp": 1756834310183
+    "timestamp": 1756958422825
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834310183,
+    "timestamp": 1756958422825,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1756834310184
+    "timestamp": 1756958422825
   },
   {
     "type": "FUNCTION_CALL",
@@ -62,22 +62,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834310184,
+    "timestamp": 1756958422825,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834310184,
+    "timestamp": 1756958422825,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310184,
+    "timestamp": 1756958422825,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310184,
+    "timestamp": 1756958422825,
     "message": "Starting loop iteration 1"
   },
   {
@@ -85,38 +85,38 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834310184
+    "timestamp": 1756958422825
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1756834310185_0.8450523885194265",
-    "timestamp": 1756834310185
+    "requestId": "analogRead_1756958422826_0.1725100163974247",
+    "timestamp": 1756958422826
   },
   {
     "type": "VAR_SET",
     "variable": "sensorReading",
-    "value": 311,
-    "timestamp": 1756834310187
+    "value": 273,
+    "timestamp": 1756958422827
   },
   {
     "type": "IF_STATEMENT",
     "condition": true,
     "result": true,
     "branch": "then",
-    "timestamp": 1756834310187
+    "timestamp": 1756958422827
   },
   {
     "type": "VAR_SET",
     "variable": "ledState",
     "value": false,
-    "timestamp": 1756834310188
+    "timestamp": 1756958422827
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 0,
-    "timestamp": 1756834310188
+    "timestamp": 1756958422827
   },
   {
     "type": "FUNCTION_CALL",
@@ -125,14 +125,14 @@
       "\"Knock!\""
     ],
     "data": "Knock!",
-    "timestamp": 1756834310188,
+    "timestamp": 1756958422828,
     "message": "Serial.println(\"Knock!\")"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310189
+    "timestamp": 1756958422828
   },
   {
     "type": "FUNCTION_CALL",
@@ -140,11 +140,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834310189
+    "timestamp": 1756958422828
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310195,
+    "timestamp": 1756958422833,
     "message": "Starting loop iteration 2"
   },
   {
@@ -152,77 +152,38 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834310195
+    "timestamp": 1756958422833
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1756834310195_0.5711197888026371",
-    "timestamp": 1756834310195
+    "requestId": "analogRead_1756958422833_0.6917234479728696",
+    "timestamp": 1756958422833
   },
   {
     "type": "VAR_SET",
     "variable": "sensorReading",
-    "value": 66,
-    "timestamp": 1756834310197
-  },
-  {
-    "type": "IF_STATEMENT",
-    "condition": false,
-    "result": false,
-    "branch": "else",
-    "timestamp": 1756834310197
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Completed loop() iteration 2",
-    "iteration": 2,
-    "completed": true,
-    "timestamp": 1756834310197
-  },
-  {
-    "type": "LOOP_START",
-    "timestamp": 1756834310202,
-    "message": "Starting loop iteration 3"
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Executing loop() iteration 3",
-    "iteration": 3,
-    "timestamp": 1756834310202
-  },
-  {
-    "type": "ANALOG_READ_REQUEST",
-    "pin": 14,
-    "requestId": "analogRead_1756834310202_0.5159881146286323",
-    "timestamp": 1756834310202
-  },
-  {
-    "type": "VAR_SET",
-    "variable": "sensorReading",
-    "value": 298,
-    "timestamp": 1756834310204
+    "value": 422,
+    "timestamp": 1756958422835
   },
   {
     "type": "IF_STATEMENT",
     "condition": true,
     "result": true,
     "branch": "then",
-    "timestamp": 1756834310204
+    "timestamp": 1756958422835
   },
   {
     "type": "VAR_SET",
     "variable": "ledState",
     "value": true,
-    "timestamp": 1756834310204
+    "timestamp": 1756958422835
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1756834310205
+    "timestamp": 1756958422835
   },
   {
     "type": "FUNCTION_CALL",
@@ -231,14 +192,81 @@
       "\"Knock!\""
     ],
     "data": "Knock!",
-    "timestamp": 1756834310205,
+    "timestamp": 1756958422835,
     "message": "Serial.println(\"Knock!\")"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310205
+    "timestamp": 1756958422835
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958422835
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958422841,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958422841
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422841_0.24369315141582382",
+    "timestamp": 1756958422841
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorReading",
+    "value": 934,
+    "timestamp": 1756958422843
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958422843
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledState",
+    "value": false,
+    "timestamp": 1756958422843
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756958422843
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "\"Knock!\""
+    ],
+    "data": "Knock!",
+    "timestamp": 1756958422843,
+    "message": "Serial.println(\"Knock!\")"
+  },
+  {
+    "type": "DELAY",
+    "duration": 100,
+    "actualDelay": 100,
+    "timestamp": 1756958422843
   },
   {
     "type": "FUNCTION_CALL",
@@ -246,23 +274,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834310205
+    "timestamp": 1756958422843
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834310210,
+    "timestamp": 1756958422848,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310210,
+    "timestamp": 1756958422848,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310210,
+    "timestamp": 1756958422849,
     "message": "Program execution stopped"
   }
 ]

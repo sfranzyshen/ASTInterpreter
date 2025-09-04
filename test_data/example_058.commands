@@ -1,53 +1,53 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834326298,
+    "timestamp": 1756958424299,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834326298,
+    "timestamp": 1756958424299,
     "message": "Program execution started"
   },
   {
     "type": "VAR_SET",
     "variable": "platform",
     "value": 0,
-    "timestamp": 1756834326298
+    "timestamp": 1756958424300
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834326298,
+    "timestamp": 1756958424300,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 2,
-    "timestamp": 1756834326298
+    "timestamp": 1756958424300
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Keyboard.begin",
     "arguments": [],
-    "timestamp": 1756834326299,
+    "timestamp": 1756958424300,
     "message": "Keyboard.begin()"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834326299,
+    "timestamp": 1756958424300,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834326299,
+    "timestamp": 1756958424300,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834326299,
+    "timestamp": 1756958424300,
     "message": "Starting loop iteration 1"
   },
   {
@@ -55,28 +55,142 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834326299
+    "timestamp": 1756958424300
   },
   {
     "type": "WHILE_LOOP",
     "phase": "start",
-    "timestamp": 1756834326299,
+    "timestamp": 1756958424300,
     "message": "while loop started"
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 2,
-    "requestId": "digitalRead_1756834326299_0.39243013700363694",
-    "timestamp": 1756834326299
+    "requestId": "digitalRead_1756958424300_0.052495675627574734",
+    "timestamp": 1756958424300
   },
   {
-    "type": "TIMEOUT",
-    "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756834331299
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756958424302,
+    "message": "while loop iteration 0"
   },
   {
-    "type": "PROGRAM_END",
-    "timestamp": 1756834331299,
-    "message": "Program execution stopped"
+    "type": "DELAY",
+    "duration": 500,
+    "actualDelay": 500,
+    "timestamp": 1756958424302
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424307_0.6311172708197204",
+    "timestamp": 1756958424307
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756958424309,
+    "message": "while loop iteration 1"
+  },
+  {
+    "type": "DELAY",
+    "duration": 500,
+    "actualDelay": 500,
+    "timestamp": 1756958424309
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958424314_0.75615603885848",
+    "timestamp": 1756958424314
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756958424315,
+    "message": "while loop completed (2 iterations)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 1000,
+    "actualDelay": 1000,
+    "timestamp": 1756958424316
+  },
+  {
+    "type": "SWITCH_STATEMENT",
+    "discriminant": 0,
+    "timestamp": 1756958424316,
+    "message": "switch (0)"
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 0,
+    "matched": false,
+    "timestamp": 1756958424316
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 1,
+    "matched": false,
+    "timestamp": 1756958424316
+  },
+  {
+    "type": "SWITCH_CASE",
+    "caseValue": 2,
+    "matched": false,
+    "timestamp": 1756958424316
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756958424316,
+    "message": "while loop started"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756958424316,
+    "message": "while loop iteration 0"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756958424321,
+    "message": "while loop iteration 1"
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756958424326,
+    "message": "while loop iteration 2"
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756958424332,
+    "message": "While loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958424332
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958424337,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
   }
 ]

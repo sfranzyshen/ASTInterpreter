@@ -4,6 +4,6 @@
   "index": "018",
   "code": "// 03.Analog Calibration.ino\n\n// These constants won't change:\nconst int sensorPin = A0;\nconst int ledPin = 9;\n\n// variables:\nint sensorValue = 0;\nint sensorMin = 1023;\nint sensorMax = 0;\n\n\nvoid setup() {\n  // turn on LED to signal the start of the calibration period:\n  pinMode(13, OUTPUT);\n  digitalWrite(13, HIGH);\n\n  // calibrate during the first five seconds\n  while (millis() < 5000) {\n    sensorValue = analogRead(sensorPin);\n\n    // record the maximum sensor value\n    if (sensorValue > sensorMax) {\n      sensorMax = sensorValue;\n    }\n\n    // record the minimum sensor value\n    if (sensorValue < sensorMin) {\n      sensorMin = sensorValue;\n    }\n  }\n\n  // signal the end of the calibration period\n  digitalWrite(13, LOW);\n}\n\nvoid loop() {\n  // read the sensor:\n  sensorValue = analogRead(sensorPin);\n\n  // in case the sensor value is outside the range seen during calibration\n  sensorValue = constrain(sensorValue, sensorMin, sensorMax);\n\n  // apply the calibration to the sensor reading\n  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);\n\n  // fade the LED using the calibrated value:\n  analogWrite(ledPin, sensorValue);\n}\n",
   "astSize": 559,
-  "commandCount": 14,
-  "generated": "2025-09-02T17:31:43.705Z"
+  "commandCount": 43,
+  "generated": "2025-09-04T04:00:20.491Z"
 }

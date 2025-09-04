@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834331329,
+    "timestamp": 1756958424401,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834331329,
+    "timestamp": 1756958424401,
     "message": "Program execution started"
   },
   {
@@ -16,51 +16,51 @@
     "variable": "buttonPin",
     "value": 4,
     "isConst": true,
-    "timestamp": 1756834331329
+    "timestamp": 1756958424402
   },
   {
     "type": "VAR_SET",
     "variable": "previousButtonState",
     "value": 1,
-    "timestamp": 1756834331330
+    "timestamp": 1756958424402
   },
   {
     "type": "VAR_SET",
     "variable": "counter",
     "value": 0,
-    "timestamp": 1756834331330
+    "timestamp": 1756958424402
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834331330,
+    "timestamp": 1756958424402,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 4,
     "mode": 0,
-    "timestamp": 1756834331330
+    "timestamp": 1756958424402
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Keyboard.begin",
     "arguments": [],
-    "timestamp": 1756834331330,
+    "timestamp": 1756958424402,
     "message": "Keyboard.begin()"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834331330,
+    "timestamp": 1756958424402,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834331330,
+    "timestamp": 1756958424402,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834331330,
+    "timestamp": 1756958424402,
     "message": "Starting loop iteration 1"
   },
   {
@@ -68,22 +68,183 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834331330
+    "timestamp": 1756958424402
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 4,
-    "requestId": "digitalRead_1756834331331_0.27888957851523744",
-    "timestamp": 1756834331331
+    "requestId": "digitalRead_1756958424402_0.4157995226504285",
+    "timestamp": 1756958424402
   },
   {
-    "type": "TIMEOUT",
-    "message": "Execution timeout after 5 seconds",
-    "timestamp": 1756834336329
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 0,
+    "timestamp": 1756958424404
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424404
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousButtonState",
+    "value": 0,
+    "timestamp": 1756958424404
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958424404
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424409,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958424409
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958424410_0.01993335099723903",
+    "timestamp": 1756958424410
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 0,
+    "timestamp": 1756958424411
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958424412
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousButtonState",
+    "value": 0,
+    "timestamp": 1756958424412
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958424412
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958424417,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958424417
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958424417_0.3757441578531726",
+    "timestamp": 1756958424417
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 1,
+    "timestamp": 1756958424419
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958424419
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "counter",
+    "value": 1,
+    "timestamp": 1756958424420
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.print",
+    "arguments": [
+      {
+        "value": "You pressed the button "
+      }
+    ],
+    "timestamp": 1756958424421,
+    "message": "Keyboard.print(You pressed the button )"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.print",
+    "arguments": [
+      1
+    ],
+    "timestamp": 1756958424421,
+    "message": "Keyboard.print(1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.println",
+    "arguments": [
+      {
+        "value": " times."
+      }
+    ],
+    "timestamp": 1756958424422,
+    "message": "Keyboard.println( times.)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousButtonState",
+    "value": 1,
+    "timestamp": 1756958424422
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958424422
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958424427,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834336329,
+    "timestamp": 1756958424427,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958424427,
     "message": "Program execution stopped"
   }
 ]

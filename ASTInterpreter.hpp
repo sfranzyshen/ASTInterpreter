@@ -15,6 +15,8 @@
 #include "ASTNodes.hpp"
 #include "CommandProtocol.hpp"
 #include "CompactAST.hpp"
+#include "EnhancedInterpreter.hpp"
+#include "ArduinoLibraryRegistry.hpp"
 #include <memory>
 #include <unordered_map>
 #include <stack>
@@ -33,6 +35,7 @@ namespace arduino_interpreter {
 class ASTInterpreter;
 class ScopeManager;
 class ArduinoLibraryInterface;
+class EnhancedScopeManager;
 
 // =============================================================================
 // INTERPRETER CONFIGURATION
@@ -166,7 +169,9 @@ private:
     
     // Managers
     std::unique_ptr<ScopeManager> scopeManager_;
-    std::unique_ptr<ArduinoLibraryInterface> libraryInterface_;
+    std::unique_ptr<EnhancedScopeManager> enhancedScopeManager_;
+    std::unique_ptr<ArduinoLibraryInterface> libraryInterface_;  // Legacy - to be deprecated
+    std::unique_ptr<ArduinoLibraryRegistry> libraryRegistry_;    // New comprehensive system
     
     // Command handling
     CommandListener* commandListener_;
@@ -434,6 +439,9 @@ private:
     void debugLog(const std::string& message);
     void verboseLog(const std::string& message);
     void logExecutionState(const std::string& context);
+    
+    // Type conversion utilities
+    CommandValue convertToType(const CommandValue& value, const std::string& typeName);
 };
 
 // =============================================================================

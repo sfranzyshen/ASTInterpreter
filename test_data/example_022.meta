@@ -4,6 +4,6 @@
   "index": "022",
   "code": "// 04.Communication Dimmer.ino\n\nconst int ledPin = 9;\n\nvoid setup() {\n  // initialize the serial communication:\n  Serial.begin(9600);\n  // initialize the ledPin as an output:\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  byte brightness;\n  // check if data has been sent from the computer:\n  if (Serial.available()) {\n    // read the most recent byte (which will be from 0 to 255):\n    brightness = Serial.read();\n    // set the brightness of the LED:\n    analogWrite(ledPin, brightness);\n  }\n}\n",
   "astSize": 306,
-  "commandCount": 32,
-  "generated": "2025-09-02T17:31:43.974Z"
+  "commandCount": 29,
+  "generated": "2025-09-04T04:00:21.022Z"
 }

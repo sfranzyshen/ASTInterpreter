@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430240,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430240,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430240,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430241,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430241,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430241,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430241,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,25 +46,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834385294
+    "timestamp": 1756958430241
   },
   {
     "type": "FOR_LOOP",
     "phase": "start",
-    "timestamp": 1756834385294,
+    "timestamp": 1756958430241,
     "message": "for loop started"
   },
   {
     "type": "VAR_SET",
     "variable": "i",
     "value": 0,
-    "timestamp": 1756834385294
+    "timestamp": 1756958430241
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 0,
-    "timestamp": 1756834385295,
+    "timestamp": 1756958430241,
     "message": "for loop iteration 0"
   },
   {
@@ -74,7 +74,7 @@
       "\"i: \""
     ],
     "data": "i: ",
-    "timestamp": 1756834385295,
+    "timestamp": 1756958430241,
     "message": "Serial.print(\"i: \")"
   },
   {
@@ -84,20 +84,20 @@
       "0"
     ],
     "data": "0",
-    "timestamp": 1756834385295,
+    "timestamp": 1756958430241,
     "message": "Serial.println(0)"
   },
   {
     "type": "VAR_SET",
     "variable": "i",
     "value": 1,
-    "timestamp": 1756834385296
+    "timestamp": 1756958430242
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 1,
-    "timestamp": 1756834385301,
+    "timestamp": 1756958430247,
     "message": "for loop iteration 1"
   },
   {
@@ -107,7 +107,7 @@
       "\"i: \""
     ],
     "data": "i: ",
-    "timestamp": 1756834385302,
+    "timestamp": 1756958430247,
     "message": "Serial.print(\"i: \")"
   },
   {
@@ -117,20 +117,20 @@
       "1"
     ],
     "data": "1",
-    "timestamp": 1756834385302,
+    "timestamp": 1756958430248,
     "message": "Serial.println(1)"
   },
   {
     "type": "VAR_SET",
     "variable": "i",
     "value": 2,
-    "timestamp": 1756834385302
+    "timestamp": 1756958430248
   },
   {
     "type": "FOR_LOOP",
     "phase": "iteration",
     "iteration": 2,
-    "timestamp": 1756834385308,
+    "timestamp": 1756958430253,
     "message": "for loop iteration 2"
   },
   {
@@ -140,7 +140,7 @@
       "\"i: \""
     ],
     "data": "i: ",
-    "timestamp": 1756834385308,
+    "timestamp": 1756958430253,
     "message": "Serial.print(\"i: \")"
   },
   {
@@ -150,20 +150,20 @@
       "2"
     ],
     "data": "2",
-    "timestamp": 1756834385308,
+    "timestamp": 1756958430254,
     "message": "Serial.println(2)"
   },
   {
     "type": "VAR_SET",
     "variable": "i",
     "value": 3,
-    "timestamp": 1756834385308
+    "timestamp": 1756958430254
   },
   {
     "type": "LOOP_LIMIT_REACHED",
     "phase": "end",
     "iterations": 3,
-    "timestamp": 1756834385314,
+    "timestamp": 1756958430259,
     "message": "For loop limit reached: completed 3 iterations (max: 3)"
   },
   {
@@ -172,11 +172,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834385314
+    "timestamp": 1756958430259
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834385319,
+    "timestamp": 1756958430264,
     "message": "Completed loop() execution (1 iterations)",
     "iterations": 1,
     "limitReached": false

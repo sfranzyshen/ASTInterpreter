@@ -5,5 +5,5 @@
   "code": "// Conditional Operator in a Loop\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int x = 0;\n  for (int i = 0; i < 5; i++) {\n    x = (i == 0) ? 1 : ((i % 2 == 0) ? i + 10 : i * 10);\n    Serial.print(\"For i=\");\n    Serial.print(i);\n    Serial.print(\", x is: \");\n    Serial.println(x);\n  }\n}",
   "astSize": 287,
   "commandCount": 35,
-  "generated": "2025-09-02T17:33:05.290Z"
+  "generated": "2025-09-04T04:00:30.228Z"
 }

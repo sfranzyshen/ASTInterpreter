@@ -5,5 +5,5 @@
   "code": "// Nested for and if with break and continue\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  for (int i = 0; i < 5; i++) {\n    for (int j = 0; j < 5; j++) {\n      if (i == 2 && j == 2) {\n        Serial.println(\"Skipping inner loop...\");\n        continue;\n      }\n      if (i == 3) {\n        Serial.println(\"Breaking outer loop...\");\n        break;\n      }\n      Serial.print(\"i: \");\n      Serial.print(i);\n      Serial.print(\", j: \");\n      Serial.print(j);\n      Serial.println(j);\n    }\n    if (i == 3) {\n      break;\n    }\n  }\n}",
   "astSize": 536,
   "commandCount": 45,
-  "generated": "2025-09-02T17:33:05.534Z"
+  "generated": "2025-09-04T04:00:30.594Z"
 }

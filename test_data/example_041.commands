@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834310242,
+    "timestamp": 1756958422915,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834310242,
+    "timestamp": 1756958422915,
     "message": "Program execution started"
   },
   {
@@ -16,18 +16,18 @@
     "variable": "xPin",
     "value": 2,
     "isConst": true,
-    "timestamp": 1756834310243
+    "timestamp": 1756958422915
   },
   {
     "type": "VAR_SET",
     "variable": "yPin",
     "value": 3,
     "isConst": true,
-    "timestamp": 1756834310243
+    "timestamp": 1756958422915
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834310243,
+    "timestamp": 1756958422916,
     "message": "Executing setup() function"
   },
   {
@@ -37,34 +37,34 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834310244,
+    "timestamp": 1756958422916,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1756834310244
+    "timestamp": 1756958422916
   },
   {
     "type": "PIN_MODE",
     "pin": 3,
     "mode": 0,
-    "timestamp": 1756834310262
+    "timestamp": 1756958422916
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834310262,
+    "timestamp": 1756958422916,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310262,
+    "timestamp": 1756958422916,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310262,
+    "timestamp": 1756958422916,
     "message": "Starting loop iteration 1"
   },
   {
@@ -72,31 +72,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834310262
+    "timestamp": 1756958422916
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": null,
-    "timestamp": 1756834310262
+    "timestamp": 1756958422916
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": null,
-    "timestamp": 1756834310262
+    "timestamp": 1756958422916
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": null,
-    "timestamp": 1756834310263
+    "timestamp": 1756958422917
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": null,
-    "timestamp": 1756834310263
+    "timestamp": 1756958422917
   },
   {
     "type": "FUNCTION_CALL",
@@ -109,14 +109,14 @@
     "pin": 2,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310263,
+    "timestamp": 1756958422917,
     "message": "pulseIn(2, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": 1500,
-    "timestamp": 1756834310264
+    "timestamp": 1756958422917
   },
   {
     "type": "FUNCTION_CALL",
@@ -129,26 +129,26 @@
     "pin": 3,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310264,
+    "timestamp": 1756958422918,
     "message": "pulseIn(3, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": 1500,
-    "timestamp": 1756834310265
+    "timestamp": 1756958422918
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": -2800,
-    "timestamp": 1756834310266
+    "timestamp": 1756958422918
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": -2800,
-    "timestamp": 1756834310267
+    "timestamp": 1756958422918
   },
   {
     "type": "FUNCTION_CALL",
@@ -157,7 +157,7 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310267,
+    "timestamp": 1756958422918,
     "message": "Serial.print(-2800)"
   },
   {
@@ -167,7 +167,7 @@
       "\"\t\""
     ],
     "data": "\t",
-    "timestamp": 1756834310267,
+    "timestamp": 1756958422918,
     "message": "Serial.print(\"\t\")"
   },
   {
@@ -177,21 +177,21 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310267,
+    "timestamp": 1756958422919,
     "message": "Serial.print(-2800)"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310267,
+    "timestamp": 1756958422919,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310268
+    "timestamp": 1756958422919
   },
   {
     "type": "FUNCTION_CALL",
@@ -199,11 +199,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834310268
+    "timestamp": 1756958422919
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310273,
+    "timestamp": 1756958422924,
     "message": "Starting loop iteration 2"
   },
   {
@@ -211,31 +211,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834310273
+    "timestamp": 1756958422924
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": null,
-    "timestamp": 1756834310273
+    "timestamp": 1756958422924
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": null,
-    "timestamp": 1756834310274
+    "timestamp": 1756958422924
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": null,
-    "timestamp": 1756834310274
+    "timestamp": 1756958422924
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": null,
-    "timestamp": 1756834310274
+    "timestamp": 1756958422924
   },
   {
     "type": "FUNCTION_CALL",
@@ -248,14 +248,14 @@
     "pin": 2,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310275,
+    "timestamp": 1756958422925,
     "message": "pulseIn(2, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": 1500,
-    "timestamp": 1756834310275
+    "timestamp": 1756958422925
   },
   {
     "type": "FUNCTION_CALL",
@@ -268,26 +268,26 @@
     "pin": 3,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310275,
+    "timestamp": 1756958422925,
     "message": "pulseIn(3, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": 1500,
-    "timestamp": 1756834310276
+    "timestamp": 1756958422925
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": -2800,
-    "timestamp": 1756834310276
+    "timestamp": 1756958422926
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": -2800,
-    "timestamp": 1756834310277
+    "timestamp": 1756958422926
   },
   {
     "type": "FUNCTION_CALL",
@@ -296,7 +296,7 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310277,
+    "timestamp": 1756958422926,
     "message": "Serial.print(-2800)"
   },
   {
@@ -306,7 +306,7 @@
       "\"\t\""
     ],
     "data": "\t",
-    "timestamp": 1756834310278,
+    "timestamp": 1756958422927,
     "message": "Serial.print(\"\t\")"
   },
   {
@@ -316,21 +316,21 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310278,
+    "timestamp": 1756958422927,
     "message": "Serial.print(-2800)"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310278,
+    "timestamp": 1756958422927,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310279
+    "timestamp": 1756958422927
   },
   {
     "type": "FUNCTION_CALL",
@@ -338,11 +338,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834310279
+    "timestamp": 1756958422927
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834310285,
+    "timestamp": 1756958422932,
     "message": "Starting loop iteration 3"
   },
   {
@@ -350,31 +350,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834310285
+    "timestamp": 1756958422932
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": null,
-    "timestamp": 1756834310285
+    "timestamp": 1756958422932
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": null,
-    "timestamp": 1756834310285
+    "timestamp": 1756958422932
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": null,
-    "timestamp": 1756834310285
+    "timestamp": 1756958422932
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": null,
-    "timestamp": 1756834310286
+    "timestamp": 1756958422933
   },
   {
     "type": "FUNCTION_CALL",
@@ -387,14 +387,14 @@
     "pin": 2,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310286,
+    "timestamp": 1756958422933,
     "message": "pulseIn(2, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseX",
     "value": 1500,
-    "timestamp": 1756834310287
+    "timestamp": 1756958422933
   },
   {
     "type": "FUNCTION_CALL",
@@ -407,26 +407,26 @@
     "pin": 3,
     "value": 1,
     "timeout": 1000000,
-    "timestamp": 1756834310287,
+    "timestamp": 1756958422933,
     "message": "pulseIn(3, 1)"
   },
   {
     "type": "VAR_SET",
     "variable": "pulseY",
     "value": 1500,
-    "timestamp": 1756834310288
+    "timestamp": 1756958422933
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationX",
     "value": -2800,
-    "timestamp": 1756834310289
+    "timestamp": 1756958422933
   },
   {
     "type": "VAR_SET",
     "variable": "accelerationY",
     "value": -2800,
-    "timestamp": 1756834310290
+    "timestamp": 1756958422934
   },
   {
     "type": "FUNCTION_CALL",
@@ -435,7 +435,7 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310290,
+    "timestamp": 1756958422934,
     "message": "Serial.print(-2800)"
   },
   {
@@ -445,7 +445,7 @@
       "\"\t\""
     ],
     "data": "\t",
-    "timestamp": 1756834310291,
+    "timestamp": 1756958422934,
     "message": "Serial.print(\"\t\")"
   },
   {
@@ -455,21 +455,21 @@
       "-2800"
     ],
     "data": "-2800",
-    "timestamp": 1756834310291,
+    "timestamp": 1756958422934,
     "message": "Serial.print(-2800)"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [],
-    "timestamp": 1756834310291,
+    "timestamp": 1756958422934,
     "message": "Serial.println()"
   },
   {
     "type": "DELAY",
     "duration": 100,
     "actualDelay": 100,
-    "timestamp": 1756834310291
+    "timestamp": 1756958422934
   },
   {
     "type": "FUNCTION_CALL",
@@ -477,23 +477,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834310291
+    "timestamp": 1756958422934
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834310296,
+    "timestamp": 1756958422939,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310296,
+    "timestamp": 1756958422939,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834310296,
+    "timestamp": 1756958422939,
     "message": "Program execution stopped"
   }
 ]

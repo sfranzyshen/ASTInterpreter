@@ -1,168 +1,208 @@
-const { Parser, parse, exportCompactAST } = require('./ArduinoParser.js');
+#!/usr/bin/env node
 
 /**
- * Debug CompactAST export process - step by step analysis
+ * CompactAST Export Bug Analysis
+ * 
+ * This script shows the exact bug in the CompactAST export process.
+ * The collectNodes method has special VarDeclNode handling, but getChildIndices doesn't.
  */
 
-console.log('=== CompactAST Export Debug ===');
+const { parse, exportCompactAST } = require('./ArduinoParser.js');
 
-// Simple test code
-const testCode = `int x = 13;`;
-
-try {
-    console.log('1. Parsing code:', testCode);
+function debugCompactASTExport() {
+    console.log('='.repeat(80));
+    console.log('COMPACTAST EXPORT BUG ANALYSIS');
+    console.log('='.repeat(80));
+    
+    const testCode = 'int x = 5;';
+    console.log(`\nAnalyzing: "${testCode}"`);
+    
     const ast = parse(testCode);
     
-    if (!ast || ast.type !== 'ProgramNode') {
-        throw new Error('Failed to parse test code');
-    }
+    // Find the VarDeclNode
+    const varDeclNode = findVarDeclNode(ast);
     
-    console.log('2. Creating CompactAST exporter...');
+    console.log('\n🔍 VARDECLNODE STRUCTURE:');
+    console.log(JSON.stringify(varDeclNode, null, 2));
     
-    // Create exporter and inspect its internal state
-    class DebugCompactASTExporter {
-        constructor(options = {}) {
-            this.options = {
-                version: 0x0100,
-                flags: 0x0000,
-                ...options
-            };
-            
-            // String table for deduplication
-            this.stringTable = new Map();
-            this.strings = [];
-            
-            // Node processing
+    // Simulate the CompactAST export process
+    console.log('\n📦 SIMULATING COMPACTAST EXPORT PROCESS:');
+    
+    // Create a minimal exporter to show the bug
+    class DebugExporter {
+        constructor() {
             this.nodes = [];
             this.nodeMap = new Map();
-            
-            // Type mapping
-            this.nodeTypeMap = {
-                'ProgramNode': 0x01,
-                'ErrorNode': 0x02,
-                'CommentNode': 0x03,
-                'CompoundStmtNode': 0x10,
-                'ExpressionStatement': 0x11,
-                'IfStatement': 0x12,
-                'WhileStatement': 0x13,
-                'DoWhileStatement': 0x14,
-                'ForStatement': 0x15,
-                'RangeBasedForStatement': 0x16,
-                'SwitchStatement': 0x17,
-                'CaseStatement': 0x18,
-                'ReturnStatement': 0x19,
-                'BreakStatement': 0x1A,
-                'ContinueStatement': 0x1B,
-                'EmptyStatement': 0x1C,
-                'VarDeclNode': 0x20,
-                'FuncDefNode': 0x21,
-                'FuncDeclNode': 0x22,
-                'StructDeclaration': 0x23,
-                'BinaryOpNode': 0x30,
-                'UnaryOpNode': 0x31,
-                'AssignmentNode': 0x32,
-                'FuncCallNode': 0x33,
-                'MemberAccessNode': 0x34,
-                'NumberNode': 0x40,
-                'StringLiteralNode': 0x41,
-                'CharLiteralNode': 0x42,
-                'IdentifierNode': 0x43,
-                'ConstantNode': 0x44,
-                'TypeNode': 0x50,
-                'DeclaratorNode': 0x51,
-                'ParamNode': 0x52
-            };
         }
         
+        // This mimics the collectNodes method from the real exporter
         collectNodes(node, index = 0) {
-            if (!node) return index;
+            if (!node || this.nodeMap.has(node)) {
+                return index;
+            }
             
-            console.log(`  Collecting node ${index}: ${node.type} (value: ${node.value})`);
-            
-            // Add to node list
-            this.nodes[index] = node;
             this.nodeMap.set(node, index);
-            
-            // Add strings to string table
-            if (node.value && typeof node.value === 'string') {
-                this.addString(node.value);
-            }
-            if (node.operator && typeof node.operator === 'string') {
-                this.addString(node.operator);
-            }
-            if (node.name && typeof node.name === 'string') {
-                this.addString(node.name);
-            }
-            
+            this.nodes[index] = node;
             let nextIndex = index + 1;
             
-            // Process children
+            console.log(`   📝 Collecting Node ${index}: ${node.type} (${node.value || 'no value'})`);
+            
+            // Process children array
             if (node.children) {
                 for (const child of node.children) {
                     nextIndex = this.collectNodes(child, nextIndex);
                 }
             }
             
-            // Handle nested structures
-            if (node.declarations) {
-                for (const decl of node.declarations) {
-                    if (decl.declarator) {
-                        nextIndex = this.collectNodes(decl.declarator, nextIndex);
-                    }
-                    if (decl.initializer) {
-                        nextIndex = this.collectNodes(decl.initializer, nextIndex);
+            // Process named children based on node type
+            const namedChildren = this.getNamedChildren(node);
+            for (const childName of namedChildren) {
+                if (node[childName]) {
+                    if (Array.isArray(node[childName])) {
+                        // 🎯 SPECIAL HANDLING FOR VARDECLNODE DECLARATIONS ARRAY
+                        if (node.type === 'VarDeclNode' && childName === 'declarations') {
+                            console.log(`   🔧 SPECIAL VARDECLNODE HANDLING: Processing declarations array`);
+                            for (const decl of node[childName]) {
+                                console.log(`     📋 Processing declaration wrapper: ${JSON.stringify(Object.keys(decl))}`);
+                                // Process declarator and initializer directly (skip declaration wrapper)
+                                if (decl.declarator) {
+                                    console.log(`     📛 Adding declarator: ${decl.declarator.value}`);
+                                    nextIndex = this.collectNodes(decl.declarator, nextIndex);
+                                }
+                                if (decl.initializer) {
+                                    console.log(`     🎯 Adding initializer: ${decl.initializer.value}`);
+                                    nextIndex = this.collectNodes(decl.initializer, nextIndex);
+                                }
+                            }
+                        } else {
+                            for (const child of node[childName]) {
+                                nextIndex = this.collectNodes(child, nextIndex);
+                            }
+                        }
+                    } else {
+                        nextIndex = this.collectNodes(node[childName], nextIndex);
                     }
                 }
-            }
-            
-            if (node.varType) {
-                nextIndex = this.collectNodes(node.varType, nextIndex);
             }
             
             return nextIndex;
         }
         
-        addString(str) {
-            if (!this.stringTable.has(str)) {
-                const index = this.strings.length;
-                this.strings.push(str);
-                this.stringTable.set(str, index);
-                console.log(`    Added string: "${str}" (index: ${index})`);
-            }
-        }
-        
-        export(ast) {
-            console.log('3. Phase 1: Collecting nodes...');
-            this.collectNodes(ast);
+        // This mimics the getChildIndices method from the real exporter
+        getChildIndices(node) {
+            const indices = [];
             
-            console.log(`\\n4. Collection results:`);
-            console.log(`   - Collected ${this.nodes.length} nodes`);
-            console.log(`   - String table has ${this.strings.length} entries`);
+            console.log(`   🔍 Getting child indices for ${node.type}:`);
             
-            console.log(`\\n5. Node details:`);
-            for (let i = 0; i < this.nodes.length; i++) {
-                const node = this.nodes[i];
-                if (node) {
-                    const nodeTypeValue = this.nodeTypeMap[node.type];
-                    console.log(`   Node ${i}: ${node.type} -> 0x${nodeTypeValue ? nodeTypeValue.toString(16).padStart(2, '0') : 'UNKNOWN'} (${nodeTypeValue || 'UNKNOWN'})`);
+            if (node.children) {
+                for (const child of node.children) {
+                    if (this.nodeMap.has(child)) {
+                        const childIndex = this.nodeMap.get(child);
+                        indices.push(childIndex);
+                        console.log(`     👶 Child: Node ${childIndex} (${child.type})`);
+                    }
                 }
             }
             
-            console.log(`\\n6. String table:`);
-            for (let i = 0; i < this.strings.length; i++) {
-                console.log(`   String ${i}: "${this.strings[i]}"`);
+            const namedChildren = this.getNamedChildren(node);
+            for (const childName of namedChildren) {
+                console.log(`     🔍 Checking named child: ${childName}`);
+                if (node[childName]) {
+                    if (Array.isArray(node[childName])) {
+                        console.log(`     📋 Array child ${childName} has ${node[childName].length} items`);
+                        // 🚨 BUG: NO SPECIAL HANDLING FOR VARDECLNODE HERE!
+                        for (const child of node[childName]) {
+                            if (this.nodeMap.has(child)) {
+                                const childIndex = this.nodeMap.get(child);
+                                indices.push(childIndex);
+                                console.log(`     👶 Array Child: Node ${childIndex} (${child.type})`);
+                            } else {
+                                console.log(`     ❌ Array child not in nodeMap: ${child.type || 'unknown'} - ${JSON.stringify(Object.keys(child))}`);
+                            }
+                        }
+                    } else {
+                        if (this.nodeMap.has(node[childName])) {
+                            const childIndex = this.nodeMap.get(node[childName]);
+                            indices.push(childIndex);
+                            console.log(`     👶 Named Child: Node ${childIndex} (${node[childName].type})`);
+                        }
+                    }
+                }
             }
             
-            // This would normally continue with binary generation...
-            console.log(`\\n✅ Debug collection complete`);
-            return null; // Don't generate binary for debug
+            return indices;
+        }
+        
+        getNamedChildren(node) {
+            const childrenMap = {
+                'VarDeclNode': ['varType', 'declarations'],
+                'ProgramNode': ['children']
+            };
+            
+            return childrenMap[node.type] || [];
         }
     }
     
-    const exporter = new DebugCompactASTExporter();
-    exporter.export(ast);
+    console.log('\n🏗️ PHASE 1: COLLECT NODES (this works correctly)');
+    console.log('-'.repeat(50));
     
-} catch (error) {
-    console.error('❌ Error:', error.message);
-    console.error(error.stack);
+    const exporter = new DebugExporter();
+    exporter.collectNodes(ast);
+    
+    console.log(`\n   ✅ Total nodes collected: ${exporter.nodes.length}`);
+    for (let i = 0; i < exporter.nodes.length; i++) {
+        const node = exporter.nodes[i];
+        console.log(`     Node ${i}: ${node.type} (${node.value || 'no value'})`);
+    }
+    
+    console.log('\n🔗 PHASE 2: GET CHILD INDICES (this has the bug)');
+    console.log('-'.repeat(50));
+    
+    const varDeclIndex = exporter.nodeMap.get(varDeclNode);
+    console.log(`\n   VarDeclNode is at index: ${varDeclIndex}`);
+    
+    const childIndices = exporter.getChildIndices(varDeclNode);
+    console.log(`\n   🚨 VarDeclNode child indices: [${childIndices.join(', ')}]`);
+    console.log(`   Expected: [TypeNode, DeclaratorNode, NumberNode] indices`);
+    console.log(`   Actual: Only [TypeNode] index - DeclaratorNode and NumberNode are missing!`);
+    
+    console.log('\n' + '='.repeat(80));
+    console.log('🚨 ROOT CAUSE IDENTIFIED:');
+    console.log('='.repeat(80));
+    console.log('1. collectNodes() has special VarDeclNode handling (lines 4704-4713)');
+    console.log('2. getChildIndices() does NOT have the same special handling');
+    console.log('3. DeclaratorNode and NumberNode are collected but not linked as children');
+    console.log('4. C++ reader looks for children but only finds TypeNode');
+    console.log('\n💡 FIX: Add same special VarDeclNode handling to getChildIndices()');
 }
+
+function findVarDeclNode(node) {
+    if (!node) return null;
+    if (node.type === 'VarDeclNode') return node;
+    
+    if (node.children) {
+        for (const child of node.children) {
+            const found = findVarDeclNode(child);
+            if (found) return found;
+        }
+    }
+    
+    const namedChildren = ['varType', 'declarations', 'body', 'condition'];
+    for (const prop of namedChildren) {
+        if (node[prop]) {
+            if (Array.isArray(node[prop])) {
+                for (const child of node[prop]) {
+                    const found = findVarDeclNode(child);
+                    if (found) return found;
+                }
+            } else {
+                const found = findVarDeclNode(node[prop]);
+                if (found) return found;
+            }
+        }
+    }
+    
+    return null;
+}
+
+debugCompactASTExport();

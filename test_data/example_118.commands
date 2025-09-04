@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834385060,
+    "timestamp": 1756958429861,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834385060,
+    "timestamp": 1756958429861,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834385061,
+    "timestamp": 1756958429861,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834385062,
+    "timestamp": 1756958429862,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834385062,
+    "timestamp": 1756958429862,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385062,
+    "timestamp": 1756958429862,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385062,
+    "timestamp": 1756958429862,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,20 +46,20 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834385062
+    "timestamp": 1756958429862
   },
   {
     "type": "VAR_SET",
     "variable": "myConst",
     "value": 100,
     "isConst": true,
-    "timestamp": 1756834385063
+    "timestamp": 1756958429862
   },
   {
     "type": "VAR_SET",
     "variable": "myVolatile",
     "value": 50,
-    "timestamp": 1756834385064
+    "timestamp": 1756958429862
   },
   {
     "type": "FUNCTION_CALL",
@@ -68,7 +68,7 @@
       "\"My constant: \""
     ],
     "data": "My constant: ",
-    "timestamp": 1756834385065,
+    "timestamp": 1756958429863,
     "message": "Serial.print(\"My constant: \")"
   },
   {
@@ -78,7 +78,7 @@
       "100"
     ],
     "data": "100",
-    "timestamp": 1756834385065,
+    "timestamp": 1756958429863,
     "message": "Serial.println(100)"
   },
   {
@@ -88,7 +88,7 @@
       "\"My volatile: \""
     ],
     "data": "My volatile: ",
-    "timestamp": 1756834385066,
+    "timestamp": 1756958429863,
     "message": "Serial.print(\"My volatile: \")"
   },
   {
@@ -98,7 +98,7 @@
       "50"
     ],
     "data": "50",
-    "timestamp": 1756834385066,
+    "timestamp": 1756958429863,
     "message": "Serial.println(50)"
   },
   {
@@ -107,11 +107,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834385066
+    "timestamp": 1756958429863
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385072,
+    "timestamp": 1756958429869,
     "message": "Starting loop iteration 2"
   },
   {
@@ -119,20 +119,20 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834385072
+    "timestamp": 1756958429869
   },
   {
     "type": "VAR_SET",
     "variable": "myConst",
     "value": 100,
     "isConst": true,
-    "timestamp": 1756834385073
+    "timestamp": 1756958429869
   },
   {
     "type": "VAR_SET",
     "variable": "myVolatile",
     "value": 50,
-    "timestamp": 1756834385073
+    "timestamp": 1756958429869
   },
   {
     "type": "FUNCTION_CALL",
@@ -141,7 +141,7 @@
       "\"My constant: \""
     ],
     "data": "My constant: ",
-    "timestamp": 1756834385074,
+    "timestamp": 1756958429870,
     "message": "Serial.print(\"My constant: \")"
   },
   {
@@ -151,7 +151,7 @@
       "100"
     ],
     "data": "100",
-    "timestamp": 1756834385075,
+    "timestamp": 1756958429870,
     "message": "Serial.println(100)"
   },
   {
@@ -161,7 +161,7 @@
       "\"My volatile: \""
     ],
     "data": "My volatile: ",
-    "timestamp": 1756834385075,
+    "timestamp": 1756958429871,
     "message": "Serial.print(\"My volatile: \")"
   },
   {
@@ -171,7 +171,7 @@
       "50"
     ],
     "data": "50",
-    "timestamp": 1756834385076,
+    "timestamp": 1756958429871,
     "message": "Serial.println(50)"
   },
   {
@@ -180,11 +180,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834385076
+    "timestamp": 1756958429871
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834385081,
+    "timestamp": 1756958429877,
     "message": "Starting loop iteration 3"
   },
   {
@@ -192,20 +192,20 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834385081
+    "timestamp": 1756958429877
   },
   {
     "type": "VAR_SET",
     "variable": "myConst",
     "value": 100,
     "isConst": true,
-    "timestamp": 1756834385082
+    "timestamp": 1756958429877
   },
   {
     "type": "VAR_SET",
     "variable": "myVolatile",
     "value": 50,
-    "timestamp": 1756834385082
+    "timestamp": 1756958429877
   },
   {
     "type": "FUNCTION_CALL",
@@ -214,7 +214,7 @@
       "\"My constant: \""
     ],
     "data": "My constant: ",
-    "timestamp": 1756834385082,
+    "timestamp": 1756958429877,
     "message": "Serial.print(\"My constant: \")"
   },
   {
@@ -224,7 +224,7 @@
       "100"
     ],
     "data": "100",
-    "timestamp": 1756834385083,
+    "timestamp": 1756958429877,
     "message": "Serial.println(100)"
   },
   {
@@ -234,7 +234,7 @@
       "\"My volatile: \""
     ],
     "data": "My volatile: ",
-    "timestamp": 1756834385083,
+    "timestamp": 1756958429878,
     "message": "Serial.print(\"My volatile: \")"
   },
   {
@@ -244,7 +244,7 @@
       "50"
     ],
     "data": "50",
-    "timestamp": 1756834385083,
+    "timestamp": 1756958429878,
     "message": "Serial.println(50)"
   },
   {
@@ -253,23 +253,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834385083
+    "timestamp": 1756958429878
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834385088,
+    "timestamp": 1756958429883,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834385088,
+    "timestamp": 1756958429883,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834385088,
+    "timestamp": 1756958429883,
     "message": "Program execution stopped"
   }
 ]

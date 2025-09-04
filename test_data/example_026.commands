@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834304267,
+    "timestamp": 1756958421397,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834304267,
+    "timestamp": 1756958421397,
     "message": "Program execution started"
   },
   {
@@ -16,17 +16,17 @@
     "variable": "ledPin",
     "value": 13,
     "isConst": true,
-    "timestamp": 1756834304268
+    "timestamp": 1756958421397
   },
   {
     "type": "VAR_SET",
     "variable": "incomingByte",
     "value": null,
-    "timestamp": 1756834304268
+    "timestamp": 1756958421397
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834304268,
+    "timestamp": 1756958421397,
     "message": "Executing setup() function"
   },
   {
@@ -36,28 +36,28 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834304269,
+    "timestamp": 1756958421398,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1756834304270
+    "timestamp": 1756958421398
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834304270,
+    "timestamp": 1756958421398,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304270,
+    "timestamp": 1756958421398,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304270,
+    "timestamp": 1756958421398,
     "message": "Starting loop iteration 1"
   },
   {
@@ -65,13 +65,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834304270
+    "timestamp": 1756958421398
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304270,
+    "timestamp": 1756958421413,
     "message": "Serial.available()"
   },
   {
@@ -79,7 +79,7 @@
     "condition": false,
     "result": false,
     "branch": "else",
-    "timestamp": 1756834304270
+    "timestamp": 1756958421413
   },
   {
     "type": "FUNCTION_CALL",
@@ -87,11 +87,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834304270
+    "timestamp": 1756958421413
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304275,
+    "timestamp": 1756958421417,
     "message": "Starting loop iteration 2"
   },
   {
@@ -99,48 +99,21 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834304275
+    "timestamp": 1756958421417
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304276,
+    "timestamp": 1756958421418,
     "message": "Serial.available()"
   },
   {
     "type": "IF_STATEMENT",
-    "condition": true,
-    "result": true,
-    "branch": "then",
-    "timestamp": 1756834304276
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "Serial.read",
-    "arguments": [],
-    "timestamp": 1756834304276,
-    "message": "Serial.read()"
-  },
-  {
-    "type": "VAR_SET",
-    "variable": "incomingByte",
-    "value": 65,
-    "timestamp": 1756834304277
-  },
-  {
-    "type": "IF_STATEMENT",
     "condition": false,
     "result": false,
     "branch": "else",
-    "timestamp": 1756834304277
-  },
-  {
-    "type": "IF_STATEMENT",
-    "condition": false,
-    "result": false,
-    "branch": "else",
-    "timestamp": 1756834304277
+    "timestamp": 1756958421418
   },
   {
     "type": "FUNCTION_CALL",
@@ -148,11 +121,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834304277
+    "timestamp": 1756958421418
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834304282,
+    "timestamp": 1756958421423,
     "message": "Starting loop iteration 3"
   },
   {
@@ -160,13 +133,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834304282
+    "timestamp": 1756958421423
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1756834304283,
+    "timestamp": 1756958421423,
     "message": "Serial.available()"
   },
   {
@@ -174,7 +147,7 @@
     "condition": false,
     "result": false,
     "branch": "else",
-    "timestamp": 1756834304283
+    "timestamp": 1756958421423
   },
   {
     "type": "FUNCTION_CALL",
@@ -182,23 +155,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834304283
+    "timestamp": 1756958421423
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834304288,
+    "timestamp": 1756958421429,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834304288,
+    "timestamp": 1756958421429,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834304288,
+    "timestamp": 1756958421429,
     "message": "Program execution stopped"
   }
 ]

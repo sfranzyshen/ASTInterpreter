@@ -4,6 +4,6 @@
   "index": "062",
   "code": "// 09.USB Mouse/ButtonMouseControl\n\n#include \"Mouse.h\"\n\n// set pin numbers for the five buttons:\nconst int upButton = 2;\nconst int downButton = 3;\nconst int leftButton = 4;\nconst int rightButton = 5;\nconst int mouseButton = 6;\n\nint range = 5;\nint responseDelay = 10;\n\n\nvoid setup() {\n  // initialize the buttons' inputs:\n  pinMode(upButton, INPUT);\n  pinMode(downButton, INPUT);\n  pinMode(leftButton, INPUT);\n  pinMode(rightButton, INPUT);\n  pinMode(mouseButton, INPUT);\n  // initialize mouse control:\n  Mouse.begin();\n}\n\nvoid loop() {\n  // read the buttons:\n  int upState = digitalRead(upButton);\n  int downState = digitalRead(downButton);\n  int rightState = digitalRead(rightButton);\n  int leftState = digitalRead(leftButton);\n  int clickState = digitalRead(mouseButton);\n\n  // calculate the movement distance based on the button states:\n  int xDistance = (leftState - rightState) * range;\n  int yDistance = (upState - downState) * range;\n\n  // if X or Y is non-zero, move:\n  if ((xDistance != 0) || (yDistance != 0)) {\n    Mouse.move(xDistance, yDistance, 0);\n  }\n\n  // if the mouse button is pressed:\n  if (clickState == HIGH) {\n    // if the mouse is not pressed, press it:\n    if (!Mouse.isPressed(MOUSE_LEFT)) {\n      Mouse.press(MOUSE_LEFT);\n    }\n  }\n  // else the mouse button is not pressed:\n  else {\n    // if the mouse is pressed, release it:\n    if (Mouse.isPressed(MOUSE_LEFT)) {\n      Mouse.release(MOUSE_LEFT);\n    }\n  }\n\n  // a delay so the mouse doesn't move too fast:\n  delay(responseDelay);\n}\n",
   "astSize": 1263,
-  "commandCount": 23,
-  "generated": "2025-09-02T17:32:31.519Z"
+  "commandCount": 82,
+  "generated": "2025-09-04T04:00:24.828Z"
 }

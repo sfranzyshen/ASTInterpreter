@@ -5,5 +5,5 @@
   "code": "// Mixed-Type Expressions and Casting\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 10;\n  float b = 3.0;\n\n  float result1 = (float)(a / 3);\n  float result2 = a / b;\n  float result3 = (float)a * b + 5.5;\n\n  Serial.print(\"Result 1 (int div, cast): \"); Serial.println(result1, 4);\n  Serial.print(\"Result 2 (float div): \"); Serial.println(result2, 4);\n  Serial.print(\"Result 3 (mixed): \"); Serial.println(result3, 4);\n}",
   "astSize": 414,
   "commandCount": 51,
-  "generated": "2025-09-02T17:33:03.995Z"
+  "generated": "2025-09-04T04:00:28.399Z"
 }
