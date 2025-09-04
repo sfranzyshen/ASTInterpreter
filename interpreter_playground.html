@@ -379,10 +379,8 @@ void loop() {
         
     </div>
 
-    <script src="platform_emulation.js"></script>
-    <script src="preprocessor.js"></script>
-    <script src="parser.js"></script>
-    <script src="interpreter.js"></script>
+    <script src="ArduinoParser.js"></script>
+    <script src="ASTInterpreter.js"></script>
     <!-- Load test files directly -->
     <script src="examples.js"></script>
     <script>
@@ -658,7 +656,7 @@ void loop() {
             }
             
             // Create new interpreter
-            interpreter = new ArduinoInterpreter(currentAST, {
+            interpreter = new ASTInterpreter(currentAST, {
                 verbose: true
                 // No loop limit - runs continuously like real Arduino
             });
@@ -672,27 +670,31 @@ void loop() {
                     case 'ANALOG_READ_REQUEST':
                         // Simulate realistic sensor data
                         const analogValue = Math.floor(Math.random() * 1024);
+                        // Add small delay to prevent race condition with async Promise setup
                         setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, analogValue);
-                        }, 1); // Minimal delay to simulate async response
+                            interpreter.resumeWithValue(command.requestId, analogValue);
+                        }, 1);
                         break;
                         
                     case 'DIGITAL_READ_REQUEST':  
                         const digitalState = Math.random() > 0.5 ? 1 : 0;
+                        // Add small delay to prevent race condition with async Promise setup
                         setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, digitalState);
+                            interpreter.resumeWithValue(command.requestId, digitalState);
                         }, 1);
                         break;
                         
                     case 'MILLIS_REQUEST':
+                        // Add small delay to prevent race condition with async Promise setup
                         setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, Date.now());
+                            interpreter.resumeWithValue(command.requestId, Date.now());
                         }, 1);
                         break;
                         
                     case 'MICROS_REQUEST':
+                        // Add small delay to prevent race condition with async Promise setup
                         setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, Date.now() * 1000);
+                            interpreter.resumeWithValue(command.requestId, Date.now() * 1000);
                         }, 1);
                         break;
                         
@@ -706,8 +708,9 @@ void loop() {
                             case 'canShow': responseValue = true; break;
                             default: responseValue = 0; break;
                         }
+                        // Add small delay to prevent race condition with async Promise setup
                         setTimeout(() => {
-                            interpreter.handleResponse(command.requestId, responseValue);
+                            interpreter.resumeWithValue(command.requestId, responseValue);
                         }, 1);
                         break;
                 }
@@ -731,7 +734,7 @@ void loop() {
                 console.error('Interpreter error:', error);
             };
             
-            // Start interpretation
+            // Start interpretation - the state machine will handle external data requests
             clearCommands();
             interpreter.start();
         }
@@ -782,13 +785,12 @@ void loop() {
             
             switch (command.type) {
                 case 'PIN_MODE':
-                    const modeNames = {0: 'INPUT', 1: 'OUTPUT', 2: 'INPUT_PULLUP'};
-                    const modeName = modeNames[command.mode] || command.mode;
-                    content += `pinMode(${command.pin}, ${modeName})`;
+                    // Display numeric values directly instead of symbolic names
+                    content += `pinMode(${command.pin}, ${command.mode})`;
                     break;
                 case 'DIGITAL_WRITE':
-                    const valueName = command.value === 1 ? 'HIGH' : (command.value === 0 ? 'LOW' : command.value);
-                    content += `digitalWrite(${command.pin}, ${valueName})`;
+                    // Display numeric values directly instead of symbolic names
+                    content += `digitalWrite(${command.pin}, ${command.value})`;
                     break;
                 case 'ANALOG_WRITE':
                     content += `analogWrite(${command.pin}, ${command.value})`;
