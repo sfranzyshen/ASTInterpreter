@@ -1,0 +1,12 @@
+name=Test_Case_for_Pointer_vs_Multiplication.ino
+source=old_test
+astSize=1247
+codeSize=109
+mode=AST_ONLY
+content=// Test Case for Pointer vs. Multiplication
+void setup() {
+  int x = 5 * 10;
+  int* p = &x;
+}
+
+void loop() {}

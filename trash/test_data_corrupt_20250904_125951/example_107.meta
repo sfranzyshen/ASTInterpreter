@@ -1,0 +1,9 @@
+{
+  "name": "Chained_Assignments_and_Unary_Operators.ino",
+  "source": "old_test",
+  "index": "107",
+  "code": "// Chained Assignments and Unary Operators\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a, b, c;\n  a = b = c = 5;\n  int x = 10;\n  int y = ++x;\n  int z = y++;\n  Serial.print(\"a: \"); Serial.println(a);\n  Serial.print(\"x: \"); Serial.println(x);\n  Serial.print(\"y: \"); Serial.println(y);\n  Serial.print(\"z: \"); Serial.println(z);\n  int result = --x * (y++);\n  Serial.print(\"Final result: \"); Serial.println(result);\n}",
+  "astSize": 431,
+  "commandCount": 90,
+  "generated": "2025-09-02T17:33:04.344Z"
+}

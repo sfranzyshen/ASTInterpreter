@@ -1,8 +1,8 @@
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -167,16 +167,15 @@ CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: \
  /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.hpp \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTInterpreter.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.hpp \
- /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
- /usr/include/c++/11/bits/stl_map.h \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.hpp /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.hpp \
  /usr/include/c++/11/stack /usr/include/c++/11/deque \
  /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
  /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/queue \

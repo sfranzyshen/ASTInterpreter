@@ -1,0 +1,9 @@
+{
+  "name": "p06_LightTheremin.ino",
+  "source": "examples",
+  "index": "068",
+  "code": "// 10.StarterKit_BasicKit p06_LightTheremin\n\n// variable to hold sensor value\nint sensorValue;\n// variable to calibrate low value\nint sensorLow = 1023;\n// variable to calibrate high value\nint sensorHigh = 0;\n// LED pin\nconst int ledPin = 13;\n\nvoid setup() {\n  // Make the LED pin an output and turn it on\n  pinMode(ledPin, OUTPUT);\n  digitalWrite(ledPin, HIGH);\n\n  // calibrate for the first five seconds after program runs\n  while (millis() < 5000) {\n    // record the maximum sensor value\n    sensorValue = analogRead(A0);\n    if (sensorValue > sensorHigh) {\n      sensorHigh = sensorValue;\n    }\n    // record the minimum sensor value\n    if (sensorValue < sensorLow) {\n      sensorLow = sensorValue;\n    }\n  }\n  // turn the LED off, signaling the end of the calibration period\n  digitalWrite(ledPin, LOW);\n}\n\nvoid loop() {\n  //read the input from A0 and store it in a variable\n  sensorValue = analogRead(A0);\n\n  // map the sensor values to a wide range of pitches\n  int pitch = map(sensorValue, sensorLow, sensorHigh, 50, 4000);\n  // play the tone for 20 ms on pin 8\n  tone(8, pitch, 20);\n\n  // wait for a moment\n  delay(10);\n}\n",
+  "astSize": 599,
+  "commandCount": 42,
+  "generated": "2025-09-04T04:00:25.557Z"
+}

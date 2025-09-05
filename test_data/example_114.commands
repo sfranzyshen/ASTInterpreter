@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756834384756,
+    "timestamp": 1757048982143,
     "component": "interpreter",
-    "version": "6.3.0",
+    "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756834384756,
+    "timestamp": 1757048982143,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756834384756,
+    "timestamp": 1757048982143,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756834384756,
+    "timestamp": 1757048982143,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756834384756,
+    "timestamp": 1757048982143,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834384757,
+    "timestamp": 1757048982143,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834384757,
+    "timestamp": 1757048982143,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,7 +46,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756834384757
+    "timestamp": 1757048982143
   },
   {
     "type": "VAR_SET",
@@ -56,7 +56,7 @@
       2,
       3
     ],
-    "timestamp": 1756834384757
+    "timestamp": 1757048982143
   },
   {
     "type": "VAR_SET",
@@ -65,7 +65,7 @@
       "x": 10,
       "y": 20
     },
-    "timestamp": 1756834384758
+    "timestamp": 1757048982143
   },
   {
     "type": "FUNCTION_CALL",
@@ -74,7 +74,7 @@
       "\"Numbers[1]: \""
     ],
     "data": "Numbers[1]: ",
-    "timestamp": 1756834384758,
+    "timestamp": 1757048982144,
     "message": "Serial.print(\"Numbers[1]: \")"
   },
   {
@@ -84,7 +84,7 @@
       "2"
     ],
     "data": "2",
-    "timestamp": 1756834384758,
+    "timestamp": 1757048982144,
     "message": "Serial.println(2)"
   },
   {
@@ -94,7 +94,7 @@
       "\"Point x: \""
     ],
     "data": "Point x: ",
-    "timestamp": 1756834384759,
+    "timestamp": 1757048982144,
     "message": "Serial.print(\"Point x: \")"
   },
   {
@@ -104,7 +104,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756834384759,
+    "timestamp": 1757048982144,
     "message": "Serial.println(10)"
   },
   {
@@ -114,7 +114,7 @@
       "\"Point y: \""
     ],
     "data": "Point y: ",
-    "timestamp": 1756834384759,
+    "timestamp": 1757048982144,
     "message": "Serial.print(\"Point y: \")"
   },
   {
@@ -124,7 +124,7 @@
       "20"
     ],
     "data": "20",
-    "timestamp": 1756834384760,
+    "timestamp": 1757048982144,
     "message": "Serial.println(20)"
   },
   {
@@ -133,11 +133,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756834384760
+    "timestamp": 1757048982144
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834384765,
+    "timestamp": 1757048982149,
     "message": "Starting loop iteration 2"
   },
   {
@@ -145,7 +145,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756834384765
+    "timestamp": 1757048982149
   },
   {
     "type": "VAR_SET",
@@ -155,7 +155,7 @@
       2,
       3
     ],
-    "timestamp": 1756834384766
+    "timestamp": 1757048982149
   },
   {
     "type": "VAR_SET",
@@ -164,7 +164,7 @@
       "x": 10,
       "y": 20
     },
-    "timestamp": 1756834384766
+    "timestamp": 1757048982149
   },
   {
     "type": "FUNCTION_CALL",
@@ -173,7 +173,7 @@
       "\"Numbers[1]: \""
     ],
     "data": "Numbers[1]: ",
-    "timestamp": 1756834384767,
+    "timestamp": 1757048982149,
     "message": "Serial.print(\"Numbers[1]: \")"
   },
   {
@@ -183,7 +183,7 @@
       "2"
     ],
     "data": "2",
-    "timestamp": 1756834384767,
+    "timestamp": 1757048982149,
     "message": "Serial.println(2)"
   },
   {
@@ -193,7 +193,7 @@
       "\"Point x: \""
     ],
     "data": "Point x: ",
-    "timestamp": 1756834384767,
+    "timestamp": 1757048982149,
     "message": "Serial.print(\"Point x: \")"
   },
   {
@@ -203,7 +203,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756834384767,
+    "timestamp": 1757048982149,
     "message": "Serial.println(10)"
   },
   {
@@ -213,7 +213,7 @@
       "\"Point y: \""
     ],
     "data": "Point y: ",
-    "timestamp": 1756834384768,
+    "timestamp": 1757048982149,
     "message": "Serial.print(\"Point y: \")"
   },
   {
@@ -223,7 +223,7 @@
       "20"
     ],
     "data": "20",
-    "timestamp": 1756834384768,
+    "timestamp": 1757048982149,
     "message": "Serial.println(20)"
   },
   {
@@ -232,11 +232,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756834384768
+    "timestamp": 1757048982149
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756834384773,
+    "timestamp": 1757048982154,
     "message": "Starting loop iteration 3"
   },
   {
@@ -244,7 +244,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756834384773
+    "timestamp": 1757048982154
   },
   {
     "type": "VAR_SET",
@@ -254,7 +254,7 @@
       2,
       3
     ],
-    "timestamp": 1756834384773
+    "timestamp": 1757048982154
   },
   {
     "type": "VAR_SET",
@@ -263,7 +263,7 @@
       "x": 10,
       "y": 20
     },
-    "timestamp": 1756834384774
+    "timestamp": 1757048982154
   },
   {
     "type": "FUNCTION_CALL",
@@ -272,7 +272,7 @@
       "\"Numbers[1]: \""
     ],
     "data": "Numbers[1]: ",
-    "timestamp": 1756834384774,
+    "timestamp": 1757048982154,
     "message": "Serial.print(\"Numbers[1]: \")"
   },
   {
@@ -282,7 +282,7 @@
       "2"
     ],
     "data": "2",
-    "timestamp": 1756834384774,
+    "timestamp": 1757048982154,
     "message": "Serial.println(2)"
   },
   {
@@ -292,7 +292,7 @@
       "\"Point x: \""
     ],
     "data": "Point x: ",
-    "timestamp": 1756834384775,
+    "timestamp": 1757048982154,
     "message": "Serial.print(\"Point x: \")"
   },
   {
@@ -302,7 +302,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756834384775,
+    "timestamp": 1757048982154,
     "message": "Serial.println(10)"
   },
   {
@@ -312,7 +312,7 @@
       "\"Point y: \""
     ],
     "data": "Point y: ",
-    "timestamp": 1756834384775,
+    "timestamp": 1757048982154,
     "message": "Serial.print(\"Point y: \")"
   },
   {
@@ -322,7 +322,7 @@
       "20"
     ],
     "data": "20",
-    "timestamp": 1756834384775,
+    "timestamp": 1757048982154,
     "message": "Serial.println(20)"
   },
   {
@@ -331,23 +331,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756834384775
+    "timestamp": 1757048982154
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756834384781,
+    "timestamp": 1757048982159,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834384781,
+    "timestamp": 1757048982159,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756834384781,
+    "timestamp": 1757048982159,
     "message": "Program execution stopped"
   }
 ]

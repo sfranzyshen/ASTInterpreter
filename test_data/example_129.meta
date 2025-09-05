@@ -1,0 +1,23 @@
+name=Complex_Function_Declarations.ino
+source=old_test
+astSize=1469
+codeSize=324
+mode=AST_ONLY
+content=// Complex Function Declarations
+int applyOperation(int (*op)(int, int), int a, int b) {
+  return op(a, b);
+}
+
+int add(int x, int y) {
+  return x + y;
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int result = applyOperation(add, 5, 10);
+  Serial.print("Result of applyOperation: ");
+  Serial.println(result);
+}

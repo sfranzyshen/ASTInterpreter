@@ -1,0 +1,212 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756958418401,
+    "component": "interpreter",
+    "version": "6.5.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756958418401,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pushButton",
+    "value": 7,
+    "timestamp": 1756958418403
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756958418403,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756958418404,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 7,
+    "mode": 0,
+    "timestamp": 1756958418405
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756958418405,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958418405,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958418405,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756958418405
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 7,
+    "requestId": "digitalRead_1756958418406_0.749807655324207",
+    "timestamp": 1756958418406
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 0,
+    "timestamp": 1756958418408
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756958418408,
+    "message": "Serial.println(0)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958418409
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958418409
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958418414,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958418414
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 7,
+    "requestId": "digitalRead_1756958418415_0.17568323949388231",
+    "timestamp": 1756958418415
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 0,
+    "timestamp": 1756958418416
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "0"
+    ],
+    "data": "0",
+    "timestamp": 1756958418417,
+    "message": "Serial.println(0)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958418418
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958418418
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958418423,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958418423
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 7,
+    "requestId": "digitalRead_1756958418423_0.523161501091953",
+    "timestamp": 1756958418423
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": 1,
+    "timestamp": 1756958418425
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "1"
+    ],
+    "data": "1",
+    "timestamp": 1756958418425,
+    "message": "Serial.println(1)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958418425
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958418425
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958418431,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958418431,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958418431,
+    "message": "Program execution stopped"
+  }
+]

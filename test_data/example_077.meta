@@ -1,9 +1,21 @@
-{
-  "name": "p15_HackingButtons.ino",
-  "source": "examples",
-  "index": "077",
-  "code": "// 10.StarterKit_BasicKit p15_HackingButtons\n\nconst int optoPin = 2;\n\nvoid setup() {\n  // make the pin with the optocoupler an output\n  pinMode(optoPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(optoPin, HIGH);\n  delay(15);\n  digitalWrite(optoPin, LOW);\n  delay(10000);\n}\n",
-  "astSize": 195,
-  "commandCount": 31,
-  "generated": "2025-09-04T04:00:26.442Z"
+name=p15_HackingButtons.ino
+source=examples
+astSize=1219
+codeSize=271
+mode=AST_AND_COMMANDS
+commandCount=31
+content=// 10.StarterKit_BasicKit p15_HackingButtons
+
+const int optoPin = 2;
+
+void setup() {
+  // make the pin with the optocoupler an output
+  pinMode(optoPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(optoPin, HIGH);
+  delay(15);
+  digitalWrite(optoPin, LOW);
+  delay(10000);
 }

@@ -1,7 +1,7 @@
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

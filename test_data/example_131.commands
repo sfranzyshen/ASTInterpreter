@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756958430996,
+    "timestamp": 1757048982533,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756958430996,
+    "timestamp": 1757048982533,
     "message": "Program execution started"
   },
   {
@@ -16,11 +16,11 @@
     "variable": "externalVariable",
     "value": 5,
     "isExtern": true,
-    "timestamp": 1756958430996
+    "timestamp": 1757048982533
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756958430996,
+    "timestamp": 1757048982533,
     "message": "Executing setup() function"
   },
   {
@@ -30,22 +30,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Starting loop iteration 1"
   },
   {
@@ -53,13 +53,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756958430997
+    "timestamp": 1757048982533
   },
   {
     "type": "VAR_SET",
     "variable": "externalVariable",
     "value": 10,
-    "timestamp": 1756958430997
+    "timestamp": 1757048982533
   },
   {
     "type": "FUNCTION_CALL",
@@ -68,7 +68,7 @@
       "\"External variable value: \""
     ],
     "data": "External variable value: ",
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Serial.print(\"External variable value: \")"
   },
   {
@@ -78,7 +78,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756958430997,
+    "timestamp": 1757048982533,
     "message": "Serial.println(10)"
   },
   {
@@ -87,11 +87,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1756958430997
+    "timestamp": 1757048982533
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958431002,
+    "timestamp": 1757048982538,
     "message": "Starting loop iteration 2"
   },
   {
@@ -99,13 +99,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1756958431002
+    "timestamp": 1757048982538
   },
   {
     "type": "VAR_SET",
     "variable": "externalVariable",
     "value": 10,
-    "timestamp": 1756958431003
+    "timestamp": 1757048982538
   },
   {
     "type": "FUNCTION_CALL",
@@ -114,7 +114,7 @@
       "\"External variable value: \""
     ],
     "data": "External variable value: ",
-    "timestamp": 1756958431003,
+    "timestamp": 1757048982538,
     "message": "Serial.print(\"External variable value: \")"
   },
   {
@@ -124,7 +124,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756958431003,
+    "timestamp": 1757048982538,
     "message": "Serial.println(10)"
   },
   {
@@ -133,11 +133,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1756958431003
+    "timestamp": 1757048982538
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958431008,
+    "timestamp": 1757048982543,
     "message": "Starting loop iteration 3"
   },
   {
@@ -145,13 +145,13 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1756958431008
+    "timestamp": 1757048982543
   },
   {
     "type": "VAR_SET",
     "variable": "externalVariable",
     "value": 10,
-    "timestamp": 1756958431008
+    "timestamp": 1757048982543
   },
   {
     "type": "FUNCTION_CALL",
@@ -160,7 +160,7 @@
       "\"External variable value: \""
     ],
     "data": "External variable value: ",
-    "timestamp": 1756958431008,
+    "timestamp": 1757048982543,
     "message": "Serial.print(\"External variable value: \")"
   },
   {
@@ -170,7 +170,7 @@
       "10"
     ],
     "data": "10",
-    "timestamp": 1756958431009,
+    "timestamp": 1757048982543,
     "message": "Serial.println(10)"
   },
   {
@@ -179,23 +179,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1756958431009
+    "timestamp": 1757048982543
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1756958431014,
+    "timestamp": 1757048982548,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756958431014,
+    "timestamp": 1757048982548,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1756958431014,
+    "timestamp": 1757048982548,
     "message": "Program execution stopped"
   }
 ]

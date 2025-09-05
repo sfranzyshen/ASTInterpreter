@@ -1,9 +1,15 @@
-{
-  "name": "BareMinimum.ino",
-  "source": "examples",
-  "index": "001",
-  "code": "// 01.Basics BareMinimum.ino\n\nvoid setup() {\n  // put your setup code here, to run once:\n}\n\nvoid loop() {\n  // put your main code here, to run repeatedly:\n}\n",
-  "astSize": 108,
-  "commandCount": 17,
-  "generated": "2025-09-04T04:00:18.280Z"
+name=BareMinimum.ino
+source=examples
+astSize=1132
+codeSize=157
+mode=AST_AND_COMMANDS
+commandCount=17
+content=// 01.Basics BareMinimum.ino
+
+void setup() {
+  // put your setup code here, to run once:
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
 }

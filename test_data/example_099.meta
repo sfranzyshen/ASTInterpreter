@@ -1,9 +1,28 @@
-{
-  "name": "Floating-Point_Arithmetic_and_Mixed_Types.ino",
-  "source": "old_test",
-  "index": "099",
-  "code": "// Floating-Point Arithmetic and Mixed Types\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  float f1 = 3.14;\n  float f2 = 2.0;\n  int i1 = 5;\n\n  float result1 = f1 * f2;\n  float result2 = (f1 + i1) / f2;\n\n  if (result2 > 4.0 && i1 < 10) {\n    Serial.println(\"Calculation is correct.\");\n  } else {\n    Serial.println(\"Calculation is incorrect.\");\n  }\n\n  Serial.print(\"Result 1: \"); Serial.println(result1, 4);\n  Serial.print(\"Result 2: \"); Serial.println(result2, 4);\n}",
-  "astSize": 500,
-  "commandCount": 51,
-  "generated": "2025-09-04T04:00:28.191Z"
+name=Floating-Point_Arithmetic_and_Mixed_Types.ino
+source=old_test
+astSize=1524
+codeSize=476
+mode=AST_AND_COMMANDS
+commandCount=51
+content=// Floating-Point Arithmetic and Mixed Types
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  float f1 = 3.14;
+  float f2 = 2.0;
+  int i1 = 5;
+
+  float result1 = f1 * f2;
+  float result2 = (f1 + i1) / f2;
+
+  if (result2 > 4.0 && i1 < 10) {
+    Serial.println("Calculation is correct.");
+  } else {
+    Serial.println("Calculation is incorrect.");
+  }
+
+  Serial.print("Result 1: "); Serial.println(result1, 4);
+  Serial.print("Result 2: "); Serial.println(result2, 4);
 }

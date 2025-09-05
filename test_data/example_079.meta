@@ -1,9 +1,16 @@
-{
-  "name": "Test_Case_for_Array_Access.ino",
-  "source": "old_test",
-  "index": "079",
-  "code": "// Test Case for Array Access\nint myPins[] = {2, 4, 8};\n\nvoid setup() {\n  pinMode(myPins[1], OUTPUT);\n}\n\nvoid loop() {\n  // empty\n}",
-  "astSize": 143,
-  "commandCount": 19,
-  "generated": "2025-09-02T17:33:02.525Z"
+name=Test_Case_for_Array_Access.ino
+source=old_test
+astSize=1167
+codeSize=131
+mode=AST_AND_COMMANDS
+commandCount=19
+content=// Test Case for Array Access
+int myPins[] = {2, 4, 8};
+
+void setup() {
+  pinMode(myPins[1], OUTPUT);
+}
+
+void loop() {
+  // empty
 }

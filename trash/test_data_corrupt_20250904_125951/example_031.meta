@@ -1,0 +1,9 @@
+{
+  "name": "SerialPassthrough.ino",
+  "source": "examples",
+  "index": "031",
+  "code": "// 04.Communication SerialPassthrough.ino\n\nvoid setup() {\n  Serial.begin(9600);\n  Serial1.begin(9600);\n}\n\nvoid loop() {\n  if (Serial.available()) {\n    Serial1.write(Serial.read());\n  }\n\n  if (Serial1.available()) {\n    Serial.write(Serial1.read());\n  }\n}\n",
+  "astSize": 258,
+  "commandCount": 33,
+  "generated": "2025-09-04T04:00:21.949Z"
+}

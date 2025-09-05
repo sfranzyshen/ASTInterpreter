@@ -1,9 +1,17 @@
-{
-  "name": "Test_Case_for_the_return_statement.ino",
-  "source": "old_test",
-  "index": "087",
-  "code": "// Test Case for the return statement\nint getValue() {\n  return 42;\n}\n\nvoid doSomething() {\n  return;\n}\n\nvoid setup() {}\nvoid loop() {}",
-  "astSize": 214,
-  "commandCount": 17,
-  "generated": "2025-09-04T04:00:27.202Z"
+name=Test_Case_for_the_return_statement.ino
+source=old_test
+astSize=1238
+codeSize=135
+mode=AST_AND_COMMANDS
+commandCount=17
+content=// Test Case for the return statement
+int getValue() {
+  return 42;
 }
+
+void doSomething() {
+  return;
+}
+
+void setup() {}
+void loop() {}

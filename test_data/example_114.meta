@@ -1,9 +1,29 @@
-{
-  "name": "Initializer_Lists_and_Designated_Initializers.ino",
-  "source": "old_test",
-  "index": "114",
-  "code": "// Initializer Lists and Designated Initializers\nstruct Point {\n  int x;\n  int y;\n};\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int numbers[] = {1, 2, 3};\n  struct Point p = {.x = 10, .y = 20};\n\n  Serial.print(\"Numbers[1]: \");\n  Serial.println(numbers[1]);\n\n  Serial.print(\"Point x: \");\n  Serial.println(p.x);\n\n  Serial.print(\"Point y: \");\n  Serial.println(p.y);\n}",
-  "astSize": 205,
-  "commandCount": 42,
-  "generated": "2025-09-02T17:33:04.813Z"
+name=Initializer_Lists_and_Designated_Initializers.ino
+source=old_test
+astSize=1229
+codeSize=378
+mode=AST_AND_COMMANDS
+commandCount=42
+content=// Initializer Lists and Designated Initializers
+struct Point {
+  int x;
+  int y;
+};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int numbers[] = {1, 2, 3};
+  struct Point p = {.x = 10, .y = 20};
+
+  Serial.print("Numbers[1]: ");
+  Serial.println(numbers[1]);
+
+  Serial.print("Point x: ");
+  Serial.println(p.x);
+
+  Serial.print("Point y: ");
+  Serial.println(p.y);
 }

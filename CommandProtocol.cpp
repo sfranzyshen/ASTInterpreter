@@ -475,13 +475,133 @@ std::string serializeCommand(const Command& command) {
     std::ostringstream oss;
     oss << "{\n";
     oss << "  \"type\": \"" << commandTypeToString(command.type) << "\",\n";
-    oss << "  \"timestamp\": " << command.timestamp.time_since_epoch().count() << ",\n";
     
-    // Add command-specific fields based on type
-    // This is a simplified serialization - full implementation would handle all command types
-    oss << "  \"data\": " << command.toString() << "\n";
+    // Convert timestamp to milliseconds since epoch to match JavaScript format
+    auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()
+    ).count();
+    oss << "  \"timestamp\": " << now << ",\n";
+    
+    // Add type-specific fields to match JavaScript structure exactly
+    switch (command.type) {
+        case CommandType::VERSION_INFO:
+            oss << "  \"component\": \"interpreter\",\n";
+            oss << "  \"version\": \"1.0.0\",\n";
+            oss << "  \"status\": \"started\"\n";
+            break;
+            
+        case CommandType::PROGRAM_START:
+            oss << "  \"message\": \"Program execution started\"\n";
+            break;
+            
+        case CommandType::SETUP_START:
+            oss << "  \"message\": \"Executing setup() function\"\n";
+            break;
+            
+        case CommandType::SETUP_END:
+            oss << "  \"message\": \"Completed setup() function\"\n";
+            break;
+            
+        case CommandType::PROGRAM_END:
+            oss << "  \"message\": \"Program execution stopped\"\n";
+            break;
+            
+        case CommandType::LOOP_START:
+            {
+                const auto* loopCmd = dynamic_cast<const LoopStartCommand*>(&command);
+                if (loopCmd) {
+                    if (loopCmd->loopType == "main" && loopCmd->iteration == 0) {
+                        oss << "  \"message\": \"Starting loop() execution\"\n";
+                    } else {
+                        oss << "  \"message\": \"Starting loop iteration " << loopCmd->iteration << "\"\n";
+                    }
+                } else {
+                    oss << "  \"message\": \"Starting loop execution\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::LOOP_END:
+            {
+                const auto* loopCmd = dynamic_cast<const LoopEndCommand*>(&command);
+                if (loopCmd) {
+                    oss << "  \"message\": \"Loop limit reached: completed " << loopCmd->iteration 
+                        << " iterations (max: " << loopCmd->iteration << ")\",\n";
+                    oss << "  \"iterations\": " << loopCmd->iteration << ",\n";
+                    oss << "  \"limitReached\": true\n";
+                } else {
+                    oss << "  \"message\": \"Loop ended\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::FUNCTION_CALL:
+            {
+                const auto* funcCmd = dynamic_cast<const FunctionCallCommand*>(&command);
+                if (funcCmd) {
+                    oss << "  \"function\": \"" << funcCmd->functionName << "\",\n";
+                    // Note: JavaScript tracks execution vs completion state
+                    // This would need enhancement based on context
+                    oss << "  \"message\": \"Executing " << funcCmd->functionName << "()\"\n";
+                } else {
+                    oss << "  \"message\": \"Function call\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::PIN_MODE:
+            {
+                const auto* pinCmd = dynamic_cast<const PinModeCommand*>(&command);
+                if (pinCmd) {
+                    oss << "  \"pin\": " << pinCmd->pin << ",\n";
+                    oss << "  \"mode\": \"" << pinModeToString(pinCmd->mode) << "\"\n";
+                } else {
+                    oss << "  \"message\": \"Pin mode command\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::DIGITAL_WRITE:
+            {
+                const auto* writeCmd = dynamic_cast<const DigitalWriteCommand*>(&command);
+                if (writeCmd) {
+                    oss << "  \"pin\": " << writeCmd->pin << ",\n";
+                    oss << "  \"value\": " << static_cast<int>(writeCmd->value) << "\n";
+                } else {
+                    oss << "  \"message\": \"Digital write command\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::ANALOG_READ_REQUEST:
+            {
+                const auto* readCmd = dynamic_cast<const AnalogReadRequestCommand*>(&command);
+                if (readCmd) {
+                    oss << "  \"pin\": " << readCmd->pin << ",\n";
+                    oss << "  \"requestId\": \"" << readCmd->requestId.toString() << "\"\n";
+                } else {
+                    oss << "  \"message\": \"Analog read request\"\n";
+                }
+            }
+            break;
+            
+        case CommandType::DELAY:
+            {
+                const auto* delayCmd = dynamic_cast<const DelayCommand*>(&command);
+                if (delayCmd) {
+                    oss << "  \"duration\": " << delayCmd->duration << "\n";
+                } else {
+                    oss << "  \"message\": \"Delay command\"\n";
+                }
+            }
+            break;
+            
+        default:
+            oss << "  \"message\": \"" << command.toString() << "\"\n";
+            break;
+    }
+    
     oss << "}";
-    
     return oss.str();
 }
 

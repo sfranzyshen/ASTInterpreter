@@ -1,0 +1,9 @@
+{
+  "name": "p13_TouchSensorLamp.ino",
+  "source": "examples",
+  "index": "075",
+  "code": "// 10.StarterKit_BasicKit p13_TouchSensorLamp\n\n// import the library (must be located in the Arduino/libraries directory)\n#include <CapacitiveSensor.h>\n\n// create an instance of the library\n// pin 4 sends electrical energy\n// pin 2 senses senses a change\nCapacitiveSensor capSensor = CapacitiveSensor(4, 2);\n\n// threshold for turning the lamp on\nint threshold = 1000;\n// pin the LED is connected to\nconst int ledPin = 12;\n\nvoid setup() {\n  // open a serial connection\n  Serial.begin(9600);\n  // set the LED pin as an output\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  // store the value reported by the sensor in a variable\n  long sensorValue = capSensor.capacitiveSensor(30);\n\n  // print out the sensor value\n  Serial.println(sensorValue);\n\n  // if the value is greater than the threshold\n  if (sensorValue > threshold) {\n    // turn the LED on\n    digitalWrite(ledPin, HIGH);\n  }\n  // if it's lower than the threshold\n  else {\n    // turn the LED off\n    digitalWrite(ledPin, LOW);\n  }\n\n  delay(10);\n}\n",
+  "astSize": 513,
+  "commandCount": 38,
+  "generated": "2025-09-04T04:00:26.225Z"
+}

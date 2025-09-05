@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino
+CMAKE_SOURCE_DIR = /mnt/d/Devel/ASTInterpreter_Arduino
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino/build
+CMAKE_BINARY_DIR = /mnt/d/Devel/ASTInterpreter_Arduino/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/arduino_ast_interpreter.dir/depend.make
@@ -72,100 +72,100 @@ include CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o: ../ASTNodes.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.cpp > CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.cpp > CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o: ../CompactAST.cpp
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.cpp > CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.cpp > CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.cpp -o CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.cpp -o CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o: ../CommandProtocol.cpp
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.cpp > CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.cpp > CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.cpp -o CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.cpp -o CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o: ../ASTInterpreter.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTInterpreter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTInterpreter.cpp > CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.cpp > CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTInterpreter.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: ../ArduinoDataTypes.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.cpp > CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.cpp > CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: ../EnhancedInterpreter.cpp
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.cpp > CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.cpp > CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.cpp -o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.cpp -o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: ../ArduinoLibraryRegistry.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -c /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.cpp > CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.cpp > CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoLibraryRegistry.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s
 
 # Object files for target arduino_ast_interpreter
 arduino_ast_interpreter_OBJECTS = \
@@ -189,7 +189,7 @@ libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/EnhancedInt
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/build.make
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libarduino_ast_interpreter.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libarduino_ast_interpreter.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/arduino_ast_interpreter.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/arduino_ast_interpreter.dir/link.txt --verbose=$(VERBOSE)
 
@@ -202,6 +202,6 @@ CMakeFiles/arduino_ast_interpreter.dir/clean:
 .PHONY : CMakeFiles/arduino_ast_interpreter.dir/clean
 
 CMakeFiles/arduino_ast_interpreter.dir/depend:
-	cd /mnt/d/Devel/ArduinoInterpreter_Arduino/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/d/Devel/ArduinoInterpreter_Arduino /mnt/d/Devel/ArduinoInterpreter_Arduino /mnt/d/Devel/ArduinoInterpreter_Arduino/build /mnt/d/Devel/ArduinoInterpreter_Arduino/build /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles/arduino_ast_interpreter.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/d/Devel/ASTInterpreter_Arduino/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/d/Devel/ASTInterpreter_Arduino /mnt/d/Devel/ASTInterpreter_Arduino /mnt/d/Devel/ASTInterpreter_Arduino/build /mnt/d/Devel/ASTInterpreter_Arduino/build /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/arduino_ast_interpreter.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/arduino_ast_interpreter.dir/depend
 

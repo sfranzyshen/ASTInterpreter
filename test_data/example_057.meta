@@ -1,9 +1,41 @@
-{
-  "name": "StringToInt.ino",
-  "source": "examples",
-  "index": "057",
-  "code": "// 08.Strings StringToInt\n\nString inString = \"\";\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString toInt():\");\n  Serial.println();\n}\n\nvoid loop() {\n  // Read serial input:\n  while (Serial.available() > 0) {\n    int inChar = Serial.read();\n    if (isDigit(inChar)) {\n      // convert the incoming byte to a char and add it to the string:\n      inString += (char)inChar;\n    }\n    // if you get a newline, print the string, then the string's value:\n    if (inChar == '\\n') {\n      Serial.print(\"Value:\");\n      Serial.println(inString.toInt());\n      Serial.print(\"String: \");\n      Serial.println(inString);\n\n      // clear the string for new input:\n      inString = \"\";\n    }\n  }\n}\n",
-  "astSize": 503,
-  "commandCount": 38,
-  "generated": "2025-09-04T04:00:24.274Z"
+name=StringToInt.ino
+source=examples
+astSize=1527
+codeSize=809
+mode=AST_ONLY
+content=// 08.Strings StringToInt
+
+String inString = "";
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;
+  }
+
+  // send an intro:
+  Serial.println("\n\nString toInt():");
+  Serial.println();
+}
+
+void loop() {
+  // Read serial input:
+  while (Serial.available() > 0) {
+    int inChar = Serial.read();
+    if (isDigit(inChar)) {
+      // convert the incoming byte to a char and add it to the string:
+      inString += (char)inChar;
+    }
+    // if you get a newline, print the string, then the string's value:
+    if (inChar == '\n') {
+      Serial.print("Value:");
+      Serial.println(inString.toInt());
+      Serial.print("String: ");
+      Serial.println(inString);
+
+      // clear the string for new input:
+      inString = "";
+    }
+  }
 }

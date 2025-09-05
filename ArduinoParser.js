@@ -603,8 +603,7 @@ class Parser {
             if (this.currentChar === endPattern[matchIndex]) {
                 matchIndex++;
                 if (matchIndex === endPattern.length) {
-                    // Found complete end pattern, consume it
-                    this.advance(); // consume the final '"'
+                    // Found complete end pattern - already consumed by loop advance
                     break;
                 }
             } else {
@@ -4632,7 +4631,8 @@ class CompactASTExporter {
             'FunctionPointerDeclaratorNode': 0x55,
             'CommaExpression': 0x56,
             'ArrayDeclaratorNode': 0x57,
-            'PointerDeclaratorNode': 0x58
+            'PointerDeclaratorNode': 0x58,
+            'ConstructorCallNode': 0x59
         };
         
         this.valueTypeMap = {
@@ -4652,7 +4652,7 @@ class CompactASTExporter {
         const headerSize = 16;
         const stringTableSize = this.calculateStringTableSize();
         const nodeDataSize = this.calculateNodeDataSize();
-        const totalSize = headerSize + stringTableSize + nodeDataSize;
+        const totalSize = headerSize + stringTableSize + nodeDataSize + 1024; // Add 1KB safety margin
         
         // Phase 3: Write binary data
         const buffer = new ArrayBuffer(totalSize);
@@ -4840,7 +4840,7 @@ class CompactASTExporter {
     }
     
     writeHeader(view, offset, stringTableSize) {
-        view.setUint32(offset, 0x41535450, true); // Magic 'ASTP' - little-endian as per specification
+        view.setUint32(offset, 0x41535450, false); // Magic 'ASTP' - big-endian to write ASTP correctly
         view.setUint16(offset + 4, this.options.version, true);
         view.setUint16(offset + 6, this.options.flags, true);
         view.setUint32(offset + 8, this.nodes.length, true);

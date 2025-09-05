@@ -1,0 +1,552 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756958425888,
+    "component": "interpreter",
+    "version": "6.5.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756958425888,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "controlPin1",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1756958425888
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "controlPin2",
+    "value": 3,
+    "isConst": true,
+    "timestamp": 1756958425888
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "enablePin",
+    "value": 9,
+    "isConst": true,
+    "timestamp": 1756958425888
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "directionSwitchPin",
+    "value": 4,
+    "isConst": true,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "onOffSwitchStateSwitchPin",
+    "value": 5,
+    "isConst": true,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "potPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "onOffSwitchState",
+    "value": 0,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousOnOffSwitchState",
+    "value": 0,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "directionSwitchState",
+    "value": 0,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousDirectionSwitchState",
+    "value": 0,
+    "timestamp": 1756958425889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorEnabled",
+    "value": 0,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorSpeed",
+    "value": 0,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorDirection",
+    "value": 1,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756958425890,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 4,
+    "mode": 0,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 5,
+    "mode": 0,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 1,
+    "timestamp": 1756958425890
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 3,
+    "mode": 1,
+    "timestamp": 1756958425891
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 9,
+    "mode": 1,
+    "timestamp": 1756958425891
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756958425891
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756958425891,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958425891,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958425891,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756958425891
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958425891_0.4840987293334902",
+    "timestamp": 1756958425891
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "onOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425893
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958425893
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958425893_0.523661384542973",
+    "timestamp": 1756958425893
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "directionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425894
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958425895_0.718264450845103",
+    "timestamp": 1756958425895
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorSpeed",
+    "value": 120,
+    "timestamp": 1756958425896
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958425896
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958425896
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorEnabled",
+    "value": false,
+    "timestamp": 1756958425897
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958425897
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958425897
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorDirection",
+    "value": false,
+    "timestamp": 1756958425897
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425897
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 2,
+    "value": 0,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 3,
+    "value": 1,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousDirectionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousOnOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958425898
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958425903,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958425903
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958425903_0.4447588613833309",
+    "timestamp": 1756958425903
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "onOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425905
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958425905
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958425905_0.7872295383294028",
+    "timestamp": 1756958425905
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "directionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425906
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958425906_0.5724078359523395",
+    "timestamp": 1756958425906
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorSpeed",
+    "value": 167.75,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 2,
+    "value": 0,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 3,
+    "value": 1,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousDirectionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousOnOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958425908
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958425914,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958425914
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1756958425914_0.43080620242495327",
+    "timestamp": 1756958425914
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "onOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425915
+  },
+  {
+    "type": "DELAY",
+    "duration": 1,
+    "actualDelay": 1,
+    "timestamp": 1756958425915
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1756958425915_0.037948448464300455",
+    "timestamp": 1756958425915
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "directionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425916
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958425916_0.7711673076137138",
+    "timestamp": 1756958425916
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "motorSpeed",
+    "value": 72.25,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 2,
+    "value": 0,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 3,
+    "value": 1,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousDirectionSwitchState",
+    "value": 1,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousOnOffSwitchState",
+    "value": 1,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958425918
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958425923,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958425923,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958425923,
+    "message": "Program execution stopped"
+  }
+]

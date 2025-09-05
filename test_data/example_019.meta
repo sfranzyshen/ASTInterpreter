@@ -1,9 +1,30 @@
-{
-  "name": "Fading.ino",
-  "source": "examples",
-  "index": "019",
-  "code": "// 03.Analog Fading.ino\n\nint ledPin = 9;\n\nvoid setup() {\n  // nothing happens in setup\n}\n\nvoid loop() {\n  // fade in from min to max in increments of 5 points:\n  for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5) {\n    // sets the value (range from 0 to 255):\n    analogWrite(ledPin, fadeValue);\n    // wait for 30 milliseconds to see the dimming effect\n    delay(30);\n  }\n\n  // fade out from max to min in increments of 5 points:\n  for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5) {\n    // sets the value (range from 0 to 255):\n    analogWrite(ledPin, fadeValue);\n    // wait for 30 milliseconds to see the dimming effect\n    delay(30);\n  }\n}\n",
-  "astSize": 429,
-  "commandCount": 25,
-  "generated": "2025-09-04T04:00:20.591Z"
+name=Fading.ino
+source=examples
+astSize=1453
+codeSize=660
+mode=AST_ONLY
+content=// 03.Analog Fading.ino
+
+int ledPin = 9;
+
+void setup() {
+  // nothing happens in setup
+}
+
+void loop() {
+  // fade in from min to max in increments of 5 points:
+  for (int fadeValue = 0; fadeValue <= 255; fadeValue += 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+  }
+
+  // fade out from max to min in increments of 5 points:
+  for (int fadeValue = 255; fadeValue >= 0; fadeValue -= 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+  }
 }

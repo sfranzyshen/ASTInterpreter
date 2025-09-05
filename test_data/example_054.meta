@@ -1,9 +1,45 @@
-{
-  "name": "StringReplace.ino",
-  "source": "examples",
-  "index": "054",
-  "code": "// 08.Strings StringReplace\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString replace:\\n\");\n  Serial.println();\n}\n\nvoid loop() {\n  String stringOne = \"<html><head><body>\";\n  Serial.println(stringOne);\n\n  // replace() changes all instances of one substring with another:\n  // first, make a copy of the original string:\n  String stringTwo = stringOne;\n  // then perform the replacements:\n  stringTwo.replace(\"<\", \"</\");\n  // print the original:\n  Serial.println(\"Original string: \" + stringOne);\n  // and print the modified string:\n  Serial.println(\"Modified string: \" + stringTwo);\n\n  // you can also use replace() on single characters:\n  String normalString = \"bookkeeper\";\n  Serial.println(\"normal: \" + normalString);\n  String leetString = normalString;\n  leetString.replace('o', '0');\n  leetString.replace('e', '3');\n  Serial.println(\"l33tspeak: \" + leetString);\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
-  "astSize": 464,
-  "commandCount": 28,
-  "generated": "2025-09-02T17:32:06.104Z"
+name=StringReplace.ino
+source=examples
+astSize=1488
+codeSize=1044
+mode=AST_ONLY
+content=// 08.Strings StringReplace
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;
+  }
+
+  // send an intro:
+  Serial.println("\n\nString replace:\n");
+  Serial.println();
+}
+
+void loop() {
+  String stringOne = "<html><head><body>";
+  Serial.println(stringOne);
+
+  // replace() changes all instances of one substring with another:
+  // first, make a copy of the original string:
+  String stringTwo = stringOne;
+  // then perform the replacements:
+  stringTwo.replace("<", "</");
+  // print the original:
+  Serial.println("Original string: " + stringOne);
+  // and print the modified string:
+  Serial.println("Modified string: " + stringTwo);
+
+  // you can also use replace() on single characters:
+  String normalString = "bookkeeper";
+  Serial.println("normal: " + normalString);
+  String leetString = normalString;
+  leetString.replace('o', '0');
+  leetString.replace('e', '3');
+  Serial.println("l33tspeak: " + leetString);
+
+  // do nothing while true:
+  while (true)
+    ;
 }

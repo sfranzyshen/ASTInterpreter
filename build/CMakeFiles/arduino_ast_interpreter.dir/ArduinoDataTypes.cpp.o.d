@@ -1,7 +1,7 @@
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.hpp \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/type_traits \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

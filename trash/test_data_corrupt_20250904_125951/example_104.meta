@@ -1,0 +1,9 @@
+{
+  "name": "Complex_Preprocessor_Directives.ino",
+  "source": "old_test",
+  "index": "104",
+  "code": "// Complex Preprocessor Directives\n#define PI 3.14159\n#define CIRCLE_AREA(r) (PI * r * r)\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  #ifdef PI\n    float radius = 5.0;\n    float area = CIRCLE_AREA(radius);\n    Serial.print(\"Area of circle: \");\n    Serial.println(area);\n  #else\n    Serial.println(\"PI is not defined.\");\n  #endif\n}",
+  "astSize": 252,
+  "commandCount": 30,
+  "generated": "2025-09-04T04:00:28.628Z"
+}

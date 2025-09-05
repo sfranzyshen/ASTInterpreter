@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1756958421047,
+    "timestamp": 1757048980460,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,137 +46,12 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1756958421047
+    "timestamp": 1757048980460
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1756958421047_0.3405871445248114",
-    "timestamp": 1756958421047
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "Serial.println",
-    "arguments": [
-      "768"
-    ],
-    "data": "768",
-    "timestamp": 1756958421049,
-    "message": "Serial.println(768)"
-  },
-  {
-    "type": "DELAY",
-    "duration": 2,
-    "actualDelay": 2,
-    "timestamp": 1756958421049
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Completed loop() iteration 1",
-    "iteration": 1,
-    "completed": true,
-    "timestamp": 1756958421049
-  },
-  {
-    "type": "LOOP_START",
-    "timestamp": 1756958421054,
-    "message": "Starting loop iteration 2"
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Executing loop() iteration 2",
-    "iteration": 2,
-    "timestamp": 1756958421054
-  },
-  {
-    "type": "ANALOG_READ_REQUEST",
-    "pin": 14,
-    "requestId": "analogRead_1756958421054_0.9554059968860167",
-    "timestamp": 1756958421054
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "Serial.println",
-    "arguments": [
-      "465"
-    ],
-    "data": "465",
-    "timestamp": 1756958421056,
-    "message": "Serial.println(465)"
-  },
-  {
-    "type": "DELAY",
-    "duration": 2,
-    "actualDelay": 2,
-    "timestamp": 1756958421056
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Completed loop() iteration 2",
-    "iteration": 2,
-    "completed": true,
-    "timestamp": 1756958421056
-  },
-  {
-    "type": "LOOP_START",
-    "timestamp": 1756958421061,
-    "message": "Starting loop iteration 3"
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Executing loop() iteration 3",
-    "iteration": 3,
-    "timestamp": 1756958421061
-  },
-  {
-    "type": "ANALOG_READ_REQUEST",
-    "pin": 14,
-    "requestId": "analogRead_1756958421061_0.519212963106541",
-    "timestamp": 1756958421061
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "Serial.println",
-    "arguments": [
-      "524"
-    ],
-    "data": "524",
-    "timestamp": 1756958421062,
-    "message": "Serial.println(524)"
-  },
-  {
-    "type": "DELAY",
-    "duration": 2,
-    "actualDelay": 2,
-    "timestamp": 1756958421063
-  },
-  {
-    "type": "FUNCTION_CALL",
-    "function": "loop",
-    "message": "Completed loop() iteration 3",
-    "iteration": 3,
-    "completed": true,
-    "timestamp": 1756958421063
-  },
-  {
-    "type": "LOOP_END",
-    "timestamp": 1756958421068,
-    "message": "Loop limit reached: completed 3 iterations (max: 3)",
-    "iterations": 3,
-    "limitReached": true
-  },
-  {
-    "type": "PROGRAM_END",
-    "timestamp": 1756958421068,
-    "message": "Program completed after 3 loop iterations (limit reached)"
-  },
-  {
-    "type": "PROGRAM_END",
-    "timestamp": 1756958421068,
-    "message": "Program execution stopped"
+    "requestId": "analogRead_1757048980460_0.8930394512767825",
+    "timestamp": 1757048980460
   }
 ]

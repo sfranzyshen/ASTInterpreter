@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino
+CMAKE_SOURCE_DIR = /mnt/d/Devel/ASTInterpreter_Arduino
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino/build
+CMAKE_BINARY_DIR = /mnt/d/Devel/ASTInterpreter_Arduino/build
 
 # Utility rule file for cross_platform_validation.
 
@@ -67,10 +67,10 @@ include CMakeFiles/cross_platform_validation.dir/compiler_depend.make
 include CMakeFiles/cross_platform_validation.dir/progress.make
 
 CMakeFiles/cross_platform_validation: test_cross_platform_validation
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Validating C++ output against JavaScript reference"
-	cd /mnt/d/Devel/ArduinoInterpreter_Arduino && /usr/bin/cmake -E echo Running\ cross-platform\ validation...
-	cd /mnt/d/Devel/ArduinoInterpreter_Arduino && node test_compact_ast.js
-	cd /mnt/d/Devel/ArduinoInterpreter_Arduino && /mnt/d/Devel/ArduinoInterpreter_Arduino/build/test_cross_platform_validation
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Validating C++ output against JavaScript reference"
+	cd /mnt/d/Devel/ASTInterpreter_Arduino && /usr/bin/cmake -E echo Running\ cross-platform\ validation...
+	cd /mnt/d/Devel/ASTInterpreter_Arduino && node test_compact_ast.js
+	cd /mnt/d/Devel/ASTInterpreter_Arduino && /mnt/d/Devel/ASTInterpreter_Arduino/build/test_cross_platform_validation
 
 cross_platform_validation: CMakeFiles/cross_platform_validation
 cross_platform_validation: CMakeFiles/cross_platform_validation.dir/build.make
@@ -85,6 +85,6 @@ CMakeFiles/cross_platform_validation.dir/clean:
 .PHONY : CMakeFiles/cross_platform_validation.dir/clean
 
 CMakeFiles/cross_platform_validation.dir/depend:
-	cd /mnt/d/Devel/ArduinoInterpreter_Arduino/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/d/Devel/ArduinoInterpreter_Arduino /mnt/d/Devel/ArduinoInterpreter_Arduino /mnt/d/Devel/ArduinoInterpreter_Arduino/build /mnt/d/Devel/ArduinoInterpreter_Arduino/build /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles/cross_platform_validation.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/d/Devel/ASTInterpreter_Arduino/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/d/Devel/ASTInterpreter_Arduino /mnt/d/Devel/ASTInterpreter_Arduino /mnt/d/Devel/ASTInterpreter_Arduino/build /mnt/d/Devel/ASTInterpreter_Arduino/build /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/cross_platform_validation.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cross_platform_validation.dir/depend
 

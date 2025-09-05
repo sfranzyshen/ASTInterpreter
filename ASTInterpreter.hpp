@@ -19,6 +19,7 @@
 #include "ArduinoLibraryRegistry.hpp"
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <stack>
 #include <vector>
 #include <string>
@@ -185,9 +186,9 @@ private:
     uint32_t maxLoopIterations_;
     std::chrono::steady_clock::time_point executionStart_;
     
-    // Function tracking
+    // Function tracking - MEMORY SAFE: Store function names and look up in AST tree
     arduino_ast::ASTNode* currentFunction_;
-    std::unordered_map<std::string, arduino_ast::ASTNode*> userFunctions_;
+    std::unordered_set<std::string> userFunctionNames_;
     
     // Control flow
     bool shouldBreak_;
@@ -199,11 +200,16 @@ private:
     CommandValue currentSwitchValue_;
     bool inSwitchFallthrough_ = false;
     
-    // State machine properties for non-blocking execution
+    // Continuation-based execution system for non-blocking operations
     arduino_ast::ASTNode* suspendedNode_;
     std::string waitingForRequestId_;
     std::string suspendedFunction_;
     CommandValue lastExpressionResult_;
+    ExecutionState previousExecutionState_;
+    
+    // Request-response system
+    std::unordered_map<std::string, CommandValue> pendingResponseValues_;
+    std::queue<std::pair<std::string, CommandValue>> responseQueue_;
 
 public:
     /**
@@ -298,6 +304,16 @@ public:
      */
     bool handleResponse(const std::string& requestId, const CommandValue& value);
     
+    /**
+     * Queue a response for later processing (thread-safe)
+     */
+    void queueResponse(const std::string& requestId, const CommandValue& value);
+    
+    /**
+     * Process queued responses (called by tick())
+     */
+    void processResponseQueue();
+    
     // =============================================================================
     // VISITOR PATTERN IMPLEMENTATION
     // =============================================================================
@@ -322,6 +338,7 @@ public:
     void visit(arduino_ast::BinaryOpNode& node) override;
     void visit(arduino_ast::UnaryOpNode& node) override;
     void visit(arduino_ast::FuncCallNode& node) override;
+    void visit(arduino_ast::ConstructorCallNode& node) override;
     void visit(arduino_ast::MemberAccessNode& node) override;
     void visit(arduino_ast::AssignmentNode& node) override;
     void visit(arduino_ast::PostfixExpressionNode& node) override;
@@ -416,6 +433,17 @@ private:
     CommandValue handleTimingOperation(const std::string& function, const std::vector<CommandValue>& args);
     CommandValue handleSerialOperation(const std::string& function, const std::vector<CommandValue>& args);
     
+    // External data functions using continuation pattern
+    void requestAnalogRead(int32_t pin);
+    void requestDigitalRead(int32_t pin);
+    void requestMillis();
+    void requestMicros();
+    
+    // Continuation helpers
+    bool isWaitingForResponse() const;
+    bool hasResponse(const std::string& requestId) const;
+    CommandValue consumeResponse(const std::string& requestId);
+    
     // Command emission
     void emitCommand(CommandPtr command);
     void emitError(const std::string& message, const std::string& type = "RuntimeError");
@@ -442,6 +470,9 @@ private:
     
     // Type conversion utilities
     CommandValue convertToType(const CommandValue& value, const std::string& typeName);
+    
+    // MEMORY SAFE: AST tree traversal to find function definitions
+    arduino_ast::ASTNode* findFunctionInAST(const std::string& functionName);
 };
 
 // =============================================================================

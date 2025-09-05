@@ -1,9 +1,68 @@
-{
-  "name": "StringConstructors.ino",
-  "source": "examples",
-  "index": "051",
-  "code": "// 08.Strings StringConstructors\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString Constructors:\");\n  Serial.println();\n}\n\nvoid loop() {\n  // using a constant String:\n  String stringOne = \"Hello String\";\n  Serial.println(stringOne);\n\n  // converting a constant char into a String:\n  stringOne = String('a');\n  Serial.println(stringOne);\n\n  // converting a constant string into a String object:\n  String stringTwo = String(\"This is a string\");\n  Serial.println(stringTwo);\n\n  // concatenating two strings:\n  stringOne = String(stringTwo + \" with more\");\n  Serial.println(stringOne);\n\n  // using a constant integer:\n  stringOne = String(13);\n  Serial.println(stringOne);\n\n  // using an int and a base:\n  stringOne = String(analogRead(A0), DEC);\n  Serial.println(stringOne);\n\n  // using an int and a base (hexadecimal):\n  stringOne = String(45, HEX);\n  Serial.println(stringOne);\n\n  // using an int and a base (binary)\n  stringOne = String(255, BIN);\n  Serial.println(stringOne);\n\n  // using a long and a base:\n  stringOne = String(millis(), DEC);\n  Serial.println(stringOne);\n\n  // using a float and the right decimal places:\n  stringOne = String(5.698, 3);\n  Serial.println(stringOne);\n\n  // using a float and less decimal places to use rounding:\n  stringOne = String(5.698, 2);\n  Serial.println(stringOne);\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
-  "astSize": 461,
-  "commandCount": 32,
-  "generated": "2025-09-02T17:32:05.915Z"
+name=StringConstructors.ino
+source=examples
+astSize=1485
+codeSize=1486
+mode=AST_ONLY
+content=// 08.Strings StringConstructors
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;
+  }
+
+  // send an intro:
+  Serial.println("\n\nString Constructors:");
+  Serial.println();
+}
+
+void loop() {
+  // using a constant String:
+  String stringOne = "Hello String";
+  Serial.println(stringOne);
+
+  // converting a constant char into a String:
+  stringOne = String('a');
+  Serial.println(stringOne);
+
+  // converting a constant string into a String object:
+  String stringTwo = String("This is a string");
+  Serial.println(stringTwo);
+
+  // concatenating two strings:
+  stringOne = String(stringTwo + " with more");
+  Serial.println(stringOne);
+
+  // using a constant integer:
+  stringOne = String(13);
+  Serial.println(stringOne);
+
+  // using an int and a base:
+  stringOne = String(analogRead(A0), DEC);
+  Serial.println(stringOne);
+
+  // using an int and a base (hexadecimal):
+  stringOne = String(45, HEX);
+  Serial.println(stringOne);
+
+  // using an int and a base (binary)
+  stringOne = String(255, BIN);
+  Serial.println(stringOne);
+
+  // using a long and a base:
+  stringOne = String(millis(), DEC);
+  Serial.println(stringOne);
+
+  // using a float and the right decimal places:
+  stringOne = String(5.698, 3);
+  Serial.println(stringOne);
+
+  // using a float and less decimal places to use rounding:
+  stringOne = String(5.698, 2);
+  Serial.println(stringOne);
+
+  // do nothing while true:
+  while (true)
+    ;
 }

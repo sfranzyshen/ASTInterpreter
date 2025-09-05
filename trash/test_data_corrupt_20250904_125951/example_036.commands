@@ -1,0 +1,457 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756958422343,
+    "component": "interpreter",
+    "version": "6.5.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756958422343,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756958422343
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 9,
+    "isConst": true,
+    "timestamp": 1756958422343
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "indicatorLedPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 1023,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 0,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756958422344,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 9,
+    "mode": 1,
+    "timestamp": 1756958422344
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1756958422345
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756958422345,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958422345,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958422345,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756958422345
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756958422345,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958422345_0.033954254496580294",
+    "timestamp": 1756958422345
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1756958422346,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756958422346
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422346_0.9950331190042159",
+    "timestamp": 1756958422346
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 626,
+    "timestamp": 1756958422348
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 99,
+    "timestamp": 1756958422348
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 99,
+    "timestamp": 1756958422348
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 99,
+    "timestamp": 1756958422348
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958422348
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958422354,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958422354
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756958422354,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958422354_0.9900890138409235",
+    "timestamp": 1756958422354
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1756958422355,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756958422355
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422355_0.8388992668948434",
+    "timestamp": 1756958422355
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 26,
+    "timestamp": 1756958422357
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 249,
+    "timestamp": 1756958422357
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 249,
+    "timestamp": 1756958422357
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 249,
+    "timestamp": 1756958422358
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958422358
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958422363,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958422363
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756958422363,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958422363_0.4133637816131901",
+    "timestamp": 1756958422363
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756958422364,
+    "message": "while loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "calibrate",
+    "arguments": [],
+    "timestamp": 1756958422365,
+    "message": "calibrate()"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756958422365
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422370_0.6985036313671349",
+    "timestamp": 1756958422370
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 463,
+    "timestamp": 1756958422371
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958422377
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 463,
+    "timestamp": 1756958422377
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958422382
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 463,
+    "timestamp": 1756958422382
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958422393_0.5467192282692972",
+    "timestamp": 1756958422393
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756958422394,
+    "message": "while loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "calibrate",
+    "arguments": [],
+    "timestamp": 1756958422394,
+    "message": "calibrate()"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756958422395
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422400_0.271845029159546",
+    "timestamp": 1756958422400
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 286,
+    "timestamp": 1756958422401
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1756958422407
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1756958422412
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 286,
+    "timestamp": 1756958422412
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1756958422423_0.8757890324174957",
+    "timestamp": 1756958422423
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 2,
+    "timestamp": 1756958422424,
+    "message": "while loop completed (2 iterations)"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1756958422424
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756958422425_0.40071934848031465",
+    "timestamp": 1756958422425
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 12,
+    "timestamp": 1756958422426
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": -395,
+    "timestamp": 1756958422426
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1756958422426
+  },
+  {
+    "type": "ANALOG_WRITE",
+    "pin": 9,
+    "value": 0,
+    "timestamp": 1756958422427
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958422427
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958422432,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958422432,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958422432,
+    "message": "Program execution stopped"
+  }
+]

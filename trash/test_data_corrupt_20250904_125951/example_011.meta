@@ -1,0 +1,9 @@
+{
+  "name": "toneKeyboard.ino",
+  "source": "examples",
+  "index": "011",
+  "code": "// 02.Digital toneKeyboard.ino\n\n#include \"pitches.h\"\n\nconst int threshold = 10;\n\n// notes to play, corresponding to the 3 sensors:\nint notes[] = {\n  NOTE_A4, NOTE_B4, NOTE_C3\n};\n\nvoid setup() {\n}\n\nvoid loop() {\n  for (int thisSensor = 0; thisSensor < 3; thisSensor++) {\n    // get a sensor reading:\n    int sensorReading = analogRead(thisSensor);\n\n    // if the sensor is pressed hard enough:\n    if (sensorReading > threshold) {\n      // play the note corresponding to this sensor:\n      tone(8, notes[thisSensor], 20);\n    }\n  }\n}\n",
+  "astSize": 424,
+  "commandCount": 32,
+  "generated": "2025-09-04T04:00:19.579Z"
+}

@@ -1,9 +1,24 @@
-{
-  "name": "Chained_Assignments_and_Unary_Operators.ino",
-  "source": "old_test",
-  "index": "107",
-  "code": "// Chained Assignments and Unary Operators\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a, b, c;\n  a = b = c = 5;\n  int x = 10;\n  int y = ++x;\n  int z = y++;\n  Serial.print(\"a: \"); Serial.println(a);\n  Serial.print(\"x: \"); Serial.println(x);\n  Serial.print(\"y: \"); Serial.println(y);\n  Serial.print(\"z: \"); Serial.println(z);\n  int result = --x * (y++);\n  Serial.print(\"Final result: \"); Serial.println(result);\n}",
-  "astSize": 431,
-  "commandCount": 90,
-  "generated": "2025-09-02T17:33:04.344Z"
+name=Chained_Assignments_and_Unary_Operators.ino
+source=old_test
+astSize=1455
+codeSize=428
+mode=AST_AND_COMMANDS
+commandCount=90
+content=// Chained Assignments and Unary Operators
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a, b, c;
+  a = b = c = 5;
+  int x = 10;
+  int y = ++x;
+  int z = y++;
+  Serial.print("a: "); Serial.println(a);
+  Serial.print("x: "); Serial.println(x);
+  Serial.print("y: "); Serial.println(y);
+  Serial.print("z: "); Serial.println(z);
+  int result = --x * (y++);
+  Serial.print("Final result: "); Serial.println(result);
 }

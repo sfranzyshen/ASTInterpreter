@@ -1,9 +1,26 @@
-{
-  "name": "Array_Indexing_and_Multidimensional_Arrays.ino",
-  "source": "old_test",
-  "index": "105",
-  "code": "// Array Indexing and Multidimensional Arrays\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int arr[5] = {10, 20, 30, 40, 50};\n  int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}};\n  int i = 2;\n  int j = 1;\n  int k = 1;\n\n  int val1 = arr[i * 2 - 1];\n  int val2 = matrix[j][k];\n\n  Serial.print(\"Val 1: \");\n  Serial.println(val1);\n  Serial.print(\"Val 2: \");\n  Serial.println(val2);\n}",
-  "astSize": 447,
-  "commandCount": 51,
-  "generated": "2025-09-04T04:00:28.743Z"
+name=Array_Indexing_and_Multidimensional_Arrays.ino
+source=old_test
+astSize=1471
+codeSize=382
+mode=AST_AND_COMMANDS
+commandCount=51
+content=// Array Indexing and Multidimensional Arrays
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int arr[5] = {10, 20, 30, 40, 50};
+  int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}};
+  int i = 2;
+  int j = 1;
+  int k = 1;
+
+  int val1 = arr[i * 2 - 1];
+  int val2 = matrix[j][k];
+
+  Serial.print("Val 1: ");
+  Serial.println(val1);
+  Serial.print("Val 2: ");
+  Serial.println(val2);
 }

@@ -1,9 +1,40 @@
-{
-  "name": "p05_ServoMoodIndicator.ino",
-  "source": "examples",
-  "index": "067",
-  "code": "// 10.StarterKit_BasicKit p05_ServoMoodIndicator\n\n// include the Servo library\n#include <Servo.h>\n\nServo myServo;\n\nint const potPin = A0;\nint potVal;\nint angle;\n\nvoid setup() {\n  myServo.attach(9);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  potVal = analogRead(potPin);\n\n  // print out the value to the Serial Monitor\n  Serial.print(\"potVal: \");\n  Serial.print(potVal);\n\n  // scale the numbers from the pot\n  angle = map(potVal, 0, 1023, 0, 179);\n  // print out the angle for the servo motor\n  Serial.print(\", angle: \");\n  Serial.println(angle);\n\n  // set the servo position\n  myServo.write(angle);\n\n  // wait for the servo to get there\n  delay(15);\n}\n",
-  "astSize": 339,
-  "commandCount": 51,
-  "generated": "2025-09-02T17:32:41.897Z"
+name=p05_ServoMoodIndicator.ino
+source=examples
+astSize=1363
+codeSize=650
+mode=AST_ONLY
+content=// 10.StarterKit_BasicKit p05_ServoMoodIndicator
+
+// include the Servo library
+#include <Servo.h>
+
+Servo myServo;
+
+int const potPin = A0;
+int potVal;
+int angle;
+
+void setup() {
+  myServo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop() {
+  potVal = analogRead(potPin);
+
+  // print out the value to the Serial Monitor
+  Serial.print("potVal: ");
+  Serial.print(potVal);
+
+  // scale the numbers from the pot
+  angle = map(potVal, 0, 1023, 0, 179);
+  // print out the angle for the servo motor
+  Serial.print(", angle: ");
+  Serial.println(angle);
+
+  // set the servo position
+  myServo.write(angle);
+
+  // wait for the servo to get there
+  delay(15);
 }

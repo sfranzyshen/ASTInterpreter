@@ -1,9 +1,19 @@
-{
-  "name": "p14_TweakTheArduinoLogo.ino",
-  "source": "examples",
-  "index": "076",
-  "code": "// 10.StarterKit_BasicKit p14_TweakTheArduinoLogo\n\nvoid setup() {\n  // initialize serial communication\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the value of A0, divide by 4 and send it as a byte over the\n  // serial connection\n  Serial.write(analogRead(A0) / 4);\n  delay(1);\n}\n",
-  "astSize": 126,
-  "commandCount": 27,
-  "generated": "2025-09-04T04:00:26.335Z"
+name=p14_TweakTheArduinoLogo.ino
+source=examples
+astSize=1150
+codeSize=285
+mode=AST_AND_COMMANDS
+commandCount=9
+content=// 10.StarterKit_BasicKit p14_TweakTheArduinoLogo
+
+void setup() {
+  // initialize serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the value of A0, divide by 4 and send it as a byte over the
+  // serial connection
+  Serial.write(analogRead(A0) / 4);
+  delay(1);
 }

@@ -1,9 +1,39 @@
-{
-  "name": "AnalogInOutSerial.ino",
-  "source": "examples",
-  "index": "015",
-  "code": "// 03.Analog AnalogInOutSerial.ino\n\n// These constants won't change.\nconst int analogInPin = A0;\nconst int analogOutPin = 9;\n\nint sensorValue = 0;\nint outputValue = 0;\n\nvoid setup() {\n  // initialize serial communications at 9600 bps:\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the analog in value:\n  sensorValue = analogRead(analogInPin);\n\n  // map it to the range of the analog out:\n  outputValue = map(sensorValue, 0, 1023, 0, 255);\n\n  // change the analog out value:\n  analogWrite(analogOutPin, outputValue);\n\n  // print the results to the Serial Monitor:\n  Serial.print(\"sensor = \");\n  Serial.print(sensorValue);\n  Serial.print(\"\\t output = \");\n  Serial.println(outputValue);\n\n  // wait 2 milliseconds before the next loop for the analog-to-digital\n  // converter to settle after the last reading:\n  delay(2);\n}\n",
-  "astSize": 384,
-  "commandCount": 49,
-  "generated": "2025-09-04T04:00:20.136Z"
+name=AnalogInOutSerial.ino
+source=examples
+astSize=1408
+codeSize=823
+mode=AST_ONLY
+content=// 03.Analog AnalogInOutSerial.ino
+
+// These constants won't change.
+const int analogInPin = A0;
+const int analogOutPin = 9;
+
+int sensorValue = 0;
+int outputValue = 0;
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the analog in value:
+  sensorValue = analogRead(analogInPin);
+
+  // map it to the range of the analog out:
+  outputValue = map(sensorValue, 0, 1023, 0, 255);
+
+  // change the analog out value:
+  analogWrite(analogOutPin, outputValue);
+
+  // print the results to the Serial Monitor:
+  Serial.print("sensor = ");
+  Serial.print(sensorValue);
+  Serial.print("\t output = ");
+  Serial.println(outputValue);
+
+  // wait 2 milliseconds before the next loop for the analog-to-digital
+  // converter to settle after the last reading:
+  delay(2);
 }

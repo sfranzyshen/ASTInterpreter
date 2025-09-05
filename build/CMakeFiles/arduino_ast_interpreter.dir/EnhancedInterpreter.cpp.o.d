@@ -1,8 +1,8 @@
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/EnhancedInterpreter.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ArduinoDataTypes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.hpp \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/type_traits \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -160,7 +160,7 @@ CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc /usr/include/c++/11/variant \
  /usr/include/c++/11/bits/parse_numbers.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.hpp \
  /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \

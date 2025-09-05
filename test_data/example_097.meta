@@ -1,9 +1,29 @@
-{
-  "name": "Loop_Control_Statements_break_continue.ino",
-  "source": "old_test",
-  "index": "097",
-  "code": "// Loop Control Statements (break, continue)\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  for (int i = 0; i < 5; i++) {\n    for (int j = 0; j < 5; j++) {\n      if (j == 2) {\n        Serial.println(\"Continuing inner loop...\");\n        continue;\n      }\n      if (i == 3) {\n        Serial.println(\"Breaking outer loop...\");\n        break;\n      }\n      Serial.print(\"i: \");\n      Serial.print(i);\n      Serial.print(\", j: \");\n      Serial.print(j);\n      Serial.println(j);\n    }\n  }\n}",
-  "astSize": 452,
-  "commandCount": 46,
-  "generated": "2025-09-04T04:00:27.973Z"
+name=Loop_Control_Statements_break_continue.ino
+source=old_test
+astSize=1476
+codeSize=494
+mode=AST_ONLY
+content=// Loop Control Statements (break, continue)
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      if (j == 2) {
+        Serial.println("Continuing inner loop...");
+        continue;
+      }
+      if (i == 3) {
+        Serial.println("Breaking outer loop...");
+        break;
+      }
+      Serial.print("i: ");
+      Serial.print(i);
+      Serial.print(", j: ");
+      Serial.print(j);
+      Serial.println(j);
+    }
+  }
 }

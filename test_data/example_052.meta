@@ -1,9 +1,44 @@
-{
-  "name": "StringLength.ino",
-  "source": "examples",
-  "index": "052",
-  "code": "// 08.Strings StringLength\n\nString txtMsg = \"\";\nunsigned int lastStringLength = txtMsg.length();\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString  length():\");\n  Serial.println();\n}\n\nvoid loop() {\n  // add any incoming characters to the String:\n  while (Serial.available() > 0) {\n    char inChar = Serial.read();\n    txtMsg += inChar;\n  }\n\n  // print the message and a notice if it's changed:\n  if (txtMsg.length() != lastStringLength) {\n    Serial.println(txtMsg);\n    Serial.println(txtMsg.length());\n\n    // if the String's longer than 140 characters, complain:\n    if (txtMsg.length() < 140) {\n      Serial.println(\"That's a perfectly acceptable text message\");\n    } else {\n      Serial.println(\"That's too long for a text message.\");\n    }\n    // note the length for next time through the loop:\n    lastStringLength = txtMsg.length();\n  }\n}\n",
-  "astSize": 646,
-  "commandCount": 36,
-  "generated": "2025-09-04T04:00:23.899Z"
+name=StringLength.ino
+source=examples
+astSize=1670
+codeSize=975
+mode=AST_ONLY
+content=// 08.Strings StringLength
+
+String txtMsg = "";
+unsigned int lastStringLength = txtMsg.length();
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ;
+  }
+
+  // send an intro:
+  Serial.println("\n\nString  length():");
+  Serial.println();
+}
+
+void loop() {
+  // add any incoming characters to the String:
+  while (Serial.available() > 0) {
+    char inChar = Serial.read();
+    txtMsg += inChar;
+  }
+
+  // print the message and a notice if it's changed:
+  if (txtMsg.length() != lastStringLength) {
+    Serial.println(txtMsg);
+    Serial.println(txtMsg.length());
+
+    // if the String's longer than 140 characters, complain:
+    if (txtMsg.length() < 140) {
+      Serial.println("That's a perfectly acceptable text message");
+    } else {
+      Serial.println("That's too long for a text message.");
+    }
+    // note the length for next time through the loop:
+    lastStringLength = txtMsg.length();
+  }
 }

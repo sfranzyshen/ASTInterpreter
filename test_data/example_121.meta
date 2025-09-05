@@ -1,9 +1,16 @@
-{
-  "name": "Variable_Declarations_in_a_for_Loop.ino",
-  "source": "old_test",
-  "index": "121",
-  "code": "// Variable Declarations in a for Loop\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  for (int i = 0; i < 3; i++) {\n    Serial.print(\"i: \");\n    Serial.println(i);\n  }\n}",
-  "astSize": 228,
-  "commandCount": 25,
-  "generated": "2025-09-04T04:00:30.324Z"
+name=Variable_Declarations_in_a_for_Loop.ino
+source=old_test
+astSize=1252
+codeSize=178
+mode=AST_ONLY
+content=// Variable Declarations in a for Loop
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 3; i++) {
+    Serial.print("i: ");
+    Serial.println(i);
+  }
 }

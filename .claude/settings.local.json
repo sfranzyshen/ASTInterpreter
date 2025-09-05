@@ -72,7 +72,15 @@
       "Bash(./test_library_registry)",
       "Bash(./test_library_integration)",
       "Bash(./test_direct_validation)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(./debug_cpp_offsets)",
+      "Bash(printf:*)",
+      "Bash(./debug_magic_number)",
+      "Bash(cat:*)",
+      "Bash(./build/debug_command_comparison:*)",
+      "Bash(./debug_command_comparison)",
+      "Bash(./test_structured_commands)",
+      "Bash(./test_structured_batch)"
     ],
     "deny": [],
     "ask": [],

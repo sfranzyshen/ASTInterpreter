@@ -1,0 +1,9 @@
+{
+  "name": "const_and_volatile_Qualifiers.ino",
+  "source": "old_test",
+  "index": "118",
+  "code": "// const and volatile Qualifiers\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  const int myConst = 100;\n  volatile int myVolatile = 50;\n\n  Serial.print(\"My constant: \");\n  Serial.println(myConst);\n\n  Serial.print(\"My volatile: \");\n  Serial.println(myVolatile);\n}",
+  "astSize": 260,
+  "commandCount": 36,
+  "generated": "2025-09-04T04:00:29.941Z"
+}

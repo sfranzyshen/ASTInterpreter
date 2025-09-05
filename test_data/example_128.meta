@@ -1,9 +1,23 @@
-{
-  "name": "Unsigned_Integer_Rollover.ino",
-  "source": "old_test",
-  "index": "128",
-  "code": "// Unsigned Integer Rollover\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  unsigned int i = 4294967295;\n  Serial.print(\"Initial value: \");\n  Serial.println(i);\n  i++;\n  Serial.print(\"After increment (rollover): \");\n  Serial.println(i);\n  i = 0;\n  i--;\n  Serial.print(\"After decrement (rollover): \");\n  Serial.println(i);\n}",
-  "astSize": 225,
-  "commandCount": 48,
-  "generated": "2025-09-04T04:00:30.815Z"
+name=Unsigned_Integer_Rollover.ino
+source=old_test
+astSize=1249
+codeSize=332
+mode=AST_AND_COMMANDS
+commandCount=48
+content=// Unsigned Integer Rollover
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  unsigned int i = 4294967295;
+  Serial.print("Initial value: ");
+  Serial.println(i);
+  i++;
+  Serial.print("After increment (rollover): ");
+  Serial.println(i);
+  i = 0;
+  i--;
+  Serial.print("After decrement (rollover): ");
+  Serial.println(i);
 }

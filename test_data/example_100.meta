@@ -1,9 +1,24 @@
-{
-  "name": "String_and_Character_Literals.ino",
-  "source": "old_test",
-  "index": "100",
-  "code": "// String and Character Literals\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  char myChar = 'A';\n  char escapedChar = '\\n';\n  const char* str1 = \"Hello\";\n  const char* str2 = \" world!\";\n\n  Serial.print(str1);\n  Serial.println(str2);\n  Serial.print(\"My character is: \");\n  Serial.println(myChar);\n\n  Serial.print(myChar);\n  Serial.print(escapedChar);\n}",
-  "astSize": 358,
-  "commandCount": 48,
-  "generated": "2025-09-02T17:33:03.869Z"
+name=String_and_Character_Literals.ino
+source=old_test
+astSize=1382
+codeSize=362
+mode=AST_ONLY
+content=// String and Character Literals
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  char myChar = 'A';
+  char escapedChar = '\n';
+  const char* str1 = "Hello";
+  const char* str2 = " world!";
+
+  Serial.print(str1);
+  Serial.println(str2);
+  Serial.print("My character is: ");
+  Serial.println(myChar);
+
+  Serial.print(myChar);
+  Serial.print(escapedChar);
 }

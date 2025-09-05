@@ -203,86 +203,92 @@ void ASTInterpreter::executeFunctions() {
 }
 
 void ASTInterpreter::executeSetup() {
-    auto setupFunc = userFunctions_.find("setup");
-    if (setupFunc != userFunctions_.end()) {
-        debugLog("Executing setup() function");
-        emitSystemCommand(CommandType::SETUP_START, "Entering setup()");
-        
-        scopeManager_->pushScope();
-        currentFunction_ = setupFunc->second;
-        
-        // Execute the function BODY, not the function definition
-        if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(setupFunc->second)) {
-            const auto* body = funcDef->getBody();
-            if (body) {
-                const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+    // MEMORY SAFE: Look up function in AST instead of storing raw pointer
+    if (userFunctionNames_.count("setup") > 0) {
+        auto* setupFunc = findFunctionInAST("setup");
+        if (setupFunc) {
+            debugLog("Executing setup() function");
+            emitSystemCommand(CommandType::SETUP_START, "Entering setup()");
+            
+            scopeManager_->pushScope();
+            currentFunction_ = setupFunc;
+            
+            // Execute the function BODY, not the function definition
+            if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(setupFunc)) {
+                const auto* body = funcDef->getBody();
+                if (body) {
+                    const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+                } else {
+                    debugLog("Setup function has no body");
+                }
             } else {
-                debugLog("Setup function has no body");
+                debugLog("Setup function is not a FuncDefNode");
             }
-        } else {
-            debugLog("Setup function is not a FuncDefNode");
+            
+            currentFunction_ = nullptr;
+            scopeManager_->popScope();
+            
+            setupCalled_ = true;
+            emitSystemCommand(CommandType::SETUP_END, "Exiting setup()");
         }
-        
-        currentFunction_ = nullptr;
-        scopeManager_->popScope();
-        
-        setupCalled_ = true;
-        emitSystemCommand(CommandType::SETUP_END, "Exiting setup()");
     } else {
         debugLog("No setup() function found");
     }
 }
 
 void ASTInterpreter::executeLoop() {
-    auto loopFunc = userFunctions_.find("loop");
-    if (loopFunc != userFunctions_.end()) {
-        debugLog("Starting loop() execution");
-        
-        // Emit main loop start command
-        emitCommand(CommandFactory::createLoopStart("main", 0));
-        
-        while (state_ == ExecutionState::RUNNING && currentLoopIteration_ < maxLoopIterations_) {
-            // Increment iteration counter BEFORE processing (to match JS 1-based counting)
-            currentLoopIteration_++;
+    // MEMORY SAFE: Look up function in AST instead of storing raw pointer
+    if (userFunctionNames_.count("loop") > 0) {
+        auto* loopFunc = findFunctionInAST("loop");
+        if (loopFunc) {
+            debugLog("Starting loop() execution");
             
-            // Emit loop iteration start command
-            emitCommand(CommandFactory::createLoopStart("loop", currentLoopIteration_));
+            // Emit main loop start command
+            emitCommand(CommandFactory::createLoopStart("main", 0));
             
-            // Emit function call start command
-            emitCommand(CommandFactory::createFunctionCall("loop"));
-            
-            scopeManager_->pushScope();
-            currentFunction_ = loopFunc->second;
-            
-            try {
-                // Execute the function BODY, not the function definition
-                if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(loopFunc->second)) {
-                    const auto* body = funcDef->getBody();
-                    if (body) {
-                        const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+            while (state_ == ExecutionState::RUNNING && currentLoopIteration_ < maxLoopIterations_) {
+                // Increment iteration counter BEFORE processing (to match JS 1-based counting)
+                currentLoopIteration_++;
+                
+                // Emit loop iteration start command
+                emitCommand(CommandFactory::createLoopStart("loop", currentLoopIteration_));
+                
+                // Emit function call start command
+                emitCommand(CommandFactory::createFunctionCall("loop"));
+                
+                scopeManager_->pushScope();
+                currentFunction_ = loopFunc;
+                
+                try {
+                    // Execute the function BODY, not the function definition
+                    if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(loopFunc)) {
+                        const auto* body = funcDef->getBody();
+                        if (body) {
+                            const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+                        } else {
+                            debugLog("Loop function has no body");
+                        }
                     } else {
-                        debugLog("Loop function has no body");
+                        debugLog("Loop function is not a FuncDefNode");
                     }
-                } else {
-                    debugLog("Loop function is not a FuncDefNode");
+                } catch (const std::exception& e) {
+                    emitError("Error in loop(): " + std::string(e.what()));
+                    break;
                 }
-            } catch (const std::exception& e) {
-                emitError("Error in loop(): " + std::string(e.what()));
-                break;
-            }
-            
-            currentFunction_ = nullptr;
-            scopeManager_->popScope();
-            
-            // Emit function call end command
-            emitCommand(CommandFactory::createFunctionCall("loop"));
-            
-            // Handle step delay - for Arduino, delays should be handled by parent application
-            // The tick() method should return quickly and let the parent handle timing
-            // Note: stepDelay is available in options_ if parent needs it
-            
-            // Process any pending requests
-            processRequestQueue();
+                
+                currentFunction_ = nullptr;
+                scopeManager_->popScope();
+                
+                // Emit function call end command
+                emitCommand(CommandFactory::createFunctionCall("loop"));
+                
+                // Handle step delay - for Arduino, delays should be handled by parent application
+                // The tick() method should return quickly and let the parent handle timing
+                // Note: stepDelay is available in options_ if parent needs it
+                
+                // Process any pending requests
+                processResponseQueue();
+            } // End while loop
         }
         
         // Emit main loop end command (JavaScript emits LOOP_END instead of LOOP_LIMIT_REACHED)
@@ -570,11 +576,13 @@ void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
         args.push_back(evaluateExpression(arg.get()));
     }
     
-    // Check for user-defined function first
-    auto userFuncIt = userFunctions_.find(functionName);
-    if (userFuncIt != userFunctions_.end()) {
-        // Execute user-defined function
-        executeUserFunction(functionName, dynamic_cast<const arduino_ast::FuncDefNode*>(userFuncIt->second), args);
+    // Check for user-defined function first - MEMORY SAFE
+    if (userFunctionNames_.count(functionName) > 0) {
+        auto* userFunc = findFunctionInAST(functionName);
+        if (userFunc) {
+            // Execute user-defined function
+            executeUserFunction(functionName, dynamic_cast<const arduino_ast::FuncDefNode*>(userFunc), args);
+        }
     } else {
         // Fall back to Arduino/built-in functions
         // Store current node in case function suspends execution
@@ -587,6 +595,37 @@ void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
             suspendedNode_ = &node;
             debugLog("FuncCallNode: Set suspended node for async function: " + functionName);
         }
+    }
+}
+
+void ASTInterpreter::visit(arduino_ast::ConstructorCallNode& node) {
+    if (!node.getCallee()) return;
+    
+    // Get constructor name
+    std::string constructorName;
+    if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(node.getCallee())) {
+        constructorName = identifier->getName();
+    }
+    
+    // Evaluate arguments
+    std::vector<CommandValue> args;
+    for (const auto& arg : node.getArguments()) {
+        args.push_back(evaluateExpression(arg.get()));
+    }
+    
+    // Handle constructor calls as library function calls
+    // Arduino constructors are typically handled by the library system
+    debugLog("ConstructorCallNode: Calling constructor: " + constructorName);
+    
+    // Execute as Arduino/library function
+    const arduino_ast::ASTNode* previousSuspendedNode = suspendedNode_;
+    
+    executeArduinoFunction(constructorName, args);
+    
+    // If function suspended (state changed to WAITING_FOR_RESPONSE), set the suspended node
+    if (state_ == ExecutionState::WAITING_FOR_RESPONSE && suspendedNode_ == nullptr) {
+        suspendedNode_ = &node;
+        debugLog("ConstructorCallNode: Set suspended node for async constructor: " + constructorName);
     }
 }
 
@@ -794,7 +833,8 @@ void ASTInterpreter::visit(arduino_ast::FuncDefNode& node) {
     }
     
     if (!functionName.empty()) {
-        userFunctions_[functionName] = &node;
+        // MEMORY SAFE: Store function name instead of raw pointer
+        userFunctionNames_.insert(functionName);
         DEBUG_OUT << "visit(FuncDefNode): Registered function: " << functionName << std::endl;
         debugLog("Registered function: " + functionName);
     } else {
@@ -1067,7 +1107,7 @@ void ASTInterpreter::visit(arduino_ast::CaseStatement& node) {
                 shouldBreak_ = false; // Reset break flag after handling
             }
         }
-        
+    
     } catch (const std::exception& e) {
         emitError("Case statement error: " + std::string(e.what()));
     }
@@ -1687,41 +1727,21 @@ CommandValue ASTInterpreter::handlePinOperation(const std::string& function, con
         return std::monostate{};
         
     } else if (function == "digitalRead" && args.size() >= 1) {
-        // CRITICAL FIX: Check if we're resuming from a suspension
-        // This happens when the same function is called after resumeWithValue()
+        // CONTINUATION PATTERN: Check if we're returning a cached response
         if (state_ == ExecutionState::RUNNING && lastExpressionResult_.index() != 0) {
-            // We have a response value from a previous suspension
+            // We have a cached response from the continuation system
             CommandValue result = lastExpressionResult_;
-            lastExpressionResult_ = std::monostate{}; // Clear it
-            debugLog("HandlePinOperation: Returning suspended digitalRead result: " + commandValueToString(result));
+            lastExpressionResult_ = std::monostate{}; // Clear the cache
+            debugLog("HandlePinOperation: Returning cached digitalRead result: " + commandValueToString(result));
             return result;
         }
         
+        // First call - initiate the request using continuation system
         int32_t pin = convertToInt(args[0]);
+        requestDigitalRead(pin);
         
-        // Generate unique request ID using same format as JavaScript
-        auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();
-        
-        // Initialize random number generator
-        static std::random_device rd;
-        static std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(0.0, 1.0);
-        
-        std::string requestId = "digitalRead_" + std::to_string(now) + "_" + std::to_string(dis(gen));
-        
-        // Create and emit request command
-        auto cmd = std::make_unique<DigitalReadRequestCommand>(pin);
-        emitCommand(std::move(cmd));
-        
-        // State machine: Suspend execution and wait for response
-        state_ = ExecutionState::WAITING_FOR_RESPONSE;
-        waitingForRequestId_ = requestId;
-        suspendedFunction_ = "digitalRead";
-        
-        // Note: In state machine mode, execution will be suspended here
-        // The actual return value will come from lastExpressionResult_ after resume
-        debugLog("HandlePinOperation: Suspending for digitalRead request: " + requestId);
+        // Return placeholder value - execution will be suspended
+        debugLog("HandlePinOperation: digitalRead request initiated, suspending execution");
         return std::monostate{};
         
     } else if (function == "analogWrite" && args.size() >= 2) {
@@ -1733,41 +1753,22 @@ CommandValue ASTInterpreter::handlePinOperation(const std::string& function, con
         return std::monostate{};
         
     } else if (function == "analogRead" && args.size() >= 1) {
-        // CRITICAL FIX: Check if we're resuming from a suspension
+        // CONTINUATION PATTERN: Check if we're returning a cached response
         if (state_ == ExecutionState::RUNNING && lastExpressionResult_.index() != 0) {
-            // We have a response value from a previous suspension
+            // We have a cached response from the continuation system
             CommandValue result = lastExpressionResult_;
-            lastExpressionResult_ = std::monostate{}; // Clear it
-            debugLog("HandlePinOperation: Returning suspended analogRead result: " + commandValueToString(result));
+            lastExpressionResult_ = std::monostate{}; // Clear the cache
+            debugLog("HandlePinOperation: Returning cached analogRead result: " + commandValueToString(result));
             return result;
         }
         
+        // First call - initiate the request using continuation system
         int32_t pin = convertToInt(args[0]);
+        requestAnalogRead(pin);
         
-        // Generate unique request ID using same format as JavaScript
-        auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();
-        
-        // Initialize random number generator
-        static std::random_device rd;
-        static std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(0.0, 1.0);
-        
-        std::string requestId = "analogRead_" + std::to_string(now) + "_" + std::to_string(dis(gen));
-        
-        // Create and emit request command with proper requestId
-        auto cmd = std::make_unique<AnalogReadRequestCommand>(pin);
-        // TODO: Set requestId properly - the command factory should handle this
-        emitCommand(std::move(cmd));
-
-        // State machine: Suspend execution and wait for response
-        state_ = ExecutionState::WAITING_FOR_RESPONSE;
-        waitingForRequestId_ = requestId;
-        suspendedFunction_ = "analogRead";
-        
-        // Note: In state machine mode, execution will be suspended here
-        // The actual return value will come from lastExpressionResult_ after resume
-        debugLog("HandlePinOperation: Suspending for analogRead request: " + requestId);
+        // Return placeholder value - execution will be suspended
+        // The tick() method will handle continuation and provide the real result
+        debugLog("HandlePinOperation: analogRead request initiated, suspending execution");
         return std::monostate{};
     }
     
@@ -1787,73 +1788,37 @@ CommandValue ASTInterpreter::handleTimingOperation(const std::string& function, 
         return std::monostate{};
         
     } else if (function == "millis") {
-        // CRITICAL FIX: Check if we're resuming from a suspension
+        // CONTINUATION PATTERN: Check if we're returning a cached response
         if (state_ == ExecutionState::RUNNING && lastExpressionResult_.index() != 0) {
-            // We have a response value from a previous suspension
+            // We have a cached response from the continuation system
             CommandValue result = lastExpressionResult_;
-            lastExpressionResult_ = std::monostate{}; // Clear it
-            debugLog("HandleTimingOperation: Returning suspended millis result: " + commandValueToString(result));
+            lastExpressionResult_ = std::monostate{}; // Clear the cache
+            debugLog("HandleTimingOperation: Returning cached millis result: " + commandValueToString(result));
             return result;
         }
         
-        // Generate unique request ID using same format as JavaScript
-        auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();
+        // First call - initiate the request using continuation system
+        requestMillis();
         
-        // Initialize random number generator
-        static std::random_device rd;
-        static std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(0.0, 1.0);
-        
-        std::string requestId = "millis_" + std::to_string(now) + "_" + std::to_string(dis(gen));
-        
-        // Create and emit request command
-        auto cmd = std::make_unique<MillisRequestCommand>();
-        emitCommand(std::move(cmd));
-        
-        // State machine: Suspend execution and wait for response
-        state_ = ExecutionState::WAITING_FOR_RESPONSE;
-        waitingForRequestId_ = requestId;
-        suspendedFunction_ = "millis";
-        
-        // Note: In state machine mode, execution will be suspended here
-        // The actual return value will come from lastExpressionResult_ after resume
-        debugLog("HandleTimingOperation: Suspending for millis request: " + requestId);
+        // Return placeholder value - execution will be suspended
+        debugLog("HandleTimingOperation: millis request initiated, suspending execution");
         return std::monostate{};
         
     } else if (function == "micros") {
-        // CRITICAL FIX: Check if we're resuming from a suspension
+        // CONTINUATION PATTERN: Check if we're returning a cached response
         if (state_ == ExecutionState::RUNNING && lastExpressionResult_.index() != 0) {
-            // We have a response value from a previous suspension
+            // We have a cached response from the continuation system
             CommandValue result = lastExpressionResult_;
-            lastExpressionResult_ = std::monostate{}; // Clear it
-            debugLog("HandleTimingOperation: Returning suspended micros result: " + commandValueToString(result));
+            lastExpressionResult_ = std::monostate{}; // Clear the cache
+            debugLog("HandleTimingOperation: Returning cached micros result: " + commandValueToString(result));
             return result;
         }
         
-        // Generate unique request ID using same format as JavaScript
-        auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now().time_since_epoch()).count();
+        // First call - initiate the request using continuation system
+        requestMicros();
         
-        // Initialize random number generator
-        static std::random_device rd;
-        static std::mt19937 gen(rd());
-        std::uniform_real_distribution<> dis(0.0, 1.0);
-        
-        std::string requestId = "micros_" + std::to_string(now) + "_" + std::to_string(dis(gen));
-        
-        // Create and emit request command
-        auto cmd = std::make_unique<MicrosRequestCommand>();
-        emitCommand(std::move(cmd));
-        
-        // State machine: Suspend execution and wait for response
-        state_ = ExecutionState::WAITING_FOR_RESPONSE;
-        waitingForRequestId_ = requestId;
-        suspendedFunction_ = "micros";
-        
-        // Note: In state machine mode, execution will be suspended here
-        // The actual return value will come from lastExpressionResult_ after resume
-        debugLog("HandleTimingOperation: Suspending for micros request: " + requestId);
+        // Return placeholder value - execution will be suspended
+        debugLog("HandleTimingOperation: micros request initiated, suspending execution");
         return std::monostate{};
     }
     
@@ -1993,8 +1958,129 @@ void ASTInterpreter::resetControlFlow() {
     inSwitchFallthrough_ = false;
 }
 
-void ASTInterpreter::processRequestQueue() {
-    // No longer using RequestManager - requests handled directly via ResponseHandler
+void ASTInterpreter::processResponseQueue() {
+    // Process all queued responses
+    while (!responseQueue_.empty()) {
+        auto [requestId, value] = responseQueue_.front();
+        responseQueue_.pop();
+        
+        // Store the response value for consumption
+        pendingResponseValues_[requestId] = value;
+        
+        debugLog("Processed queued response: " + requestId + " = " + commandValueToString(value));
+    }
+}
+
+void ASTInterpreter::queueResponse(const std::string& requestId, const CommandValue& value) {
+    responseQueue_.push({requestId, value});
+}
+
+bool ASTInterpreter::isWaitingForResponse() const {
+    return state_ == ExecutionState::WAITING_FOR_RESPONSE && !waitingForRequestId_.empty();
+}
+
+bool ASTInterpreter::hasResponse(const std::string& requestId) const {
+    return pendingResponseValues_.find(requestId) != pendingResponseValues_.end();
+}
+
+CommandValue ASTInterpreter::consumeResponse(const std::string& requestId) {
+    auto it = pendingResponseValues_.find(requestId);
+    if (it != pendingResponseValues_.end()) {
+        CommandValue value = it->second;
+        pendingResponseValues_.erase(it);
+        return value;
+    }
+    return std::monostate{}; // No response available
+}
+
+// =============================================================================
+// EXTERNAL DATA FUNCTION REQUESTS (CONTINUATION PATTERN)
+// =============================================================================
+
+void ASTInterpreter::requestAnalogRead(int32_t pin) {
+    // Generate unique request ID
+    auto now = std::chrono::steady_clock::now();
+    auto duration = now.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto requestId = "analogRead_" + std::to_string(millis) + "_" + std::to_string(rand() % 1000000);
+    
+    // Set suspension state
+    previousExecutionState_ = state_;
+    state_ = ExecutionState::WAITING_FOR_RESPONSE;
+    waitingForRequestId_ = requestId;
+    suspendedFunction_ = "analogRead";
+    
+    // Emit request command
+    auto cmd = CommandFactory::createAnalogReadRequest(pin);
+    emitCommand(std::move(cmd));
+    
+    debugLog("Requested analogRead(" + std::to_string(pin) + ") with ID: " + requestId);
+}
+
+void ASTInterpreter::requestDigitalRead(int32_t pin) {
+    auto now = std::chrono::steady_clock::now();
+    auto duration = now.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto requestId = "digitalRead_" + std::to_string(millis) + "_" + std::to_string(rand() % 1000000);
+    
+    previousExecutionState_ = state_;
+    state_ = ExecutionState::WAITING_FOR_RESPONSE;
+    waitingForRequestId_ = requestId;
+    suspendedFunction_ = "digitalRead";
+    
+    auto cmd = CommandFactory::createDigitalReadRequest(pin);
+    emitCommand(std::move(cmd));
+    
+    debugLog("Requested digitalRead(" + std::to_string(pin) + ") with ID: " + requestId);
+}
+
+void ASTInterpreter::requestMillis() {
+    auto now = std::chrono::steady_clock::now();
+    auto duration = now.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto requestId = "millis_" + std::to_string(millis) + "_" + std::to_string(rand() % 1000000);
+    
+    previousExecutionState_ = state_;
+    state_ = ExecutionState::WAITING_FOR_RESPONSE;
+    waitingForRequestId_ = requestId;
+    suspendedFunction_ = "millis";
+    
+    auto cmd = CommandFactory::createMillisRequest();
+    emitCommand(std::move(cmd));
+    
+    debugLog("Requested millis() with ID: " + requestId);
+}
+
+void ASTInterpreter::requestMicros() {
+    auto now = std::chrono::steady_clock::now();
+    auto duration = now.time_since_epoch();
+    auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    auto requestId = "micros_" + std::to_string(millis) + "_" + std::to_string(rand() % 1000000);
+    
+    previousExecutionState_ = state_;
+    state_ = ExecutionState::WAITING_FOR_RESPONSE;
+    waitingForRequestId_ = requestId;
+    suspendedFunction_ = "micros";
+    
+    auto cmd = CommandFactory::createMicrosRequest();
+    emitCommand(std::move(cmd));
+    
+    debugLog("Requested micros() with ID: " + requestId);
+}
+
+bool ASTInterpreter::handleResponse(const std::string& requestId, const CommandValue& value) {
+    debugLog("handleResponse called: " + requestId + " = " + commandValueToString(value));
+    
+    // Queue the response for processing by the next tick()
+    queueResponse(requestId, value);
+    
+    // If we're currently waiting for this specific response, trigger immediate processing
+    if (state_ == ExecutionState::WAITING_FOR_RESPONSE && waitingForRequestId_ == requestId) {
+        debugLog("handleResponse: Response matches waiting request, immediate processing");
+        return true;
+    }
+    
+    return false;
 }
 
 void ASTInterpreter::debugLog(const std::string& message) {
@@ -2123,8 +2209,8 @@ CommandValue ASTInterpreter::evaluateUnaryOperation(const std::string& op, const
 // =============================================================================
 
 void ASTInterpreter::tick() {
-    // Only proceed if we're in the RUNNING state
-    if (state_ != ExecutionState::RUNNING) {
+    // Only proceed if we're in RUNNING or WAITING_FOR_RESPONSE state
+    if (state_ != ExecutionState::RUNNING && state_ != ExecutionState::WAITING_FOR_RESPONSE) {
         return;
     }
     
@@ -2136,51 +2222,62 @@ void ASTInterpreter::tick() {
     inTick = true;
     
     try {
-        // CRITICAL FIX: Handle resumption from WAITING_FOR_RESPONSE state
-        if (suspendedNode_) {
-            debugLog("Tick: Resuming execution from suspended state");
-            debugLog("  - Function: " + suspendedFunction_);
-            debugLog("  - Request ID: " + waitingForRequestId_);
-            debugLog("  - Response value: " + commandValueToString(lastExpressionResult_));
-
-            // The response value is in lastExpressionResult_.
-            // The original execution stack will now be re-entered by visiting the suspended node.
-            // The executeArduinoFunction will see it's resuming and return the cached value.
-            auto* nodeToResume = suspendedNode_;
-            suspendedNode_ = nullptr; // Clear state before re-entry
-            waitingForRequestId_.clear();
-            suspendedFunction_.clear();
-            
-            debugLog("Tick: Re-visiting suspended node to complete execution");
-            nodeToResume->accept(*this);
-            
-            inTick = false;
-            return;
+        // Process any queued responses first
+        processResponseQueue();
+        
+        // CONTINUATION PATTERN: Handle resumption from WAITING_FOR_RESPONSE state
+        if (state_ == ExecutionState::WAITING_FOR_RESPONSE && !waitingForRequestId_.empty()) {
+            // Check if we have the response we're waiting for
+            if (hasResponse(waitingForRequestId_)) {
+                debugLog("Tick: Resuming execution - response available");
+                debugLog("  - Function: " + suspendedFunction_);
+                debugLog("  - Request ID: " + waitingForRequestId_);
+                
+                // Consume the response and store for the function to use
+                lastExpressionResult_ = consumeResponse(waitingForRequestId_);
+                debugLog("  - Response value: " + commandValueToString(lastExpressionResult_));
+                
+                // Restore previous execution state
+                state_ = previousExecutionState_;
+                previousExecutionState_ = ExecutionState::IDLE;
+                
+                // Clear suspension context - the function can now return the result
+                waitingForRequestId_.clear();
+                suspendedNode_ = nullptr;
+                suspendedFunction_.clear();
+                
+                debugLog("Tick: Execution resumed, function can return result");
+            } else {
+                // Still waiting for response, cannot proceed
+                inTick = false;
+                return;
+            }
         }
         
         // Normal execution flow - this mimics the JavaScript executeControlledProgram
         if (!setupCalled_) {
-            // Execute setup() function if we haven't already
-            auto setupFunc = userFunctions_.find("setup");
-            if (setupFunc != userFunctions_.end()) {
-                debugLog("Tick: Executing setup() function");
-                emitSystemCommand(CommandType::SETUP_START, "Entering setup()");
-                
-                scopeManager_->pushScope();
-                currentFunction_ = setupFunc->second;
-                
-                try {
-                    // Execute the function BODY, not the function definition
-                    if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(setupFunc->second)) {
-                        const auto* body = funcDef->getBody();
-                        if (body) {
-                            const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+            // Execute setup() function if we haven't already - MEMORY SAFE
+            if (userFunctionNames_.count("setup") > 0) {
+                auto* setupFunc = findFunctionInAST("setup");
+                if (setupFunc) {
+                    debugLog("Tick: Executing setup() function");
+                    emitSystemCommand(CommandType::SETUP_START, "Entering setup()");
+                    
+                    scopeManager_->pushScope();
+                    currentFunction_ = setupFunc;
+                    
+                    try {
+                        // Execute the function BODY, not the function definition
+                        if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(setupFunc)) {
+                            const auto* body = funcDef->getBody();
+                            if (body) {
+                                const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+                            } else {
+                                debugLog("Tick: Setup function has no body");
+                            }
                         } else {
-                            debugLog("Tick: Setup function has no body");
+                            debugLog("Tick: Setup function is not a FuncDefNode");
                         }
-                    } else {
-                        debugLog("Tick: Setup function is not a FuncDefNode");
-                    }
                 } catch (const std::exception& e) {
                     emitError("Error in setup(): " + std::string(e.what()));
                     state_ = ExecutionState::ERROR;
@@ -2197,35 +2294,36 @@ void ASTInterpreter::tick() {
                 setupCalled_ = true; // Mark as called even if not found
             }
         } else {
-            // Execute loop() function iterations
-            auto loopFunc = userFunctions_.find("loop");
-            if (loopFunc != userFunctions_.end() && currentLoopIteration_ < maxLoopIterations_) {
-                debugLog("Tick: Executing loop() iteration " + std::to_string(currentLoopIteration_ + 1));
+            // Execute loop() function iterations - MEMORY SAFE
+            if (userFunctionNames_.count("loop") > 0 && currentLoopIteration_ < maxLoopIterations_) {
+                auto* loopFunc = findFunctionInAST("loop");
+                if (loopFunc) {
+                    debugLog("Tick: Executing loop() iteration " + std::to_string(currentLoopIteration_ + 1));
+                    
+                    // Increment iteration counter BEFORE processing (to match JS 1-based counting)
+                    currentLoopIteration_++;
+                    
+                    // Emit loop iteration start command
+                    emitCommand(CommandFactory::createLoopStart("loop", currentLoopIteration_));
+                    
+                    // Emit function call start command
+                    emitCommand(CommandFactory::createFunctionCall("loop"));
+                    
+                    scopeManager_->pushScope();
+                    currentFunction_ = loopFunc;
                 
-                // Increment iteration counter BEFORE processing (to match JS 1-based counting)
-                currentLoopIteration_++;
-                
-                // Emit loop iteration start command
-                emitCommand(CommandFactory::createLoopStart("loop", currentLoopIteration_));
-                
-                // Emit function call start command
-                emitCommand(CommandFactory::createFunctionCall("loop"));
-                
-                scopeManager_->pushScope();
-                currentFunction_ = loopFunc->second;
-                
-                try {
-                    // Execute the function BODY, not the function definition
-                    if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(loopFunc->second)) {
-                        const auto* body = funcDef->getBody();
-                        if (body) {
-                            const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+                    try {
+                        // Execute the function BODY, not the function definition
+                        if (auto* funcDef = dynamic_cast<const arduino_ast::FuncDefNode*>(loopFunc)) {
+                            const auto* body = funcDef->getBody();
+                            if (body) {
+                                const_cast<arduino_ast::ASTNode*>(body)->accept(*this);
+                            } else {
+                                debugLog("Tick: Loop function has no body");
+                            }
                         } else {
-                            debugLog("Tick: Loop function has no body");
+                            debugLog("Tick: Loop function is not a FuncDefNode");
                         }
-                    } else {
-                        debugLog("Tick: Loop function is not a FuncDefNode");
-                    }
                 } catch (const std::exception& e) {
                     emitError("Error in loop(): " + std::string(e.what()));
                     state_ = ExecutionState::ERROR;
@@ -2241,8 +2339,8 @@ void ASTInterpreter::tick() {
                 // Note: stepDelay is available in options_ if parent needs it
                 
                 // Process any pending requests
-                processRequestQueue();
-                
+                processResponseQueue();
+                }
             } else if (currentLoopIteration_ >= maxLoopIterations_) {
                 // Loop limit reached
                 debugLog("Tick: Loop limit reached, completing execution");
@@ -2250,7 +2348,7 @@ void ASTInterpreter::tick() {
                 emitSystemCommand(CommandType::PROGRAM_END, "Program execution completed");
             }
         }
-        
+    }
     } catch (const std::exception& e) {
         emitError("Tick execution error: " + std::string(e.what()));
         state_ = ExecutionState::ERROR;
@@ -2374,6 +2472,46 @@ CommandValue ASTInterpreter::convertToType(const CommandValue& value, const std:
     
     debugLog("convertToType: No conversion rule found, returning original value");
     return value; // Return unchanged if no conversion rule
+}
+
+// =============================================================================
+// MEMORY SAFE AST TRAVERSAL
+// =============================================================================
+
+arduino_ast::ASTNode* ASTInterpreter::findFunctionInAST(const std::string& functionName) {
+    // Recursively search AST tree for function definition with given name
+    std::function<arduino_ast::ASTNode*(arduino_ast::ASTNode*)> searchNode = 
+        [&](arduino_ast::ASTNode* node) -> arduino_ast::ASTNode* {
+        if (!node) return nullptr;
+        
+        // Check if this is a FuncDefNode with matching name
+        if (node->getType() == arduino_ast::ASTNodeType::FUNC_DEF) {
+            auto* funcDefNode = dynamic_cast<arduino_ast::FuncDefNode*>(node);
+            if (funcDefNode) {
+                auto* declarator = funcDefNode->getDeclarator();
+                if (auto* declNode = dynamic_cast<const arduino_ast::DeclaratorNode*>(declarator)) {
+                    if (declNode->getName() == functionName) {
+                        return node;
+                    }
+                } else if (auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(declarator)) {
+                    if (identifier->getName() == functionName) {
+                        return node;
+                    }
+                }
+            }
+        }
+        
+        // Search children recursively
+        for (auto& child : node->getChildren()) {
+            if (auto* result = searchNode(child.get())) {
+                return result;
+            }
+        }
+        
+        return nullptr;
+    };
+    
+    return searchNode(ast_.get());
 }
 
 } // namespace arduino_interpreter

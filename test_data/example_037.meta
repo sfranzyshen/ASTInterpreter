@@ -1,9 +1,41 @@
-{
-  "name": "switchCase.ino",
-  "source": "examples",
-  "index": "037",
-  "code": "// 05.Control switchCase.ino\n\n// these constants won't change. They are the lowest and highest readings you\n// get from your sensor:\nconst int sensorMin = 0;\nconst int sensorMax = 600;\n\nvoid setup() {\n  // initialize serial communication:\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the sensor:\n  int sensorReading = analogRead(A0);\n\n  // map the sensor range to a range of four options:\n  int range = map(sensorReading, sensorMin, sensorMax, 0, 3);\n\n  // do something different depending on the range value:\n  switch (range) {\n    case 0:\n      Serial.println(\"dark\");\n      break;\n    case 1:\n      Serial.println(\"dim\");\n      break;\n    case 2:\n      Serial.println(\"medium\");\n      break;\n    case 3:\n      Serial.println(\"bright\");\n      break;\n  }\n  delay(1);\n}\n",
-  "astSize": 569,
-  "commandCount": 47,
-  "generated": "2025-09-04T04:00:22.587Z"
+name=switchCase.ino
+source=examples
+astSize=1593
+codeSize=774
+mode=AST_ONLY
+content=// 05.Control switchCase.ino
+
+// these constants won't change. They are the lowest and highest readings you
+// get from your sensor:
+const int sensorMin = 0;
+const int sensorMax = 600;
+
+void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the sensor:
+  int sensorReading = analogRead(A0);
+
+  // map the sensor range to a range of four options:
+  int range = map(sensorReading, sensorMin, sensorMax, 0, 3);
+
+  // do something different depending on the range value:
+  switch (range) {
+    case 0:
+      Serial.println("dark");
+      break;
+    case 1:
+      Serial.println("dim");
+      break;
+    case 2:
+      Serial.println("medium");
+      break;
+    case 3:
+      Serial.println("bright");
+      break;
+  }
+  delay(1);
 }

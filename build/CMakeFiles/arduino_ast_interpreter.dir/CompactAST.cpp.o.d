@@ -1,8 +1,8 @@
 CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CompactAST.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/ASTNodes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

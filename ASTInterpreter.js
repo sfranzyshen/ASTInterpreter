@@ -1187,7 +1187,11 @@ class ScopeManager {
     // Remove the current scope
     popScope() {
         if (this.scopeStack.length <= 1) {
-            throw new Error("Cannot pop global scope");
+            // SCOPE ERROR RECOVERY: Don't throw in finally blocks, just warn and return
+            if (this.options && this.options.verbose) {
+                console.warn("Warning: Attempted to pop global scope. Scope stack preserved.");
+            }
+            return null; // Return null instead of throwing to prevent finally block failures
         }
         this.currentScopeLevel--;
         return this.scopeStack.pop();
@@ -2127,20 +2131,19 @@ class ASTInterpreter {
         // Remember the suspended function before clearing context
         const suspendedFunction = this.suspendedFunction;
         
-        // Clear the state machine context (except suspendedFunction - let the function clear it)
-        this.waitingForRequestId = null;
-        this.suspendedNode = null;
-        // Note: suspendedFunction will be cleared by the function itself when it consumes the response
-        
+        // RACE CONDITION FIX: Set new state FIRST to avoid undefined state gap
         // Restore the previous state before WAITING_FOR_RESPONSE
         // If we were stepping, return to PAUSED after handling the response
         // If we were running, return to RUNNING
-        if (this.previousExecutionState === EXECUTION_STATE.STEPPING) {
-            this.state = EXECUTION_STATE.PAUSED;
-        } else {
-            this.state = EXECUTION_STATE.RUNNING;
-        }
+        const newState = this.previousExecutionState === EXECUTION_STATE.STEPPING ? 
+            EXECUTION_STATE.PAUSED : EXECUTION_STATE.RUNNING;
+        this.state = newState;
         this.previousExecutionState = null;
+        
+        // Now clear the state machine context (except suspendedFunction - let the function clear it)
+        this.waitingForRequestId = null;
+        this.suspendedNode = null;
+        // Note: suspendedFunction will be cleared by the function itself when it consumes the response
         
         // Handle both async/await pattern and state machine pattern
         this.handleResponse(requestId, value);
@@ -2726,8 +2729,7 @@ class ASTInterpreter {
         // Execute the statement
         switch (node.type) {
             case 'CompoundStmtNode':
-                await this.executeCompoundStatement(node);
-                break;
+                return await this.executeCompoundStatement(node);
                 
             case 'ExpressionStatement':
                 console.log(`DEBUG ExpressionStatement:`, {
@@ -2757,8 +2759,7 @@ class ASTInterpreter {
                 break;
                 
             case 'IfStatement':
-                await this.executeIfStatement(node);
-                break;
+                return await this.executeIfStatement(node);
                 
             case 'WhileStatement':
                 await this.executeWhileStatement(node);
@@ -3340,29 +3341,36 @@ class ASTInterpreter {
                             });
                         }
                     } else {
-                        // Explicit size declaration: int arr[10];
+                        // Explicit size declaration: int arr[10] or int arr[8][8];
                         if (decl.declarator?.size) {
                             arraySize = await this.evaluateExpression(decl.declarator.size);
                         } else if (decl.declarator?.dimensions && decl.declarator.dimensions.length > 0) {
-                            // Try dimensions array
-                            arraySize = await this.evaluateExpression(decl.declarator.dimensions[0]);
+                            // Handle multidimensional arrays
+                            const dimensions = [];
+                            for (const dim of decl.declarator.dimensions) {
+                                const dimSize = await this.evaluateExpression(dim);
+                                dimensions.push(dimSize);
+                            }
+                            
+                            // Create multidimensional array
+                            value = this.createMultidimensionalArray(dimensions);
+                            arraySize = dimensions[0]; // For compatibility
+                            
+                            if (this.options.verbose) {
+                                console.log(`Multidimensional array ${varName} initialized:`, {
+                                    dimensions: dimensions,
+                                    shape: dimensions.join('x')
+                                });
+                            }
                         }
                         
-                        if (this.options.verbose) {
-                            console.log(`Array ${varName} size evaluation:`, {
-                                sizeNode: decl.declarator?.size,
-                                dimensions: decl.declarator?.dimensions,
-                                evaluatedSize: arraySize
-                            });
-                        }
-                        
-                        // Initialize array with default values
-                        if (arraySize && arraySize > 0) {
+                        // Initialize 1D array with default values (if not multidimensional)
+                        if (arraySize && arraySize > 0 && !value) {
                             value = new Array(arraySize).fill(0); // Initialize with zeros
                             if (this.options.verbose) {
                                 console.log(`Array ${varName} initialized with size ${arraySize}`);
                             }
-                        } else {
+                        } else if (!value && arraySize !== null) {
                             this.emitError(`Invalid array size for ${varName}: ${arraySize}`);
                             continue;
                         }
@@ -4996,15 +5004,18 @@ class ASTInterpreter {
     }
     
     async executeArrayElementAssignment(node) {
-        // Handle array element assignment: array[index] = value
+        // Handle array element assignment: array[index] = value or array[i][j] = value
         const arrayAccess = node.left; // This is an ArrayAccessNode
-        const arrayName = arrayAccess.identifier?.value;
+        
+        // Extract base array name - handle nested array access for multidimensional arrays
+        const arrayName = this.getArrayBaseName(arrayAccess);
         if (!arrayName) {
             this.emitError("Invalid array element assignment: no array name");
             return null;
         }
         
-        const indexValue = await this.evaluateExpression(arrayAccess.index);
+        // Extract all indices from nested array access (for multidimensional arrays)
+        const indices = await this.getArrayIndices(arrayAccess);
         const rightValue = await this.evaluateExpression(node.right);
         
         // Get the array from variables
@@ -5019,6 +5030,19 @@ class ASTInterpreter {
             return null;
         }
         
+        // Navigate to the target array element (handle multidimensional arrays)
+        let targetArray = arrayValue;
+        for (let i = 0; i < indices.length - 1; i++) {
+            const index = indices[i];
+            if (!Array.isArray(targetArray[index])) {
+                this.emitError(`Array index ${index} is not an array in multidimensional access`);
+                return null;
+            }
+            targetArray = targetArray[index];
+        }
+        
+        const finalIndex = indices[indices.length - 1];
+        
         // Handle compound assignment operators for array elements
         let newValue;
         switch (node.operator) {
@@ -5026,19 +5050,19 @@ class ASTInterpreter {
                 newValue = rightValue;
                 break;
             case '+=':
-                const currentValue = arrayValue[indexValue] || 0;
+                const currentValue = targetArray[finalIndex] || 0;
                 newValue = currentValue + rightValue;
                 break;
             case '-=':
-                const currentValue2 = arrayValue[indexValue] || 0;
+                const currentValue2 = targetArray[finalIndex] || 0;
                 newValue = currentValue2 - rightValue;
                 break;
             case '*=':
-                const currentValue3 = arrayValue[indexValue] || 0;
+                const currentValue3 = targetArray[finalIndex] || 0;
                 newValue = currentValue3 * rightValue;
                 break;
             case '/=':
-                const currentValue4 = arrayValue[indexValue] || 0;
+                const currentValue4 = targetArray[finalIndex] || 0;
                 newValue = currentValue4 / rightValue;
                 break;
             default:
@@ -5047,13 +5071,14 @@ class ASTInterpreter {
         }
         
         // Update the array element directly
-        arrayValue[indexValue] = newValue;
+        targetArray[finalIndex] = newValue;
         
         // Update the variable in the variable store to maintain consistency
         this.variables.set(arrayName, arrayValue);
         
         if (this.options.verbose) {
-            console.log(`Array element assignment: ${arrayName}[${indexValue}] = ${newValue}`);
+            const indexStr = indices.map(i => `[${i}]`).join('');
+            console.log(`Array element assignment: ${arrayName}${indexStr} = ${newValue}`);
         }
         
         return newValue;
@@ -6544,12 +6569,12 @@ class ASTInterpreter {
             // Execute then branch with its own scope (only if not already a compound statement)
             if (node.consequent.type === 'CompoundStmtNode') {
                 // CompoundStmtNode will create its own scope
-                await this.executeStatement(node.consequent);
+                return await this.executeStatement(node.consequent);
             } else {
                 // Single statement - create scope for it
                 this.variables.pushScope('if-then');
                 try {
-                    await this.executeStatement(node.consequent);
+                    return await this.executeStatement(node.consequent);
                 } finally {
                     this.variables.popScope();
                 }
@@ -6558,12 +6583,12 @@ class ASTInterpreter {
             // Execute else branch with its own scope
             if (node.alternate.type === 'CompoundStmtNode') {
                 // CompoundStmtNode will create its own scope
-                await this.executeStatement(node.alternate);
+                return await this.executeStatement(node.alternate);
             } else {
                 // Single statement - create scope for it
                 this.variables.pushScope('if-else');
                 try {
-                    await this.executeStatement(node.alternate);
+                    return await this.executeStatement(node.alternate);
                 } finally {
                     this.variables.popScope();
                 }
@@ -6726,7 +6751,33 @@ class ASTInterpreter {
                     message: `for loop iteration ${iterations}`
                 });
                 
-                await this.executeStatement(node.body);
+                const result = await this.executeStatement(node.body);
+                
+                // Handle break and continue statements
+                if (result && result.type === 'break') {
+                    this.emitCommand({
+                        type: COMMAND_TYPES.BREAK_STATEMENT,
+                        timestamp: Date.now(),
+                        action: 'exit_for_loop',
+                        message: 'break statement executed'
+                    });
+                    break;
+                }
+                
+                if (result && result.type === 'continue') {
+                    this.emitCommand({
+                        type: COMMAND_TYPES.CONTINUE_STATEMENT,
+                        timestamp: Date.now(),
+                        action: 'next_iteration',
+                        message: 'continue statement executed'
+                    });
+                    // Skip increment and go to next iteration
+                    if (node.increment) {
+                        await this.evaluateExpression(node.increment);
+                    }
+                    iterations++;
+                    continue;
+                }
                 
                 // Increment
                 if (node.increment) {
@@ -8935,6 +8986,58 @@ class ASTInterpreter {
     getStructSize(structName) {
         // Return default struct sizes - can be enhanced as needed
         return 8; // Default struct size
+    }
+    
+    getArrayBaseName(arrayAccess) {
+        // Extract the base array name from nested ArrayAccessNode structures
+        // For pixels[x][y], traverses: pixels[x][y] -> pixels[x] -> pixels
+        if (!arrayAccess || arrayAccess.type !== 'ArrayAccessNode') {
+            return null;
+        }
+        
+        let current = arrayAccess;
+        while (current.identifier && current.identifier.type === 'ArrayAccessNode') {
+            current = current.identifier;
+        }
+        
+        return current.identifier?.value || null;
+    }
+    
+    async getArrayIndices(arrayAccess) {
+        // Extract all indices from nested ArrayAccessNode structures
+        // For pixels[x][y], returns [x_value, y_value]
+        const indices = [];
+        
+        let current = arrayAccess;
+        while (current && current.type === 'ArrayAccessNode') {
+            // Evaluate the current index and prepend to array (reverse order)
+            const indexValue = await this.evaluateExpression(current.index);
+            indices.unshift(indexValue);
+            current = current.identifier;
+        }
+        
+        return indices;
+    }
+    
+    createMultidimensionalArray(dimensions) {
+        // Create a multidimensional array with the given dimensions
+        // For [8, 8], creates an 8x8 array filled with zeros
+        if (dimensions.length === 0) {
+            return 0; // scalar value
+        }
+        
+        if (dimensions.length === 1) {
+            return new Array(dimensions[0]).fill(0);
+        }
+        
+        const result = new Array(dimensions[0]);
+        const remainingDimensions = dimensions.slice(1);
+        
+        for (let i = 0; i < dimensions[0]; i++) {
+            result[i] = this.createMultidimensionalArray(remainingDimensions);
+        }
+        
+        return result;
     }
 
     getEnumValues(enumName) {

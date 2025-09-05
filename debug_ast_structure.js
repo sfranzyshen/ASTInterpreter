@@ -1,53 +1,34 @@
 #!/usr/bin/env node
 
-/**
- * Debug AST structure to understand variable declarations
- */
+const { parse, prettyPrintAST } = require('./ArduinoParser.js');
 
-const { parse } = require('./ArduinoParser.js');
-
-console.log('🔍 Debugging AST Structure');
-
-const code = `
+// Test case to examine AST structure
+const testCode = `
 void setup() {
-    int x = 1;
+    for(int i = 0; i < 5; i++) {
+        Serial.println(i);
+        if(i == 2) {
+            break;
+        }
+    }
+    Serial.println("After loop");
 }
 `;
 
+console.log('Analyzing AST structure for break statement...');
+
 try {
-    const ast = parse(code);
+    const ast = parse(testCode);
+    console.log('✓ Parsing successful\n');
     
-    function printNode(node, indent = 0) {
-        const spaces = '  '.repeat(indent);
-        if (!node) {
-            console.log(`${spaces}(null)`);
-            return;
-        }
-        
-        console.log(`${spaces}${node.type || 'NO_TYPE'}: ${JSON.stringify(node, null, 2).substring(0, 100)}...`);
-        
-        if (node.children) {
-            console.log(`${spaces}  children: ${node.children.length}`);
-            node.children.forEach(child => printNode(child, indent + 2));
-        }
-        
-        // Check VarDeclNode declarations
-        if (node.type === 'VarDeclNode' && node.declarations) {
-            console.log(`${spaces}  declarations: ${node.declarations.length}`);
-            node.declarations.forEach((decl, i) => {
-                console.log(`${spaces}    [${i}]: type=${decl.type || 'NO_TYPE'}, keys=[${Object.keys(decl).join(', ')}]`);
-                if (decl.declarator) {
-                    console.log(`${spaces}      declarator: ${JSON.stringify(decl.declarator)}`);
-                }
-                if (decl.initializer) {
-                    console.log(`${spaces}      initializer: ${JSON.stringify(decl.initializer)}`);
-                }
-            });
-        }
-    }
+    // Find the for statement and examine its structure
+    const setupFunc = ast.children[0];  // FuncDefNode for setup
+    const compoundStmt = setupFunc.body; // CompoundStmtNode 
+    const forStmt = compoundStmt.children[0]; // ForStatement
     
-    printNode(ast);
+    console.log('FOR STATEMENT BODY TYPE:', forStmt.body.type);
+    console.log('FOR STATEMENT BODY:', JSON.stringify(forStmt.body, null, 2));
     
 } catch (error) {
-    console.error('❌ Debug failed:', error.message);
+    console.log('❌ Error:', error.message);
 }

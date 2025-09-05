@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DDEBUG
 
-CXX_INCLUDES = -I/mnt/d/Devel/ArduinoInterpreter_Arduino
+CXX_INCLUDES = -I/mnt/d/Devel/ASTInterpreter_Arduino
 
 CXX_FLAGS = -g -O0 -Wall -Wextra -Wpedantic -std=c++17
 

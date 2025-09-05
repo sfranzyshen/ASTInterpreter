@@ -1,9 +1,33 @@
-{
-  "name": "Function_Calls_and_Parameter_Passing.ino",
-  "source": "old_test",
-  "index": "096",
-  "code": "// Function Calls and Parameter Passing\nint add(int x, int y) {\n  return x + y;\n}\n\nint multiply(int x, int y) {\n  return x * y;\n}\n\nint calculate(int x, int y, int z) {\n  return multiply(add(x, y), z);\n}\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 5;\n  int b = 10;\n  int c = 2;\n\n  int finalResult = calculate(a, b, c);\n\n  Serial.print(\"Final result: \");\n  Serial.println(finalResult);\n}",
-  "astSize": 652,
-  "commandCount": 45,
-  "generated": "2025-09-04T04:00:27.878Z"
+name=Function_Calls_and_Parameter_Passing.ino
+source=old_test
+astSize=1676
+codeSize=406
+mode=AST_AND_COMMANDS
+commandCount=45
+content=// Function Calls and Parameter Passing
+int add(int x, int y) {
+  return x + y;
+}
+
+int multiply(int x, int y) {
+  return x * y;
+}
+
+int calculate(int x, int y, int z) {
+  return multiply(add(x, y), z);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  int finalResult = calculate(a, b, c);
+
+  Serial.print("Final result: ");
+  Serial.println(finalResult);
 }

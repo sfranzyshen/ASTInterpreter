@@ -1,0 +1,9 @@
+{
+  "name": "To_test_the_Lexer_and_Parser.ino",
+  "source": "old_test",
+  "index": "080",
+  "code": "// To test the Lexer and Parser\nvoid setup() {\n  /*\n    This is the setup function.\n    It runs once at the beginning.\n  */\n  Serial.begin(9600); // Initialize serial communication\n  pinMode(13, OUTPUT); // Configure pin 13 as output for LED\n}\n\nvoid loop() {\n  // Turn the LED on\n  digitalWrite(13, HIGH);\n  delay(1000); // Wait for a second\n\n  // Turn the LED off\n  digitalWrite(13, LOW);\n  delay(1000); // Wait for another second\n}",
+  "astSize": 144,
+  "commandCount": 31,
+  "generated": "2025-09-04T04:00:26.564Z"
+}

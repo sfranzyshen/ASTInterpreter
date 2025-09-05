@@ -37,7 +37,7 @@ namespace arduino_ast {
 // CONSTANTS
 // =============================================================================
 
-static constexpr uint32_t COMPACT_AST_MAGIC = 0x41535450; // 'ASTP'
+static constexpr uint32_t COMPACT_AST_MAGIC = 0x50545341; // 'ASTP' as read from little-endian file
 static constexpr uint16_t SUPPORTED_VERSION = 0x0100;     // v1.0
 static constexpr size_t MIN_BUFFER_SIZE = sizeof(CompactASTHeader);
 
@@ -111,12 +111,31 @@ void CompactASTReader::parseHeaderInternal() {
     std::memcpy(&header_, buffer_ + position_, sizeof(CompactASTHeader));
     position_ += sizeof(CompactASTHeader);
     
+    DEBUG_OUT << "Raw header bytes:" << std::endl;
+    for (size_t i = 0; i < 16; i++) {
+        DEBUG_OUT << "  [" << i << "] = 0x" << std::hex << (int)buffer_[i] << std::dec << std::endl;
+    }
+    
+    DEBUG_OUT << "Before endianness conversion:" << std::endl;
+    DEBUG_OUT << "  magic: 0x" << std::hex << header_.magic << std::dec << std::endl;
+    DEBUG_OUT << "  version: 0x" << std::hex << header_.version << std::dec << std::endl;
+    DEBUG_OUT << "  flags: 0x" << std::hex << header_.flags << std::dec << std::endl;
+    DEBUG_OUT << "  nodeCount: " << header_.nodeCount << std::endl;
+    DEBUG_OUT << "  stringTableSize: " << header_.stringTableSize << std::endl;
+    
     // All header fields are stored in little-endian format per specification
     header_.magic = convertFromLittleEndian32(header_.magic);
     header_.version = convertFromLittleEndian16(header_.version);
     header_.flags = convertFromLittleEndian16(header_.flags);
     header_.nodeCount = convertFromLittleEndian32(header_.nodeCount);
     header_.stringTableSize = convertFromLittleEndian32(header_.stringTableSize);
+    
+    DEBUG_OUT << "After endianness conversion:" << std::endl;
+    DEBUG_OUT << "  magic: 0x" << std::hex << header_.magic << std::dec << std::endl;
+    DEBUG_OUT << "  version: 0x" << std::hex << header_.version << std::dec << std::endl;
+    DEBUG_OUT << "  flags: 0x" << std::hex << header_.flags << std::dec << std::endl;
+    DEBUG_OUT << "  nodeCount: " << header_.nodeCount << std::endl;
+    DEBUG_OUT << "  stringTableSize: " << header_.stringTableSize << std::endl;
     
     validateHeader();
     headerRead_ = true;
@@ -127,9 +146,13 @@ void CompactASTReader::parseStringTableInternal() {
         parseHeaderInternal();
     }
     
+    DEBUG_OUT << "parseStringTableInternal(): Starting at position " << position_ << std::endl;
+    DEBUG_OUT << "parseStringTableInternal(): String table size from header: " << header_.stringTableSize << std::endl;
+    
     // Read string count
     validatePosition(4);
     uint32_t stringCount = convertFromLittleEndian32(readUint32());
+    DEBUG_OUT << "parseStringTableInternal(): String count: " << stringCount << ", position now: " << position_ << std::endl;
     
     stringTable_.clear();
     stringTable_.reserve(stringCount);
@@ -138,18 +161,22 @@ void CompactASTReader::parseStringTableInternal() {
     for (uint32_t i = 0; i < stringCount; ++i) {
         validatePosition(2);
         uint16_t stringLength = convertFromLittleEndian16(readUint16());
+        DEBUG_OUT << "parseStringTableInternal(): String " << i << " length: " << stringLength << ", position: " << position_ << std::endl;
         
         validatePosition(stringLength + 1); // +1 for null terminator
         std::string str = readString(stringLength);
         
         // Skip null terminator
         position_++;
+        DEBUG_OUT << "parseStringTableInternal(): String " << i << ": \"" << str << "\", position now: " << position_ << std::endl;
         
         stringTable_.push_back(std::move(str));
     }
     
     // Align to 4-byte boundary
+    DEBUG_OUT << "parseStringTableInternal(): Before alignment, position: " << position_ << std::endl;
     alignTo4Bytes();
+    DEBUG_OUT << "parseStringTableInternal(): After alignment, position: " << position_ << std::endl;
     
     stringTableRead_ = true;
 }
@@ -306,6 +333,10 @@ ASTNodePtr CompactASTReader::parseNode(size_t nodeIndex) {
         case ASTNodeType::FUNC_CALL:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating FuncCallNode" << std::endl;
             node = std::make_unique<FuncCallNode>();
+            break;
+        case ASTNodeType::CONSTRUCTOR_CALL:
+            DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating ConstructorCallNode" << std::endl;
+            node = std::make_unique<ConstructorCallNode>();
             break;
         case ASTNodeType::MEMBER_ACCESS:
             DEBUG_OUT << "parseNode(" << nodeIndex << "): Creating MemberAccessNode" << std::endl;
@@ -518,10 +549,14 @@ ASTValue CompactASTReader::parseValue() {
 void CompactASTReader::linkNodeChildren() {
     DEBUG_OUT << "linkNodeChildren(): Linking children for " << childIndices_.size() << " parent nodes" << std::endl;
     
-    // Process in reverse order of parent indices to ensure children are processed first
+    // Process in descending order, but handle root node (0) specially to avoid it being moved
     std::vector<std::pair<size_t, std::vector<uint16_t>>> orderedPairs(childIndices_.begin(), childIndices_.end());
     std::sort(orderedPairs.begin(), orderedPairs.end(), [](const auto& a, const auto& b) {
-        return a.first > b.first; // Sort in descending order
+        // Special handling: if one is root (0) and other is not, process non-root first
+        if (a.first == 0 && b.first != 0) return false;  // Process b before a
+        if (b.first == 0 && a.first != 0) return true;   // Process a before b
+        // Otherwise, use descending order (higher indices first)
+        return a.first > b.first;
     });
     
     for (const auto& pair : orderedPairs) {
@@ -554,10 +589,19 @@ void CompactASTReader::linkNodeChildren() {
                 continue;
             }
             
-            // Move child to parent (transfer ownership)
-            // Note: This makes the child null in the original array, which may cause issues
-            // if the child also has children that need to be processed
-            auto childNode = std::move(nodes_[childIndex]);
+            // CRITICAL: Never move the root node (index 0) as it should never be anyone's child
+            if (childIndex == 0) {
+                DEBUG_OUT << "linkNodeChildren(): WARNING - Attempted to move root node (index 0) as child of " << parentIndex << std::endl;
+                DEBUG_OUT << "linkNodeChildren(): This suggests corrupted AST data - skipping this child link" << std::endl;
+                continue;
+            }
+            
+            // Get child node without moving (keep it in the array for now)
+            auto& childNodeRef = nodes_[childIndex];
+            if (!childNodeRef) {
+                DEBUG_OUT << "linkNodeChildren(): ERROR - Child node " << childIndex << " is null (already moved?)" << std::endl;
+                continue;
+            }
             
             // Special handling for specific node types to set up proper structure
             if (parentNode->getType() == ASTNodeType::FUNC_DEF) {
@@ -566,35 +610,35 @@ void CompactASTReader::linkNodeChildren() {
                     DEBUG_OUT << "linkNodeChildren(): Setting up FuncDefNode child " << childIndex << std::endl;
                     
                     // Determine child role based on type and position
-                    auto childType = childNode->getType();
+                    auto childType = childNodeRef->getType();
                     if (childType == ASTNodeType::TYPE_NODE && !funcDefNode->getReturnType()) {
                         DEBUG_OUT << "linkNodeChildren(): Setting return type" << std::endl;
-                        funcDefNode->setReturnType(std::move(childNode));
+                        funcDefNode->setReturnType(std::move(nodes_[childIndex]));
                     } else if (childType == ASTNodeType::DECLARATOR_NODE && !funcDefNode->getDeclarator()) {
                         DEBUG_OUT << "linkNodeChildren(): Setting declarator" << std::endl;
-                        funcDefNode->setDeclarator(std::move(childNode));
+                        funcDefNode->setDeclarator(std::move(nodes_[childIndex]));
                     } else if (childType == ASTNodeType::COMPOUND_STMT && !funcDefNode->getBody()) {
                         DEBUG_OUT << "linkNodeChildren(): Setting body" << std::endl;
-                        funcDefNode->setBody(std::move(childNode));
+                        funcDefNode->setBody(std::move(nodes_[childIndex]));
                     } else {
                         DEBUG_OUT << "linkNodeChildren(): Adding as generic child" << std::endl;
-                        parentNode->addChild(std::move(childNode));
+                        parentNode->addChild(std::move(nodes_[childIndex]));
                     }
                 } else {
-                    parentNode->addChild(std::move(childNode));
+                    parentNode->addChild(std::move(nodes_[childIndex]));
                 }
             } else if (parentNode->getType() == ASTNodeType::VAR_DECL) {
                 auto* varDeclNode = dynamic_cast<arduino_ast::VarDeclNode*>(parentNode.get());
                 if (varDeclNode) {
                     DEBUG_OUT << "linkNodeChildren(): Setting up VarDeclNode child " << childIndex << std::endl;
                     
-                    auto childType = childNode->getType();
+                    auto childType = childNodeRef->getType();
                     if (childType == ASTNodeType::TYPE_NODE && !varDeclNode->getVarType()) {
                         DEBUG_OUT << "linkNodeChildren(): Setting var type" << std::endl;
-                        varDeclNode->setVarType(std::move(childNode));
+                        varDeclNode->setVarType(std::move(nodes_[childIndex]));
                     } else if (childType == ASTNodeType::DECLARATOR_NODE) {
                         DEBUG_OUT << "linkNodeChildren(): Adding DeclaratorNode to declarations" << std::endl;
-                        varDeclNode->addDeclaration(std::move(childNode));
+                        varDeclNode->addDeclaration(std::move(nodes_[childIndex]));
                     } else if (childType == ASTNodeType::NUMBER_LITERAL || 
                                childType == ASTNodeType::STRING_LITERAL ||
                                childType == ASTNodeType::CHAR_LITERAL ||
@@ -612,21 +656,21 @@ void CompactASTReader::linkNodeChildren() {
                             auto* lastDecl = declarations.back().get();
                             if (lastDecl && lastDecl->getType() == ASTNodeType::DECLARATOR_NODE) {
                                 DEBUG_OUT << "linkNodeChildren(): Adding initializer as child to DeclaratorNode" << std::endl;
-                                const_cast<arduino_ast::ASTNode*>(lastDecl)->addChild(std::move(childNode));
+                                const_cast<arduino_ast::ASTNode*>(lastDecl)->addChild(std::move(nodes_[childIndex]));
                             } else {
                                 DEBUG_OUT << "linkNodeChildren(): No DeclaratorNode to attach initializer to" << std::endl;
-                                parentNode->addChild(std::move(childNode));
+                                parentNode->addChild(std::move(nodes_[childIndex]));
                             }
                         } else {
                             DEBUG_OUT << "linkNodeChildren(): No declarations to attach initializer to" << std::endl;
-                            parentNode->addChild(std::move(childNode));
+                            parentNode->addChild(std::move(nodes_[childIndex]));
                         }
                     } else {
                         DEBUG_OUT << "linkNodeChildren(): Adding as generic child" << std::endl;
-                        parentNode->addChild(std::move(childNode));
+                        parentNode->addChild(std::move(nodes_[childIndex]));
                     }
                 } else {
-                    parentNode->addChild(std::move(childNode));
+                    parentNode->addChild(std::move(nodes_[childIndex]));
                 }
             } else if (parentNode->getType() == ASTNodeType::TERNARY_EXPR) {
                 DEBUG_OUT << "linkNodeChildren(): Found TERNARY_EXPR parent node!" << std::endl;
@@ -644,22 +688,22 @@ void CompactASTReader::linkNodeChildren() {
                     // Ternary expressions expect 3 children in order: condition, trueExpression, falseExpression
                     if (ternaryChildCount == 0) {
                         DEBUG_OUT << "linkNodeChildren(): Setting condition" << std::endl;
-                        ternaryNode->setCondition(std::move(childNode));
+                        ternaryNode->setCondition(std::move(nodes_[childIndex]));
                     } else if (ternaryChildCount == 1) {
                         DEBUG_OUT << "linkNodeChildren(): Setting true expression" << std::endl;
-                        ternaryNode->setTrueExpression(std::move(childNode));
+                        ternaryNode->setTrueExpression(std::move(nodes_[childIndex]));
                     } else if (ternaryChildCount == 2) {
                         DEBUG_OUT << "linkNodeChildren(): Setting false expression" << std::endl;
-                        ternaryNode->setFalseExpression(std::move(childNode));
+                        ternaryNode->setFalseExpression(std::move(nodes_[childIndex]));
                     } else {
                         DEBUG_OUT << "linkNodeChildren(): Too many children for ternary expression, adding as generic child" << std::endl;
-                        parentNode->addChild(std::move(childNode));
+                        parentNode->addChild(std::move(nodes_[childIndex]));
                     }
                 } else {
-                    parentNode->addChild(std::move(childNode));
+                    parentNode->addChild(std::move(nodes_[childIndex]));
                 }
             } else {
-                parentNode->addChild(std::move(childNode));
+                parentNode->addChild(std::move(nodes_[childIndex]));
             }
             
             DEBUG_OUT << "linkNodeChildren(): Child " << childIndex << " linked successfully" << std::endl;
@@ -678,10 +722,10 @@ bool CompactASTReader::validateFormat() const {
         return false;
     }
     
-    // Check magic number (stored in big-endian format)
+    // Check magic number (stored in little-endian format)
     uint32_t magic;
     std::memcpy(&magic, buffer_, 4);
-    magic = convertFromBigEndian32(magic);
+    magic = convertFromLittleEndian32(magic);
     
     return magic == COMPACT_AST_MAGIC;
 }
@@ -853,11 +897,11 @@ bool isValidCompactAST(const uint8_t* buffer, size_t size) {
     uint32_t magic;
     std::memcpy(&magic, buffer, 4);
     
-    // Magic number is stored in big-endian format
+    // Magic number is stored in little-endian format (consistent with header parsing)
     #if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-    // Already big-endian, no conversion needed
+    magic = __builtin_bswap32(magic); // Convert from little-endian to big-endian
     #else
-    magic = __builtin_bswap32(magic); // Convert from big-endian to little-endian
+    // Already little-endian, no conversion needed
     #endif
     
     return magic == COMPACT_AST_MAGIC;

@@ -1,0 +1,9 @@
+{
+  "name": "Operator_Precedence_and_Associativity.ino",
+  "source": "old_test",
+  "index": "095",
+  "code": "// Operator Precedence and Associativity\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 20;\n  int b = 5;\n  int c = 2;\n  int d = 3;\n\n  int result1 = a + b * c - d;\n  int result2 = (a + b) * c - d;\n  int result3 = a / (b - d) + c;\n\n  Serial.print(\"Result 1: \"); Serial.println(result1);\n  Serial.print(\"Result 2: \"); Serial.println(result2);\n  Serial.print(\"Result 3: \"); Serial.println(result3);\n}",
+  "astSize": 578,
+  "commandCount": 57,
+  "generated": "2025-09-04T04:00:27.775Z"
+}

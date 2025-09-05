@@ -97,6 +97,7 @@ enum class ASTNodeType : uint8_t {
     COMMA_EXPRESSION = 0x56,
     ARRAY_DECLARATOR = 0x57,
     POINTER_DECLARATOR = 0x58,
+    CONSTRUCTOR_CALL = 0x59,
     
     // Unknown/Invalid
     UNKNOWN = 0xFF
@@ -430,6 +431,24 @@ private:
     
 public:
     FuncCallNode() : ASTNode(ASTNodeType::FUNC_CALL) {}
+    
+    void setCallee(ASTNodePtr callee) { callee_ = std::move(callee); }
+    void addArgument(ASTNodePtr arg) { arguments_.push_back(std::move(arg)); }
+    void reserveArguments(size_t count) { arguments_.reserve(count); }
+    
+    const ASTNode* getCallee() const { return callee_.get(); }
+    const std::vector<ASTNodePtr>& getArguments() const { return arguments_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class ConstructorCallNode : public ASTNode {
+private:
+    ASTNodePtr callee_;
+    std::vector<ASTNodePtr> arguments_;
+    
+public:
+    ConstructorCallNode() : ASTNode(ASTNodeType::CONSTRUCTOR_CALL) {}
     
     void setCallee(ASTNodePtr callee) { callee_ = std::move(callee); }
     void addArgument(ASTNodePtr arg) { arguments_.push_back(std::move(arg)); }
@@ -831,6 +850,7 @@ public:
     virtual void visit(BinaryOpNode& node) = 0;
     virtual void visit(UnaryOpNode& node) = 0;
     virtual void visit(FuncCallNode& node) = 0;
+    virtual void visit(ConstructorCallNode& node) = 0;
     virtual void visit(MemberAccessNode& node) = 0;
     virtual void visit(AssignmentNode& node) = 0;
     virtual void visit(PostfixExpressionNode& node) = 0;

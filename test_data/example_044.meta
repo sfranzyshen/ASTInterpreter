@@ -1,9 +1,43 @@
-{
-  "name": "barGraph.ino",
-  "source": "examples",
-  "index": "044",
-  "code": "// 07.Display barGraph.ino\n\n// these constants won't change:\nconst int analogPin = A0;\nconst int ledCount = 10;\n\nint ledPins[] = {\n  2, 3, 4, 5, 6, 7, 8, 9, 10, 11\n};\n\n\nvoid setup() {\n  // loop over the pin array and set them all to output:\n  for (int thisLed = 0; thisLed < ledCount; thisLed++) {\n    pinMode(ledPins[thisLed], OUTPUT);\n  }\n}\n\nvoid loop() {\n  // read the potentiometer:\n  int sensorReading = analogRead(analogPin);\n\n  // map the result to a range from 0 to the number of LEDs:\n  int ledLevel = map(sensorReading, 0, 1023, 0, ledCount);\n\n  // loop over the LED array:\n  for (int thisLed = 0; thisLed < ledCount; thisLed++) {\n    // if the array element's index is less than ledLevel,\n    // turn the pin for this element on:\n    if (thisLed < ledLevel) {\n      digitalWrite(ledPins[thisLed], HIGH);\n    }\n    // turn off all pins higher than the ledLevel:\n    else {\n      digitalWrite(ledPins[thisLed], LOW);\n    }\n  }\n}\n",
-  "astSize": 683,
-  "commandCount": 19,
-  "generated": "2025-09-04T04:00:23.353Z"
+name=barGraph.ino
+source=examples
+astSize=1707
+codeSize=938
+mode=AST_ONLY
+content=// 07.Display barGraph.ino
+
+// these constants won't change:
+const int analogPin = A0;
+const int ledCount = 10;
+
+int ledPins[] = {
+  2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+};
+
+
+void setup() {
+  // loop over the pin array and set them all to output:
+  for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+    pinMode(ledPins[thisLed], OUTPUT);
+  }
+}
+
+void loop() {
+  // read the potentiometer:
+  int sensorReading = analogRead(analogPin);
+
+  // map the result to a range from 0 to the number of LEDs:
+  int ledLevel = map(sensorReading, 0, 1023, 0, ledCount);
+
+  // loop over the LED array:
+  for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+    // if the array element's index is less than ledLevel,
+    // turn the pin for this element on:
+    if (thisLed < ledLevel) {
+      digitalWrite(ledPins[thisLed], HIGH);
+    }
+    // turn off all pins higher than the ledLevel:
+    else {
+      digitalWrite(ledPins[thisLed], LOW);
+    }
+  }
 }

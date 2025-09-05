@@ -1,0 +1,9 @@
+{
+  "name": "Arrays.ino",
+  "source": "examples",
+  "index": "033",
+  "code": "// 05.Control Arrays.ino\n\nint timer = 100;\nint ledPins[] = {\n  2, 7, 4, 6, 5, 3\n};\nint pinCount = 6;\n\nvoid setup() {\n  // use a for loop to initialize each pin as an output:\n  for (int thisPin = 0; thisPin < pinCount; thisPin++) {\n    pinMode(ledPins[thisPin], OUTPUT);\n  }\n}\n\nvoid loop() {\n  // loop from the lowest pin to the highest:\n  for (int thisPin = 0; thisPin < pinCount; thisPin++) {\n    // turn the pin on:\n    digitalWrite(ledPins[thisPin], HIGH);\n    delay(timer);\n    // turn the pin off:\n    digitalWrite(ledPins[thisPin], LOW);\n  }\n\n  // loop from the highest pin to the lowest:\n  for (int thisPin = pinCount - 1; thisPin >= 0; thisPin--) {\n    // turn the pin on:\n    digitalWrite(ledPins[thisPin], HIGH);\n    delay(timer);\n    // turn the pin off:\n    digitalWrite(ledPins[thisPin], LOW);\n  }\n}\n",
+  "astSize": 570,
+  "commandCount": 19,
+  "generated": "2025-09-04T04:00:22.063Z"
+}

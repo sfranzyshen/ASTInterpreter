@@ -1,7 +1,7 @@
 CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/CommandProtocol.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

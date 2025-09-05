@@ -1,9 +1,9 @@
 CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/test_command_protocol.cpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/test_command_protocol.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/test_utils.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../ASTInterpreter.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../ASTNodes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/test_utils.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../ASTInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../ASTNodes.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -163,7 +163,7 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: \
  /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../CommandProtocol.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../CommandProtocol.hpp \
  /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
@@ -174,10 +174,10 @@ CMakeFiles/test_command_protocol.dir/tests/test_command_protocol.cpp.o: \
  /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../CompactAST.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../EnhancedInterpreter.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../ArduinoDataTypes.hpp \
- /mnt/d/Devel/ArduinoInterpreter_Arduino/tests/../ArduinoLibraryRegistry.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../CompactAST.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../EnhancedInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../ArduinoDataTypes.hpp \
+ /mnt/d/Devel/ASTInterpreter_Arduino/tests/../ArduinoLibraryRegistry.hpp \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h /usr/include/c++/11/stack \
  /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_deque.h \

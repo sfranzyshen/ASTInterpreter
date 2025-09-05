@@ -1,0 +1,9 @@
+{
+  "name": "Blink.ino",
+  "source": "examples",
+  "index": "002",
+  "code": "// 01.Basics Blink.ino\n\n// the setup function runs once when you press reset or power the board\nvoid setup() {\n  // initialize digital pin LED_BUILTIN as an output.\n  pinMode(LED_BUILTIN, OUTPUT);\n}\n\n// the loop function runs over and over again forever\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH);\n  delay(1000);\n  digitalWrite(LED_BUILTIN, LOW);\n  delay(1000);\n}\n",
+  "astSize": 138,
+  "commandCount": 30,
+  "generated": "2025-09-04T04:00:18.388Z"
+}

@@ -1,9 +1,22 @@
-{
-  "name": "Complex_for_loop_with_multiple_expressions.ino",
-  "source": "old_test",
-  "index": "108",
-  "code": "// Complex for loop with multiple expressions\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int i = 0;\n  int j = 10;\n\n  for (i = 0, j = 10; i < j; i++, j--) {\n    Serial.print(\"i: \");\n    Serial.print(i);\n    Serial.print(\", j: \");\n    Serial.print(j);\n    Serial.println(j);\n  }\n}",
-  "astSize": 378,
-  "commandCount": 38,
-  "generated": "2025-09-04T04:00:28.987Z"
+name=Complex_for_loop_with_multiple_expressions.ino
+source=old_test
+astSize=1402
+codeSize=291
+mode=AST_ONLY
+content=// Complex for loop with multiple expressions
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int i = 0;
+  int j = 10;
+
+  for (i = 0, j = 10; i < j; i++, j--) {
+    Serial.print("i: ");
+    Serial.print(i);
+    Serial.print(", j: ");
+    Serial.print(j);
+    Serial.println(j);
+  }
 }

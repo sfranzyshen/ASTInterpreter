@@ -1,9 +1,34 @@
-{
-  "name": "IfStatementConditional.ino",
-  "source": "examples",
-  "index": "035",
-  "code": "// 05.Control IfStatementConditional.ino\n\n// These constants won't change:\nconst int analogPin = A0;\nconst int ledPin = 13;\nconst int threshold = 400;\n\nvoid setup() {\n  // initialize the LED pin as an output:\n  pinMode(ledPin, OUTPUT);\n  // initialize serial communications:\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the value of the potentiometer:\n  int analogValue = analogRead(analogPin);\n\n  // if the analog value is high enough, turn on the LED:\n  if (analogValue > threshold) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n\n  // print the analog value:\n  Serial.println(analogValue);\n  delay(1);\n}\n",
-  "astSize": 421,
-  "commandCount": 40,
-  "generated": "2025-09-04T04:00:22.313Z"
+name=IfStatementConditional.ino
+source=examples
+astSize=1445
+codeSize=644
+mode=AST_ONLY
+content=// 05.Control IfStatementConditional.ino
+
+// These constants won't change:
+const int analogPin = A0;
+const int ledPin = 13;
+const int threshold = 400;
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize serial communications:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the value of the potentiometer:
+  int analogValue = analogRead(analogPin);
+
+  // if the analog value is high enough, turn on the LED:
+  if (analogValue > threshold) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  // print the analog value:
+  Serial.println(analogValue);
+  delay(1);
 }

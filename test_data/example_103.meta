@@ -1,9 +1,30 @@
-{
-  "name": "switch_statement_with_fall-through_and_nested_blocks.ino",
-  "source": "old_test",
-  "index": "103",
-  "code": "// switch statement with fall-through and nested blocks\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int x = 2;\n  switch (x) {\n    case 1:\n      Serial.println(\"Case 1\");\n    case 2: {\n      int y = 5;\n      Serial.println(\"Case 2\");\n      Serial.print(\"y is: \");\n      Serial.println(y);\n    }\n    case 3:\n      Serial.println(\"Case 3\");\n      break;\n    default:\n      Serial.println(\"Default case\");\n      break;\n  }\n}",
-  "astSize": 338,
-  "commandCount": 42,
-  "generated": "2025-09-04T04:00:28.537Z"
+name=switch_statement_with_fall-through_and_nested_blocks.ino
+source=old_test
+astSize=1362
+codeSize=432
+mode=AST_AND_COMMANDS
+commandCount=42
+content=// switch statement with fall-through and nested blocks
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int x = 2;
+  switch (x) {
+    case 1:
+      Serial.println("Case 1");
+    case 2: {
+      int y = 5;
+      Serial.println("Case 2");
+      Serial.print("y is: ");
+      Serial.println(y);
+    }
+    case 3:
+      Serial.println("Case 3");
+      break;
+    default:
+      Serial.println("Default case");
+      break;
+  }
 }

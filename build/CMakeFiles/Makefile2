@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino
+CMAKE_SOURCE_DIR = /mnt/d/Devel/ASTInterpreter_Arduino
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/d/Devel/ArduinoInterpreter_Arduino/build
+CMAKE_BINARY_DIR = /mnt/d/Devel/ASTInterpreter_Arduino/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -94,14 +94,14 @@ clean: CMakeFiles/cross_platform_validation.dir/clean
 CMakeFiles/arduino_ast_interpreter.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target arduino_ast_interpreter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target arduino_ast_interpreter"
 .PHONY : CMakeFiles/arduino_ast_interpreter.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/arduino_ast_interpreter.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/arduino_ast_interpreter.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/arduino_ast_interpreter.dir/rule
 
 # Convenience name for target.
@@ -120,14 +120,14 @@ CMakeFiles/arduino_ast_interpreter.dir/clean:
 CMakeFiles/basic_interpreter_example.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=9,10 "Built target basic_interpreter_example"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=9,10 "Built target basic_interpreter_example"
 .PHONY : CMakeFiles/basic_interpreter_example.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/basic_interpreter_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/basic_interpreter_example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/basic_interpreter_example.dir/rule
 
 # Convenience name for target.
@@ -146,14 +146,14 @@ CMakeFiles/basic_interpreter_example.dir/clean:
 CMakeFiles/test_ast_nodes.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ast_nodes.dir/build.make CMakeFiles/test_ast_nodes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_ast_nodes.dir/build.make CMakeFiles/test_ast_nodes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=12,13 "Built target test_ast_nodes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=12,13 "Built target test_ast_nodes"
 .PHONY : CMakeFiles/test_ast_nodes.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_ast_nodes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_ast_nodes.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_ast_nodes.dir/rule
 
 # Convenience name for target.
@@ -172,14 +172,14 @@ CMakeFiles/test_ast_nodes.dir/clean:
 CMakeFiles/test_compact_ast.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_compact_ast.dir/build.make CMakeFiles/test_compact_ast.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_compact_ast.dir/build.make CMakeFiles/test_compact_ast.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=16,17 "Built target test_compact_ast"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=16,17 "Built target test_compact_ast"
 .PHONY : CMakeFiles/test_compact_ast.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_compact_ast.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_compact_ast.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_compact_ast.dir/rule
 
 # Convenience name for target.
@@ -198,14 +198,14 @@ CMakeFiles/test_compact_ast.dir/clean:
 CMakeFiles/test_command_protocol.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_command_protocol.dir/build.make CMakeFiles/test_command_protocol.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_command_protocol.dir/build.make CMakeFiles/test_command_protocol.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=14,15 "Built target test_command_protocol"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=14,15 "Built target test_command_protocol"
 .PHONY : CMakeFiles/test_command_protocol.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_command_protocol.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_command_protocol.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_command_protocol.dir/rule
 
 # Convenience name for target.
@@ -224,14 +224,14 @@ CMakeFiles/test_command_protocol.dir/clean:
 CMakeFiles/test_interpreter_integration.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_interpreter_integration.dir/build.make CMakeFiles/test_interpreter_integration.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_interpreter_integration.dir/build.make CMakeFiles/test_interpreter_integration.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=20,21 "Built target test_interpreter_integration"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=20,21 "Built target test_interpreter_integration"
 .PHONY : CMakeFiles/test_interpreter_integration.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_interpreter_integration.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_interpreter_integration.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_interpreter_integration.dir/rule
 
 # Convenience name for target.
@@ -250,14 +250,14 @@ CMakeFiles/test_interpreter_integration.dir/clean:
 CMakeFiles/test_cross_platform_validation.dir/all: CMakeFiles/arduino_ast_interpreter.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cross_platform_validation.dir/build.make CMakeFiles/test_cross_platform_validation.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cross_platform_validation.dir/build.make CMakeFiles/test_cross_platform_validation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=18,19 "Built target test_cross_platform_validation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=18,19 "Built target test_cross_platform_validation"
 .PHONY : CMakeFiles/test_cross_platform_validation.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_cross_platform_validation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_cross_platform_validation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_cross_platform_validation.dir/rule
 
 # Convenience name for target.
@@ -276,14 +276,14 @@ CMakeFiles/test_cross_platform_validation.dir/clean:
 CMakeFiles/cross_platform_validation.dir/all: CMakeFiles/test_cross_platform_validation.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cross_platform_validation.dir/build.make CMakeFiles/cross_platform_validation.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cross_platform_validation.dir/build.make CMakeFiles/cross_platform_validation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles --progress-num=11 "Built target cross_platform_validation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=11 "Built target cross_platform_validation"
 .PHONY : CMakeFiles/cross_platform_validation.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cross_platform_validation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cross_platform_validation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ArduinoInterpreter_Arduino/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles 0
 .PHONY : CMakeFiles/cross_platform_validation.dir/rule
 
 # Convenience name for target.

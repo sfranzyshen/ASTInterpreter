@@ -1,9 +1,83 @@
-{
-  "name": "KeyboardSerial.ino",
-  "source": "examples",
-  "index": "060",
-  "code": "// 09.USB Keyboard/KeyboardSerial\n\n#include \"Keyboard.h\"\n\n// use this option for OSX.\nchar ctrlKey = KEY_LEFT_GUI;\n// use this option for Windows and Linux.\n// char ctrlKey = KEY_LEFT_CTRL;\n\nvoid setup() {\n  // make pin 2 an input and turn on the pull-up resistor so it goes high unless\n  // connected to ground:\n  pinMode(2, INPUT_PULLUP);\n  // initialize control over the keyboard:\n  Keyboard.begin();\n}\n\nvoid loop() {\n  while (digitalRead(2) == HIGH) {\n    // do nothing until pin 2 goes low\n    delay(500);\n  }\n  delay(1000);\n\n  // new document:\n  Keyboard.press(ctrlKey);\n  Keyboard.press('n');\n  delay(100);\n  Keyboard.releaseAll();\n  // wait for new window to open:\n  delay(1000);\n\n  // versions of the Arduino IDE after 1.5 pre-populate new sketches with\n  // setup() and loop() functions let's clear the window before typing anything new\n  // select all\n  Keyboard.press(ctrlKey);\n  Keyboard.press('a');\n  delay(500);\n  Keyboard.releaseAll();\n  // delete the selected text\n  Keyboard.write(KEY_BACKSPACE);\n  delay(500);\n\n  // Type out \"blink\":\n  Keyboard.println(\"void setup() {\");\n  Keyboard.println(\"pinMode(13, OUTPUT);\");\n  Keyboard.println(\"}\");\n  Keyboard.println();\n  Keyboard.println(\"void loop() {\");\n  Keyboard.println(\"digitalWrite(13, HIGH);\");\n  Keyboard.print(\"delay(3000);\");\n  // 3000 ms is too long.\n  for (int keystrokes = 0; keystrokes < 6; keystrokes++) {\n    delay(500);\n    Keyboard.write(KEY_BACKSPACE);\n  }\n  // make it 1000 instead:\n  Keyboard.println(\"1000);\");\n  Keyboard.println(\"digitalWrite(13, LOW);\");\n  Keyboard.println(\"delay(1000);\");\n  Keyboard.println(\"}\");\n  // tidy up:\n  Keyboard.press(ctrlKey);\n  Keyboard.press('t');\n  delay(100);\n  Keyboard.releaseAll();\n  delay(3000);\n\n  // upload code:\n  Keyboard.press(ctrlKey);\n  Keyboard.press('u');\n  delay(100);\n  Keyboard.releaseAll();\n\n  // wait for the sweet oblivion of reprogramming:\n  while (true)\n    ;\n}\n",
-  "astSize": 611,
-  "commandCount": 49,
-  "generated": "2025-09-04T04:00:24.615Z"
+name=KeyboardSerial.ino
+source=examples
+astSize=1635
+codeSize=1905
+mode=AST_ONLY
+content=// 09.USB Keyboard/KeyboardSerial
+
+#include "Keyboard.h"
+
+// use this option for OSX.
+char ctrlKey = KEY_LEFT_GUI;
+// use this option for Windows and Linux.
+// char ctrlKey = KEY_LEFT_CTRL;
+
+void setup() {
+  // make pin 2 an input and turn on the pull-up resistor so it goes high unless
+  // connected to ground:
+  pinMode(2, INPUT_PULLUP);
+  // initialize control over the keyboard:
+  Keyboard.begin();
+}
+
+void loop() {
+  while (digitalRead(2) == HIGH) {
+    // do nothing until pin 2 goes low
+    delay(500);
+  }
+  delay(1000);
+
+  // new document:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('n');
+  delay(100);
+  Keyboard.releaseAll();
+  // wait for new window to open:
+  delay(1000);
+
+  // versions of the Arduino IDE after 1.5 pre-populate new sketches with
+  // setup() and loop() functions let's clear the window before typing anything new
+  // select all
+  Keyboard.press(ctrlKey);
+  Keyboard.press('a');
+  delay(500);
+  Keyboard.releaseAll();
+  // delete the selected text
+  Keyboard.write(KEY_BACKSPACE);
+  delay(500);
+
+  // Type out "blink":
+  Keyboard.println("void setup() {");
+  Keyboard.println("pinMode(13, OUTPUT);");
+  Keyboard.println("}");
+  Keyboard.println();
+  Keyboard.println("void loop() {");
+  Keyboard.println("digitalWrite(13, HIGH);");
+  Keyboard.print("delay(3000);");
+  // 3000 ms is too long.
+  for (int keystrokes = 0; keystrokes < 6; keystrokes++) {
+    delay(500);
+    Keyboard.write(KEY_BACKSPACE);
+  }
+  // make it 1000 instead:
+  Keyboard.println("1000);");
+  Keyboard.println("digitalWrite(13, LOW);");
+  Keyboard.println("delay(1000);");
+  Keyboard.println("}");
+  // tidy up:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('t');
+  delay(100);
+  Keyboard.releaseAll();
+  delay(3000);
+
+  // upload code:
+  Keyboard.press(ctrlKey);
+  Keyboard.press('u');
+  delay(100);
+  Keyboard.releaseAll();
+
+  // wait for the sweet oblivion of reprogramming:
+  while (true)
+    ;
 }

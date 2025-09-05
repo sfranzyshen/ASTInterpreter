@@ -107,6 +107,10 @@ void FuncCallNode::accept(ASTVisitor& visitor) {
     visitor.visit(*this);
 }
 
+void ConstructorCallNode::accept(ASTVisitor& visitor) {
+    visitor.visit(*this);
+}
+
 void MemberAccessNode::accept(ASTVisitor& visitor) {
     visitor.visit(*this);
 }
@@ -253,10 +257,18 @@ ASTNodePtr createNode(ASTNodeType type) {
             return std::make_unique<UnaryOpNode>();
         case ASTNodeType::FUNC_CALL:
             return std::make_unique<FuncCallNode>();
+        case ASTNodeType::CONSTRUCTOR_CALL:
+            return std::make_unique<ConstructorCallNode>();
         case ASTNodeType::MEMBER_ACCESS:
             return std::make_unique<MemberAccessNode>();
         case ASTNodeType::ARRAY_ACCESS:
             return std::make_unique<ArrayAccessNode>();
+        case ASTNodeType::CAST_EXPR:
+            // TODO: Implement proper CastExpression class
+            return std::make_unique<ExpressionStatement>();  // Use generic expression as placeholder
+        case ASTNodeType::SIZEOF_EXPR:
+            // TODO: Implement proper SizeofExpression class
+            return std::make_unique<ExpressionStatement>();  // Use generic expression as placeholder
         case ASTNodeType::TERNARY_EXPR:
             return std::make_unique<TernaryExpressionNode>();
         case ASTNodeType::CONSTANT:
@@ -338,6 +350,7 @@ std::string nodeTypeToString(ASTNodeType type) {
         case ASTNodeType::UNARY_OP: return "UnaryOpNode";
         case ASTNodeType::ASSIGNMENT: return "AssignmentNode";
         case ASTNodeType::FUNC_CALL: return "FuncCallNode";
+        case ASTNodeType::CONSTRUCTOR_CALL: return "ConstructorCallNode";
         case ASTNodeType::MEMBER_ACCESS: return "MemberAccessNode";
         case ASTNodeType::ARRAY_ACCESS: return "ArrayAccessNode";
         case ASTNodeType::CAST_EXPR: return "CastExpression";

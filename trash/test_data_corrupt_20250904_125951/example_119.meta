@@ -1,0 +1,9 @@
+{
+  "name": "Logical_Operators_with_Short-Circuiting.ino",
+  "source": "old_test",
+  "index": "119",
+  "code": "// Logical Operators with Short-Circuiting\nint myFunc() {\n  Serial.println(\"myFunc() was called.\");\n  return 1;\n}\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int x = 0;\n  int y = 5;\n\n  if (x == 0 || myFunc()) {\n    Serial.println(\"Condition 1 is true.\");\n  }\n\n  if (x == 1 && myFunc()) {\n    Serial.println(\"Condition 2 is true.\");\n  }\n}",
+  "astSize": 393,
+  "commandCount": 45,
+  "generated": "2025-09-04T04:00:30.134Z"
+}
