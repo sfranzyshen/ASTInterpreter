@@ -1,5 +1,6 @@
 /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/arduino_ast_interpreter.dir
 /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/basic_interpreter_example.dir
+/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/test_minimal_trace.dir
 /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/test_ast_nodes.dir
 /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/test_compact_ast.dir
 /mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles/test_command_protocol.dir

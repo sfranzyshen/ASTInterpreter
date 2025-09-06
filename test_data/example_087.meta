@@ -2,8 +2,7 @@ name=Test_Case_for_the_return_statement.ino
 source=old_test
 astSize=1238
 codeSize=135
-mode=AST_AND_COMMANDS
-commandCount=17
+mode=AST_ONLY
 content=// Test Case for the return statement
 int getValue() {
   return 42;

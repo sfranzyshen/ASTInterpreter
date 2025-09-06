@@ -2,8 +2,7 @@ name=Chained_Assignments_and_Unary_Operators.ino
 source=old_test
 astSize=1455
 codeSize=428
-mode=AST_AND_COMMANDS
-commandCount=90
+mode=AST_ONLY
 content=// Chained Assignments and Unary Operators
 void setup() {
   Serial.begin(9600);

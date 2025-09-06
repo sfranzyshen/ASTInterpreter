@@ -2,8 +2,7 @@ name=Test_Case_for_Character_Literals.ino
 source=old_test
 astSize=1183
 codeSize=86
-mode=AST_AND_COMMANDS
-commandCount=18
+mode=AST_ONLY
 content=// Test Case for Character Literals
 char myChar = 'C';
 

@@ -4840,7 +4840,7 @@ class CompactASTExporter {
     }
     
     writeHeader(view, offset, stringTableSize) {
-        view.setUint32(offset, 0x41535450, false); // Magic 'ASTP' - big-endian to write ASTP correctly
+        view.setUint32(offset, 0x50545341, true); // Magic 'ASTP' - little-endian to match C++ expectation
         view.setUint16(offset + 4, this.options.version, true);
         view.setUint16(offset + 6, this.options.flags, true);
         view.setUint32(offset + 8, this.nodes.length, true);

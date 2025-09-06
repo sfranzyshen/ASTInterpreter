@@ -125,10 +125,24 @@ CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s
 
+CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
+CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o: ../ExecutionTracer.cpp
+CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ExecutionTracer.cpp
+
+CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/ExecutionTracer.cpp > CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.i
+
+CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/ExecutionTracer.cpp -o CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.s
+
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: ../ArduinoDataTypes.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s: cmake_force
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: ../EnhancedInterpreter.cpp
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s: cmake_force
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/flags.make
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: ../ArduinoLibraryRegistry.cpp
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o: CMakeFiles/arduino_ast_interpreter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -MF CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o.d -o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.cpp
 
 CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i: cmake_force
@@ -173,6 +187,7 @@ arduino_ast_interpreter_OBJECTS = \
 "CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o" \
 "CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o" \
 "CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o" \
+"CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o" \
 "CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o" \
 "CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o" \
 "CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o"
@@ -184,12 +199,13 @@ libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cp
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o
+libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/build.make
 libarduino_ast_interpreter.a: CMakeFiles/arduino_ast_interpreter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libarduino_ast_interpreter.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libarduino_ast_interpreter.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/arduino_ast_interpreter.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/arduino_ast_interpreter.dir/link.txt --verbose=$(VERBOSE)
 

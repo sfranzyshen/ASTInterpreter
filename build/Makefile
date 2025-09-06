@@ -218,6 +218,19 @@ basic_interpreter_example/fast:
 .PHONY : basic_interpreter_example/fast
 
 #=============================================================================
+# Target rules for targets named test_minimal_trace
+
+# Build rule for target.
+test_minimal_trace: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_minimal_trace
+.PHONY : test_minimal_trace
+
+# fast build rule for target.
+test_minimal_trace/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/build
+.PHONY : test_minimal_trace/fast
+
+#=============================================================================
 # Target rules for targets named test_ast_nodes
 
 # Build rule for target.
@@ -463,6 +476,30 @@ EnhancedInterpreter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s
 .PHONY : EnhancedInterpreter.cpp.s
 
+ExecutionTracer.o: ExecutionTracer.cpp.o
+.PHONY : ExecutionTracer.o
+
+# target to build an object file
+ExecutionTracer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o
+.PHONY : ExecutionTracer.cpp.o
+
+ExecutionTracer.i: ExecutionTracer.cpp.i
+.PHONY : ExecutionTracer.i
+
+# target to preprocess a source file
+ExecutionTracer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.i
+.PHONY : ExecutionTracer.cpp.i
+
+ExecutionTracer.s: ExecutionTracer.cpp.s
+.PHONY : ExecutionTracer.s
+
+# target to generate assembly for a file
+ExecutionTracer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.s
+.PHONY : ExecutionTracer.cpp.s
+
 examples/basic_interpreter.o: examples/basic_interpreter.cpp.o
 .PHONY : examples/basic_interpreter.o
 
@@ -486,6 +523,30 @@ examples/basic_interpreter.s: examples/basic_interpreter.cpp.s
 examples/basic_interpreter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.s
 .PHONY : examples/basic_interpreter.cpp.s
+
+test_minimal_trace.o: test_minimal_trace.cpp.o
+.PHONY : test_minimal_trace.o
+
+# target to build an object file
+test_minimal_trace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o
+.PHONY : test_minimal_trace.cpp.o
+
+test_minimal_trace.i: test_minimal_trace.cpp.i
+.PHONY : test_minimal_trace.i
+
+# target to preprocess a source file
+test_minimal_trace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.i
+.PHONY : test_minimal_trace.cpp.i
+
+test_minimal_trace.s: test_minimal_trace.cpp.s
+.PHONY : test_minimal_trace.s
+
+# target to generate assembly for a file
+test_minimal_trace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.s
+.PHONY : test_minimal_trace.cpp.s
 
 tests/test_ast_nodes.o: tests/test_ast_nodes.cpp.o
 .PHONY : tests/test_ast_nodes.o
@@ -630,6 +691,7 @@ help:
 	@echo "... test_compact_ast"
 	@echo "... test_cross_platform_validation"
 	@echo "... test_interpreter_integration"
+	@echo "... test_minimal_trace"
 	@echo "... ASTInterpreter.o"
 	@echo "... ASTInterpreter.i"
 	@echo "... ASTInterpreter.s"
@@ -651,9 +713,15 @@ help:
 	@echo "... EnhancedInterpreter.o"
 	@echo "... EnhancedInterpreter.i"
 	@echo "... EnhancedInterpreter.s"
+	@echo "... ExecutionTracer.o"
+	@echo "... ExecutionTracer.i"
+	@echo "... ExecutionTracer.s"
 	@echo "... examples/basic_interpreter.o"
 	@echo "... examples/basic_interpreter.i"
 	@echo "... examples/basic_interpreter.s"
+	@echo "... test_minimal_trace.o"
+	@echo "... test_minimal_trace.i"
+	@echo "... test_minimal_trace.s"
 	@echo "... tests/test_ast_nodes.o"
 	@echo "... tests/test_ast_nodes.i"
 	@echo "... tests/test_ast_nodes.s"

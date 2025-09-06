@@ -399,6 +399,16 @@ private:
     uint32_t maxRecursionDepth_;
     uint32_t timeoutOccurrences_;
     uint32_t memoryAllocations_;
+    
+    // Enhanced error handling state
+    bool safeMode_;
+    std::string safeModeReason_;
+    uint32_t typeErrors_;
+    uint32_t boundsErrors_;
+    uint32_t nullPointerErrors_;
+    uint32_t stackOverflowErrors_;
+    uint32_t memoryExhaustionErrors_;
+    size_t memoryLimit_;  // Memory limit for ESP32-S3 (512KB + 8MB PSRAM)
 
 public:
     /**
@@ -640,6 +650,25 @@ public:
     VariableAccessStats getVariableAccessStats() const;
     
     /**
+     * Get enhanced error handling statistics
+     */
+    struct ErrorStats {
+        bool safeMode;
+        std::string safeModeReason;
+        uint32_t typeErrors;
+        uint32_t boundsErrors;
+        uint32_t nullPointerErrors;
+        uint32_t stackOverflowErrors;
+        uint32_t memoryExhaustionErrors;
+        uint32_t totalErrors;
+        size_t memoryLimit;
+        size_t memoryUsed;
+        double errorRate; // Errors per command generated
+    };
+    
+    ErrorStats getErrorStats() const;
+    
+    /**
      * Reset all performance statistics
      */
     void resetStatistics();
@@ -653,6 +682,39 @@ public:
     std::string convertToString(const CommandValue& value);
     bool convertToBool(const CommandValue& value);
     bool isNumeric(const CommandValue& value);
+    
+    // =============================================================================
+    // ENHANCED ERROR HANDLING
+    // =============================================================================
+    
+    /**
+     * Type validation and error reporting
+     */
+    bool validateType(const CommandValue& value, const std::string& expectedType, 
+                     const std::string& context = "");
+    bool validateArrayBounds(const CommandValue& array, int32_t index, 
+                           const std::string& arrayName = "");
+    bool validatePointer(const CommandValue& pointer, const std::string& context = "");
+    bool validateMemoryLimit(size_t requestedSize, const std::string& context = "");
+    
+    /**
+     * Enhanced error reporting with context
+     */
+    void emitTypeError(const std::string& context, const std::string& expectedType, 
+                      const std::string& actualType);
+    void emitBoundsError(const std::string& arrayName, int32_t index, 
+                        int32_t arraySize);
+    void emitNullPointerError(const std::string& context);
+    void emitStackOverflowError(const std::string& functionName, size_t depth);
+    void emitMemoryExhaustionError(const std::string& context, size_t requested, 
+                                  size_t available);
+    
+    /**
+     * Error recovery and graceful degradation
+     */
+    bool tryRecoverFromError(const std::string& errorType);
+    CommandValue getDefaultValueForType(const std::string& type);
+    void enterSafeMode(const std::string& reason);
     
 private:
     // =============================================================================

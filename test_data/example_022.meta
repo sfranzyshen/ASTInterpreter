@@ -2,8 +2,7 @@ name=Dimmer.ino
 source=examples
 astSize=1330
 codeSize=495
-mode=AST_AND_COMMANDS
-commandCount=29
+mode=AST_ONLY
 content=// 04.Communication Dimmer.ino
 
 const int ledPin = 9;

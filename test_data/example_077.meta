@@ -2,8 +2,7 @@ name=p15_HackingButtons.ino
 source=examples
 astSize=1219
 codeSize=271
-mode=AST_AND_COMMANDS
-commandCount=31
+mode=AST_ONLY
 content=// 10.StarterKit_BasicKit p15_HackingButtons
 
 const int optoPin = 2;

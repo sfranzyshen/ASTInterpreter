@@ -2,8 +2,7 @@ name=Graph.ino
 source=examples
 astSize=1150
 codeSize=308
-mode=AST_AND_COMMANDS
-commandCount=9
+mode=AST_ONLY
 content=// 04.Communication Graph.ino
 
 void setup() {

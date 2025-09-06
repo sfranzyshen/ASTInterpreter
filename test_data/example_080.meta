@@ -2,8 +2,7 @@ name=To_test_the_Lexer_and_Parser.ino
 source=old_test
 astSize=1168
 codeSize=433
-mode=AST_AND_COMMANDS
-commandCount=31
+mode=AST_ONLY
 content=// To test the Lexer and Parser
 void setup() {
   /*

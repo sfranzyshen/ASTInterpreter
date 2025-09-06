@@ -2,8 +2,7 @@ name=ReadAnalogVoltage.ino
 source=examples
 astSize=1319
 codeSize=526
-mode=AST_AND_COMMANDS
-commandCount=9
+mode=AST_ONLY
 content=// 01.Basics ReadAnalogVoltage.ino
 
 // the setup routine runs once when you press reset:

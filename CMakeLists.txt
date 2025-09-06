@@ -94,6 +94,10 @@ add_library(arduino_ast_interpreter
     ASTInterpreter.cpp
     ASTInterpreter.hpp
     
+    # Execution diagnostics
+    ExecutionTracer.cpp
+    ExecutionTracer.hpp
+    
     # Data model classes
     ArduinoDataTypes.cpp
     ArduinoDataTypes.hpp
@@ -158,6 +162,15 @@ if(BUILD_EXAMPLES)
     )
     
     target_link_libraries(basic_interpreter_example
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    # Minimal trace test
+    add_executable(test_minimal_trace
+        test_minimal_trace.cpp
+    )
+    
+    target_link_libraries(test_minimal_trace
         PRIVATE arduino_ast_interpreter
     )
     

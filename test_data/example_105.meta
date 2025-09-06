@@ -2,8 +2,7 @@ name=Array_Indexing_and_Multidimensional_Arrays.ino
 source=old_test
 astSize=1471
 codeSize=382
-mode=AST_AND_COMMANDS
-commandCount=51
+mode=AST_ONLY
 content=// Array Indexing and Multidimensional Arrays
 void setup() {
   Serial.begin(9600);

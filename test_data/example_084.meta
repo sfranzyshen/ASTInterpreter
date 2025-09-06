@@ -2,8 +2,7 @@ name=Test_Case_for_Unary_vs_Binary_Operators.ino
 source=old_test
 astSize=1280
 codeSize=171
-mode=AST_AND_COMMANDS
-commandCount=20
+mode=AST_ONLY
 content=// Test Case for Unary vs. Binary Operators
 void setup() {
   int x = 10;

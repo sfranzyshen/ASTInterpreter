@@ -82,7 +82,8 @@
       "Bash(./test_structured_commands)",
       "Bash(./test_structured_batch)",
       "Bash(./test_validation_sample)",
-      "Bash(./test_comprehensive_similarity)"
+      "Bash(./test_comprehensive_similarity)",
+      "Bash(./simple_trace_test)"
     ],
     "deny": [],
     "ask": [],

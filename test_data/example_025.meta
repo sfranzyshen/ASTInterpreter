@@ -2,8 +2,7 @@ name=MultiSerial.ino
 source=examples
 astSize=1416
 codeSize=413
-mode=AST_AND_COMMANDS
-commandCount=31
+mode=AST_ONLY
 content=// 04.Communication MultiSerial.ino
 
 void setup() {

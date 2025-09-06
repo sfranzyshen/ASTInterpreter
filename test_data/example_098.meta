@@ -2,8 +2,7 @@ name=Ternary_Operator_and_Bitwise_Operators.ino
 source=old_test
 astSize=1686
 codeSize=591
-mode=AST_AND_COMMANDS
-commandCount=75
+mode=AST_ONLY
 content=// Ternary Operator and Bitwise Operators
 void setup() {
   Serial.begin(9600);

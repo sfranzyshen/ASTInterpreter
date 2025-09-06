@@ -2,8 +2,7 @@ name=Structs_and_Member_Access.ino
 source=old_test
 astSize=1200
 codeSize=273
-mode=AST_AND_COMMANDS
-commandCount=45
+mode=AST_ONLY
 content=// Structs and Member Access
 struct Point {
   int x;

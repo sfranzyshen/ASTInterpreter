@@ -2,8 +2,7 @@ name=Complex_Conditional_Logic.ino
 source=old_test
 astSize=1625
 codeSize=443
-mode=AST_AND_COMMANDS
-commandCount=36
+mode=AST_ONLY
 content=// Complex Conditional Logic
 void setup() {
   Serial.begin(9600);

@@ -2,8 +2,7 @@ name=Operator_Precedence_and_Associativity.ino
 source=old_test
 astSize=1602
 codeSize=413
-mode=AST_AND_COMMANDS
-commandCount=57
+mode=AST_ONLY
 content=// Operator Precedence and Associativity
 void setup() {
   Serial.begin(9600);

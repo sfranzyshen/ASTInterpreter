@@ -2,8 +2,7 @@ name=AnalogInput.ino
 source=examples
 astSize=1317
 codeSize=536
-mode=AST_AND_COMMANDS
-commandCount=12
+mode=AST_ONLY
 content=// 03.Analog AnalogInput.ino
 
 int sensorPin = A0;

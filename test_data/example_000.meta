@@ -2,8 +2,7 @@ name=AnalogReadSerial.ino
 source=examples
 astSize=1232
 codeSize=453
-mode=AST_AND_COMMANDS
-commandCount=9
+mode=AST_ONLY
 content=// 01.Basics AnalogReadSerial.ino
 
 // the setup routine runs once when you press reset:

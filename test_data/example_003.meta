@@ -2,8 +2,7 @@ name=DigitalReadSerial.ino
 source=examples
 astSize=1287
 codeSize=556
-mode=AST_AND_COMMANDS
-commandCount=11
+mode=AST_ONLY
 content=// 01.Basics DigitalReadSerial.ino
 
 // digital pin 7 has a pushbutton attached to it.

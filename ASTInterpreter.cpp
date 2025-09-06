@@ -8,6 +8,7 @@
  */
 
 #include "ASTInterpreter.hpp"
+#include "ExecutionTracer.hpp"
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -57,7 +58,11 @@ ASTInterpreter::ASTInterpreter(arduino_ast::ASTNodePtr ast, const InterpreterOpt
       pinOperations_(0), analogReads_(0), digitalReads_(0),
       analogWrites_(0), digitalWrites_(0), serialOperations_(0),
       recursionDepth_(0), maxRecursionDepth_(0),
-      timeoutOccurrences_(0), memoryAllocations_(0) {
+      timeoutOccurrences_(0), memoryAllocations_(0),
+      // Initialize enhanced error handling
+      safeMode_(false), safeModeReason_(""), typeErrors_(0), boundsErrors_(0),
+      nullPointerErrors_(0), stackOverflowErrors_(0), memoryExhaustionErrors_(0),
+      memoryLimit_(8 * 1024 * 1024 + 512 * 1024) {  // 8MB PSRAM + 512KB RAM
     
     initializeInterpreter();
 }
@@ -82,7 +87,11 @@ ASTInterpreter::ASTInterpreter(const uint8_t* compactAST, size_t size, const Int
       pinOperations_(0), analogReads_(0), digitalReads_(0),
       analogWrites_(0), digitalWrites_(0), serialOperations_(0),
       recursionDepth_(0), maxRecursionDepth_(0),
-      timeoutOccurrences_(0), memoryAllocations_(0) {
+      timeoutOccurrences_(0), memoryAllocations_(0),
+      // Initialize enhanced error handling
+      safeMode_(false), safeModeReason_(""), typeErrors_(0), boundsErrors_(0),
+      nullPointerErrors_(0), stackOverflowErrors_(0), memoryExhaustionErrors_(0),
+      memoryLimit_(8 * 1024 * 1024 + 512 * 1024) {  // 8MB PSRAM + 512KB RAM
     
     DEBUG_OUT << "ASTInterpreter constructor: Creating CompactASTReader..." << std::endl;
     
@@ -205,18 +214,29 @@ bool ASTInterpreter::step() {
 // =============================================================================
 
 void ASTInterpreter::executeProgram() {
-    if (!ast_) return;
+    TRACE_SCOPE("executeProgram", "");
+    
+    if (!ast_) {
+        TRACE("executeProgram", "ERROR: No AST available");
+        return;
+    }
     
     debugLog("Starting program execution");
+    TRACE("executeProgram", "Starting program execution");
     
     // First pass: collect function definitions
+    TRACE("executeProgram", "Phase 1: Collecting function definitions");
     executeFunctions();
     
     // Execute setup() if found
+    TRACE("executeProgram", "Phase 2: Executing setup()");
     executeSetup();
     
     // Execute loop() continuously
+    TRACE("executeProgram", "Phase 3: Executing loop()");
     executeLoop();
+    
+    TRACE("executeProgram", "Program execution completed");
 }
 
 void ASTInterpreter::executeFunctions() {
@@ -375,14 +395,18 @@ void ASTInterpreter::visit(arduino_ast::CompoundStmtNode& node) {
     
     const auto& children = node.getChildren();
     DEBUG_OUT << "CompoundStmtNode has " << children.size() << " children" << std::endl;
+    TRACE("visit(CompoundStmtNode)", "children=" + std::to_string(children.size()));
     
     for (size_t i = 0; i < children.size(); ++i) {
         if (state_ != ExecutionState::RUNNING || shouldBreak_ || shouldContinue_ || shouldReturn_) {
+            TRACE("visit(CompoundStmtNode)", "Stopping execution due to control flow change");
             break;
         }
         
         const auto& child = children[i];
-        DEBUG_OUT << "Processing compound child " << i << ": " << (child ? arduino_ast::nodeTypeToString(child->getType()) : "null") << std::endl;
+        std::string childType = child ? arduino_ast::nodeTypeToString(child->getType()) : "null";
+        DEBUG_OUT << "Processing compound child " << i << ": " << childType << std::endl;
+        TRACE("visit(CompoundStmtNode)", "Processing child " + std::to_string(i) + ": " + childType);
         
         if (child) {
             child->accept(*this);
@@ -391,8 +415,15 @@ void ASTInterpreter::visit(arduino_ast::CompoundStmtNode& node) {
 }
 
 void ASTInterpreter::visit(arduino_ast::ExpressionStatement& node) {
+    TRACE_SCOPE("visit(ExpressionStatement)", "");
+    
     if (node.getExpression()) {
-        evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getExpression()));
+        auto* expr = const_cast<arduino_ast::ASTNode*>(node.getExpression());
+        std::string exprType = arduino_ast::nodeTypeToString(expr->getType());
+        TRACE("visit(ExpressionStatement)", "Evaluating expression: " + exprType);
+        evaluateExpression(expr);
+    } else {
+        TRACE("visit(ExpressionStatement)", "No expression to evaluate");
     }
 }
 
@@ -593,12 +624,17 @@ void ASTInterpreter::visit(arduino_ast::UnaryOpNode& node) {
 }
 
 void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
-    if (!node.getCallee()) return;
+    TRACE_ENTRY("visit(FuncCallNode)", "Starting function call");
+    if (!node.getCallee()) {
+        TRACE_EXIT("visit(FuncCallNode)", "No callee found");
+        return;
+    }
     
     // Get function name
     std::string functionName;
     if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(node.getCallee())) {
         functionName = identifier->getName();
+        TRACE("FuncCall-Name", "Calling function: " + functionName);
     }
     
     // Evaluate arguments
@@ -625,6 +661,9 @@ void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
         if (state_ == ExecutionState::WAITING_FOR_RESPONSE && suspendedNode_ == nullptr) {
             suspendedNode_ = &node;
             debugLog("FuncCallNode: Set suspended node for async function: " + functionName);
+            TRACE_EXIT("visit(FuncCallNode)", "Function suspended: " + functionName);
+        } else {
+            TRACE_EXIT("visit(FuncCallNode)", "Function completed: " + functionName);
         }
     }
 }
@@ -799,6 +838,7 @@ void ASTInterpreter::visit(arduino_ast::IdentifierNode& node) {
 // =============================================================================
 
 void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
+    TRACE_ENTRY("visit(VarDeclNode)", "Starting variable declaration");
     debugLog("Declaring variable");
     
     // Get type information from TypeNode
@@ -953,6 +993,15 @@ void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
                 }
             }
             
+            // Enhanced Error Handling: Check memory limit before creating variable
+            size_t variableSize = sizeof(Variable) + varName.length() + typeName.length();
+            if (!validateMemoryLimit(variableSize, "variable declaration '" + varName + "'")) {
+                if (!safeMode_) {
+                    debugLog("Skipping variable declaration due to memory limit");
+                    return; // Skip variable creation
+                }
+            }
+            
             // Store variable using enhanced scope manager
             if (!templateType.empty()) {
                 scopeManager_->setTemplateVariable(varName, var, templateType);
@@ -960,11 +1009,20 @@ void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
                 scopeManager_->setVariable(varName, var);
             }
             
+            // Update memory tracking
+            currentVariableMemory_ += variableSize;
+            if (currentVariableMemory_ > peakVariableMemory_) {
+                peakVariableMemory_ = currentVariableMemory_;
+            }
+            memoryAllocations_++;
+            
             debugLog("Declared variable: " + varName + " (" + typeName + ") = " + commandValueToString(typedValue));
+            TRACE("VarDecl-Variable", "Declared " + varName + "=" + commandValueToString(typedValue));
         } else {
             debugLog("Declaration " + std::to_string(i) + " is not a DeclaratorNode, skipping");
         }
     }
+    TRACE_EXIT("visit(VarDeclNode)", "Variable declaration complete");
 }
 
 void ASTInterpreter::visit(arduino_ast::FuncDefNode& node) {
@@ -1024,6 +1082,7 @@ void ASTInterpreter::visit(arduino_ast::EmptyStatement& node) {
 }
 
 void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
+    TRACE_ENTRY("visit(AssignmentNode)", "Starting assignment operation");
     debugLog("Visiting AssignmentNode");
     
     try {
@@ -1042,6 +1101,10 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
             if (op == "=") {
                 Variable var(rightValue);
                 scopeManager_->setVariable(varName, var);
+                
+                // Emit VAR_SET command for parent application
+                emitCommand(CommandFactory::createVarSet(varName, rightValue));
+                lastExpressionResult_ = rightValue;
             } else if (op == "+=" || op == "-=" || op == "*=" || op == "/=" || op == "%=" || op == "&=" || op == "|=" || op == "^=") {
                 // Compound assignment - get existing value
                 Variable* existingVar = scopeManager_->getVariable(varName);
@@ -1056,6 +1119,10 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
                 
                 Variable var(newValue);
                 scopeManager_->setVariable(varName, var);
+                
+                // Emit VAR_SET command for parent application  
+                emitCommand(CommandFactory::createVarSet(varName, newValue));
+                lastExpressionResult_ = newValue;
             }
             
         } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::ARRAY_ACCESS) {
@@ -1241,7 +1308,10 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
         }
     } catch (const std::exception& e) {
         emitError("Assignment error: " + std::string(e.what()));
+        TRACE_EXIT("visit(AssignmentNode)", "Assignment failed with error");
+        return;
     }
+    TRACE_EXIT("visit(AssignmentNode)", "Assignment operation complete");
 }
 
 void ASTInterpreter::visit(arduino_ast::CharLiteralNode& node) {
@@ -1545,9 +1615,26 @@ void ASTInterpreter::visit(arduino_ast::ArrayAccessNode& node) {
         
         // Evaluate index expression
         CommandValue indexValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(node.getIndex()));
+        
+        // Enhanced Error Handling: Validate index type
+        if (!validateType(indexValue, "int", "array index for " + arrayName)) {
+            lastExpressionResult_ = std::monostate{};
+            return;
+        }
+        
         int32_t index = convertToInt(indexValue);
         
+        // Enhanced Error Handling: Validate array bounds
+        if (!validateArrayBounds(indexValue, index, arrayName)) {
+            lastExpressionResult_ = getDefaultValueForType("int"); // Return safe default
+            if (safeMode_) return; // In safe mode, continue with default value
+            return; // Otherwise stop execution
+        }
+        
         debugLog("Array access: " + arrayName + "[" + std::to_string(index) + "]");
+        
+        // Track array access statistics
+        arrayAccessCount_++;
         
         // Get array variable using enhanced scope system
         EnhancedVariable* arrayVar = enhancedScopeManager_->getVariable(arrayName);
@@ -1729,10 +1816,15 @@ void ASTInterpreter::visit(arduino_ast::StructType& node) {
 // =============================================================================
 
 CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
-    if (!expr) return std::monostate{};
+    if (!expr) {
+        TRACE_EXPR("evaluateExpression", "NULL expression");
+        return std::monostate{};
+    }
     
     auto nodeType = expr->getType();
+    std::string nodeTypeName = arduino_ast::nodeTypeToString(nodeType);
     debugLog("evaluateExpression: NodeType = " + std::to_string(static_cast<int>(nodeType)));
+    TRACE_ENTRY("evaluateExpression", "type=" + nodeTypeName);
     
     switch (nodeType) {
         case arduino_ast::ASTNodeType::NUMBER_LITERAL:
@@ -1833,6 +1925,22 @@ CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
             }
             break;
             
+        case arduino_ast::ASTNodeType::ASSIGNMENT:
+            // Handle assignment expressions by calling visitor
+            debugLog("evaluateExpression: Calling assignment visitor");
+            expr->accept(*this);
+            debugLog("evaluateExpression: Assignment visitor completed, result: " + commandValueToString(lastExpressionResult_));
+            return lastExpressionResult_;
+            
+        case arduino_ast::ASTNodeType::CHAR_LITERAL:
+            if (auto* charNode = dynamic_cast<arduino_ast::CharLiteralNode*>(expr)) {
+                std::string charStr = charNode->getCharValue();
+                char value = charStr.empty() ? '\0' : charStr[0];
+                debugLog("evaluateExpression: CharLiteralNode value = '" + std::string(1, value) + "'");
+                return static_cast<int32_t>(value); // Convert char to int for Arduino compatibility
+            }
+            break;
+            
         default:
             debugLog("Unhandled expression type: " + arduino_ast::nodeTypeToString(nodeType));
             break;
@@ -1926,15 +2034,23 @@ CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const 
         maxRecursionDepth_ = recursionDepth_;
     }
     
-    // Check for recursion depth limit to prevent stack overflow
+    // Enhanced Error Handling: Stack overflow detection
     static std::vector<std::string> callStack;
     const size_t MAX_RECURSION_DEPTH = 100; // Prevent infinite recursion
     
     callStack.push_back(name);
     if (callStack.size() > MAX_RECURSION_DEPTH) {
-        emitError("Maximum recursion depth exceeded in function: " + name);
+        // Use enhanced error handling instead of simple error
+        emitStackOverflowError(name, callStack.size());
         callStack.pop_back();
-        return std::monostate{};
+        recursionDepth_--;
+        
+        // Try to recover from stack overflow
+        if (tryRecoverFromError("StackOverflowError")) {
+            return getDefaultValueForType("int"); // Return safe default
+        } else {
+            return std::monostate{}; // Critical error, stop execution
+        }
     }
     
     // Count recursive calls of the same function
@@ -2071,6 +2187,7 @@ CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const 
 }
 
 CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, const std::vector<CommandValue>& args) {
+    TRACE_ENTRY("executeArduinoFunction", "Function: " + name + ", args: " + std::to_string(args.size()));
     debugLog("Executing Arduino function: " + name);
     
     // Track function call statistics
@@ -2091,6 +2208,7 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
     
     // Pin operations
     if (name == "pinMode") {
+        TRACE_COMMAND("ARDUINO_FUNC", "pinMode() -> handlePinOperation");
         auto result = handlePinOperation(name, args);
         // Update pin operation statistics
         pinOperations_++;
@@ -2098,14 +2216,17 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
         auto functionEnd = std::chrono::steady_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
         functionExecutionTimes_[name] += duration;
+        TRACE_EXIT("executeArduinoFunction", "pinMode completed");
         return result;
     } else if (name == "digitalWrite") {
+        TRACE_COMMAND("ARDUINO_FUNC", "digitalWrite() -> handlePinOperation");
         auto result = handlePinOperation(name, args);
         pinOperations_++;
         digitalWrites_++;
         auto functionEnd = std::chrono::steady_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
         functionExecutionTimes_[name] += duration;
+        TRACE_EXIT("executeArduinoFunction", "digitalWrite completed");
         return result;
     } else if (name == "digitalRead") {
         auto result = handlePinOperation(name, args);
@@ -2326,12 +2447,85 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
     
     // No matching Arduino function found
     
+    // Arduino Math Functions - CRITICAL for compatibility
+    else if (name == "map" && args.size() >= 5) {
+        // map(value, fromLow, fromHigh, toLow, toHigh)
+        double value = convertToDouble(args[0]);
+        double fromLow = convertToDouble(args[1]); 
+        double fromHigh = convertToDouble(args[2]);
+        double toLow = convertToDouble(args[3]);
+        double toHigh = convertToDouble(args[4]);
+        
+        // Arduino map formula: (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow
+        if (fromHigh == fromLow) {
+            return static_cast<int32_t>(toLow); // Avoid division by zero
+        }
+        double result = (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+        return static_cast<int32_t>(result);
+        
+    } else if (name == "constrain" && args.size() >= 3) {
+        // constrain(value, min, max) - limits value to range
+        double value = convertToDouble(args[0]);
+        double minVal = convertToDouble(args[1]);
+        double maxVal = convertToDouble(args[2]);
+        if (value < minVal) return static_cast<int32_t>(minVal);
+        if (value > maxVal) return static_cast<int32_t>(maxVal);
+        return static_cast<int32_t>(value);
+        
+    } else if (name == "abs" && args.size() >= 1) {
+        // abs(value) - absolute value
+        int32_t value = convertToInt(args[0]);
+        return value < 0 ? -value : value;
+        
+    } else if (name == "min" && args.size() >= 2) {
+        // min(a, b) - smaller of two values
+        double a = convertToDouble(args[0]);
+        double b = convertToDouble(args[1]);
+        return static_cast<int32_t>(a < b ? a : b);
+        
+    } else if (name == "max" && args.size() >= 2) {
+        // max(a, b) - larger of two values  
+        double a = convertToDouble(args[0]);
+        double b = convertToDouble(args[1]);
+        return static_cast<int32_t>(a > b ? a : b);
+        
+    } else if (name == "pow" && args.size() >= 2) {
+        // pow(base, exponent) - power function
+        double base = convertToDouble(args[0]);
+        double exp = convertToDouble(args[1]);
+        return std::pow(base, exp);
+        
+    } else if (name == "sqrt" && args.size() >= 1) {
+        // sqrt(value) - square root
+        double value = convertToDouble(args[0]);
+        if (value < 0) {
+            emitError("sqrt of negative number");
+            return std::monostate{};
+        }
+        return std::sqrt(value);
+        
+    } else if (name == "random") {
+        // random() or random(max) or random(min, max)
+        if (args.size() == 0) {
+            return static_cast<int32_t>(rand());
+        } else if (args.size() == 1) {
+            int32_t maxVal = convertToInt(args[0]);
+            return static_cast<int32_t>(rand() % maxVal);
+        } else if (args.size() >= 2) {
+            int32_t minVal = convertToInt(args[0]);
+            int32_t maxVal = convertToInt(args[1]);
+            if (maxVal <= minVal) return minVal;
+            return static_cast<int32_t>(rand() % (maxVal - minVal) + minVal);
+        }
+    }
+    
     // Complete function timing tracking before error
     auto functionEnd = std::chrono::steady_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
     functionExecutionTimes_[name] += duration;
     
     emitError("Unknown function: " + name);
+    TRACE_EXIT("executeArduinoFunction", "Unknown function: " + name);
     return std::monostate{};
 }
 
@@ -3154,6 +3348,35 @@ ASTInterpreter::VariableAccessStats ASTInterpreter::getVariableAccessStats() con
     return stats;
 }
 
+ASTInterpreter::ErrorStats ASTInterpreter::getErrorStats() const {
+    ErrorStats stats;
+    
+    stats.safeMode = safeMode_;
+    stats.safeModeReason = safeModeReason_;
+    stats.typeErrors = typeErrors_;
+    stats.boundsErrors = boundsErrors_;
+    stats.nullPointerErrors = nullPointerErrors_;
+    stats.stackOverflowErrors = stackOverflowErrors_;
+    stats.memoryExhaustionErrors = memoryExhaustionErrors_;
+    
+    // Calculate total errors
+    stats.totalErrors = typeErrors_ + boundsErrors_ + nullPointerErrors_ + 
+                       stackOverflowErrors_ + memoryExhaustionErrors_;
+    
+    // Memory information
+    stats.memoryLimit = memoryLimit_;
+    stats.memoryUsed = currentVariableMemory_ + currentCommandMemory_;
+    
+    // Calculate error rate (errors per command generated)
+    if (commandsGenerated_ > 0) {
+        stats.errorRate = static_cast<double>(stats.totalErrors) / static_cast<double>(commandsGenerated_);
+    } else {
+        stats.errorRate = 0.0;
+    }
+    
+    return stats;
+}
+
 void ASTInterpreter::resetStatistics() {
     // Reset timing
     totalExecutionTime_ = std::chrono::milliseconds{0};
@@ -3205,6 +3428,15 @@ void ASTInterpreter::resetStatistics() {
     recursionDepth_ = 0;
     maxRecursionDepth_ = 0;
     timeoutOccurrences_ = 0;
+    
+    // Reset enhanced error handling statistics
+    safeMode_ = false;
+    safeModeReason_ = "";
+    typeErrors_ = 0;
+    boundsErrors_ = 0;
+    nullPointerErrors_ = 0;
+    stackOverflowErrors_ = 0;
+    memoryExhaustionErrors_ = 0;
 }
 
 CommandValue ASTInterpreter::evaluateUnaryOperation(const std::string& op, const CommandValue& operand) {
@@ -3567,6 +3799,206 @@ arduino_ast::ASTNode* ASTInterpreter::findFunctionInAST(const std::string& funct
     };
     
     return searchNode(ast_.get());
+}
+
+// =============================================================================
+// ENHANCED ERROR HANDLING IMPLEMENTATION
+// =============================================================================
+
+bool ASTInterpreter::validateType(const CommandValue& value, const std::string& expectedType, 
+                                 const std::string& context) {
+    std::string actualType;
+    
+    // Determine actual type
+    if (std::holds_alternative<std::monostate>(value)) {
+        actualType = "void";
+    } else if (std::holds_alternative<bool>(value)) {
+        actualType = "bool";
+    } else if (std::holds_alternative<int32_t>(value)) {
+        actualType = "int";
+    } else if (std::holds_alternative<double>(value)) {
+        actualType = "double";
+    } else if (std::holds_alternative<std::string>(value)) {
+        actualType = "string";
+    } else {
+        actualType = "unknown";
+    }
+    
+    // Check type compatibility
+    bool compatible = false;
+    if (expectedType == actualType) {
+        compatible = true;
+    } else if (expectedType == "number" && (actualType == "int" || actualType == "double")) {
+        compatible = true;
+    } else if (expectedType == "int" && actualType == "double") {
+        // Allow implicit conversion from double to int
+        compatible = true;
+    } else if (expectedType == "double" && actualType == "int") {
+        // Allow implicit conversion from int to double
+        compatible = true;
+    }
+    
+    if (!compatible && !safeMode_) {
+        emitTypeError(context, expectedType, actualType);
+        typeErrors_++;
+        return false;
+    }
+    
+    return true;
+}
+
+bool ASTInterpreter::validateArrayBounds(const CommandValue& array, int32_t index, 
+                                        const std::string& arrayName) {
+    // For simplified bounds checking, assume arrays have reasonable sizes
+    // In a full implementation, this would check actual array metadata
+    const int32_t MAX_ARRAY_SIZE = 1000;
+    
+    if (index < 0) {
+        if (!safeMode_) {
+            emitBoundsError(arrayName, index, MAX_ARRAY_SIZE);
+            boundsErrors_++;
+        }
+        return false;
+    }
+    
+    if (index >= MAX_ARRAY_SIZE) {
+        if (!safeMode_) {
+            emitBoundsError(arrayName, index, MAX_ARRAY_SIZE);
+            boundsErrors_++;
+        }
+        return false;
+    }
+    
+    return true;
+}
+
+bool ASTInterpreter::validatePointer(const CommandValue& pointer, const std::string& context) {
+    if (std::holds_alternative<std::monostate>(pointer)) {
+        if (!safeMode_) {
+            emitNullPointerError(context);
+            nullPointerErrors_++;
+        }
+        return false;
+    }
+    
+    // Additional pointer validation logic could be added here
+    return true;
+}
+
+bool ASTInterpreter::validateMemoryLimit(size_t requestedSize, const std::string& context) {
+    size_t totalUsed = currentVariableMemory_ + currentCommandMemory_;
+    if (totalUsed + requestedSize > memoryLimit_) {
+        if (!safeMode_) {
+            emitMemoryExhaustionError(context, requestedSize, memoryLimit_ - totalUsed);
+            memoryExhaustionErrors_++;
+        }
+        return false;
+    }
+    return true;
+}
+
+void ASTInterpreter::emitTypeError(const std::string& context, const std::string& expectedType, 
+                                  const std::string& actualType) {
+    std::string message = "Type mismatch";
+    if (!context.empty()) {
+        message += " in " + context;
+    }
+    message += ": expected " + expectedType + ", but got " + actualType;
+    
+    emitError(message, "TypeError");
+}
+
+void ASTInterpreter::emitBoundsError(const std::string& arrayName, int32_t index, 
+                                    int32_t arraySize) {
+    std::string message = "Array bounds error";
+    if (!arrayName.empty()) {
+        message += " in array '" + arrayName + "'";
+    }
+    message += ": index " + std::to_string(index) + " is out of bounds [0.." + 
+               std::to_string(arraySize - 1) + "]";
+    
+    emitError(message, "BoundsError");
+}
+
+void ASTInterpreter::emitNullPointerError(const std::string& context) {
+    std::string message = "Null pointer access";
+    if (!context.empty()) {
+        message += " in " + context;
+    }
+    
+    emitError(message, "NullPointerError");
+}
+
+void ASTInterpreter::emitStackOverflowError(const std::string& functionName, size_t depth) {
+    std::string message = "Stack overflow detected";
+    if (!functionName.empty()) {
+        message += " in function '" + functionName + "'";
+    }
+    message += " at depth " + std::to_string(depth);
+    
+    emitError(message, "StackOverflowError");
+    stackOverflowErrors_++;
+}
+
+void ASTInterpreter::emitMemoryExhaustionError(const std::string& context, size_t requested, 
+                                              size_t available) {
+    std::string message = "Memory exhaustion";
+    if (!context.empty()) {
+        message += " in " + context;
+    }
+    message += ": requested " + std::to_string(requested) + " bytes, but only " + 
+               std::to_string(available) + " bytes available";
+    
+    emitError(message, "MemoryError");
+}
+
+bool ASTInterpreter::tryRecoverFromError(const std::string& errorType) {
+    if (safeMode_) {
+        return true; // Already in safe mode, continue execution
+    }
+    
+    // Implement error-specific recovery strategies
+    if (errorType == "TypeError" || errorType == "BoundsError") {
+        // For type and bounds errors, we can often continue with default values
+        debugLog("Attempting recovery from " + errorType);
+        return true;
+    } else if (errorType == "NullPointerError") {
+        // Null pointer errors are more serious, but we can try to continue
+        debugLog("Attempting recovery from null pointer error");
+        return true;
+    } else if (errorType == "StackOverflowError" || errorType == "MemoryError") {
+        // These are critical errors - enter safe mode
+        enterSafeMode("Critical error: " + errorType);
+        return false;
+    }
+    
+    return false;
+}
+
+CommandValue ASTInterpreter::getDefaultValueForType(const std::string& type) {
+    if (type == "int" || type == "int32_t") {
+        return static_cast<int32_t>(0);
+    } else if (type == "double" || type == "float") {
+        return static_cast<double>(0.0);
+    } else if (type == "bool") {
+        return false;
+    } else if (type == "string") {
+        return std::string("");
+    } else {
+        return std::monostate{};
+    }
+}
+
+void ASTInterpreter::enterSafeMode(const std::string& reason) {
+    if (!safeMode_) {
+        safeMode_ = true;
+        safeModeReason_ = reason;
+        debugLog("SAFE MODE ACTIVATED: " + reason);
+        emitSystemCommand(CommandType::ERROR, "Safe mode activated: " + reason);
+        
+        // Pause execution to prevent further errors
+        state_ = ExecutionState::PAUSED;
+    }
 }
 
 } // namespace arduino_interpreter

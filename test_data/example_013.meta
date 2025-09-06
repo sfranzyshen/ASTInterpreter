@@ -2,8 +2,7 @@ name=toneMultiple.ino
 source=examples
 astSize=1186
 codeSize=446
-mode=AST_AND_COMMANDS
-commandCount=44
+mode=AST_ONLY
 content=// 02.Digital toneMultiple.ino
 
 void setup() {

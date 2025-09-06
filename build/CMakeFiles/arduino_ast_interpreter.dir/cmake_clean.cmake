@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o.d"
   "CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o"
   "CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o.d"
+  "CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o"
+  "CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o.d"
   "libarduino_ast_interpreter.a"
   "libarduino_ast_interpreter.pdb"
 )
