@@ -121,6 +121,14 @@ public:
     
     // Resize operations
     void resize(size_t newSize, const EnhancedCommandValue& defaultValue = std::monostate{});
+    void resizeMultiDimensional(const std::vector<size_t>& newDimensions, const EnhancedCommandValue& defaultValue = std::monostate{});
+    
+    // Dimension operations
+    size_t getDimensionCount() const { return dimensions_.size(); }
+    size_t getDimensionSize(size_t dimensionIndex) const;
+    bool isValidIndices(const std::vector<size_t>& indices) const;
+    size_t calculateFlatIndex(const std::vector<size_t>& indices) const;
+    std::vector<size_t> calculateMultiDimensionalIndex(size_t flatIndex) const;
     
     // Debug/serialization
     std::string toString() const;
@@ -157,11 +165,20 @@ public:
     int toInt() const;
     double toFloat() const;
     
+    // String modification
+    ArduinoString trim() const;
+    ArduinoString replace(const std::string& find, const std::string& replace) const;
+    
     // Operators
     ArduinoString operator+(const ArduinoString& other) const;
     ArduinoString& operator+=(const ArduinoString& other);
     ArduinoString& operator+=(const std::string& other);
     bool operator==(const ArduinoString& other) const;
+    bool operator!=(const ArduinoString& other) const;
+    bool operator<(const ArduinoString& other) const;
+    bool operator<=(const ArduinoString& other) const;
+    bool operator>(const ArduinoString& other) const;
+    bool operator>=(const ArduinoString& other) const;
     
     // Access to underlying string
     const std::string& c_str() const { return data_; }

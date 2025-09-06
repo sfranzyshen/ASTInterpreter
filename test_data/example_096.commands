@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742587,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,25 +46,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048981815
+    "timestamp": 1757091742587
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 5,
-    "timestamp": 1757048981815
+    "timestamp": 1757091742587
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 10,
-    "timestamp": 1757048981815
+    "timestamp": 1757091742587
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 2,
-    "timestamp": 1757048981815
+    "timestamp": 1757091742587
   },
   {
     "type": "FUNCTION_CALL",
@@ -74,7 +74,7 @@
       10,
       2
     ],
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742588,
     "message": "calculate(5, 10, 2)"
   },
   {
@@ -84,7 +84,7 @@
       5,
       10
     ],
-    "timestamp": 1757048981815,
+    "timestamp": 1757091742588,
     "message": "add(5, 10)"
   },
   {
@@ -94,14 +94,14 @@
       15,
       2
     ],
-    "timestamp": 1757048981816,
+    "timestamp": 1757091742588,
     "message": "multiply(15, 2)"
   },
   {
     "type": "VAR_SET",
     "variable": "finalResult",
     "value": 30,
-    "timestamp": 1757048981816
+    "timestamp": 1757091742588
   },
   {
     "type": "FUNCTION_CALL",
@@ -110,7 +110,7 @@
       "\"Final result: \""
     ],
     "data": "Final result: ",
-    "timestamp": 1757048981816,
+    "timestamp": 1757091742588,
     "message": "Serial.print(\"Final result: \")"
   },
   {
@@ -120,7 +120,7 @@
       "30"
     ],
     "data": "30",
-    "timestamp": 1757048981816,
+    "timestamp": 1757091742588,
     "message": "Serial.println(30)"
   },
   {
@@ -129,11 +129,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757048981816
+    "timestamp": 1757091742588
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742593,
     "message": "Starting loop iteration 2"
   },
   {
@@ -141,25 +141,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742593
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 5,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742593
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 10,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742593
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 2,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742593
   },
   {
     "type": "FUNCTION_CALL",
@@ -169,7 +169,7 @@
       10,
       2
     ],
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742593,
     "message": "calculate(5, 10, 2)"
   },
   {
@@ -179,7 +179,7 @@
       5,
       10
     ],
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742593,
     "message": "add(5, 10)"
   },
   {
@@ -189,14 +189,14 @@
       15,
       2
     ],
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742593,
     "message": "multiply(15, 2)"
   },
   {
     "type": "VAR_SET",
     "variable": "finalResult",
     "value": 30,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742593
   },
   {
     "type": "FUNCTION_CALL",
@@ -205,7 +205,7 @@
       "\"Final result: \""
     ],
     "data": "Final result: ",
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742593,
     "message": "Serial.print(\"Final result: \")"
   },
   {
@@ -215,7 +215,7 @@
       "30"
     ],
     "data": "30",
-    "timestamp": 1757048981821,
+    "timestamp": 1757091742594,
     "message": "Serial.println(30)"
   },
   {
@@ -224,11 +224,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1757048981821
+    "timestamp": 1757091742594
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "Starting loop iteration 3"
   },
   {
@@ -236,25 +236,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 5,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 10,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 2,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "FUNCTION_CALL",
@@ -264,7 +264,7 @@
       10,
       2
     ],
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "calculate(5, 10, 2)"
   },
   {
@@ -274,7 +274,7 @@
       5,
       10
     ],
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "add(5, 10)"
   },
   {
@@ -284,14 +284,14 @@
       15,
       2
     ],
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "multiply(15, 2)"
   },
   {
     "type": "VAR_SET",
     "variable": "finalResult",
     "value": 30,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "FUNCTION_CALL",
@@ -300,7 +300,7 @@
       "\"Final result: \""
     ],
     "data": "Final result: ",
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "Serial.print(\"Final result: \")"
   },
   {
@@ -310,7 +310,7 @@
       "30"
     ],
     "data": "30",
-    "timestamp": 1757048981826,
+    "timestamp": 1757091742599,
     "message": "Serial.println(30)"
   },
   {
@@ -319,23 +319,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1757048981826
+    "timestamp": 1757091742599
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757048981831,
+    "timestamp": 1757091742604,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981831,
+    "timestamp": 1757091742604,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981831,
+    "timestamp": 1757091742604,
     "message": "Program execution stopped"
   }
 ]

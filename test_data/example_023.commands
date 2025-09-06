@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048980460,
+    "timestamp": 1757091741247,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,12 +46,12 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048980460
+    "timestamp": 1757091741247
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1757048980460_0.8930394512767825",
-    "timestamp": 1757048980460
+    "requestId": "analogRead_1757091741247_0.5296283357724443",
+    "timestamp": 1757091741247
   }
 ]

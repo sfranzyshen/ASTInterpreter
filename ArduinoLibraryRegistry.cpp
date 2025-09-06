@@ -105,6 +105,15 @@ void ArduinoLibraryRegistry::registerAdafruitNeoPixelLibrary() {
         return true;  // Always return true for simulation
     };
     
+    neoPixel.internalMethods["getPin"] = [](const std::vector<CommandValue>& args) -> CommandValue {
+        // Return pin number (second constructor arg, default 6)
+        return static_cast<int32_t>(6);  // Default pin
+    };
+    
+    neoPixel.internalMethods["attached"] = [](const std::vector<CommandValue>& args) -> CommandValue {
+        return true;  // Assume always attached for simulation
+    };
+    
     // External methods - emit commands to parent app for hardware operations
     neoPixel.externalMethods = {
         "begin", "show", "clear", "setPixelColor", "setBrightness", "setPin",

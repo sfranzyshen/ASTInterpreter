@@ -1,25 +1,25 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048979173,
+    "timestamp": 1757091739962,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048979173,
+    "timestamp": 1757091739962,
     "message": "Program execution started"
   },
   {
     "type": "VAR_SET",
     "variable": "pushButton",
     "value": 7,
-    "timestamp": 1757048979174
+    "timestamp": 1757091739963
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048979174,
+    "timestamp": 1757091739963,
     "message": "Executing setup() function"
   },
   {
@@ -29,28 +29,28 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757048979174,
+    "timestamp": 1757091739963,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "PIN_MODE",
     "pin": 7,
     "mode": 0,
-    "timestamp": 1757048979175
+    "timestamp": 1757091739964
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048979175,
+    "timestamp": 1757091739964,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048979175,
+    "timestamp": 1757091739964,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048979175,
+    "timestamp": 1757091739964,
     "message": "Starting loop iteration 1"
   },
   {
@@ -58,12 +58,12 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048979175
+    "timestamp": 1757091739964
   },
   {
     "type": "DIGITAL_READ_REQUEST",
     "pin": 7,
-    "requestId": "digitalRead_1757048979175_0.9226581951895387",
-    "timestamp": 1757048979175
+    "requestId": "digitalRead_1757091739964_0.43663488278570517",
+    "timestamp": 1757091739964
   }
 ]

@@ -1,66 +1,66 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742484,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742484,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742484,
     "message": "Executing setup() function"
   },
   {
     "type": "VAR_SET",
     "variable": "x",
     "value": 5,
-    "timestamp": 1757048981711
+    "timestamp": 1757091742484
   },
   {
     "type": "VAR_SET",
     "variable": "y",
     "value": 10,
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "IF_STATEMENT",
     "condition": true,
     "result": true,
     "branch": "then",
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "IF_STATEMENT",
     "condition": false,
     "result": false,
     "branch": "else",
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "PIN_MODE",
     "pin": 1,
     "mode": 0,
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742485,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742485,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981711,
+    "timestamp": 1757091742485,
     "message": "Starting loop iteration 1"
   },
   {
@@ -68,7 +68,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "FUNCTION_CALL",
@@ -76,11 +76,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757048981711
+    "timestamp": 1757091742485
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981716,
+    "timestamp": 1757091742489,
     "message": "Starting loop iteration 2"
   },
   {
@@ -88,7 +88,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1757048981716
+    "timestamp": 1757091742489
   },
   {
     "type": "FUNCTION_CALL",
@@ -96,11 +96,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1757048981716
+    "timestamp": 1757091742489
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981721,
+    "timestamp": 1757091742494,
     "message": "Starting loop iteration 3"
   },
   {
@@ -108,7 +108,7 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1757048981721
+    "timestamp": 1757091742494
   },
   {
     "type": "FUNCTION_CALL",
@@ -116,23 +116,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1757048981721
+    "timestamp": 1757091742494
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757048981726,
+    "timestamp": 1757091742499,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981726,
+    "timestamp": 1757091742499,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981726,
+    "timestamp": 1757091742499,
     "message": "Program execution stopped"
   }
 ]

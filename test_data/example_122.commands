@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,25 +46,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048982369
+    "timestamp": 1757091743134
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 10,
-    "timestamp": 1757048982369
+    "timestamp": 1757091743134
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 66,
-    "timestamp": 1757048982369
+    "timestamp": 1757091743134
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 3.14,
-    "timestamp": 1757048982369
+    "timestamp": 1757091743134
   },
   {
     "type": "FUNCTION_CALL",
@@ -73,7 +73,7 @@
       "\"Size of int: \""
     ],
     "data": "Size of int: ",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743134,
     "message": "Serial.print(\"Size of int: \")"
   },
   {
@@ -83,7 +83,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743135,
     "message": "Serial.println(4)"
   },
   {
@@ -93,7 +93,7 @@
       "\"Size of char: \""
     ],
     "data": "Size of char: ",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743135,
     "message": "Serial.print(\"Size of char: \")"
   },
   {
@@ -103,7 +103,7 @@
       "1"
     ],
     "data": "1",
-    "timestamp": 1757048982369,
+    "timestamp": 1757091743135,
     "message": "Serial.println(1)"
   },
   {
@@ -113,7 +113,7 @@
       "\"Size of float: \""
     ],
     "data": "Size of float: ",
-    "timestamp": 1757048982370,
+    "timestamp": 1757091743135,
     "message": "Serial.print(\"Size of float: \")"
   },
   {
@@ -123,7 +123,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982370,
+    "timestamp": 1757091743135,
     "message": "Serial.println(4)"
   },
   {
@@ -132,11 +132,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757048982370
+    "timestamp": 1757091743135
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Starting loop iteration 2"
   },
   {
@@ -144,25 +144,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1757048982375
+    "timestamp": 1757091743139
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 10,
-    "timestamp": 1757048982375
+    "timestamp": 1757091743139
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 66,
-    "timestamp": 1757048982375
+    "timestamp": 1757091743139
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 3.14,
-    "timestamp": 1757048982375
+    "timestamp": 1757091743139
   },
   {
     "type": "FUNCTION_CALL",
@@ -171,7 +171,7 @@
       "\"Size of int: \""
     ],
     "data": "Size of int: ",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.print(\"Size of int: \")"
   },
   {
@@ -181,7 +181,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.println(4)"
   },
   {
@@ -191,7 +191,7 @@
       "\"Size of char: \""
     ],
     "data": "Size of char: ",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.print(\"Size of char: \")"
   },
   {
@@ -201,7 +201,7 @@
       "1"
     ],
     "data": "1",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.println(1)"
   },
   {
@@ -211,7 +211,7 @@
       "\"Size of float: \""
     ],
     "data": "Size of float: ",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.print(\"Size of float: \")"
   },
   {
@@ -221,7 +221,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982375,
+    "timestamp": 1757091743139,
     "message": "Serial.println(4)"
   },
   {
@@ -230,11 +230,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1757048982375
+    "timestamp": 1757091743139
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Starting loop iteration 3"
   },
   {
@@ -242,25 +242,25 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1757048982380
+    "timestamp": 1757091743144
   },
   {
     "type": "VAR_SET",
     "variable": "a",
     "value": 10,
-    "timestamp": 1757048982380
+    "timestamp": 1757091743144
   },
   {
     "type": "VAR_SET",
     "variable": "b",
     "value": 66,
-    "timestamp": 1757048982380
+    "timestamp": 1757091743144
   },
   {
     "type": "VAR_SET",
     "variable": "c",
     "value": 3.14,
-    "timestamp": 1757048982380
+    "timestamp": 1757091743144
   },
   {
     "type": "FUNCTION_CALL",
@@ -269,7 +269,7 @@
       "\"Size of int: \""
     ],
     "data": "Size of int: ",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.print(\"Size of int: \")"
   },
   {
@@ -279,7 +279,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.println(4)"
   },
   {
@@ -289,7 +289,7 @@
       "\"Size of char: \""
     ],
     "data": "Size of char: ",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.print(\"Size of char: \")"
   },
   {
@@ -299,7 +299,7 @@
       "1"
     ],
     "data": "1",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.println(1)"
   },
   {
@@ -309,7 +309,7 @@
       "\"Size of float: \""
     ],
     "data": "Size of float: ",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.print(\"Size of float: \")"
   },
   {
@@ -319,7 +319,7 @@
       "4"
     ],
     "data": "4",
-    "timestamp": 1757048982380,
+    "timestamp": 1757091743144,
     "message": "Serial.println(4)"
   },
   {
@@ -328,23 +328,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1757048982380
+    "timestamp": 1757091743144
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757048982385,
+    "timestamp": 1757091743149,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048982385,
+    "timestamp": 1757091743149,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048982385,
+    "timestamp": 1757091743149,
     "message": "Program execution stopped"
   }
 ]

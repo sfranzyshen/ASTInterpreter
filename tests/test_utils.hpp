@@ -47,7 +47,7 @@ public:
         auto commandPtr = std::make_unique<Command>(command);
         
         if (verbose_) {
-            logStream_ << "[COMMAND] " << command.toString() << std::endl;
+            logStream_ << "[COMMAND] " << serializeCommand(command) << std::endl;
         }
         
         capturedCommands_.push_back(std::move(commandPtr));
@@ -74,6 +74,7 @@ public:
     
     /**
      * Get commands as JSON-like string for comparison with JavaScript
+     * Uses the enhanced serializeCommand function for structured output
      */
     std::string getCommandsAsJson() const {
         std::stringstream json;
@@ -81,24 +82,18 @@ public:
         for (size_t i = 0; i < capturedCommands_.size(); ++i) {
             if (i > 0) json << ",\n";
             
-            // Format as JavaScript-style command object
-            json << "  {\n";
-            json << "    \"type\": \"" << capturedCommands_[i]->getTypeString() << "\",\n";
-            json << "    \"data\": {\n";
+            // Use the enhanced serializeCommand function for structured JSON
+            std::string structuredCommand = serializeCommand(*capturedCommands_[i]);
             
-            // Add timestamp (using current time as placeholder)
-            auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
-                std::chrono::system_clock::now().time_since_epoch()).count();
-            json << "      \"timestamp\": " << now;
-            
-            // Add command-specific data based on command type
-            std::string cmdString = capturedCommands_[i]->toString();
-            if (!cmdString.empty()) {
-                json << ",\n      \"message\": \"" << cmdString << "\"";
+            // Add proper indentation to match JavaScript format
+            std::istringstream iss(structuredCommand);
+            std::string line;
+            bool firstLine = true;
+            while (std::getline(iss, line)) {
+                if (!firstLine) json << "\n";
+                json << "  " << line;
+                firstLine = false;
             }
-            
-            json << "\n    }\n";
-            json << "  }";
         }
         json << "\n]";
         return json.str();

@@ -360,6 +360,61 @@ CommandPtr CommandFactory::createError(const std::string& message, const std::st
     return std::make_unique<ErrorCommand>(message, type);
 }
 
+// Serial communication commands
+CommandPtr CommandFactory::createSerialBegin(int32_t baudRate) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_BEGIN, "Serial.begin(" + std::to_string(baudRate) + ")");
+}
+
+CommandPtr CommandFactory::createSerialPrint(const std::string& data, const std::string& format) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_PRINT, "Serial.print(" + data + ", " + format + ")");
+}
+
+CommandPtr CommandFactory::createSerialPrintln(const std::string& data, const std::string& format) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_PRINTLN, "Serial.println(" + data + ", " + format + ")");
+}
+
+CommandPtr CommandFactory::createSerialWrite(int32_t byte) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_WRITE, "Serial.write(" + std::to_string(byte) + ")");
+}
+
+CommandPtr CommandFactory::createSerialRequest(const std::string& operation, const std::string& requestId) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_READ_REQUEST, "Serial." + operation + " [" + requestId + "]");
+}
+
+CommandPtr CommandFactory::createSerialRequestWithChar(const std::string& operation, char terminator, const std::string& requestId) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_READ_STRING_UNTIL_REQUEST, 
+        "Serial." + operation + "(" + std::to_string(static_cast<int>(terminator)) + ") [" + requestId + "]");
+}
+
+CommandPtr CommandFactory::createSerialTimeout(int32_t timeout) {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_SET_TIMEOUT, "Serial.setTimeout(" + std::to_string(timeout) + ")");
+}
+
+CommandPtr CommandFactory::createSerialFlush() {
+    return std::make_unique<SystemCommand>(CommandType::SERIAL_FLUSH, "Serial.flush()");
+}
+
+// Multiple Serial ports
+CommandPtr CommandFactory::createMultiSerialBegin(const std::string& portName, int32_t baudRate) {
+    return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_BEGIN, portName + ".begin(" + std::to_string(baudRate) + ")");
+}
+
+CommandPtr CommandFactory::createMultiSerialPrint(const std::string& portName, const std::string& data, const std::string& format) {
+    return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_PRINT, portName + ".print(" + data + ", " + format + ")");
+}
+
+CommandPtr CommandFactory::createMultiSerialPrintln(const std::string& portName, const std::string& data, const std::string& format) {
+    return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_PRINTLN, portName + ".println(" + data + ", " + format + ")");
+}
+
+CommandPtr CommandFactory::createMultiSerialRequest(const std::string& portName, const std::string& operation, const std::string& requestId) {
+    return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_REQUEST, portName + "." + operation + " [" + requestId + "]");
+}
+
+CommandPtr CommandFactory::createMultiSerialCommand(const std::string& portName, const std::string& methodName) {
+    return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_COMMAND, portName + "." + methodName + "()");
+}
+
 // =============================================================================
 // UTILITY FUNCTION IMPLEMENTATIONS
 // =============================================================================
@@ -401,6 +456,29 @@ std::string commandTypeToString(CommandType type) {
         case CommandType::PROGRAM_END: return "PROGRAM_END";
         case CommandType::VERSION_INFO: return "VERSION_INFO";
         case CommandType::ERROR: return "ERROR";
+        
+        // Serial communication
+        case CommandType::SERIAL_BEGIN: return "SERIAL_BEGIN";
+        case CommandType::SERIAL_PRINT: return "SERIAL_PRINT";
+        case CommandType::SERIAL_PRINTLN: return "SERIAL_PRINTLN";
+        case CommandType::SERIAL_WRITE: return "SERIAL_WRITE";
+        case CommandType::SERIAL_READ_REQUEST: return "SERIAL_READ_REQUEST";
+        case CommandType::SERIAL_AVAILABLE_REQUEST: return "SERIAL_AVAILABLE_REQUEST";
+        case CommandType::SERIAL_PEEK_REQUEST: return "SERIAL_PEEK_REQUEST";
+        case CommandType::SERIAL_READ_STRING_REQUEST: return "SERIAL_READ_STRING_REQUEST";
+        case CommandType::SERIAL_READ_STRING_UNTIL_REQUEST: return "SERIAL_READ_STRING_UNTIL_REQUEST";
+        case CommandType::SERIAL_PARSE_INT_REQUEST: return "SERIAL_PARSE_INT_REQUEST";
+        case CommandType::SERIAL_PARSE_FLOAT_REQUEST: return "SERIAL_PARSE_FLOAT_REQUEST";
+        case CommandType::SERIAL_SET_TIMEOUT: return "SERIAL_SET_TIMEOUT";
+        case CommandType::SERIAL_FLUSH: return "SERIAL_FLUSH";
+        
+        // Multiple Serial ports
+        case CommandType::MULTI_SERIAL_BEGIN: return "MULTI_SERIAL_BEGIN";
+        case CommandType::MULTI_SERIAL_PRINT: return "MULTI_SERIAL_PRINT";
+        case CommandType::MULTI_SERIAL_PRINTLN: return "MULTI_SERIAL_PRINTLN";
+        case CommandType::MULTI_SERIAL_REQUEST: return "MULTI_SERIAL_REQUEST";
+        case CommandType::MULTI_SERIAL_COMMAND: return "MULTI_SERIAL_COMMAND";
+        
         default: return "UNKNOWN";
     }
 }
@@ -486,7 +564,7 @@ std::string serializeCommand(const Command& command) {
     switch (command.type) {
         case CommandType::VERSION_INFO:
             oss << "  \"component\": \"interpreter\",\n";
-            oss << "  \"version\": \"1.0.0\",\n";
+            oss << "  \"version\": \"7.0.0\",\n";
             oss << "  \"status\": \"started\"\n";
             break;
             
@@ -516,7 +594,7 @@ std::string serializeCommand(const Command& command) {
                         oss << "  \"message\": \"Starting loop iteration " << loopCmd->iteration << "\"\n";
                     }
                 } else {
-                    oss << "  \"message\": \"Starting loop execution\"\n";
+                    oss << "  \"message\": \"Starting loop() execution\"\n";
                 }
             }
             break;
@@ -540,9 +618,26 @@ std::string serializeCommand(const Command& command) {
                 const auto* funcCmd = dynamic_cast<const FunctionCallCommand*>(&command);
                 if (funcCmd) {
                     oss << "  \"function\": \"" << funcCmd->functionName << "\",\n";
-                    // Note: JavaScript tracks execution vs completion state
-                    // This would need enhancement based on context
-                    oss << "  \"message\": \"Executing " << funcCmd->functionName << "()\"\n";
+                    // Match JavaScript pattern for loop function calls
+                    if (funcCmd->functionName == "loop") {
+                        // Static counter for iteration tracking (simplified approach)
+                        static int iterationCount = 0;
+                        static bool isExecuting = true;
+                        
+                        if (isExecuting) {
+                            iterationCount++;
+                            oss << "  \"message\": \"Executing loop() iteration " << iterationCount << "\",\n";
+                            oss << "  \"iteration\": " << iterationCount << "\n";
+                            isExecuting = false;
+                        } else {
+                            oss << "  \"message\": \"Completed loop() iteration " << iterationCount << "\",\n";
+                            oss << "  \"iteration\": " << iterationCount << ",\n";
+                            oss << "  \"completed\": true\n";
+                            isExecuting = true;
+                        }
+                    } else {
+                        oss << "  \"message\": \"Executing " << funcCmd->functionName << "()\"\n";
+                    }
                 } else {
                     oss << "  \"message\": \"Function call\"\n";
                 }

@@ -77,7 +77,29 @@ enum class CommandType {
     PROGRAM_START,
     PROGRAM_END,
     VERSION_INFO,
-    ERROR
+    ERROR,
+    
+    // Serial communication
+    SERIAL_BEGIN,
+    SERIAL_PRINT,
+    SERIAL_PRINTLN,
+    SERIAL_WRITE,
+    SERIAL_READ_REQUEST,
+    SERIAL_AVAILABLE_REQUEST,
+    SERIAL_PEEK_REQUEST,
+    SERIAL_READ_STRING_REQUEST,
+    SERIAL_READ_STRING_UNTIL_REQUEST,
+    SERIAL_PARSE_INT_REQUEST,
+    SERIAL_PARSE_FLOAT_REQUEST,
+    SERIAL_SET_TIMEOUT,
+    SERIAL_FLUSH,
+    
+    // Multiple Serial ports
+    MULTI_SERIAL_BEGIN,
+    MULTI_SERIAL_PRINT,
+    MULTI_SERIAL_PRINTLN,
+    MULTI_SERIAL_REQUEST,
+    MULTI_SERIAL_COMMAND
 };
 
 /**
@@ -496,6 +518,23 @@ public:
     // System
     static CommandPtr createSystemCommand(CommandType type, const std::string& message);
     static CommandPtr createError(const std::string& message, const std::string& type = "RuntimeError");
+    
+    // Serial communication
+    static CommandPtr createSerialBegin(int32_t baudRate);
+    static CommandPtr createSerialPrint(const std::string& data, const std::string& format = "AUTO");
+    static CommandPtr createSerialPrintln(const std::string& data, const std::string& format = "AUTO");
+    static CommandPtr createSerialWrite(int32_t byte);
+    static CommandPtr createSerialRequest(const std::string& operation, const std::string& requestId);
+    static CommandPtr createSerialRequestWithChar(const std::string& operation, char terminator, const std::string& requestId);
+    static CommandPtr createSerialTimeout(int32_t timeout);
+    static CommandPtr createSerialFlush();
+    
+    // Multiple Serial ports
+    static CommandPtr createMultiSerialBegin(const std::string& portName, int32_t baudRate);
+    static CommandPtr createMultiSerialPrint(const std::string& portName, const std::string& data, const std::string& format = "AUTO");
+    static CommandPtr createMultiSerialPrintln(const std::string& portName, const std::string& data, const std::string& format = "AUTO");
+    static CommandPtr createMultiSerialRequest(const std::string& portName, const std::string& operation, const std::string& requestId);
+    static CommandPtr createMultiSerialCommand(const std::string& portName, const std::string& methodName);
 };
 
 // =============================================================================

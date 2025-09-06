@@ -44,7 +44,20 @@ ASTInterpreter::ASTInterpreter(arduino_ast::ASTNodePtr ast, const InterpreterOpt
       maxLoopIterations_(options.maxLoopIterations), currentFunction_(nullptr),
       shouldBreak_(false), shouldContinue_(false), shouldReturn_(false),
       currentSwitchValue_(std::monostate{}), inSwitchFallthrough_(false),
-      suspendedNode_(nullptr), lastExpressionResult_(std::monostate{}) {
+      suspendedNode_(nullptr), lastExpressionResult_(std::monostate{}),
+      // Initialize performance tracking variables
+      totalExecutionTime_(0), functionExecutionTime_(0),
+      commandsGenerated_(0), errorsGenerated_(0), functionsExecuted_(0),
+      userFunctionsExecuted_(0), arduinoFunctionsExecuted_(0),
+      loopsExecuted_(0), totalLoopIterations_(0), maxLoopDepth_(0),
+      currentLoopDepth_(0), variablesAccessed_(0), variablesModified_(0),
+      arrayAccessCount_(0), structAccessCount_(0),
+      peakVariableMemory_(0), currentVariableMemory_(0),
+      peakCommandMemory_(0), currentCommandMemory_(0),
+      pinOperations_(0), analogReads_(0), digitalReads_(0),
+      analogWrites_(0), digitalWrites_(0), serialOperations_(0),
+      recursionDepth_(0), maxRecursionDepth_(0),
+      timeoutOccurrences_(0), memoryAllocations_(0) {
     
     initializeInterpreter();
 }
@@ -56,7 +69,20 @@ ASTInterpreter::ASTInterpreter(const uint8_t* compactAST, size_t size, const Int
       maxLoopIterations_(options.maxLoopIterations), currentFunction_(nullptr),
       shouldBreak_(false), shouldContinue_(false), shouldReturn_(false),
       currentSwitchValue_(std::monostate{}), inSwitchFallthrough_(false),
-      suspendedNode_(nullptr), lastExpressionResult_(std::monostate{}) {
+      suspendedNode_(nullptr), lastExpressionResult_(std::monostate{}),
+      // Initialize performance tracking variables
+      totalExecutionTime_(0), functionExecutionTime_(0),
+      commandsGenerated_(0), errorsGenerated_(0), functionsExecuted_(0),
+      userFunctionsExecuted_(0), arduinoFunctionsExecuted_(0),
+      loopsExecuted_(0), totalLoopIterations_(0), maxLoopDepth_(0),
+      currentLoopDepth_(0), variablesAccessed_(0), variablesModified_(0),
+      arrayAccessCount_(0), structAccessCount_(0),
+      peakVariableMemory_(0), currentVariableMemory_(0),
+      peakCommandMemory_(0), currentCommandMemory_(0),
+      pinOperations_(0), analogReads_(0), digitalReads_(0),
+      analogWrites_(0), digitalWrites_(0), serialOperations_(0),
+      recursionDepth_(0), maxRecursionDepth_(0),
+      timeoutOccurrences_(0), memoryAllocations_(0) {
     
     DEBUG_OUT << "ASTInterpreter constructor: Creating CompactASTReader..." << std::endl;
     
@@ -110,6 +136,7 @@ bool ASTInterpreter::start() {
     
     state_ = ExecutionState::RUNNING;
     executionStart_ = std::chrono::steady_clock::now();
+    totalExecutionStart_ = std::chrono::steady_clock::now();
     
     // Emit VERSION_INFO first, then PROGRAM_START (matches JavaScript order)
     emitSystemCommand(CommandType::VERSION_INFO, options_.version);
@@ -122,6 +149,10 @@ bool ASTInterpreter::start() {
             state_ = ExecutionState::COMPLETE;
             emitSystemCommand(CommandType::PROGRAM_END, "Program execution completed");
         }
+        
+        // Calculate total execution time
+        auto now = std::chrono::steady_clock::now();
+        totalExecutionTime_ += std::chrono::duration_cast<std::chrono::milliseconds>(now - totalExecutionStart_);
         
         // Always emit final PROGRAM_END when stopped (matches JavaScript behavior)
         emitSystemCommand(CommandType::PROGRAM_END, "Program execution stopped");
@@ -641,12 +672,31 @@ void ASTInterpreter::visit(arduino_ast::MemberAccessNode& node) {
             return;
         }
         
-        // Get object name (for now, support simple identifier objects)
+        // Get object - support both simple identifiers and nested member access
+        EnhancedCommandValue objectValue;
         std::string objectName;
+        
         if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(node.getObject())) {
+            // Simple identifier: obj.member
             objectName = identifier->getName();
+            Variable* objectVar = scopeManager_->getVariable(objectName);
+            if (objectVar) {
+                objectValue = upgradeCommandValue(objectVar->value);
+            } else {
+                emitError("Object variable '" + objectName + "' not found");
+                lastExpressionResult_ = std::monostate{};
+                return;
+            }
+        } else if (const auto* nestedAccess = dynamic_cast<const arduino_ast::MemberAccessNode*>(node.getObject())) {
+            // Nested member access: obj.member.submember
+            debugLog("Handling nested member access");
+            
+            // Recursively evaluate the nested access first
+            const_cast<arduino_ast::MemberAccessNode*>(nestedAccess)->accept(*this);
+            objectValue = upgradeCommandValue(lastExpressionResult_);
+            objectName = "nested_object"; // Placeholder name for nested access
         } else {
-            emitError("Complex object expressions not yet supported");
+            emitError("Unsupported object expression in member access");
             lastExpressionResult_ = std::monostate{};
             return;
         }
@@ -664,17 +714,59 @@ void ASTInterpreter::visit(arduino_ast::MemberAccessNode& node) {
         std::string accessOp = node.getAccessOperator();
         debugLog("Member access: " + objectName + accessOp + propertyName);
         
-        // Get object variable
-        Variable* objectVar = scopeManager_->getVariable(objectName);
-        if (!objectVar) {
-            emitError("Object variable '" + objectName + "' not found");
+        // Handle different types of member access operations
+        EnhancedCommandValue result;
+        
+        if (accessOp == ".") {
+            // Struct member access (obj.member)
+            if (isStructType(objectValue)) {
+                auto structPtr = std::get<std::shared_ptr<ArduinoStruct>>(objectValue);
+                if (structPtr && structPtr->hasMember(propertyName)) {
+                    result = structPtr->getMember(propertyName);
+                } else {
+                    emitError("Struct member '" + propertyName + "' not found");
+                    lastExpressionResult_ = std::monostate{};
+                    return;
+                }
+            } else {
+                // Use enhanced member access system for other object types
+                result = MemberAccessHelper::getMemberValue(enhancedScopeManager_.get(), objectName, propertyName);
+            }
+        } else if (accessOp == "->") {
+            // Pointer member access (ptr->member)
+            if (isPointerType(objectValue)) {
+                auto pointerPtr = std::get<std::shared_ptr<ArduinoPointer>>(objectValue);
+                if (pointerPtr && !pointerPtr->isNull()) {
+                    EnhancedCommandValue derefValue = pointerPtr->dereference();
+                    if (isStructType(derefValue)) {
+                        auto structPtr = std::get<std::shared_ptr<ArduinoStruct>>(derefValue);
+                        if (structPtr && structPtr->hasMember(propertyName)) {
+                            result = structPtr->getMember(propertyName);
+                        } else {
+                            emitError("Struct member '" + propertyName + "' not found in dereferenced pointer");
+                            lastExpressionResult_ = std::monostate{};
+                            return;
+                        }
+                    } else {
+                        emitError("Cannot access member of non-struct through pointer");
+                        lastExpressionResult_ = std::monostate{};
+                        return;
+                    }
+                } else {
+                    emitError("Cannot dereference null pointer");
+                    lastExpressionResult_ = std::monostate{};
+                    return;
+                }
+            } else {
+                emitError("-> operator requires pointer type");
+                lastExpressionResult_ = std::monostate{};
+                return;
+            }
+        } else {
+            emitError("Unsupported access operator: " + accessOp);
             lastExpressionResult_ = std::monostate{};
             return;
         }
-        
-        // Use enhanced member access system for proper struct/object handling
-        EnhancedCommandValue result = 
-            MemberAccessHelper::getMemberValue(enhancedScopeManager_.get(), objectName, propertyName);
         
         // Convert EnhancedCommandValue back to CommandValue for compatibility
         lastExpressionResult_ = downgradeCommandValue(result);
@@ -794,9 +886,79 @@ void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
             CommandValue typedValue = convertToType(initialValue, typeName);
             debugLog("Type conversion: " + commandValueToString(initialValue) + " -> " + commandValueToString(typedValue) + " (" + typeName + ")");
             
-            // Create and store variable
-            Variable var(typedValue, typeName);
-            scopeManager_->setVariable(varName, var);
+            // Parse variable modifiers from type name
+            bool isConst = typeName.find("const") != std::string::npos;
+            bool isStatic = typeName.find("static") != std::string::npos;
+            bool isReference = typeName.find("&") != std::string::npos;
+            
+            // Extract clean type name without modifiers
+            std::string cleanTypeName = typeName;
+            if (isConst) {
+                size_t pos = cleanTypeName.find("const");
+                if (pos != std::string::npos) {
+                    cleanTypeName.erase(pos, 5); // Remove "const"
+                }
+            }
+            if (isStatic) {
+                size_t pos = cleanTypeName.find("static");
+                if (pos != std::string::npos) {
+                    cleanTypeName.erase(pos, 6); // Remove "static"
+                }
+            }
+            if (isReference) {
+                size_t pos = cleanTypeName.find("&");
+                if (pos != std::string::npos) {
+                    cleanTypeName.erase(pos, 1); // Remove "&"
+                }
+            }
+            
+            // Trim whitespace
+            cleanTypeName.erase(0, cleanTypeName.find_first_not_of(" \t"));
+            cleanTypeName.erase(cleanTypeName.find_last_not_of(" \t") + 1);
+            
+            // Check for template types (e.g., "vector<int>")
+            std::string templateType = "";
+            if (cleanTypeName.find("<") != std::string::npos && cleanTypeName.find(">") != std::string::npos) {
+                templateType = cleanTypeName;
+                // Extract base type (e.g., "vector" from "vector<int>")
+                size_t templateStart = cleanTypeName.find("<");
+                cleanTypeName = cleanTypeName.substr(0, templateStart);
+            }
+            
+            // Create enhanced variable with modifiers
+            bool isGlobal = scopeManager_->isGlobalScope();
+            Variable var(typedValue, cleanTypeName, isConst, isReference, isStatic, isGlobal);
+            
+            if (!templateType.empty()) {
+                var.templateType = templateType;
+            }
+            
+            debugLog("Enhanced variable attributes: const=" + std::to_string(isConst) + 
+                    ", static=" + std::to_string(isStatic) + 
+                    ", reference=" + std::to_string(isReference) + 
+                    ", global=" + std::to_string(isGlobal) + 
+                    ", template=" + templateType);
+            
+            // Handle reference variables
+            if (isReference && !children.empty()) {
+                // For reference variables, try to find the target variable
+                if (auto* identifierNode = dynamic_cast<arduino_ast::IdentifierNode*>(children[0].get())) {
+                    std::string targetName = identifierNode->getName();
+                    if (scopeManager_->createReference(varName, targetName)) {
+                        debugLog("Created reference variable: " + varName + " -> " + targetName);
+                    } else {
+                        emitError("Cannot create reference to undefined variable: " + targetName);
+                    }
+                    return;
+                }
+            }
+            
+            // Store variable using enhanced scope manager
+            if (!templateType.empty()) {
+                scopeManager_->setTemplateVariable(varName, var, templateType);
+            } else {
+                scopeManager_->setVariable(varName, var);
+            }
             
             debugLog("Declared variable: " + varName + " (" + typeName + ") = " + commandValueToString(typedValue));
         } else {
@@ -980,6 +1142,100 @@ void ASTInterpreter::visit(arduino_ast::AssignmentNode& node) {
             MemberAccessHelper::setMemberValue(enhancedScopeManager_.get(), objectName, propertyName, enhancedRightValue);
             debugLog("Member assignment completed: " + objectName + "." + propertyName + " = " + enhancedCommandValueToString(enhancedRightValue));
             
+        } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::UNARY_OP) {
+            // Handle pointer dereferencing assignment (*ptr = value)
+            debugLog("Performing pointer dereference assignment");
+            
+            const auto* unaryOpNode = dynamic_cast<const arduino_ast::UnaryOpNode*>(leftNode);
+            if (!unaryOpNode || unaryOpNode->getOperator() != "*") {
+                emitError("Only dereference operator (*) supported in unary assignment");
+                return;
+            }
+            
+            // Get the pointer variable
+            const auto* operandNode = unaryOpNode->getOperand();
+            if (!operandNode || operandNode->getType() != arduino_ast::ASTNodeType::IDENTIFIER) {
+                emitError("Pointer dereference requires simple variable identifier");
+                return;
+            }
+            
+            std::string pointerName = operandNode->getValueAs<std::string>();
+            debugLog("Pointer dereference assignment: *" + pointerName + " = " + commandValueToString(rightValue));
+            
+            // Get pointer variable
+            Variable* pointerVar = scopeManager_->getVariable(pointerName);
+            if (!pointerVar) {
+                emitError("Pointer variable '" + pointerName + "' not found");
+                return;
+            }
+            
+            // For now, simulate pointer dereferencing by creating a shadow variable
+            // In a full implementation, this would update the memory location pointed to
+            std::string dereferenceVarName = "*" + pointerName;
+            Variable dereferenceVar(rightValue);
+            scopeManager_->setVariable(dereferenceVarName, dereferenceVar);
+            debugLog("Pointer dereference assignment completed: *" + pointerName + " = " + commandValueToString(rightValue));
+            
+        } else if (leftNode && leftNode->getType() == arduino_ast::ASTNodeType::ARRAY_ACCESS) {
+            // Check if this is a multi-dimensional array access (nested array access)
+            const auto* outerArrayAccessNode = dynamic_cast<const arduino_ast::ArrayAccessNode*>(leftNode);
+            if (outerArrayAccessNode && outerArrayAccessNode->getArray() && 
+                outerArrayAccessNode->getArray()->getType() == arduino_ast::ASTNodeType::ARRAY_ACCESS) {
+                
+                // Multi-dimensional array assignment (e.g., arr[i][j] = value)
+                debugLog("Performing multi-dimensional array element assignment");
+                
+                const auto* innerArrayAccessNode = dynamic_cast<const arduino_ast::ArrayAccessNode*>(outerArrayAccessNode->getArray());
+                
+                // Get array name from the innermost access
+                std::string arrayName;
+                if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(innerArrayAccessNode->getArray())) {
+                    arrayName = identifier->getName();
+                } else {
+                    emitError("Complex multi-dimensional array expressions not supported");
+                    return;
+                }
+                
+                // Evaluate both indices
+                CommandValue firstIndexValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(innerArrayAccessNode->getIndex()));
+                CommandValue secondIndexValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(outerArrayAccessNode->getIndex()));
+                int32_t firstIndex = convertToInt(firstIndexValue);
+                int32_t secondIndex = convertToInt(secondIndexValue);
+                
+                debugLog("Multi-dimensional array assignment: " + arrayName + "[" + std::to_string(firstIndex) + "][" + std::to_string(secondIndex) + "] = " + commandValueToString(rightValue));
+                
+                // Get array variable
+                Variable* arrayVar = scopeManager_->getVariable(arrayName);
+                if (!arrayVar) {
+                    emitError("Multi-dimensional array variable '" + arrayName + "' not found");
+                    return;
+                }
+                
+                // Use enhanced array access system for multi-dimensional arrays
+                EnhancedCommandValue enhancedRightValue = std::visit([](auto&& arg) -> EnhancedCommandValue {
+                    return arg;  // Direct conversion for shared types
+                }, rightValue);
+                
+                // For multi-dimensional arrays, we simulate using a flattened index approach
+                // In a full implementation, this would properly handle 2D array structures
+                std::vector<size_t> indices = {static_cast<size_t>(firstIndex), static_cast<size_t>(secondIndex)};
+                
+                // Try to set multi-dimensional element using enhanced system
+                try {
+                    MemberAccessHelper::setArrayElement(enhancedScopeManager_.get(), arrayName, static_cast<size_t>(firstIndex * 100 + secondIndex), enhancedRightValue);
+                    debugLog("Multi-dimensional array assignment completed");
+                } catch (const std::exception& e) {
+                    // Fall back to composite variable name simulation
+                    std::string compositeVarName = arrayName + "_" + std::to_string(firstIndex) + "_" + std::to_string(secondIndex);
+                    Variable compositeVar(rightValue);
+                    scopeManager_->setVariable(compositeVarName, compositeVar);
+                    debugLog("Multi-dimensional array assignment completed using composite naming: " + compositeVarName);
+                }
+                
+                // This was already handled above, but the condition was duplicated
+                return;
+            }
+            
         } else {
             emitError("Unsupported assignment target");
         }
@@ -1150,22 +1406,69 @@ void ASTInterpreter::visit(arduino_ast::RangeBasedForStatement& node) {
         // Determine collection size and iterate
         std::vector<CommandValue> items;
         
-        // Handle different collection types
+        // Handle different collection types - ENHANCED IMPLEMENTATION
         if (std::holds_alternative<std::string>(collection)) {
             // String iteration - iterate over characters
             std::string str = std::get<std::string>(collection);
+            debugLog("String iteration over: '" + str + "'");
             for (char c : str) {
                 items.push_back(std::string(1, c));
             }
         } else if (std::holds_alternative<int32_t>(collection)) {
-            // Numeric range - simple range (0 to n-1)
+            // Numeric range iteration - supports different patterns
             int32_t count = std::get<int32_t>(collection);
-            for (int32_t i = 0; i < count && i < 100; ++i) { // Limit to prevent infinite loops
+            debugLog("Numeric range iteration: 0 to " + std::to_string(count - 1));
+            
+            // Limit range to prevent infinite loops and memory issues
+            int32_t maxItems = std::min(count, static_cast<int32_t>(1000));
+            for (int32_t i = 0; i < maxItems; ++i) {
                 items.push_back(i);
             }
+            
+            if (count > 1000) {
+                debugLog("Range truncated to 1000 items for safety");
+            }
+        } else if (std::holds_alternative<double>(collection)) {
+            // Double values - treat as range size
+            double dcount = std::get<double>(collection);
+            int32_t count = static_cast<int32_t>(dcount);
+            debugLog("Double range iteration: 0 to " + std::to_string(count - 1));
+            
+            int32_t maxItems = std::min(count, static_cast<int32_t>(1000));
+            for (int32_t i = 0; i < maxItems; ++i) {
+                items.push_back(static_cast<double>(i));
+            }
         } else {
-            // For other types, create single-element collection
-            items.push_back(collection);
+            // Check if it's an enhanced data type (Array, String object)
+            EnhancedCommandValue enhancedCollection = upgradeCommandValue(collection);
+            
+            if (isArrayType(enhancedCollection)) {
+                // Array iteration - iterate over array elements
+                auto arrayPtr = std::get<std::shared_ptr<ArduinoArray>>(enhancedCollection);
+                if (arrayPtr) {
+                    size_t arraySize = arrayPtr->size();
+                    debugLog("Array iteration over " + std::to_string(arraySize) + " elements");
+                    
+                    for (size_t i = 0; i < arraySize && i < 1000; ++i) {
+                        EnhancedCommandValue element = arrayPtr->getElement(i);
+                        items.push_back(downgradeCommandValue(element));
+                    }
+                }
+            } else if (isStringType(enhancedCollection)) {
+                // Enhanced String iteration - iterate over characters
+                auto stringPtr = std::get<std::shared_ptr<ArduinoString>>(enhancedCollection);
+                if (stringPtr) {
+                    std::string str = stringPtr->c_str();
+                    debugLog("Enhanced String iteration over: '" + str + "'");
+                    for (char c : str) {
+                        items.push_back(std::string(1, c));
+                    }
+                }
+            } else {
+                // For other types, create single-element collection
+                debugLog("Single-element iteration over: " + commandValueToString(collection));
+                items.push_back(collection);
+            }
         }
         
         debugLog("Range-based for loop: iterating over " + std::to_string(items.size()) + " items");
@@ -1246,17 +1549,40 @@ void ASTInterpreter::visit(arduino_ast::ArrayAccessNode& node) {
         
         debugLog("Array access: " + arrayName + "[" + std::to_string(index) + "]");
         
-        // Get array variable
-        Variable* arrayVar = scopeManager_->getVariable(arrayName);
+        // Get array variable using enhanced scope system
+        EnhancedVariable* arrayVar = enhancedScopeManager_->getVariable(arrayName);
+        
         if (!arrayVar) {
             emitError("Array variable '" + arrayName + "' not found");
             lastExpressionResult_ = std::monostate{};
             return;
         }
         
-        // Use enhanced array access system for proper array handling
-        EnhancedCommandValue result = 
-            MemberAccessHelper::getArrayElement(enhancedScopeManager_.get(), arrayName, static_cast<size_t>(index));
+        EnhancedCommandValue arrayValue = arrayVar->value;
+        
+        EnhancedCommandValue result;
+        
+        if (isArrayType(arrayValue)) {
+            // Enhanced array access with bounds checking
+            auto arrayPtr = std::get<std::shared_ptr<ArduinoArray>>(arrayValue);
+            if (arrayPtr) {
+                size_t idx = static_cast<size_t>(index);
+                if (idx < arrayPtr->size()) {
+                    result = arrayPtr->getElement(idx);
+                } else {
+                    emitError("Array index " + std::to_string(index) + " out of bounds (size: " + std::to_string(arrayPtr->size()) + ")");
+                    lastExpressionResult_ = std::monostate{};
+                    return;
+                }
+            } else {
+                emitError("Null array pointer");
+                lastExpressionResult_ = std::monostate{};
+                return;
+            }
+        } else {
+            // Fall back to legacy array access system for basic arrays
+            result = MemberAccessHelper::getArrayElement(enhancedScopeManager_.get(), arrayName, static_cast<size_t>(index));
+        }
         
         // Convert EnhancedCommandValue back to CommandValue for compatibility
         lastExpressionResult_ = downgradeCommandValue(result);
@@ -1588,6 +1914,38 @@ CommandValue ASTInterpreter::evaluateBinaryOperation(const std::string& op, cons
 CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const arduino_ast::FuncDefNode* funcDef, const std::vector<CommandValue>& args) {
     debugLog("Executing user-defined function: " + name);
     
+    // Track user function call statistics
+    auto userFunctionStart = std::chrono::steady_clock::now();
+    functionsExecuted_++;
+    userFunctionsExecuted_++;
+    functionCallCounters_[name]++;
+    
+    // Track recursion depth
+    recursionDepth_++;
+    if (recursionDepth_ > maxRecursionDepth_) {
+        maxRecursionDepth_ = recursionDepth_;
+    }
+    
+    // Check for recursion depth limit to prevent stack overflow
+    static std::vector<std::string> callStack;
+    const size_t MAX_RECURSION_DEPTH = 100; // Prevent infinite recursion
+    
+    callStack.push_back(name);
+    if (callStack.size() > MAX_RECURSION_DEPTH) {
+        emitError("Maximum recursion depth exceeded in function: " + name);
+        callStack.pop_back();
+        return std::monostate{};
+    }
+    
+    // Count recursive calls of the same function
+    size_t recursiveCallCount = 0;
+    for (const auto& funcName : callStack) {
+        if (funcName == name) recursiveCallCount++;
+    }
+    
+    debugLog("Function " + name + " call depth: " + std::to_string(callStack.size()) + 
+             ", recursive calls: " + std::to_string(recursiveCallCount));
+    
     // Create new scope for function execution
     scopeManager_->pushScope();
     
@@ -1596,10 +1954,18 @@ CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const 
     if (!parameters.empty()) {
         debugLog("Processing " + std::to_string(parameters.size()) + " function parameters");
         
-        // Check if we have the right number of arguments
-        if (args.size() != parameters.size()) {
-            emitError("Function " + name + " expects " + std::to_string(parameters.size()) + 
-                     " arguments, got " + std::to_string(args.size()));
+        // Check parameter count - allow fewer args if defaults are available
+        size_t requiredParams = 0;
+        for (const auto& param : parameters) {
+            const auto* paramNode = dynamic_cast<const arduino_ast::ParamNode*>(param.get());
+            if (paramNode && paramNode->getChildren().empty()) { // No default value
+                requiredParams++;
+            }
+        }
+        
+        if (args.size() < requiredParams || args.size() > parameters.size()) {
+            emitError("Function " + name + " expects " + std::to_string(requiredParams) + 
+                     "-" + std::to_string(parameters.size()) + " arguments, got " + std::to_string(args.size()));
             scopeManager_->popScope();
             return std::monostate{};
         }
@@ -1613,14 +1979,55 @@ CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const 
                 if (const auto* declNode = dynamic_cast<const arduino_ast::DeclaratorNode*>(declarator)) {
                     std::string paramName = declNode->getName();
                     
-                    // Get parameter type (simplified - assume default type)
-                    std::string paramType = "auto"; // Could be extracted from paramNode->getParamType()
+                    // Get parameter type from ParamNode
+                    std::string paramType = "auto";
+                    const auto* typeNode = paramNode->getParamType();
+                    if (typeNode) {
+                        try {
+                            paramType = typeNode->getValueAs<std::string>();
+                        } catch (...) {
+                            paramType = "auto"; // Fallback
+                        }
+                    }
                     
-                    // Create parameter variable with argument value
-                    Variable paramVar(args[i], paramType);
+                    CommandValue paramValue;
+                    
+                    // Use provided argument or default value
+                    if (i < args.size()) {
+                        // Use provided argument
+                        paramValue = args[i];
+                        if (paramType != "auto") {
+                            paramValue = convertToType(args[i], paramType);
+                        }
+                        debugLog("Parameter: " + paramName + " = " + commandValueToString(args[i]) + " (provided)");
+                    } else {
+                        // Use default value from parameter node children
+                        const auto& children = paramNode->getChildren();
+                        if (!children.empty()) {
+                            CommandValue defaultValue = evaluateExpression(const_cast<arduino_ast::ASTNode*>(children[0].get()));
+                            paramValue = paramType != "auto" ? convertToType(defaultValue, paramType) : defaultValue;
+                            debugLog("Parameter: " + paramName + " = " + commandValueToString(defaultValue) + " (default)");
+                        } else {
+                            // No default value provided - use type default
+                            if (paramType == "int" || paramType == "int32_t") {
+                                paramValue = static_cast<int32_t>(0);
+                            } else if (paramType == "double" || paramType == "float") {
+                                paramValue = 0.0;
+                            } else if (paramType == "bool") {
+                                paramValue = false;
+                            } else if (paramType == "String" || paramType == "string") {
+                                paramValue = std::string("");
+                            } else {
+                                paramValue = std::monostate{};
+                            }
+                            debugLog("Parameter: " + paramName + " = " + commandValueToString(paramValue) + " (type default)");
+                        }
+                    }
+                    
+                    // Create parameter variable
+                    Variable paramVar(paramValue, paramType);
                     scopeManager_->setVariable(paramName, paramVar);
                     
-                    debugLog("Parameter: " + paramName + " = " + commandValueToString(args[i]) + " (" + paramType + ")");
                 } else {
                     debugLog("Parameter " + std::to_string(i) + " has no declarator name");
                 }
@@ -1647,15 +2054,30 @@ CommandValue ASTInterpreter::executeUserFunction(const std::string& name, const 
         returnValue_ = std::monostate{};
     }
     
-    // Clean up scope
+    // Clean up scope and call stack
     scopeManager_->popScope();
+    callStack.pop_back();
     
-    debugLog("User function " + name + " completed");
+    // Complete user function timing tracking
+    auto userFunctionEnd = std::chrono::steady_clock::now();
+    auto userDuration = std::chrono::duration_cast<std::chrono::microseconds>(userFunctionEnd - userFunctionStart);
+    functionExecutionTimes_[name] += userDuration;
+    
+    // Update recursion depth tracking
+    recursionDepth_--;
+    
+    debugLog("User function " + name + " completed with result: " + commandValueToString(result));
     return result;
 }
 
 CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, const std::vector<CommandValue>& args) {
     debugLog("Executing Arduino function: " + name);
+    
+    // Track function call statistics
+    auto functionStart = std::chrono::steady_clock::now();
+    functionsExecuted_++;
+    arduinoFunctionsExecuted_++;
+    functionCallCounters_[name]++;
     
     // If we're resuming from a suspended state and this is the function we were waiting for,
     // return the result from the external response
@@ -1669,15 +2091,46 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
     
     // Pin operations
     if (name == "pinMode") {
-        return handlePinOperation(name, args);
+        auto result = handlePinOperation(name, args);
+        // Update pin operation statistics
+        pinOperations_++;
+        // Complete function timing
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
     } else if (name == "digitalWrite") {
-        return handlePinOperation(name, args);
+        auto result = handlePinOperation(name, args);
+        pinOperations_++;
+        digitalWrites_++;
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
     } else if (name == "digitalRead") {
-        return handlePinOperation(name, args);
+        auto result = handlePinOperation(name, args);
+        pinOperations_++;
+        digitalReads_++;
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
     } else if (name == "analogWrite") {
-        return handlePinOperation(name, args);
+        auto result = handlePinOperation(name, args);
+        pinOperations_++;
+        analogWrites_++;
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
     } else if (name == "analogRead") {
-        return handlePinOperation(name, args);
+        auto result = handlePinOperation(name, args);
+        pinOperations_++;
+        analogReads_++;
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
     }
     
     // Timing operations
@@ -1693,7 +2146,177 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
     
     // Serial operations  
     else if (name == "Serial.begin" || name == "Serial.print" || name == "Serial.println") {
-        return handleSerialOperation(name, args);
+        auto result = handleSerialOperation(name, args);
+        serialOperations_++;
+        auto functionEnd = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+        functionExecutionTimes_[name] += duration;
+        return result;
+    }
+    
+    // Character classification functions (Arduino ctype.h equivalents)
+    else if (name == "isDigit" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c >= '0' && c <= '9');
+    } else if (name == "isAlpha" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+    } else if (name == "isPunct" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        // Arduino punctuation: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+        return static_cast<int32_t>((c >= '!' && c <= '/') || (c >= ':' && c <= '@') || 
+                                   (c >= '[' && c <= '`') || (c >= '{' && c <= '~'));
+    } else if (name == "isAlphaNumeric" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+    } else if (name == "isSpace" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+    } else if (name == "isUpperCase" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c >= 'A' && c <= 'Z');
+    } else if (name == "isLowerCase" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c >= 'a' && c <= 'z');
+    } else if (name == "isHexadecimalDigit" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'));
+    } else if (name == "isAscii" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c >= 0 && c <= 127);
+    } else if (name == "isWhitespace" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+    } else if (name == "isControl" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>((c >= 0 && c <= 31) || c == 127);
+    } else if (name == "isGraph" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c > 32 && c <= 126);
+    } else if (name == "isPrintable" && args.size() >= 1) {
+        char c = static_cast<char>(convertToInt(args[0]));
+        return static_cast<int32_t>(c >= 32 && c <= 126);
+    }
+    
+    // Advanced expression operators
+    else if (name == "typeof" && args.size() >= 1) {
+        // Return type name as string based on the argument value
+        return std::visit([](auto&& arg) -> CommandValue {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, std::monostate>) {
+                return std::string("undefined");
+            } else if constexpr (std::is_same_v<T, bool>) {
+                return std::string("boolean");
+            } else if constexpr (std::is_same_v<T, int32_t>) {
+                return std::string("number");
+            } else if constexpr (std::is_same_v<T, double>) {
+                return std::string("number");
+            } else if constexpr (std::is_same_v<T, std::string>) {
+                return std::string("string");
+            } else {
+                return std::string("object");
+            }
+        }, args[0]);
+    } else if (name == "sizeof" && args.size() >= 1) {
+        // Return size in bytes based on the argument type
+        return std::visit([](auto&& arg) -> CommandValue {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, std::monostate>) {
+                return static_cast<int32_t>(0);
+            } else if constexpr (std::is_same_v<T, bool>) {
+                return static_cast<int32_t>(sizeof(bool));
+            } else if constexpr (std::is_same_v<T, int32_t>) {
+                return static_cast<int32_t>(sizeof(int32_t));
+            } else if constexpr (std::is_same_v<T, double>) {
+                return static_cast<int32_t>(sizeof(double));
+            } else if constexpr (std::is_same_v<T, std::string>) {
+                return static_cast<int32_t>(arg.length() + 1);
+            } else {
+                return static_cast<int32_t>(sizeof(void*));
+            }
+        }, args[0]);
+    }
+    
+    // Cast operators (function-style casts)
+    else if (name == "int" && args.size() >= 1) {
+        return static_cast<int32_t>(convertToInt(args[0]));
+    } else if (name == "float" && args.size() >= 1) {
+        return convertToDouble(args[0]);
+    } else if (name == "double" && args.size() >= 1) {
+        return convertToDouble(args[0]);  
+    } else if (name == "bool" && args.size() >= 1) {
+        return convertToBool(args[0]);
+    } else if (name == "char" && args.size() >= 1) {
+        return static_cast<int32_t>(static_cast<char>(convertToInt(args[0])));
+    } else if (name == "byte" && args.size() >= 1) {
+        return static_cast<int32_t>(static_cast<uint8_t>(convertToInt(args[0])) & 0xFF);
+    }
+    
+    // Arduino String constructor and methods
+    else if (name == "String") {
+        // String constructor - create new ArduinoString object
+        std::string initialValue = "";
+        if (args.size() > 0) {
+            initialValue = std::visit([](auto&& arg) -> std::string {
+                using T = std::decay_t<decltype(arg)>;
+                if constexpr (std::is_same_v<T, std::string>) {
+                    return arg;
+                } else if constexpr (std::is_same_v<T, int32_t>) {
+                    return std::to_string(arg);
+                } else if constexpr (std::is_same_v<T, double>) {
+                    return std::to_string(arg);
+                } else if constexpr (std::is_same_v<T, bool>) {
+                    return arg ? "true" : "false";
+                } else {
+                    return "";
+                }
+            }, args[0]);
+        }
+        
+        auto arduinoString = createString(initialValue);
+        EnhancedCommandValue enhancedResult = arduinoString;
+        // Convert back to basic CommandValue for compatibility
+        return downgradeCommandValue(enhancedResult);
+    }
+    
+    // Dynamic memory allocation operators
+    else if (name == "new" && args.size() >= 1) {
+        // new operator - allocate new object/array
+        std::string typeName = std::visit([](auto&& arg) -> std::string {
+            using T = std::decay_t<decltype(arg)>;
+            if constexpr (std::is_same_v<T, std::string>) {
+                return arg;
+            } else {
+                return "int";  // Default to int for numeric size
+            }
+        }, args[0]);
+        
+        if (typeName == "int" || typeName == "float" || typeName == "double" || typeName == "char" || typeName == "byte") {
+            // Allocate primitive type - return pointer address simulation
+            static int allocationCounter = 1000;
+            std::string pointerAddress = "&allocated_" + std::to_string(allocationCounter++);
+            return pointerAddress;
+        } else {
+            // Allocate struct/object type - create new struct
+            auto newStruct = createStruct(typeName);
+            EnhancedCommandValue enhancedResult = newStruct;
+            return downgradeCommandValue(enhancedResult);
+        }
+    } else if (name == "delete" && args.size() >= 1) {
+        // delete operator - deallocate object/array (simulation)
+        debugLog("delete operator called - memory deallocation simulated");
+        return std::monostate{};
+    } else if (name == "malloc" && args.size() >= 1) {
+        // malloc - allocate raw memory (simulation)
+        int32_t size = convertToInt(args[0]);
+        static int mallocCounter = 2000;
+        std::string pointerAddress = "&malloc_" + std::to_string(mallocCounter++) + "_size_" + std::to_string(size);
+        debugLog("malloc(" + std::to_string(size) + ") -> " + pointerAddress);
+        return pointerAddress;
+    } else if (name == "free" && args.size() >= 1) {
+        // free - deallocate raw memory (simulation)
+        debugLog("free() called - memory deallocation simulated");
+        return std::monostate{};
     }
     
     // Library functions
@@ -1702,6 +2325,11 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
     }
     
     // No matching Arduino function found
+    
+    // Complete function timing tracking before error
+    auto functionEnd = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+    functionExecutionTimes_[name] += duration;
     
     emitError("Unknown function: " + name);
     return std::monostate{};
@@ -1827,10 +2455,225 @@ CommandValue ASTInterpreter::handleTimingOperation(const std::string& function, 
 }
 
 CommandValue ASTInterpreter::handleSerialOperation(const std::string& function, const std::vector<CommandValue>& args) {
-    // Serial operations generate function call commands
-    // TODO: Restore args parameter when CommandValue arrays are fixed
-    emitCommand(CommandFactory::createFunctionCall(function /* , args */));
+    debugLog("Serial operation: " + function + " with " + std::to_string(args.size()) + " args");
+    
+    // Handle different Serial methods
+    if (function == "begin") {
+        // Serial.begin(baudRate) - Initialize serial communication
+        int32_t baudRate = args.size() > 0 ? convertToInt(args[0]) : 9600;
+        emitCommand(CommandFactory::createSerialBegin(baudRate));
+        return std::monostate{};
+    }
+    
+    else if (function == "print") {
+        // Serial.print(data) or Serial.print(data, format)
+        if (args.size() == 0) return std::monostate{};
+        
+        std::string output;
+        int32_t format = args.size() > 1 ? convertToInt(args[1]) : 10; // Default DEC
+        
+        // Handle different data types and formatting
+        const CommandValue& data = args[0];
+        if (std::holds_alternative<int32_t>(data)) {
+            int32_t value = std::get<int32_t>(data);
+            switch (format) {
+                case 16: // HEX
+                    output = std::to_string(value); // Will be formatted by parent app
+                    emitCommand(CommandFactory::createSerialPrint(output, "HEX"));
+                    break;
+                case 2: // BIN
+                    output = std::to_string(value);
+                    emitCommand(CommandFactory::createSerialPrint(output, "BIN"));
+                    break;
+                case 8: // OCT
+                    output = std::to_string(value);
+                    emitCommand(CommandFactory::createSerialPrint(output, "OCT"));
+                    break;
+                default: // DEC
+                    output = std::to_string(value);
+                    emitCommand(CommandFactory::createSerialPrint(output, "DEC"));
+                    break;
+            }
+        } else if (std::holds_alternative<double>(data)) {
+            double value = std::get<double>(data);
+            int32_t places = args.size() > 2 ? convertToInt(args[2]) : 2; // Default 2 decimal places
+            output = std::to_string(value);
+            emitCommand(CommandFactory::createSerialPrint(output, "FLOAT"));
+        } else if (std::holds_alternative<std::string>(data)) {
+            output = std::get<std::string>(data);
+            emitCommand(CommandFactory::createSerialPrint(output, "STRING"));
+        } else if (std::holds_alternative<bool>(data)) {
+            output = std::get<bool>(data) ? "1" : "0";
+            emitCommand(CommandFactory::createSerialPrint(output, "BOOL"));
+        } else {
+            output = commandValueToString(data);
+            emitCommand(CommandFactory::createSerialPrint(output, "AUTO"));
+        }
+        return std::monostate{};
+    }
+    
+    else if (function == "println") {
+        // Serial.println(data) or Serial.println(data, format) - print with newline
+        if (args.size() == 0) {
+            emitCommand(CommandFactory::createSerialPrintln("", "NEWLINE"));
+        } else {
+            // First do the print operation
+            handleSerialOperation("print", args);
+            // Then add newline
+            emitCommand(CommandFactory::createSerialPrintln("", "NEWLINE"));
+        }
+        return std::monostate{};
+    }
+    
+    else if (function == "write") {
+        // Serial.write(data) - Write binary data
+        if (args.size() > 0) {
+            int32_t byte = convertToInt(args[0]);
+            emitCommand(CommandFactory::createSerialWrite(byte));
+        }
+        return std::monostate{};
+    }
+    
+    // External methods that require hardware/parent app response
+    else if (function == "available") {
+        // Serial.available() - Check bytes in receive buffer
+        std::string requestId = generateRequestId("serialAvailable");
+        emitCommand(CommandFactory::createSerialRequest("available", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "read") {
+        // Serial.read() - Read single byte from buffer
+        std::string requestId = generateRequestId("serialRead");
+        emitCommand(CommandFactory::createSerialRequest("read", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "peek") {
+        // Serial.peek() - Look at next byte without removing it
+        std::string requestId = generateRequestId("serialPeek");
+        emitCommand(CommandFactory::createSerialRequest("peek", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "readString") {
+        // Serial.readString() - Read characters into String
+        std::string requestId = generateRequestId("serialReadString");
+        emitCommand(CommandFactory::createSerialRequest("readString", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "readStringUntil") {
+        // Serial.readStringUntil(char) - Read until character found
+        if (args.size() > 0) {
+            char terminator = static_cast<char>(convertToInt(args[0]));
+            std::string requestId = generateRequestId("serialReadStringUntil");
+            emitCommand(CommandFactory::createSerialRequestWithChar("readStringUntil", terminator, requestId));
+            return waitForResponse(requestId);
+        }
+        return std::string("");
+    }
+    
+    else if (function == "parseInt") {
+        // Serial.parseInt() - Parse integer from serial input
+        std::string requestId = generateRequestId("serialParseInt");
+        emitCommand(CommandFactory::createSerialRequest("parseInt", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "parseFloat") {
+        // Serial.parseFloat() - Parse float from serial input
+        std::string requestId = generateRequestId("serialParseFloat");
+        emitCommand(CommandFactory::createSerialRequest("parseFloat", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    else if (function == "setTimeout") {
+        // Serial.setTimeout(time) - Set timeout for parse functions
+        if (args.size() > 0) {
+            int32_t timeout = convertToInt(args[0]);
+            emitCommand(CommandFactory::createSerialTimeout(timeout));
+        }
+        return std::monostate{};
+    }
+    
+    else if (function == "flush") {
+        // Serial.flush() - Wait for transmission to complete
+        emitCommand(CommandFactory::createSerialFlush());
+        return std::monostate{};
+    }
+    
+    // Multiple Serial port support
+    else if (function.find("Serial1.") == 0 || function.find("Serial2.") == 0 || function.find("Serial3.") == 0) {
+        std::string portName = function.substr(0, function.find('.'));
+        std::string methodName = function.substr(function.find('.') + 1);
+        
+        // Delegate to specific serial port handler
+        return handleMultipleSerialOperation(portName, methodName, args);
+    }
+    
+    // Default: emit as generic serial command
+    emitCommand(CommandFactory::createFunctionCall(function));
     return std::monostate{};
+}
+
+CommandValue ASTInterpreter::handleMultipleSerialOperation(const std::string& portName, const std::string& methodName, const std::vector<CommandValue>& args) {
+    debugLog("Multiple Serial operation: " + portName + "." + methodName);
+    
+    // Handle multiple serial ports (Serial1, Serial2, Serial3)
+    // Each port maintains separate state and buffers
+    
+    if (methodName == "begin") {
+        int32_t baudRate = args.size() > 0 ? convertToInt(args[0]) : 9600;
+        emitCommand(CommandFactory::createMultiSerialBegin(portName, baudRate));
+        return std::monostate{};
+    }
+    else if (methodName == "print") {
+        if (args.size() > 0) {
+            std::string output = convertToString(args[0]);
+            std::string format = args.size() > 1 ? convertToString(args[1]) : "DEC";
+            emitCommand(CommandFactory::createMultiSerialPrint(portName, output, format));
+        }
+        return std::monostate{};
+    }
+    else if (methodName == "println") {
+        if (args.size() == 0) {
+            emitCommand(CommandFactory::createMultiSerialPrintln(portName, "", "NEWLINE"));
+        } else {
+            handleMultipleSerialOperation(portName, "print", args);
+            emitCommand(CommandFactory::createMultiSerialPrintln(portName, "", "NEWLINE"));
+        }
+        return std::monostate{};
+    }
+    else if (methodName == "available") {
+        std::string requestId = generateRequestId("multiSerial" + portName + "Available");
+        emitCommand(CommandFactory::createMultiSerialRequest(portName, "available", requestId));
+        return waitForResponse(requestId);
+    }
+    else if (methodName == "read") {
+        std::string requestId = generateRequestId("multiSerial" + portName + "Read");
+        emitCommand(CommandFactory::createMultiSerialRequest(portName, "read", requestId));
+        return waitForResponse(requestId);
+    }
+    
+    // Default: emit as generic multi-serial command
+    emitCommand(CommandFactory::createMultiSerialCommand(portName, methodName));
+    return std::monostate{};
+}
+
+std::string ASTInterpreter::generateRequestId(const std::string& prefix) {
+    static uint32_t counter = 0;
+    return prefix + "_" + std::to_string(++counter) + "_" + std::to_string(std::chrono::steady_clock::now().time_since_epoch().count());
+}
+
+CommandValue ASTInterpreter::waitForResponse(const std::string& requestId) {
+    // Set up the interpreter to wait for a response with this ID
+    waitingForRequestId_ = requestId;
+    previousExecutionState_ = state_;
+    state_ = ExecutionState::WAITING_FOR_RESPONSE;
+    
+    debugLog("Waiting for response with ID: " + requestId);
+    return std::monostate{}; // Will be replaced when response arrives
 }
 
 // =============================================================================
@@ -1913,12 +2756,29 @@ void ASTInterpreter::emitCommand(CommandPtr command) {
         commandListener_->onCommand(*command);
     }
     
+    // Update performance statistics
+    commandsGenerated_++;
+    
+    // Track command type frequency
+    std::string commandType = command->getTypeString();
+    commandTypeCounters_[commandType]++;
+    
+    // Update memory tracking
+    size_t commandSize = sizeof(*command) + command->toString().length();
+    currentCommandMemory_ += commandSize;
+    if (currentCommandMemory_ > peakCommandMemory_) {
+        peakCommandMemory_ = currentCommandMemory_;
+    }
+    
     debugLog("Emitted: " + command->toString());
 }
 
 void ASTInterpreter::emitError(const std::string& message, const std::string& type) {
     auto errorCmd = CommandFactory::createError(message, type);
     emitCommand(std::move(errorCmd));
+    
+    // Track error statistics
+    errorsGenerated_++;
     
     if (commandListener_) {
         commandListener_->onError(message);
@@ -2166,17 +3026,185 @@ std::unique_ptr<ASTInterpreter> createInterpreterFromCompactAST(
 ASTInterpreter::MemoryStats ASTInterpreter::getMemoryStats() const {
     MemoryStats stats;
     
-    // Calculate actual memory usage - no mock values
-    stats.variableCount = 0; // TODO: Calculate actual variable count from scopes
-    stats.pendingRequests = 0; // No pending requests in current implementation
+    // Calculate actual memory usage from scope managers
+    if (scopeManager_) {
+        stats.variableCount = scopeManager_->getVariableCount();
+        stats.variableMemory = currentVariableMemory_;
+    } else {
+        stats.variableCount = 0;
+        stats.variableMemory = 0;
+    }
     
-    // These would need real memory tracking implementation
-    stats.totalMemory = 0;      // TODO: Implement real memory tracking
-    stats.variableMemory = 0;   // TODO: Calculate from actual variable storage
-    stats.astMemory = 0;        // TODO: Calculate from AST size
-    stats.commandMemory = 0;    // TODO: Calculate from command buffer size
+    // Pending requests from response system
+    stats.pendingRequests = static_cast<uint32_t>(pendingResponseValues_.size());
+    
+    // Memory tracking values
+    stats.peakVariableMemory = peakVariableMemory_;
+    stats.peakCommandMemory = peakCommandMemory_;
+    stats.commandMemory = currentCommandMemory_;
+    stats.memoryAllocations = memoryAllocations_;
+    
+    // AST memory estimation (approximate)
+    stats.astMemory = ast_ ? sizeof(*ast_) : 0;  // Basic estimation
+    
+    // Total memory calculation
+    stats.totalMemory = stats.variableMemory + stats.astMemory + stats.commandMemory;
     
     return stats;
+}
+
+ASTInterpreter::ExecutionStats ASTInterpreter::getExecutionStats() const {
+    ExecutionStats stats;
+    
+    // Timing information
+    stats.totalExecutionTime = totalExecutionTime_;
+    stats.functionExecutionTime = functionExecutionTime_;
+    
+    // Command statistics
+    stats.commandsGenerated = commandsGenerated_;
+    stats.errorsGenerated = errorsGenerated_;
+    
+    // Function execution statistics
+    stats.functionsExecuted = functionsExecuted_;
+    stats.userFunctionsExecuted = userFunctionsExecuted_;
+    stats.arduinoFunctionsExecuted = arduinoFunctionsExecuted_;
+    
+    // Loop statistics
+    stats.loopsExecuted = loopsExecuted_;
+    stats.totalLoopIterations = totalLoopIterations_;
+    stats.maxLoopDepth = maxLoopDepth_;
+    
+    // Variable access statistics
+    stats.variablesAccessed = variablesAccessed_;
+    stats.variablesModified = variablesModified_;
+    stats.arrayAccessCount = arrayAccessCount_;
+    stats.structAccessCount = structAccessCount_;
+    
+    // Recursion statistics
+    stats.maxRecursionDepth = maxRecursionDepth_;
+    
+    return stats;
+}
+
+ASTInterpreter::HardwareStats ASTInterpreter::getHardwareStats() const {
+    HardwareStats stats;
+    
+    stats.pinOperations = pinOperations_;
+    stats.analogReads = analogReads_;
+    stats.digitalReads = digitalReads_;
+    stats.analogWrites = analogWrites_;
+    stats.digitalWrites = digitalWrites_;
+    stats.serialOperations = serialOperations_;
+    stats.timeoutOccurrences = timeoutOccurrences_;
+    
+    return stats;
+}
+
+ASTInterpreter::FunctionCallStats ASTInterpreter::getFunctionCallStats() const {
+    FunctionCallStats stats;
+    
+    stats.callCounts = functionCallCounters_;
+    stats.executionTimes = functionExecutionTimes_;
+    
+    // Find most called function
+    uint32_t maxCalls = 0;
+    for (const auto& pair : functionCallCounters_) {
+        if (pair.second > maxCalls) {
+            maxCalls = pair.second;
+            stats.mostCalledFunction = pair.first;
+        }
+    }
+    
+    // Find slowest function
+    std::chrono::microseconds maxTime{0};
+    for (const auto& pair : functionExecutionTimes_) {
+        if (pair.second > maxTime) {
+            maxTime = pair.second;
+            stats.slowestFunction = pair.first;
+        }
+    }
+    
+    return stats;
+}
+
+ASTInterpreter::VariableAccessStats ASTInterpreter::getVariableAccessStats() const {
+    VariableAccessStats stats;
+    
+    stats.accessCounts = variableAccessCounters_;
+    stats.modificationCounts = variableModificationCounters_;
+    
+    // Find most accessed variable
+    uint32_t maxAccess = 0;
+    for (const auto& pair : variableAccessCounters_) {
+        if (pair.second > maxAccess) {
+            maxAccess = pair.second;
+            stats.mostAccessedVariable = pair.first;
+        }
+    }
+    
+    // Find most modified variable
+    uint32_t maxMod = 0;
+    for (const auto& pair : variableModificationCounters_) {
+        if (pair.second > maxMod) {
+            maxMod = pair.second;
+            stats.mostModifiedVariable = pair.first;
+        }
+    }
+    
+    return stats;
+}
+
+void ASTInterpreter::resetStatistics() {
+    // Reset timing
+    totalExecutionTime_ = std::chrono::milliseconds{0};
+    functionExecutionTime_ = std::chrono::milliseconds{0};
+    
+    // Reset command statistics
+    commandsGenerated_ = 0;
+    errorsGenerated_ = 0;
+    commandTypeCounters_.clear();
+    
+    // Reset function statistics
+    functionsExecuted_ = 0;
+    userFunctionsExecuted_ = 0;
+    arduinoFunctionsExecuted_ = 0;
+    functionCallCounters_.clear();
+    functionExecutionTimes_.clear();
+    
+    // Reset loop statistics
+    loopsExecuted_ = 0;
+    totalLoopIterations_ = 0;
+    loopTypeCounters_.clear();
+    maxLoopDepth_ = 0;
+    currentLoopDepth_ = 0;
+    
+    // Reset variable statistics
+    variablesAccessed_ = 0;
+    variablesModified_ = 0;
+    arrayAccessCount_ = 0;
+    structAccessCount_ = 0;
+    variableAccessCounters_.clear();
+    variableModificationCounters_.clear();
+    
+    // Reset memory statistics
+    peakVariableMemory_ = 0;
+    currentVariableMemory_ = 0;
+    peakCommandMemory_ = 0;
+    currentCommandMemory_ = 0;
+    memoryAllocations_ = 0;
+    
+    // Reset hardware statistics
+    pinOperations_ = 0;
+    analogReads_ = 0;
+    digitalReads_ = 0;
+    analogWrites_ = 0;
+    digitalWrites_ = 0;
+    serialOperations_ = 0;
+    
+    // Reset error statistics
+    recursionDepth_ = 0;
+    maxRecursionDepth_ = 0;
+    timeoutOccurrences_ = 0;
 }
 
 CommandValue ASTInterpreter::evaluateUnaryOperation(const std::string& op, const CommandValue& operand) {
@@ -2198,6 +3226,33 @@ CommandValue ASTInterpreter::evaluateUnaryOperation(const std::string& op, const
         // These should be handled at a higher level with variable access
         emitError("Increment/decrement operators require variable context");
         return std::monostate{};
+    } else if (op == "*") {
+        // Pointer dereference - for now, simulate by looking up dereferenced variable
+        // In a full implementation, this would follow the pointer to read memory
+        if (std::holds_alternative<std::string>(operand)) {
+            std::string pointerName = std::get<std::string>(operand);
+            std::string dereferenceVarName = "*" + pointerName;
+            Variable* derefVar = scopeManager_->getVariable(dereferenceVarName);
+            if (derefVar) {
+                return derefVar->value;
+            } else {
+                // Return default value if dereferenced location not found
+                return std::monostate{};
+            }
+        } else {
+            emitError("Pointer dereference requires pointer variable");
+            return std::monostate{};
+        }
+    } else if (op == "&") {
+        // Address-of operator - return a simulated address (pointer to variable)
+        if (std::holds_alternative<std::string>(operand)) {
+            std::string varName = std::get<std::string>(operand);
+            // Simulate address by returning a unique identifier for the variable
+            return std::string("&" + varName);
+        } else {
+            emitError("Address-of operator requires variable name");
+            return std::monostate{};
+        }
     } else {
         emitError("Unknown unary operator: " + op);
         return std::monostate{};

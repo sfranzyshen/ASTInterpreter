@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "component": "interpreter",
     "version": "6.5.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Executing setup() function"
   },
   {
@@ -23,28 +23,28 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1757048981492
+    "timestamp": 1757091742270
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981492,
+    "timestamp": 1757091742270,
     "message": "Starting loop iteration 1"
   },
   {
@@ -52,31 +52,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757048981492
+    "timestamp": 1757091742270
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1757048981492
+    "timestamp": 1757091742270
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981493
+    "timestamp": 1757091742270
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 0,
-    "timestamp": 1757048981493
+    "timestamp": 1757091742270
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981493
+    "timestamp": 1757091742270
   },
   {
     "type": "FUNCTION_CALL",
@@ -84,11 +84,11 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757048981493
+    "timestamp": 1757091742270
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981497,
+    "timestamp": 1757091742275,
     "message": "Starting loop iteration 2"
   },
   {
@@ -96,31 +96,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 2",
     "iteration": 2,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 0,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "FUNCTION_CALL",
@@ -128,11 +128,11 @@
     "message": "Completed loop() iteration 2",
     "iteration": 2,
     "completed": true,
-    "timestamp": 1757048981497
+    "timestamp": 1757091742275
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757048981502,
+    "timestamp": 1757091742280,
     "message": "Starting loop iteration 3"
   },
   {
@@ -140,31 +140,31 @@
     "function": "loop",
     "message": "Executing loop() iteration 3",
     "iteration": 3,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 0,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "DELAY",
     "duration": 1000,
     "actualDelay": 1000,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "FUNCTION_CALL",
@@ -172,23 +172,23 @@
     "message": "Completed loop() iteration 3",
     "iteration": 3,
     "completed": true,
-    "timestamp": 1757048981502
+    "timestamp": 1757091742280
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757048981507,
+    "timestamp": 1757091742285,
     "message": "Loop limit reached: completed 3 iterations (max: 3)",
     "iterations": 3,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981507,
+    "timestamp": 1757091742285,
     "message": "Program completed after 3 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757048981507,
+    "timestamp": 1757091742285,
     "message": "Program execution stopped"
   }
 ]

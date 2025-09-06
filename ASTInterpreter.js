@@ -17,7 +17,7 @@
  *   ✅ setup() and loop() execution flow
  */
 
-const INTERPRETER_VERSION = "6.5.0";
+const INTERPRETER_VERSION = "7.0.0";
 
 // =============================================================================
 // COMMAND PROTOCOL DEFINITIONS

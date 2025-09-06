@@ -147,6 +147,71 @@ void ArduinoArray::resize(size_t newSize, const EnhancedCommandValue& defaultVal
     elements_.resize(newSize, defaultValue);
 }
 
+void ArduinoArray::resizeMultiDimensional(const std::vector<size_t>& newDimensions, const EnhancedCommandValue& defaultValue) {
+    dimensions_ = newDimensions;
+    
+    // Calculate total size for new dimensions
+    size_t totalSize = 1;
+    for (size_t dim : dimensions_) {
+        totalSize *= dim;
+    }
+    
+    elements_.resize(totalSize, defaultValue);
+}
+
+size_t ArduinoArray::getDimensionSize(size_t dimensionIndex) const {
+    if (dimensionIndex < dimensions_.size()) {
+        return dimensions_[dimensionIndex];
+    }
+    return 0;
+}
+
+bool ArduinoArray::isValidIndices(const std::vector<size_t>& indices) const {
+    if (indices.size() != dimensions_.size()) {
+        return false;
+    }
+    
+    for (size_t i = 0; i < indices.size(); ++i) {
+        if (indices[i] >= dimensions_[i]) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+size_t ArduinoArray::calculateFlatIndex(const std::vector<size_t>& indices) const {
+    if (!isValidIndices(indices)) {
+        throw std::out_of_range("Invalid multi-dimensional array indices");
+    }
+    
+    size_t flatIndex = 0;
+    size_t multiplier = 1;
+    
+    // Convert multi-dimensional indices to flat index
+    for (int i = dimensions_.size() - 1; i >= 0; --i) {
+        flatIndex += indices[i] * multiplier;
+        multiplier *= dimensions_[i];
+    }
+    
+    return flatIndex;
+}
+
+std::vector<size_t> ArduinoArray::calculateMultiDimensionalIndex(size_t flatIndex) const {
+    if (flatIndex >= elements_.size()) {
+        throw std::out_of_range("Flat index out of bounds for multi-dimensional array");
+    }
+    
+    std::vector<size_t> indices(dimensions_.size());
+    
+    for (int i = dimensions_.size() - 1; i >= 0; --i) {
+        indices[i] = flatIndex % dimensions_[i];
+        flatIndex /= dimensions_[i];
+    }
+    
+    return indices;
+}
+
 std::string ArduinoArray::toString() const {
     std::ostringstream oss;
     oss << elementType_ << "[";
@@ -268,8 +333,55 @@ ArduinoString& ArduinoString::operator+=(const std::string& other) {
     return *this;
 }
 
+ArduinoString ArduinoString::trim() const {
+    std::string result = data_;
+    
+    // Trim leading whitespace
+    size_t start = result.find_first_not_of(" \t\n\r\f\v");
+    if (start == std::string::npos) {
+        return ArduinoString("");  // String is all whitespace
+    }
+    
+    // Trim trailing whitespace
+    size_t end = result.find_last_not_of(" \t\n\r\f\v");
+    
+    return ArduinoString(result.substr(start, end - start + 1));
+}
+
+ArduinoString ArduinoString::replace(const std::string& find, const std::string& replace) const {
+    std::string result = data_;
+    size_t pos = 0;
+    
+    while ((pos = result.find(find, pos)) != std::string::npos) {
+        result.replace(pos, find.length(), replace);
+        pos += replace.length();
+    }
+    
+    return ArduinoString(result);
+}
+
 bool ArduinoString::operator==(const ArduinoString& other) const {
     return data_ == other.data_;
+}
+
+bool ArduinoString::operator!=(const ArduinoString& other) const {
+    return data_ != other.data_;
+}
+
+bool ArduinoString::operator<(const ArduinoString& other) const {
+    return data_ < other.data_;
+}
+
+bool ArduinoString::operator<=(const ArduinoString& other) const {
+    return data_ <= other.data_;
+}
+
+bool ArduinoString::operator>(const ArduinoString& other) const {
+    return data_ > other.data_;
+}
+
+bool ArduinoString::operator>=(const ArduinoString& other) const {
+    return data_ >= other.data_;
 }
 
 // =============================================================================

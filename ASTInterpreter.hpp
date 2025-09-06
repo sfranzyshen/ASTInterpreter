@@ -64,15 +64,27 @@ struct Variable {
     std::string type;
     bool isConst = false;
     bool isReference = false;
+    bool isStatic = false;
+    bool isGlobal = false;
+    std::string templateType = "";  // For template instantiations like vector<int>
+    Variable* referenceTarget = nullptr;  // For reference variables
     
     Variable() : value(std::monostate{}), type("undefined") {}
     
     template<typename T>
-    Variable(const T& val, const std::string& t = "", bool c = false) 
-        : value(val), type(t), isConst(c) {}
+    Variable(const T& val, const std::string& t = "", bool c = false, bool ref = false, bool stat = false, bool glob = false) 
+        : value(val), type(t), isConst(c), isReference(ref), isStatic(stat), isGlobal(glob) {}
     
     template<typename T>
     T getValue() const {
+        if (isReference && referenceTarget) {
+            // Dereference the reference
+            if (std::holds_alternative<T>(referenceTarget->value)) {
+                return std::get<T>(referenceTarget->value);
+            }
+            return T{};
+        }
+        
         if (std::holds_alternative<T>(value)) {
             return std::get<T>(value);
         }
@@ -80,13 +92,66 @@ struct Variable {
     }
     
     void setValue(const CommandValue& val) {
-        if (!isConst) {
-            value = val;
+        if (isConst) {
+            // Const variables cannot be modified after initialization
+            return;
+        }
+        
+        if (isReference && referenceTarget) {
+            // Set value through reference
+            referenceTarget->setValue(val);
+            return;
+        }
+        
+        value = val;
+    }
+    
+    // Type promotion/demotion utilities
+    CommandValue promoteToType(const std::string& targetType) const {
+        CommandValue currentVal = isReference && referenceTarget ? referenceTarget->value : value;
+        
+        if (targetType == "double" || targetType == "float") {
+            if (std::holds_alternative<int32_t>(currentVal)) {
+                return static_cast<double>(std::get<int32_t>(currentVal));
+            } else if (std::holds_alternative<bool>(currentVal)) {
+                return static_cast<double>(std::get<bool>(currentVal) ? 1.0 : 0.0);
+            }
+        } else if (targetType == "int" || targetType == "int32_t") {
+            if (std::holds_alternative<double>(currentVal)) {
+                return static_cast<int32_t>(std::get<double>(currentVal));
+            } else if (std::holds_alternative<bool>(currentVal)) {
+                return static_cast<int32_t>(std::get<bool>(currentVal) ? 1 : 0);
+            }
+        } else if (targetType == "bool") {
+            if (std::holds_alternative<int32_t>(currentVal)) {
+                return std::get<int32_t>(currentVal) != 0;
+            } else if (std::holds_alternative<double>(currentVal)) {
+                return std::get<double>(currentVal) != 0.0;
+            }
+        }
+        
+        return currentVal;
+    }
+    
+    // Set reference target
+    void setReference(Variable* target) {
+        if (!isConst) {  // Can't change reference after const initialization
+            referenceTarget = target;
+            isReference = true;
         }
     }
     
     std::string toString() const {
-        return commandValueToString(value) + " (" + type + ")";
+        std::string modifiers = "";
+        if (isConst) modifiers += "const ";
+        if (isStatic) modifiers += "static ";
+        if (isReference) modifiers += "& ";
+        if (isGlobal) modifiers += "global ";
+        
+        CommandValue displayValue = isReference && referenceTarget ? referenceTarget->value : value;
+        std::string typeDisplay = templateType.empty() ? type : templateType;
+        
+        return modifiers + typeDisplay + " = " + commandValueToString(displayValue);
     }
 };
 
@@ -100,10 +165,12 @@ struct Variable {
 class ScopeManager {
 private:
     std::vector<std::unordered_map<std::string, Variable>> scopes_;
+    std::unordered_map<std::string, Variable> staticVariables_;  // Static variables persist across scopes
     
 public:
     ScopeManager() {
         pushScope(); // Global scope
+        markCurrentScopeAsGlobal();
     }
     
     void pushScope() {
@@ -117,10 +184,28 @@ public:
     }
     
     void setVariable(const std::string& name, const Variable& var) {
-        scopes_.back()[name] = var;
+        Variable newVar = var;
+        
+        // Mark as global if we're in global scope
+        if (scopes_.size() == 1) {
+            newVar.isGlobal = true;
+        }
+        
+        if (newVar.isStatic) {
+            // Static variables go in special storage
+            staticVariables_[name] = newVar;
+        } else {
+            scopes_.back()[name] = newVar;
+        }
     }
     
     Variable* getVariable(const std::string& name) {
+        // First check static variables
+        auto staticFound = staticVariables_.find(name);
+        if (staticFound != staticVariables_.end()) {
+            return &staticFound->second;
+        }
+        
         // Search from current scope backwards
         for (auto it = scopes_.rbegin(); it != scopes_.rend(); ++it) {
             auto found = it->find(name);
@@ -132,6 +217,11 @@ public:
     }
     
     bool hasVariable(const std::string& name) const {
+        // Check static variables first
+        if (staticVariables_.find(name) != staticVariables_.end()) {
+            return true;
+        }
+        
         for (auto it = scopes_.rbegin(); it != scopes_.rend(); ++it) {
             if (it->find(name) != it->end()) {
                 return true;
@@ -142,8 +232,50 @@ public:
     
     size_t getScopeDepth() const { return scopes_.size(); }
     
+    // Get total variable count across all scopes
+    uint32_t getVariableCount() const {
+        uint32_t count = static_cast<uint32_t>(staticVariables_.size());
+        for (const auto& scope : scopes_) {
+            count += static_cast<uint32_t>(scope.size());
+        }
+        return count;
+    }
+    
+    bool isGlobalScope() const { return scopes_.size() == 1; }
+    
+    void markCurrentScopeAsGlobal() {
+        // Mark all variables in current scope as global
+        if (!scopes_.empty()) {
+            for (auto& [name, var] : scopes_.back()) {
+                var.isGlobal = true;
+            }
+        }
+    }
+    
+    // Reference variable support
+    bool createReference(const std::string& refName, const std::string& targetName) {
+        Variable* target = getVariable(targetName);
+        if (!target) return false;
+        
+        Variable refVar;
+        refVar.type = target->type + "&";
+        refVar.isReference = true;
+        refVar.referenceTarget = target;
+        
+        setVariable(refName, refVar);
+        return true;
+    }
+    
+    // Template variable support
+    void setTemplateVariable(const std::string& name, const Variable& var, const std::string& templateSpec) {
+        Variable templateVar = var;
+        templateVar.templateType = templateSpec;
+        setVariable(name, templateVar);
+    }
+    
     void clear() {
         scopes_.clear();
+        staticVariables_.clear();
         pushScope(); // Global scope
     }
 };
@@ -210,6 +342,63 @@ private:
     // Request-response system
     std::unordered_map<std::string, CommandValue> pendingResponseValues_;
     std::queue<std::pair<std::string, CommandValue>> responseQueue_;
+    
+    // =============================================================================
+    // PERFORMANCE TRACKING & STATISTICS
+    // =============================================================================
+    
+    // Execution profiling
+    std::chrono::steady_clock::time_point totalExecutionStart_;
+    std::chrono::steady_clock::time_point currentFunctionStart_;
+    std::chrono::milliseconds totalExecutionTime_{0};
+    std::chrono::milliseconds functionExecutionTime_{0};
+    
+    // Command generation statistics
+    uint32_t commandsGenerated_;
+    uint32_t errorsGenerated_;
+    std::unordered_map<std::string, uint32_t> commandTypeCounters_;
+    
+    // Function call statistics
+    uint32_t functionsExecuted_;
+    uint32_t userFunctionsExecuted_;
+    uint32_t arduinoFunctionsExecuted_;
+    std::unordered_map<std::string, uint32_t> functionCallCounters_;
+    std::unordered_map<std::string, std::chrono::microseconds> functionExecutionTimes_;
+    
+    // Loop iteration statistics
+    uint32_t loopsExecuted_;
+    uint32_t totalLoopIterations_;
+    std::unordered_map<std::string, uint32_t> loopTypeCounters_; // "for", "while", "do-while"
+    uint32_t maxLoopDepth_;
+    uint32_t currentLoopDepth_;
+    
+    // Variable access statistics
+    uint32_t variablesAccessed_;
+    uint32_t variablesModified_;
+    uint32_t arrayAccessCount_;
+    uint32_t structAccessCount_;
+    std::unordered_map<std::string, uint32_t> variableAccessCounters_;
+    std::unordered_map<std::string, uint32_t> variableModificationCounters_;
+    
+    // Memory usage tracking
+    size_t peakVariableMemory_;
+    size_t currentVariableMemory_;
+    size_t peakCommandMemory_;
+    size_t currentCommandMemory_;
+    
+    // Hardware operation statistics
+    uint32_t pinOperations_;
+    uint32_t analogReads_;
+    uint32_t digitalReads_;
+    uint32_t analogWrites_;
+    uint32_t digitalWrites_;
+    uint32_t serialOperations_;
+    
+    // Error and performance tracking
+    uint32_t recursionDepth_;
+    uint32_t maxRecursionDepth_;
+    uint32_t timeoutOccurrences_;
+    uint32_t memoryAllocations_;
 
 public:
     /**
@@ -379,8 +568,11 @@ public:
         size_t variableMemory;
         size_t astMemory;
         size_t commandMemory;
+        size_t peakVariableMemory;
+        size_t peakCommandMemory;
         uint32_t variableCount;
         uint32_t pendingRequests;
+        uint32_t memoryAllocations;
     };
     
     MemoryStats getMemoryStats() const;
@@ -389,14 +581,68 @@ public:
      * Get execution statistics
      */
     struct ExecutionStats {
-        std::chrono::milliseconds executionTime;
+        std::chrono::milliseconds totalExecutionTime;
+        std::chrono::milliseconds functionExecutionTime;
         uint32_t commandsGenerated;
+        uint32_t errorsGenerated;
         uint32_t functionsExecuted;
+        uint32_t userFunctionsExecuted;
+        uint32_t arduinoFunctionsExecuted;
         uint32_t loopsExecuted;
+        uint32_t totalLoopIterations;
+        uint32_t maxLoopDepth;
         uint32_t variablesAccessed;
+        uint32_t variablesModified;
+        uint32_t arrayAccessCount;
+        uint32_t structAccessCount;
+        uint32_t maxRecursionDepth;
     };
     
     ExecutionStats getExecutionStats() const;
+    
+    /**
+     * Get hardware operation statistics
+     */
+    struct HardwareStats {
+        uint32_t pinOperations;
+        uint32_t analogReads;
+        uint32_t digitalReads;
+        uint32_t analogWrites;
+        uint32_t digitalWrites;
+        uint32_t serialOperations;
+        uint32_t timeoutOccurrences;
+    };
+    
+    HardwareStats getHardwareStats() const;
+    
+    /**
+     * Get function call frequency statistics
+     */
+    struct FunctionCallStats {
+        std::unordered_map<std::string, uint32_t> callCounts;
+        std::unordered_map<std::string, std::chrono::microseconds> executionTimes;
+        std::string mostCalledFunction;
+        std::string slowestFunction;
+    };
+    
+    FunctionCallStats getFunctionCallStats() const;
+    
+    /**
+     * Get variable access frequency statistics
+     */
+    struct VariableAccessStats {
+        std::unordered_map<std::string, uint32_t> accessCounts;
+        std::unordered_map<std::string, uint32_t> modificationCounts;
+        std::string mostAccessedVariable;
+        std::string mostModifiedVariable;
+    };
+    
+    VariableAccessStats getVariableAccessStats() const;
+    
+    /**
+     * Reset all performance statistics
+     */
+    void resetStatistics();
     
     // =============================================================================
     // TYPE CONVERSION UTILITIES (Public for ArduinoLibraryInterface)
@@ -432,6 +678,11 @@ private:
     CommandValue handlePinOperation(const std::string& function, const std::vector<CommandValue>& args);
     CommandValue handleTimingOperation(const std::string& function, const std::vector<CommandValue>& args);
     CommandValue handleSerialOperation(const std::string& function, const std::vector<CommandValue>& args);
+    CommandValue handleMultipleSerialOperation(const std::string& portName, const std::string& methodName, const std::vector<CommandValue>& args);
+    
+    // Helper methods for Serial system
+    std::string generateRequestId(const std::string& prefix);
+    CommandValue waitForResponse(const std::string& requestId);
     
     // External data functions using continuation pattern
     void requestAnalogRead(int32_t pin);
