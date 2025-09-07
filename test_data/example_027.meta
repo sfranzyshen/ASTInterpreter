@@ -1,8 +1,9 @@
 name=ReadASCIIString.ino
-source=examples
-astSize=1728
+source=unknown
+astSize=2496
 codeSize=1195
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=// 04.Communication ReadASCIIString.ino
 
 // pins for the LEDs:

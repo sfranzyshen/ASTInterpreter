@@ -1,8 +1,9 @@
 name=StringSubstring.ino
-source=examples
-astSize=1514
+source=unknown
+astSize=1851
 codeSize=746
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 08.Strings StringSubstring
 
 void setup() {

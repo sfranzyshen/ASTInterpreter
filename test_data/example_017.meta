@@ -1,8 +1,9 @@
 name=AnalogWriteMega.ino
-source=examples
-astSize=1658
+source=unknown
+astSize=1885
 codeSize=843
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=12
 content=// 03.Analog AnalogWriteMega.ino
 
 // These constants won't change. They're used to give names to the pins used:

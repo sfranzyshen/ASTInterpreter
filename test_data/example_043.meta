@@ -1,8 +1,9 @@
 name=RowColumnScanning.ino
-source=examples
-astSize=2066
+source=unknown
+astSize=2837
 codeSize=1976
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// 07.Display RowColumnScanning.ino
 
 // 2-dimensional array of row pin numbers:

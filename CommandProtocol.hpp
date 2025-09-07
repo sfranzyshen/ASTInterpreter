@@ -99,7 +99,12 @@ enum class CommandType {
     MULTI_SERIAL_PRINT,
     MULTI_SERIAL_PRINTLN,
     MULTI_SERIAL_REQUEST,
-    MULTI_SERIAL_COMMAND
+    MULTI_SERIAL_COMMAND,
+    
+    // Audio/Tone library
+    TONE,
+    TONE_WITH_DURATION,
+    NO_TONE
 };
 
 /**
@@ -535,6 +540,11 @@ public:
     static CommandPtr createMultiSerialPrintln(const std::string& portName, const std::string& data, const std::string& format = "AUTO");
     static CommandPtr createMultiSerialRequest(const std::string& portName, const std::string& operation, const std::string& requestId);
     static CommandPtr createMultiSerialCommand(const std::string& portName, const std::string& methodName);
+    
+    // Audio/Tone library
+    static CommandPtr createTone(int32_t pin, int32_t frequency);
+    static CommandPtr createToneWithDuration(int32_t pin, int32_t frequency, int32_t duration);
+    static CommandPtr createNoTone(int32_t pin);
 };
 
 // =============================================================================

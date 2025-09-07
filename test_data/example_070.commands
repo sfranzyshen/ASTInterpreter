@@ -1,1 +1,99 @@
-[{"type":"AST_ONLY_MODE","data":{}}]
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757251672943,
+    "component": "interpreter",
+    "version": "7.1.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757251672943,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchPin",
+    "value": 8,
+    "isConst": true,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousTime",
+    "value": 0,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "switchState",
+    "value": 0,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "prevSwitchState",
+    "value": 0,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "led",
+    "value": 2,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "interval",
+    "value": 600000,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757251672944,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1757251672944,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "x",
+    "value": 2,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1757251672944,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 1,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "x",
+    "value": 3,
+    "timestamp": 1757251672944
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 1,
+    "timestamp": 1757251672949,
+    "message": "For loop limit reached: completed 1 iterations (max: 1)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757251672949,
+    "message": "Completed setup() function"
+  }
+]

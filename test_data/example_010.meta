@@ -1,8 +1,9 @@
 name=StateChangeDetection.ino
-source=examples
-astSize=1640
+source=unknown
+astSize=2254
 codeSize=1441
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=25
 content=// 02.Digital StateChangeDetection.ino
 
 // this constant won't change:

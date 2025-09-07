@@ -1,8 +1,9 @@
 name=Complex_Preprocessor_Directives.ino
-source=old_test
-astSize=1276
+source=unknown
+astSize=1468
 codeSize=343
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// Complex Preprocessor Directives
 #define PI 3.14159
 #define CIRCLE_AREA(r) (PI * r * r)

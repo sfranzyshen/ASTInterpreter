@@ -1,8 +1,9 @@
 name=SerialCallResponse.ino
-source=examples
-astSize=1657
+source=unknown
+astSize=2395
 codeSize=1025
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 04.Communication SerialCallResponse.ino
 
 int firstSensor = 0;

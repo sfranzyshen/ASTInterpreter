@@ -1,8 +1,9 @@
 name=Global_variable_declarations.ino
-source=old_test
-astSize=1517
+source=unknown
+astSize=1797
 codeSize=494
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=#include <Arduino.h>
 
 // Global variable declarations

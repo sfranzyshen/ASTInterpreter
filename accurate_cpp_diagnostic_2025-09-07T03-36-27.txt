@@ -1,0 +1,79 @@
+
+================================================================================
+ACCURATE C++ INTERPRETER DIAGNOSTIC REPORT
+================================================================================
+Total Tests: 135
+Execution Time: 3.1s
+
+TEST MODE DISTRIBUTION:
+----------------------------------------
+AST_AND_COMMANDS: 48 tests (full JS reference)
+AST_ONLY:         87 tests (minimal JS reference)
+
+AST_AND_COMMANDS TESTS (Primary Analysis):
+--------------------------------------------------------------------------------
+ID  | Test Name                     | JS Chars | C++ Chars | Similarity | Status
+--------------------------------------------------------------------------------
+[32m000 | AnalogReadSerial.ino          |     1217 |      1191 |     97.9% | OK[0m
+[91m001 | BareMinimum.ino               |     2390 |      1257 |     52.6% | OK[0m
+[32m003 | DigitalReadSerial.ino         |     1420 |      1302 |     91.7% | OK[0m
+[32m005 | ReadAnalogVoltage.ino         |     1217 |      1191 |     97.9% | OK[0m
+[32m007 | Button.ino                    |     1574 |      1853 |     84.9% | OK[0m
+[31m013 | toneMultiple.ino              |     7061 |      2431 |     34.4% | OK[0m
+[33m016 | AnalogInput.ino               |     1438 |      2258 |     63.7% | OK[0m
+[31m022 | Dimmer.ino                    |     4012 |      1414 |     35.2% | OK[0m
+[32m023 | Graph.ino                     |     1216 |      1236 |     98.4% | OK[0m
+[31m025 | MultiSerial.ino               |     4524 |      1383 |     30.6% | OK[0m
+[31m031 | SerialPassthrough.ino         |     5172 |      1383 |     26.7% | OK[0m
+[32m032 | VirtualColorMixer.ino         |     1601 |      1373 |     85.8% | OK[0m
+[91m076 | p14_TweakTheArduinoLogo.ino   |     1219 |      2067 |     59.0% | OK[0m
+[91m077 | p15_HackingButtons.ino        |     3846 |      1837 |     47.8% | OK[0m
+[91m079 | Test_Case_for_Array_Access.in |     2620 |      1464 |     55.9% | OK[0m
+[91m080 | To_test_the_Lexer_and_Parser. |     3929 |      1829 |     46.6% | OK[0m
+[91m082 | Test_Case_for_Operator_Preced |     2824 |      1258 |     44.5% | OK[0m
+[91m083 | Test_Case_for_Parentheses_Pre |     2797 |      1373 |     49.1% | OK[0m
+[91m084 | Test_Case_for_Unary_vs_Binary |     2693 |      1475 |     54.8% | OK[0m
+[91m085 | Test_Case_for_C-Style_Initial |     2491 |      1258 |     50.5% | OK[0m
+[91m086 | Test_Rigorous_Brackets_Parent |     3215 |      1568 |     48.8% | OK[0m
+[91m087 | Test_Case_for_the_return_stat |     2390 |      1258 |     52.6% | OK[0m
+[91m088 | Test_Case_for_Advanced_Numeri |     2714 |      1407 |     51.8% | OK[0m
+[91m089 | Test_Case_for_Character_Liter |     2496 |      1312 |     52.6% | OK[0m
+[91m090 | Test_Case_for_the_Dangling_El |     2952 |      1258 |     42.6% | OK[0m
+[31m094 | Complex_Conditional_Logic.ino |     5026 |      1302 |     25.9% | OK[0m
+[31m095 | Operator_Precedence_and_Assoc |     8515 |      3042 |     35.7% | OK[0m
+[31m096 | Function_Calls_and_Parameter_ |     6700 |      1901 |     28.4% | OK[0m
+[31m098 | Ternary_Operator_and_Bitwise_ |    11773 |      4197 |     35.6% | OK[0m
+[31m099 | Floating-Point_Arithmetic_and |     7900 |      2466 |     31.2% | OK[0m
+[31m102 | Mixed-Type_Expressions_and_Ca |     8647 |      2729 |     31.6% | OK[0m
+[31m103 | switch_statement_with_fall-th |     5587 |      1301 |     23.3% | OK[0m
+[91m104 | Complex_Preprocessor_Directiv |     4510 |      1889 |     41.9% | OK[0m
+[31m105 | Array_Indexing_and_Multidimen |     7648 |      1830 |     23.9% | OK[0m
+[31m107 | Chained_Assignments_and_Unary |    12910 |      3589 |     27.8% | OK[0m
+[91m110 | Structs_and_Member_Access.ino |     7789 |      3493 |     44.8% | OK[0m
+[91m111 | Unary_Plus_and_Minus_with_Ope |     7906 |      3349 |     42.4% | OK[0m
+[91m114 | Initializer_Lists_and_Designa |     7159 |      3541 |     49.5% | OK[0m
+[31m115 | Type_Promotion_and_Implicit_C |     6670 |      2465 |     37.0% | OK[0m
+[31m117 | static_Variables_and_Scope.in |     4903 |      1734 |     35.4% | OK[0m
+[31m118 | const_and_volatile_Qualifiers |     5875 |      1830 |     31.1% | OK[0m
+[31m119 | Logical_Operators_with_Short- |     7162 |      1301 |     18.2% | OK[0m
+[31m122 | Unary_sizeof_Operator.ino     |     7345 |      2094 |     28.5% | OK[0m
+[91m127 | static_Global_Variable_and_Fu |     4975 |      2171 |     43.6% | OK[0m
+[31m128 | Unsigned_Integer_Rollover.ino |     8119 |      2441 |     30.1% | OK[0m
+[91m130 | Bit-Fields_in_Structs.ino     |     8308 |      3883 |     46.7% | OK[0m
+[91m131 | extern_Keyword.ino            |     4461 |      2026 |     45.4% | OK[0m
+[91m132 | Ternary_Operator_with_Complex |     5104 |      2201 |     43.1% | OK[0m
+
+AVERAGE SIMILARITY (AST_AND_COMMANDS): 47.0%
+
+AST_ONLY TESTS SUMMARY:
+----------------------------------------
+Tests: 87
+C++ Output Range: 1191-12521 chars (avg: 2589)
+Note: These tests have minimal JS reference data for comparison
+
+CRITICAL ISSUES ANALYSIS:
+----------------------------------------
+🚨 CRITICAL: Major C++ interpreter functionality issues
+   Priority: Debug core execution engine
+
+================================================================================

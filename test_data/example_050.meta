@@ -1,8 +1,9 @@
 name=StringComparisonOperators.ino
-source=examples
-astSize=2256
+source=unknown
+astSize=4356
 codeSize=2795
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=60
 content=// 08.Strings StringComparisonOperators
 
 String stringOne, stringTwo;

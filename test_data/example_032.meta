@@ -1,8 +1,9 @@
 name=VirtualColorMixer.ino
-source=examples
-astSize=1317
+source=unknown
+astSize=1680
 codeSize=327
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// 04.Communication VirtualColorMixer.ino
 
 const int redPin = A0;

@@ -1,8 +1,9 @@
 name=p05_ServoMoodIndicator.ino
-source=examples
-astSize=1363
+source=unknown
+astSize=1955
 codeSize=650
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=27
 content=// 10.StarterKit_BasicKit p05_ServoMoodIndicator
 
 // include the Servo library

@@ -1,8 +1,9 @@
 name=Fading.ino
-source=examples
-astSize=1453
+source=unknown
+astSize=1603
 codeSize=660
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// 03.Analog Fading.ino
 
 int ledPin = 9;

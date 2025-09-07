@@ -1,8 +1,9 @@
 name=KeyboardLogout.ino
-source=examples
-astSize=1535
+source=unknown
+astSize=2643
 codeSize=1256
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// 09.USB Keyboard/KeyboardLogout
 
 #define OSX 0

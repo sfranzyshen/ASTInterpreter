@@ -1,8 +1,9 @@
 name=p12_KnockLock.ino
-source=examples
-astSize=2366
+source=unknown
+astSize=3942
 codeSize=3355
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=55
 content=// 10.StarterKit_BasicKit p12_KnockLock
 
 // import the library

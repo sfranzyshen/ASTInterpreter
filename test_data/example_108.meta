@@ -1,8 +1,9 @@
 name=Complex_for_loop_with_multiple_expressions.ino
-source=old_test
-astSize=1402
+source=unknown
+astSize=1716
 codeSize=291
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=// Complex for loop with multiple expressions
 void setup() {
   Serial.begin(9600);

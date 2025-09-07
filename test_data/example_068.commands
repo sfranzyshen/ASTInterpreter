@@ -1,1 +1,165 @@
-[{"type":"AST_ONLY_MODE","data":{}}]
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757251672883,
+    "component": "interpreter",
+    "version": "7.1.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757251672883,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": null,
+    "timestamp": 1757251672883
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorLow",
+    "value": 1023,
+    "timestamp": 1757251672883
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorHigh",
+    "value": 0,
+    "timestamp": 1757251672883
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1757251672883
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757251672883,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1757251672884
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1757251672884
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1757251672884,
+    "message": "while loop started"
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1757251672884_0.3421166083284435",
+    "timestamp": 1757251672884
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "end",
+    "iterations": 0,
+    "timestamp": 1757251672888,
+    "message": "while loop completed (0 iterations)"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 0,
+    "timestamp": 1757251672889
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757251672889,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251672889,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251672889,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1757251672889
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1757251672889_0.6778269438542253",
+    "timestamp": 1757251672889
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 831,
+    "timestamp": 1757251672894
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pitch",
+    "value": 791,
+    "timestamp": 1757251672894
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "tone",
+    "arguments": [
+      8,
+      791,
+      20
+    ],
+    "pin": 8,
+    "frequency": 791,
+    "duration": 20,
+    "timestamp": 1757251672894,
+    "message": "tone(8, 791, 20)"
+  },
+  {
+    "type": "DELAY",
+    "duration": 10,
+    "actualDelay": 10,
+    "timestamp": 1757251672894
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1757251672894
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1757251672899,
+    "message": "Loop limit reached: completed 1 iterations (max: 1)",
+    "iterations": 1,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757251672899,
+    "message": "Program completed after 1 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757251672899,
+    "message": "Program execution stopped"
+  }
+]

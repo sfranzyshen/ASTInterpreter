@@ -1,8 +1,9 @@
 name=SerialEvent.ino
-source=examples
-astSize=1512
+source=unknown
+astSize=1802
 codeSize=783
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 04.Communication SerialEvent.ino
 
 String inputString = "";

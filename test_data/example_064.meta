@@ -1,8 +1,9 @@
 name=p02_SpaceshipInterface.ino
-source=examples
-astSize=1327
+source=unknown
+astSize=2027
 codeSize=940
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 10.StarterKit_BasicKit p02_SpaceshipInterface
 
 int switchstate = 0;

@@ -17,7 +17,15 @@
  *   ✅ setup() and loop() execution flow
  */
 
-const INTERPRETER_VERSION = "7.0.0";
+const INTERPRETER_VERSION = "7.1.0";
+
+// Global debugLog function for contexts where 'this' is not available
+function debugLog(...args) {
+    // Silent by default - only logs if explicitly enabled globally
+    if (global.INTERPRETER_DEBUG_ENABLED) {
+        console.log(...args);
+    }
+}
 
 // =============================================================================
 // COMMAND PROTOCOL DEFINITIONS
@@ -473,7 +481,7 @@ class ArduinoFunctionPointer {
         }
         
         if (this.interpreter.options.verbose) {
-            console.log(`Function pointer call: ${this.functionName}(${args.length} args)`);
+            debugLog(`Function pointer call: ${this.functionName}(${args.length} args)`);
         }
         
         // Create a synthetic function call node that matches what executeFunctionCall expects
@@ -1207,16 +1215,16 @@ class ScopeManager {
         const currentScope = this.getCurrentScope();
         
         // DEBUG: Extensive logging for scope debugging
-        console.log(`🔍 SCOPE DEBUG: ScopeManager.set() called`);
-        console.log(`   Variable: ${name} = ${value} (type: ${typeof value})`);
-        console.log(`   Options:`, options);
-        console.log(`   Current scope: ${currentScope.scopeType} (level ${this.currentScopeLevel - 1})`);
-        console.log(`   Scope stack depth: ${this.scopeStack.length}`);
-        console.log(`   Variable exists in current scope: ${currentScope.has(name)}`);
-        console.log(`   Variable exists anywhere: ${this.has(name)}`);
+        debugLog(`🔍 SCOPE DEBUG: ScopeManager.set() called`);
+        debugLog(`   Variable: ${name} = ${value} (type: ${typeof value})`);
+        debugLog(`   Options:`, options);
+        debugLog(`   Current scope: ${currentScope.scopeType} (level ${this.currentScopeLevel - 1})`);
+        debugLog(`   Scope stack depth: ${this.scopeStack.length}`);
+        debugLog(`   Variable exists in current scope: ${currentScope.has(name)}`);
+        debugLog(`   Variable exists anywhere: ${this.has(name)}`);
         if (this.has(name)) {
             const existing = this.getMetadata(name);
-            console.log(`   Existing variable: ${existing.value} in ${existing.scopeType} scope`);
+            debugLog(`   Existing variable: ${existing.value} in ${existing.scopeType} scope`);
         }
         
         // Check for variable shadowing (variable exists in outer scope)
@@ -1258,17 +1266,17 @@ class ScopeManager {
             for (let i = this.scopeStack.length - 1; i >= 0; i--) {
                 const scope = this.scopeStack[i];
                 if (scope.has(name)) {
-                    console.log(`   🎯 UPDATING EXISTING: ${name} = ${value} in ${scope.scopeType} scope (level ${i})`);
+                    debugLog(`   🎯 UPDATING EXISTING: ${name} = ${value} in ${scope.scopeType} scope (level ${i})`);
                     scope.set(name, metadata);
-                    console.log(`   ✅ UPDATED SUCCESSFULLY: ${name} = ${value}`);
+                    debugLog(`   ✅ UPDATED SUCCESSFULLY: ${name} = ${value}`);
                     return { success: true };
                 }
             }
         } else {
             // This is a declaration - store in current scope
-            console.log(`   🎯 DECLARING NEW: ${name} = ${value} in ${currentScope.scopeType} scope`);
+            debugLog(`   🎯 DECLARING NEW: ${name} = ${value} in ${currentScope.scopeType} scope`);
             currentScope.set(name, metadata);
-            console.log(`   ✅ DECLARED SUCCESSFULLY: ${name} = ${value}`);
+            debugLog(`   ✅ DECLARED SUCCESSFULLY: ${name} = ${value}`);
         }
         
         return { success: true };
@@ -1314,7 +1322,7 @@ class ScopeManager {
         const metadata = this.getMetadata(name);
         if (metadata) {
             metadata.isInitialized = true;
-            console.log(`   🔄 MARKED AS INITIALIZED: ${name}`);
+            debugLog(`   🔄 MARKED AS INITIALIZED: ${name}`);
             return true;
         }
         return false;
@@ -1574,7 +1582,7 @@ class DebugManager {
         // Print to console based on level
         if (level <= this.traceLevel) {
             const prefix = ['', '🔍', '🔬', '📊'][level] || '📝';
-            console.log(`${prefix} [${category}] ${message}`, data);
+            debugLog(`${prefix} [${category}] ${message}`, data);
         }
     }
     
@@ -1761,6 +1769,13 @@ class ASTInterpreter {
             ...options
         };
         
+        // Debug logging function that respects verbose flag
+        debugLog = (...args) => {
+            if (this.options.verbose) {
+                console.log(...args);
+            }
+        };
+        
         // Execution state
         this.state = EXECUTION_STATE.IDLE;
         this.previousExecutionState = null; // Track state before WAITING_FOR_RESPONSE
@@ -1913,7 +1928,7 @@ class ASTInterpreter {
             if (error instanceof ExecutionPausedError) {
                 // This is expected behavior for state machine - execution is suspended
                 if (this.options.verbose) {
-                    console.log(`Execution suspended for request: ${error.requestId}`);
+                    debugLog(`Execution suspended for request: ${error.requestId}`);
                 }
             } else {
                 this.emitError(`Execution error: ${error.message}`);
@@ -1987,7 +2002,7 @@ class ASTInterpreter {
                 if (error instanceof ExecutionPausedError) {
                     // This is expected behavior for state machine - execution is suspended
                     if (this.options.verbose) {
-                        console.log(`Step execution suspended for request: ${error.requestId}`);
+                        debugLog(`Step execution suspended for request: ${error.requestId}`);
                     }
                 } else {
                     this.emitError(`Step execution error: ${error.message}`);
@@ -2004,7 +2019,7 @@ class ASTInterpreter {
                 if (error instanceof ExecutionPausedError) {
                     // This is expected behavior for state machine - execution is suspended
                     if (this.options.verbose) {
-                        console.log(`Step execution suspended for request: ${error.requestId}`);
+                        debugLog(`Step execution suspended for request: ${error.requestId}`);
                     }
                 } else {
                     this.emitError(`Step execution error: ${error.message}`);
@@ -2054,7 +2069,7 @@ class ASTInterpreter {
         this.extractControlFunctions();
         
         if (this.options.verbose) {
-            console.log("Interpreter reset");
+            debugLog("Interpreter reset");
         }
     }
     
@@ -2071,7 +2086,7 @@ class ASTInterpreter {
                 // Execution was paused for external data - this is expected behavior
                 // The state should already be WAITING_FOR_RESPONSE and waitingForRequestId should be set
                 if (this.options.verbose) {
-                    console.log(`Execution paused for request: ${error.requestId}`);
+                    debugLog(`Execution paused for request: ${error.requestId}`);
                 }
             } else {
                 this.emitError(`Tick execution error: ${error.message}`);
@@ -2366,7 +2381,7 @@ class ASTInterpreter {
             if (error instanceof ExecutionPausedError) {
                 // This is expected behavior for state machine - execution is suspended
                 if (this.options.verbose) {
-                    console.log(`Execution suspended for request: ${error.requestId}`);
+                    debugLog(`Execution suspended for request: ${error.requestId}`);
                 }
             } else {
                 this.emitError(`Interpretation error: ${error.message}`);
@@ -2425,28 +2440,28 @@ class ASTInterpreter {
                 await this.executeVariableDeclaration(child);
                 
                 if (this.options.verbose) {
-                    console.log(`Processed global variable declaration`);
+                    debugLog(`Processed global variable declaration`);
                 }
             } else if (child.type === 'StructDeclaration') {
                 // Process global struct declarations
                 this.handleStructDeclaration(child);
                 
                 if (this.options.verbose) {
-                    console.log(`Processed global struct declaration: ${child.name || 'unnamed'}`);
+                    debugLog(`Processed global struct declaration: ${child.name || 'unnamed'}`);
                 }
             } else if (child.type === 'TypedefDeclaration') {
                 // Process typedef declarations  
                 await this.executeTypedefDeclaration(child);
                 
                 if (this.options.verbose) {
-                    console.log(`Processed typedef declaration: ${child.typeName || 'unnamed'}`);
+                    debugLog(`Processed typedef declaration: ${child.typeName || 'unnamed'}`);
                 }
             } else if (child.type === 'ExpressionStatement') {
                 // Process global expression statements (like --y;)
                 await this.executeStatement(child);
                 
                 if (this.options.verbose) {
-                    console.log(`Processed global expression statement`);
+                    debugLog(`Processed global expression statement`);
                 }
             }
         }
@@ -2469,7 +2484,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Found setup: ${!!this.setupFunction}, loop: ${!!this.loopFunction}, serialEvent: ${!!this.serialEventFunction}`);
+            debugLog(`Found setup: ${!!this.setupFunction}, loop: ${!!this.loopFunction}, serialEvent: ${!!this.serialEventFunction}`);
         }
     }
     
@@ -2487,7 +2502,7 @@ class ASTInterpreter {
                 
                 const paramCount = node.parameters ? node.parameters.length : 0;
                 if (this.options.verbose) {
-                    console.log(`Registered function: ${funcName}(${paramCount} params)`);
+                    debugLog(`Registered function: ${funcName}(${paramCount} params)`);
                 }
             }
         }
@@ -2561,7 +2576,7 @@ class ASTInterpreter {
             // Check loop limit BEFORE incrementing (only when limit is set)
             if (this.loopIterations >= this.options.maxLoopIterations) {
                 if (this.options.verbose) {
-                    console.log(`Loop limit reached: ${this.options.maxLoopIterations} iterations`);
+                    debugLog(`Loop limit reached: ${this.options.maxLoopIterations} iterations`);
                 }
                 this.executionContext.shouldContinue = false;
                 break;
@@ -2651,7 +2666,7 @@ class ASTInterpreter {
             
             // Debug iteration 23 issue
             if (this.loopIterations >= 22 && this.loopIterations <= 25) {
-                console.log(`🔍 ITERATION ${this.loopIterations}: Scope stack depth = ${this.variables.scopeStack.length}`);
+                debugLog(`🔍 ITERATION ${this.loopIterations}: Scope stack depth = ${this.variables.scopeStack.length}`);
             }
         }
         
@@ -2676,7 +2691,7 @@ class ASTInterpreter {
         // Handle pause state
         if (this.state === EXECUTION_STATE.PAUSED) {
             if (this.options.verbose) {
-                console.log(`Execution paused at phase: ${this.executionContext.phase}, loop: ${this.executionContext.loopIteration}`);
+                debugLog(`Execution paused at phase: ${this.executionContext.phase}, loop: ${this.executionContext.loopIteration}`);
             }
             
             await new Promise(resolve => {
@@ -2684,7 +2699,7 @@ class ASTInterpreter {
             });
             
             if (this.options.verbose) {
-                console.log(`Execution resumed from pause`);
+                debugLog(`Execution resumed from pause`);
             }
         }
         
@@ -2692,7 +2707,7 @@ class ASTInterpreter {
         if (this.state === EXECUTION_STATE.IDLE) {
             this.executionContext.shouldContinue = false;
             if (this.options.verbose) {
-                console.log(`Execution stopped`);
+                debugLog(`Execution stopped`);
             }
             return;
         }
@@ -2732,7 +2747,7 @@ class ASTInterpreter {
                 return await this.executeCompoundStatement(node);
                 
             case 'ExpressionStatement':
-                console.log(`DEBUG ExpressionStatement:`, {
+                debugLog(`DEBUG ExpressionStatement:`, {
                     expressionType: node.expression?.type,
                     expressionOperator: node.expression?.operator,
                     expression: node.expression
@@ -2807,7 +2822,7 @@ class ASTInterpreter {
                 // and stored in this.functions Map. During statement execution, we just acknowledge them.
                 if (this.options.verbose) {
                     const funcName = node.declarator?.value || 'unnamed';
-                    console.log(`Function definition encountered: ${funcName}`);
+                    debugLog(`Function definition encountered: ${funcName}`);
                 }
                 return; // Successfully handled during extraction phase
                 
@@ -2816,7 +2831,7 @@ class ASTInterpreter {
                 // but don't contain implementation, just the signature
                 if (this.options.verbose) {
                     const funcName = node.declarator?.value || 'unnamed';
-                    console.log(`Function declaration encountered: ${funcName}`);
+                    debugLog(`Function declaration encountered: ${funcName}`);
                 }
                 // Store function declaration info for type checking
                 this.handleFunctionDeclaration(node);
@@ -2979,7 +2994,7 @@ class ASTInterpreter {
                     this.functions.get(varName).push(funcDefNode);
                     
                     if (this.options.verbose) {
-                        console.log(`Registered static function: ${varName} (return type: ${returnType}) with body: ${!!funcBody}`);
+                        debugLog(`Registered static function: ${varName} (return type: ${returnType}) with body: ${!!funcBody}`);
                     }
                     
                     continue; // Skip normal variable processing
@@ -2997,7 +3012,7 @@ class ASTInterpreter {
                                 tempDeclType.startsWith('extern ');
                 
                 if (this.options.verbose) {
-                    console.log(`STORAGE DEBUG: ${varName}: tempDeclType="${tempDeclType}", isExtern=${isExtern}, hasExisting=${this.variables.has(varName)}`);
+                    debugLog(`STORAGE DEBUG: ${varName}: tempDeclType="${tempDeclType}", isExtern=${isExtern}, hasExisting=${this.variables.has(varName)}`);
                 }
                 
                 // Handle static variables with persistence
@@ -3009,7 +3024,7 @@ class ASTInterpreter {
                     if (this.staticInitialized.has(staticKey)) {
                         // Static variable already exists, skip re-initialization
                         if (this.options.verbose) {
-                            console.log(`Static variable ${varName} already initialized, skipping`);
+                            debugLog(`Static variable ${varName} already initialized, skipping`);
                         }
                         continue;
                     }
@@ -3033,7 +3048,7 @@ class ASTInterpreter {
                     });
                     
                     if (this.options.verbose) {
-                        console.log(`Static variable initialized: ${varName} = ${value} (key: ${staticKey})`);
+                        debugLog(`Static variable initialized: ${varName} = ${value} (key: ${staticKey})`);
                     }
                     
                     continue; // Skip regular variable processing
@@ -3063,7 +3078,7 @@ class ASTInterpreter {
                     }
                     
                     if (this.options.verbose) {
-                        console.log(`Const variable declared: ${varName} = ${value} (immutable)`);
+                        debugLog(`Const variable declared: ${varName} = ${value} (immutable)`);
                     }
                     
                     this.emitCommand({
@@ -3097,7 +3112,7 @@ class ASTInterpreter {
                         });
                         
                         if (this.options.verbose) {
-                            console.log(`Extern variable forward declared: ${varName} (type: ${actualType})`);
+                            debugLog(`Extern variable forward declared: ${varName} (type: ${actualType})`);
                         }
                         
                         continue; // Skip regular processing
@@ -3113,7 +3128,7 @@ class ASTInterpreter {
                         });
                         
                         if (this.options.verbose) {
-                            console.log(`Extern variable defined: ${varName} = ${value} (type: ${actualType})`);
+                            debugLog(`Extern variable defined: ${varName} = ${value} (type: ${actualType})`);
                         }
                         
                         this.emitCommand({
@@ -3133,7 +3148,7 @@ class ASTInterpreter {
                 if (!isExtern && this.variables.has(varName)) {
                     const existingMetadata = this.variables.getMetadata(varName);
                     if (this.options.verbose) {
-                        console.log(`EXTERN DEBUG: Found existing variable ${varName}, isExtern: ${existingMetadata?.isExtern}, isForwardDeclaration: ${existingMetadata?.isForwardDeclaration}`);
+                        debugLog(`EXTERN DEBUG: Found existing variable ${varName}, isExtern: ${existingMetadata?.isExtern}, isForwardDeclaration: ${existingMetadata?.isForwardDeclaration}`);
                     }
                     
                     if ((existingMetadata?.isExtern && existingMetadata?.isForwardDeclaration) ||
@@ -3151,7 +3166,7 @@ class ASTInterpreter {
                         });
                         
                         if (this.options.verbose) {
-                            console.log(`Extern variable definition: ${varName} = ${value} (resolved forward declaration)`);
+                            debugLog(`Extern variable definition: ${varName} = ${value} (resolved forward declaration)`);
                         }
                         
                         this.emitCommand({
@@ -3186,14 +3201,14 @@ class ASTInterpreter {
                         value = this.createObject(declType, constructorArgs, varName);
                         
                         if (this.options.verbose) {
-                            console.log(`Object variable ${varName}: created ${declType} with ${constructorArgs.length} args: [${constructorArgs.join(', ')}]`);
+                            debugLog(`Object variable ${varName}: created ${declType} with ${constructorArgs.length} args: [${constructorArgs.join(', ')}]`);
                         }
                     } else {
                         // Default object construction (no arguments) - this handles "Servo myServo;"
                         value = this.createObject(declType, [], varName);
                         
                         if (this.options.verbose) {
-                            console.log(`Object variable ${varName}: created ${declType} with default constructor`);
+                            debugLog(`Object variable ${varName}: created ${declType} with default constructor`);
                         }
                     }
                 } else if (this.isStructType(declType)) {
@@ -3232,7 +3247,7 @@ class ASTInterpreter {
                     value = new ArduinoStruct(structName, structFields);
                     
                     if (this.options.verbose) {
-                        console.log(`Struct variable ${varName}: created ${structName} with fields [${Object.keys(structFields).join(', ')}]`);
+                        debugLog(`Struct variable ${varName}: created ${structName} with fields [${Object.keys(structFields).join(', ')}]`);
                     }
                 } else if (decl.initializer && !arrayInitializerValues) {
                     // Handle C++ constructor syntax for primitive types first
@@ -3243,14 +3258,14 @@ class ASTInterpreter {
                             value = await this.evaluateExpression(decl.initializer.arguments[0]);
                             
                             if (this.options.verbose) {
-                                console.log(`C++ constructor syntax: ${declType} ${varName}(${value})`);
+                                debugLog(`C++ constructor syntax: ${declType} ${varName}(${value})`);
                             }
                         } else {
                             // Default initialization: int x(); -> x = 0
                             value = this.getDefaultValue(declType);
                             
                             if (this.options.verbose) {
-                                console.log(`C++ default constructor: ${declType} ${varName}() = ${value}`);
+                                debugLog(`C++ default constructor: ${declType} ${varName}() = ${value}`);
                             }
                         }
                     } else {
@@ -3274,21 +3289,21 @@ class ASTInterpreter {
                                 value = new ArduinoPointer(targetVarName, this);
                                 
                                 if (this.options.verbose) {
-                                    console.log(`Pointer variable ${varName}: created pointer to ${targetVarName} (type: ${declType})`);
+                                    debugLog(`Pointer variable ${varName}: created pointer to ${targetVarName} (type: ${declType})`);
                                 }
                             } else {
                                 // Handle other pointer initializers (like &variable)
                                 value = await this.evaluateExpression(decl.initializer);
                                 
                                 if (this.options.verbose) {
-                                    console.log(`Pointer variable ${varName}: initialized with ${value} (type: ${declType})`);
+                                    debugLog(`Pointer variable ${varName}: initialized with ${value} (type: ${declType})`);
                                 }
                             }
                         } else {
                             // Uninitialized pointer
                             value = null;
                             if (this.options.verbose) {
-                                console.log(`Pointer variable ${varName}: uninitialized pointer (type: ${declType})`);
+                                debugLog(`Pointer variable ${varName}: uninitialized pointer (type: ${declType})`);
                             }
                         }
                     } else if (declType === 'String') {
@@ -3299,7 +3314,7 @@ class ASTInterpreter {
                             value = new ArduinoString(String(value));
                         }
                         if (this.options.verbose) {
-                            console.log(`String variable ${varName}: converted to ArduinoString`);
+                            debugLog(`String variable ${varName}: converted to ArduinoString`);
                         }
                     } else if (this.isArduinoNumericType(declType)) {
                         // Handle Arduino numeric types with proper wrapping
@@ -3313,7 +3328,7 @@ class ASTInterpreter {
                             }
                         }
                         if (this.options.verbose) {
-                            console.log(`Arduino numeric variable ${varName}: converted to ${declType}`);
+                            debugLog(`Arduino numeric variable ${varName}: converted to ${declType}`);
                         }
                     }
                 }
@@ -3335,7 +3350,7 @@ class ASTInterpreter {
                         value = arrayInitializerValues;
                         
                         if (this.options.verbose) {
-                            console.log(`Array ${varName} initialized with initializer list:`, {
+                            debugLog(`Array ${varName} initialized with initializer list:`, {
                                 size: arraySize,
                                 values: arrayInitializerValues
                             });
@@ -3357,7 +3372,7 @@ class ASTInterpreter {
                             arraySize = dimensions[0]; // For compatibility
                             
                             if (this.options.verbose) {
-                                console.log(`Multidimensional array ${varName} initialized:`, {
+                                debugLog(`Multidimensional array ${varName} initialized:`, {
                                     dimensions: dimensions,
                                     shape: dimensions.join('x')
                                 });
@@ -3368,7 +3383,7 @@ class ASTInterpreter {
                         if (arraySize && arraySize > 0 && !value) {
                             value = new Array(arraySize).fill(0); // Initialize with zeros
                             if (this.options.verbose) {
-                                console.log(`Array ${varName} initialized with size ${arraySize}`);
+                                debugLog(`Array ${varName} initialized with size ${arraySize}`);
                             }
                         } else if (!value && arraySize !== null) {
                             this.emitError(`Invalid array size for ${varName}: ${arraySize}`);
@@ -3402,7 +3417,7 @@ class ASTInterpreter {
                 });
                 
                 if (this.options.verbose) {
-                    console.log(`Variable declared: ${varName} = ${value}`);
+                    debugLog(`Variable declared: ${varName} = ${value}`);
                 }
             }
         }
@@ -3420,7 +3435,7 @@ class ASTInterpreter {
         if (!node) return null;
         
         // DEBUG: Log all expression types being processed
-        console.log(`DEBUG evaluateExpression processing: ${node.type}`, {
+        debugLog(`DEBUG evaluateExpression processing: ${node.type}`, {
             nodeType: node.type,
             hasOperator: !!node.operator,
             operator: node.operator
@@ -3435,20 +3450,20 @@ class ASTInterpreter {
             case 'StringLiteralNode':
                 // Handle string literals - convert to ArduinoString for String variables
                 if (typeof node.value === 'string') {
-                    console.log(`DEBUG String literal: "${node.value}" -> ArduinoString`);
+                    debugLog(`DEBUG String literal: "${node.value}" -> ArduinoString`);
                     return new ArduinoString(node.value);
                 }
-                console.log(`DEBUG Literal: ${node.value} (type: ${typeof node.value})`);
+                debugLog(`DEBUG Literal: ${node.value} (type: ${typeof node.value})`);
                 return node.value;
                 
             case 'CharLiteralNode':
                 // Handle character literals - convert to ASCII value for Arduino compatibility
                 if (typeof node.value === 'string' && node.value.length === 1) {
                     const asciiValue = node.value.charCodeAt(0);
-                    console.log(`DEBUG Character literal: '${node.value}' -> ${asciiValue}`);
+                    debugLog(`DEBUG Character literal: '${node.value}' -> ${asciiValue}`);
                     return asciiValue;
                 }
-                console.log(`DEBUG Invalid character literal:`, node.value);
+                debugLog(`DEBUG Invalid character literal:`, node.value);
                 return null;
                 
             case 'IdentifierNode':
@@ -3469,7 +3484,7 @@ class ASTInterpreter {
                     const functionPointer = new ArduinoFunctionPointer(varName, this);
                     
                     if (this.options.verbose) {
-                        console.log(`Implicit function-to-pointer conversion: ${varName} -> function pointer`);
+                        debugLog(`Implicit function-to-pointer conversion: ${varName} -> function pointer`);
                     }
                     
                     return functionPointer;
@@ -3511,7 +3526,7 @@ class ASTInterpreter {
                 return await this.executeTernaryExpression(node);
                 
             case 'AssignmentNode':
-                console.log(`DEBUG Found AssignmentNode in evaluateExpression:`, {
+                debugLog(`DEBUG Found AssignmentNode in evaluateExpression:`, {
                     operator: node.operator,
                     left: node.left,
                     right: node.right
@@ -3544,7 +3559,7 @@ class ASTInterpreter {
                 // ProgramNode is the root AST node containing all program elements
                 // In expression context, this shouldn't typically appear, but handle gracefully
                 if (this.options.verbose) {
-                    console.log(`ProgramNode encountered in expression context`);
+                    debugLog(`ProgramNode encountered in expression context`);
                 }
                 return {
                     type: 'program_root',
@@ -3665,7 +3680,7 @@ class ASTInterpreter {
                 
             default:
                 // DEBUG: Always log unhandled types to find missing ones
-                console.log(`DEBUG Unhandled expression type: ${node.type}`, {
+                debugLog(`DEBUG Unhandled expression type: ${node.type}`, {
                     nodeType: node.type,
                     node: node,
                     nodeKeys: Object.keys(node)
@@ -3921,7 +3936,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`Creating ${className} object with args: [${constructorArgs.join(', ')}]`);
+            debugLog(`Creating ${className} object with args: [${constructorArgs.join(', ')}]`);
         }
         
         // Return generic Arduino object with library information
@@ -3943,7 +3958,7 @@ class ASTInterpreter {
     async executeFunctionCall(node) {
         // Check if this is actually a member access (object.method())
         if (node.callee?.type === 'MemberAccessNode') {
-            console.log(`DEBUG Member access via function call:`, node.callee);
+            debugLog(`DEBUG Member access via function call:`, node.callee);
             // Pass the arguments from the function call to member access
             const memberAccessNode = { ...node.callee, arguments: node.arguments };
             return await this.executeMemberAccess(memberAccessNode);
@@ -3951,14 +3966,14 @@ class ASTInterpreter {
         
         // Check if this is a namespace function call (Namespace::function())
         if (node.callee?.type === 'NamespaceAccessNode') {
-            console.log(`DEBUG Namespace access via function call:`, node.callee);
+            debugLog(`DEBUG Namespace access via function call:`, node.callee);
             return await this.executeNamespaceFunctionCall(node);
         }
         
         const funcName = node.callee?.value;
         
         // DEBUG: Log all function calls to see if member access appears here
-        console.log(`DEBUG Function call:`, {
+        debugLog(`DEBUG Function call:`, {
             funcName: funcName,
             callee: node.callee,
             calleeType: node.callee?.type,
@@ -3997,7 +4012,7 @@ class ASTInterpreter {
             expansion = this.expandMacros(expansion);
             
             if (this.options.verbose) {
-                console.log(`Macro expansion: ${funcName}(${args.join(', ')}) -> ${expansion}`);
+                debugLog(`Macro expansion: ${funcName}(${args.join(', ')}) -> ${expansion}`);
             }
             
             // Parse and evaluate the expanded expression
@@ -4025,7 +4040,7 @@ class ASTInterpreter {
                 }
                 
                 if (this.options.verbose) {
-                    console.log(`Function pointer call detected: ${funcName} -> ${variable.functionName}(${args.length} args)`);
+                    debugLog(`Function pointer call detected: ${funcName} -> ${variable.functionName}(${args.length} args)`);
                 }
                 
                 return await variable.call(args);
@@ -4280,7 +4295,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Constructor call: ${className}(${args.join(', ')})`);
+            debugLog(`Constructor call: ${className}(${args.join(', ')})`);
         }
         
         // Create object instance using universal library system
@@ -4308,7 +4323,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Namespace access: ${namespace}::${member}`);
+            debugLog(`Namespace access: ${namespace}::${member}`);
         }
         
         // Handle standard library namespaces
@@ -4337,7 +4352,7 @@ class ASTInterpreter {
     
     createArduinoLibraryObject(libraryName, args) {
         if (this.options.verbose) {
-            console.log(`Creating Arduino library object: ${libraryName}(${args.join(', ')})`);
+            debugLog(`Creating Arduino library object: ${libraryName}(${args.join(', ')})`);
         }
         
         // Create the library object
@@ -4374,7 +4389,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Namespace function call: ${namespace}::${member}(${args.length} args)`);
+            debugLog(`Namespace function call: ${namespace}::${member}(${args.length} args)`);
         }
         
         // Handle different namespaces
@@ -4421,7 +4436,7 @@ class ASTInterpreter {
     executeCustomNamespaceFunction(namespace, functionName, args) {
         // Handle custom library namespace functions
         if (this.options.verbose) {
-            console.log(`Custom namespace function: ${namespace}::${functionName}(${args.join(', ')})`);
+            debugLog(`Custom namespace function: ${namespace}::${functionName}(${args.join(', ')})`);
         }
         
         // For now, emit a placeholder command
@@ -4454,7 +4469,7 @@ class ASTInterpreter {
                 };
             default:
                 if (this.options.verbose) {
-                    console.log(`Unknown std:: member: ${member}`);
+                    debugLog(`Unknown std:: member: ${member}`);
                 }
                 return {
                     type: 'std_member_access',
@@ -4504,7 +4519,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Member access: ${objectName}${operator === 'DOT' ? '.' : '->'}${memberName}`);
+            debugLog(`Member access: ${objectName}${operator === 'DOT' ? '.' : '->'}${memberName}`);
         }
         
         // Handle Arduino built-in objects
@@ -4575,7 +4590,7 @@ class ASTInterpreter {
         const sourceValue = await this.evaluateExpression(expression);
         
         if (this.options.verbose) {
-            console.log(`C++ cast: ${castType}<${targetType}>(${sourceValue})`);
+            debugLog(`C++ cast: ${castType}<${targetType}>(${sourceValue})`);
         }
         
         // Perform the cast based on cast type
@@ -4608,7 +4623,7 @@ class ASTInterpreter {
                 return Boolean(sourceValue);
             default:
                 if (this.options.verbose) {
-                    console.log(`Static cast to custom type: ${targetType}`);
+                    debugLog(`Static cast to custom type: ${targetType}`);
                 }
                 return {
                     type: 'static_cast_result',
@@ -4622,7 +4637,7 @@ class ASTInterpreter {
     performDynamicCast(sourceValue, targetType, node) {
         // dynamic_cast: Runtime type checking for polymorphic types
         if (this.options.verbose) {
-            console.log(`Dynamic cast from ${typeof sourceValue} to ${targetType}`);
+            debugLog(`Dynamic cast from ${typeof sourceValue} to ${targetType}`);
         }
         
         return {
@@ -4647,7 +4662,7 @@ class ASTInterpreter {
     performReinterpretCast(sourceValue, targetType, node) {
         // reinterpret_cast: Low-level bit pattern reinterpretation
         if (this.options.verbose) {
-            console.log(`Reinterpret cast from ${typeof sourceValue} to ${targetType}`);
+            debugLog(`Reinterpret cast from ${typeof sourceValue} to ${targetType}`);
         }
         
         return {
@@ -4664,7 +4679,7 @@ class ASTInterpreter {
         const declaratorName = node.declarator?.value;
         
         if (this.options.verbose) {
-            console.log(`Pointer declarator: ${'*'.repeat(pointerLevel)}${declaratorName} (${baseType})`);
+            debugLog(`Pointer declarator: ${'*'.repeat(pointerLevel)}${declaratorName} (${baseType})`);
         }
         
         return {
@@ -4682,7 +4697,7 @@ class ASTInterpreter {
         const parameters = node.parameters || [];
         
         if (this.options.verbose) {
-            console.log(`Function pointer declarator: ${returnType} (*${functionName})(${parameters.length} params)`);
+            debugLog(`Function pointer declarator: ${returnType} (*${functionName})(${parameters.length} params)`);
         }
         
         return {
@@ -4701,7 +4716,7 @@ class ASTInterpreter {
         
         if (this.options.verbose) {
             const dimStr = dimensions.map(d => `[${d?.value || ''}]`).join('');
-            console.log(`Array declarator: ${declaratorName}${dimStr} (${baseType})`);
+            debugLog(`Array declarator: ${declaratorName}${dimStr} (${baseType})`);
         }
         
         return {
@@ -4717,7 +4732,7 @@ class ASTInterpreter {
         const declaratorName = node.value;
         
         if (this.options.verbose) {
-            console.log(`Basic declarator: ${declaratorName}`);
+            debugLog(`Basic declarator: ${declaratorName}`);
         }
         
         return {
@@ -4768,7 +4783,7 @@ class ASTInterpreter {
         const size = typeSizes[typeName] || 4; // Default to 4 bytes for unknown types
         
         if (this.options.verbose) {
-            console.log(`sizeof(${typeName}) = ${size} bytes`);
+            debugLog(`sizeof(${typeName}) = ${size} bytes`);
         }
         
         return size;
@@ -4808,7 +4823,7 @@ class ASTInterpreter {
         const sourceValue = await this.evaluateExpression(argument);
         
         if (this.options.verbose) {
-            console.log(`Function-style cast: ${castType}(${sourceValue})`);
+            debugLog(`Function-style cast: ${castType}(${sourceValue})`);
         }
         
         // Perform the cast (similar to static_cast)
@@ -4837,7 +4852,7 @@ class ASTInterpreter {
         const isString = node.isString || false;
         
         if (this.options.verbose) {
-            console.log(`Wide char literal: L${isString ? '"' : "'"}${value}${isString ? '"' : "'"}`);
+            debugLog(`Wide char literal: L${isString ? '"' : "'"}${value}${isString ? '"' : "'"}`);
         }
         
         // In Arduino context, wide characters are typically not used much
@@ -4852,7 +4867,7 @@ class ASTInterpreter {
     
     async handleDesignatedInitializer(node) {
         if (this.options.verbose) {
-            console.log(`DEBUG DesignatedInitializerNode:`, JSON.stringify(node, null, 2));
+            debugLog(`DEBUG DesignatedInitializerNode:`, JSON.stringify(node, null, 2));
         }
         
         // Handle designated initializer like {.x = 10, .y = 20}
@@ -4865,7 +4880,7 @@ class ASTInterpreter {
             result[fieldName] = fieldValue;
             
             if (this.options.verbose) {
-                console.log(`Designated initializer: .${fieldName} = ${fieldValue}`);
+                debugLog(`Designated initializer: .${fieldName} = ${fieldValue}`);
             }
         }
         // Check if node has designators array
@@ -4881,7 +4896,7 @@ class ASTInterpreter {
         // Fallback: check if the node itself represents a field-value pair
         else {
             if (this.options.verbose) {
-                console.log(`DEBUG: Unknown designated initializer structure`);
+                debugLog(`DEBUG: Unknown designated initializer structure`);
             }
         }
         
@@ -4893,9 +4908,9 @@ class ASTInterpreter {
         const errorToken = node.token;
         
         if (this.options.verbose) {
-            console.log(`Error node encountered: ${errorMessage}`);
+            debugLog(`Error node encountered: ${errorMessage}`);
             if (errorToken) {
-                console.log(`   At token: ${errorToken.type} "${errorToken.value}"`);
+                debugLog(`   At token: ${errorToken.type} "${errorToken.value}"`);
             }
         }
         
@@ -4915,7 +4930,7 @@ class ASTInterpreter {
         const commentType = node.commentType || 'line'; // 'line' or 'block'
         
         if (this.options.verbose) {
-            console.log(`Comment: ${commentType === 'line' ? '//' : '/*'}${commentText}${commentType === 'block' ? '*/' : ''}`);
+            debugLog(`Comment: ${commentType === 'line' ? '//' : '/*'}${commentText}${commentType === 'block' ? '*/' : ''}`);
         }
         
         // Comments don't affect execution, just return info
@@ -4933,7 +4948,7 @@ class ASTInterpreter {
         
         if (!funcName) {
             if (this.options.verbose) {
-                console.log('Function declaration missing name');
+                debugLog('Function declaration missing name');
             }
             return;
         }
@@ -4954,7 +4969,7 @@ class ASTInterpreter {
         
         if (this.options.verbose) {
             const paramStr = parameters.map(p => `${p.paramType?.value || 'unknown'} ${p.declarator?.value || 'unnamed'}`).join(', ');
-            console.log(`Function declaration: ${returnType || 'void'} ${funcName}(${paramStr})`);
+            debugLog(`Function declaration: ${returnType || 'void'} ${funcName}(${paramStr})`);
         }
     }
     
@@ -4990,7 +5005,7 @@ class ASTInterpreter {
         this.variables.markAsInitialized(varName);
         
         if (this.options.verbose) {
-            console.log(`Assignment: ${varName} = ${value}`);
+            debugLog(`Assignment: ${varName} = ${value}`);
         }
         
         this.emitCommand({
@@ -5078,7 +5093,7 @@ class ASTInterpreter {
         
         if (this.options.verbose) {
             const indexStr = indices.map(i => `[${i}]`).join('');
-            console.log(`Array element assignment: ${arrayName}${indexStr} = ${newValue}`);
+            debugLog(`Array element assignment: ${arrayName}${indexStr} = ${newValue}`);
         }
         
         return newValue;
@@ -5110,7 +5125,7 @@ class ASTInterpreter {
         const operator = node.operator;
         let newValue;
         
-        console.log(`DEBUG AssignmentNode: ${varName} ${operator} ${rightValue}`);
+        debugLog(`DEBUG AssignmentNode: ${varName} ${operator} ${rightValue}`);
         
         // Handle compound assignment operators
         switch (operator) {
@@ -5190,7 +5205,7 @@ class ASTInterpreter {
         this.variables.markAsInitialized(varName);
         
         if (this.options.verbose) {
-            console.log(`Assignment: ${varName} ${operator} ${rightValue} = ${newValue}`);
+            debugLog(`Assignment: ${varName} ${operator} ${rightValue} = ${newValue}`);
         }
         
         this.emitCommand({
@@ -5261,7 +5276,7 @@ class ASTInterpreter {
             pointer.setValue(newValue);
             
             if (this.options.verbose) {
-                console.log(`Pointer assignment: *${pointer.targetVariable} ${operator} ${rightValue} = ${newValue}`);
+                debugLog(`Pointer assignment: *${pointer.targetVariable} ${operator} ${rightValue} = ${newValue}`);
             }
             
             return newValue;
@@ -5287,7 +5302,7 @@ class ASTInterpreter {
             structObject = structObject.getValue();
             
             if (this.options.verbose) {
-                console.log(`Arrow operator assignment: dereferencing pointer for ${fieldName} assignment`);
+                debugLog(`Arrow operator assignment: dereferencing pointer for ${fieldName} assignment`);
             }
         }
         
@@ -5339,7 +5354,7 @@ class ASTInterpreter {
             structObject.setField(fieldName, newValue);
             
             if (this.options.verbose) {
-                console.log(`Struct field assignment: ${structObject.structName}.${fieldName} ${operator} ${rightValue} = ${newValue}`);
+                debugLog(`Struct field assignment: ${structObject.structName}.${fieldName} ${operator} ${rightValue} = ${newValue}`);
             }
             
             // Emit command for struct field assignment
@@ -5529,7 +5544,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Binary operation: ${left} ${operator} ${right} = ${result}`);
+            debugLog(`Binary operation: ${left} ${operator} ${right} = ${result}`);
         }
         
         return result;
@@ -5558,7 +5573,7 @@ class ASTInterpreter {
                         this.staticVariables.set(staticKey, newValue);
                         
                         if (this.options.verbose) {
-                            console.log(`Updated static variable ${varName} = ${newValue}`);
+                            debugLog(`Updated static variable ${varName} = ${newValue}`);
                         }
                         
                         // For static variables, return success regardless of scope update
@@ -5628,7 +5643,7 @@ class ASTInterpreter {
                         const functionPointer = new ArduinoFunctionPointer(name, this);
                         
                         if (this.options.verbose) {
-                            console.log(`Address-of function: &${name} -> function pointer to ${name}`);
+                            debugLog(`Address-of function: &${name} -> function pointer to ${name}`);
                         }
                         
                         return functionPointer;
@@ -5640,7 +5655,7 @@ class ASTInterpreter {
                         const pointer = new ArduinoPointer(name, this);
                         
                         if (this.options.verbose) {
-                            console.log(`Address-of variable: &${name} -> pointer to ${name}`);
+                            debugLog(`Address-of variable: &${name} -> pointer to ${name}`);
                         }
                         
                         return pointer;
@@ -5660,7 +5675,7 @@ class ASTInterpreter {
                     const value = operand.getValue();
                     
                     if (this.options.verbose) {
-                        console.log(`Dereference: *pointer -> ${value}`);
+                        debugLog(`Dereference: *pointer -> ${value}`);
                     }
                     
                     return value;
@@ -5708,19 +5723,19 @@ class ASTInterpreter {
                     
                     // Update static variable storage if this is a static variable
                     const varInfo = this.variables.get(varName);
-                    console.log(`DEBUG postfix varInfo for ${varName}:`, varInfo?.metadata);
+                    debugLog(`DEBUG postfix varInfo for ${varName}:`, varInfo?.metadata);
                     if (varInfo?.metadata?.isStatic) {
                         this.staticVariables.set(varInfo.metadata.staticKey, newValue);
-                        console.log(`✅ Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
+                        debugLog(`✅ Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
                     } else {
-                        console.log(`❌ Not static: isStatic=${varInfo?.metadata?.isStatic}, key=${varInfo?.metadata?.staticKey}`);
+                        debugLog(`❌ Not static: isStatic=${varInfo?.metadata?.isStatic}, key=${varInfo?.metadata?.staticKey}`);
                     }
                     
                     if (this.options.verbose) {
                         if (oldValue instanceof ArduinoPointer) {
-                            console.log(`Postfix increment: ${varName}++ (pointer -> next element)`);
+                            debugLog(`Postfix increment: ${varName}++ (pointer -> next element)`);
                         } else {
-                            console.log(`Postfix increment: ${varName}++ (${oldValue} -> ${newValue})`);
+                            debugLog(`Postfix increment: ${varName}++ (${oldValue} -> ${newValue})`);
                         }
                     }
                     
@@ -5750,12 +5765,12 @@ class ASTInterpreter {
                     if (varInfo?.metadata?.isStatic) {
                         this.staticVariables.set(varInfo.metadata.staticKey, oldValue - 1);
                         if (this.options.verbose) {
-                            console.log(`Updated static variable ${varName} = ${oldValue - 1} (key: ${varInfo.metadata.staticKey})`);
+                            debugLog(`Updated static variable ${varName} = ${oldValue - 1} (key: ${varInfo.metadata.staticKey})`);
                         }
                     }
                     
                     if (this.options.verbose) {
-                        console.log(`Postfix decrement: ${varName}-- (${oldValue} -> ${oldValue - 1})`);
+                        debugLog(`Postfix decrement: ${varName}-- (${oldValue} -> ${oldValue - 1})`);
                     }
                     
                     this.emitCommand({
@@ -5783,7 +5798,7 @@ class ASTInterpreter {
         if (node.object?.value === 'Serial') {
             const property = node.property?.value || node.property;
             
-            console.log(`DEBUG Serial member access: Serial.${property}`, {
+            debugLog(`DEBUG Serial member access: Serial.${property}`, {
                 hasArguments: node.arguments !== undefined,
                 argumentsLength: node.arguments?.length
             });
@@ -5839,7 +5854,7 @@ class ASTInterpreter {
                     const fieldValue = object.getField(property);
                     
                     if (this.options.verbose) {
-                        console.log(`Struct field access: ${object.structName}.${property} = ${fieldValue}`);
+                        debugLog(`Struct field access: ${object.structName}.${property} = ${fieldValue}`);
                     }
                     
                     // Emit command for struct field access
@@ -5861,7 +5876,7 @@ class ASTInterpreter {
         }
         
         // DEBUG: Always log member access for now
-        console.log(`DEBUG Member access:`, {
+        debugLog(`DEBUG Member access:`, {
             object: object,
             objectType: typeof object,
             isArduinoString: object instanceof ArduinoString,
@@ -6276,7 +6291,7 @@ class ASTInterpreter {
             }
             
             if (this.options.verbose) {
-                console.log(`Pointer dereference: ${object.targetVariable}->${property}`);
+                debugLog(`Pointer dereference: ${object.targetVariable}->${property}`);
             }
             
             // Handle property access on the dereferenced struct
@@ -6295,7 +6310,7 @@ class ASTInterpreter {
                     const result = dereferenced.getField(property);
                     
                     if (this.options.verbose) {
-                        console.log(`Pointer member access: ${object.targetVariable}->${property} = ${result}`);
+                        debugLog(`Pointer member access: ${object.targetVariable}->${property} = ${result}`);
                     }
                     
                     this.emitCommand({
@@ -6322,7 +6337,7 @@ class ASTInterpreter {
             // This is likely a struct created from designated initializers
             if (property in object) {
                 if (this.options.verbose) {
-                    console.log(`Struct property access: ${property} = ${object[property]}`);
+                    debugLog(`Struct property access: ${property} = ${object[property]}`);
                 }
                 return object[property];
             } else {
@@ -6358,7 +6373,7 @@ class ASTInterpreter {
             return null;
         }
         
-        console.log(`DEBUG Array access: ${arrayName}[${index}]`);
+        debugLog(`DEBUG Array access: ${arrayName}[${index}]`);
         
         if (array === null || array === undefined) {
             this.emitError(`Array is null or undefined`);
@@ -6380,7 +6395,7 @@ class ASTInterpreter {
     
     async executeArrayInitializer(node) {
         if (!node.elements || !Array.isArray(node.elements)) {
-            console.log(`DEBUG Array initializer: no elements found`);
+            debugLog(`DEBUG Array initializer: no elements found`);
             return [];
         }
         
@@ -6398,7 +6413,7 @@ class ASTInterpreter {
                 Object.assign(struct, designatedResult);
             }
             
-            console.log(`DEBUG Struct initialized with designated initializers:`, struct);
+            debugLog(`DEBUG Struct initialized with designated initializers:`, struct);
             return struct;
         } else {
             // This is regular array initialization like {1, 2, 3}
@@ -6408,7 +6423,7 @@ class ASTInterpreter {
                 array.push(value);
             }
             
-            console.log(`DEBUG Array initialized: [${array.join(', ')}]`);
+            debugLog(`DEBUG Array initialized: [${array.join(', ')}]`);
             return array;
         }
     }
@@ -6417,7 +6432,7 @@ class ASTInterpreter {
         const value = await this.evaluateExpression(node.operand);
         const castType = node.castType;
         
-        console.log(`DEBUG Type cast: (${castType})${value} (${typeof value})`);
+        debugLog(`DEBUG Type cast: (${castType})${value} (${typeof value})`);
         
         if (value === null || value === undefined) {
             return null;
@@ -6459,7 +6474,7 @@ class ASTInterpreter {
                 return Boolean(value);
                 
             default:
-                console.log(`DEBUG Unsupported cast type: ${castType}`);
+                debugLog(`DEBUG Unsupported cast type: ${castType}`);
                 return value; // Return original value if cast type not recognized
         }
     }
@@ -6467,7 +6482,7 @@ class ASTInterpreter {
     async executeTernaryExpression(node) {
         const condition = await this.evaluateExpression(node.condition);
         
-        console.log(`DEBUG Ternary: ${condition} ? ${node.consequent?.value || '[expr]'} : ${node.alternate?.value || '[expr]'}`);
+        debugLog(`DEBUG Ternary: ${condition} ? ${node.consequent?.value || '[expr]'} : ${node.alternate?.value || '[expr]'}`);
         
         if (condition) {
             return await this.evaluateExpression(node.consequent);
@@ -6486,7 +6501,7 @@ class ASTInterpreter {
             message: `switch (${discriminantValue})`
         });
         
-        console.log(`DEBUG Switch statement: ${discriminantValue}`);
+        debugLog(`DEBUG Switch statement: ${discriminantValue}`);
         
         let matchFound = false;
         let fallThrough = false;
@@ -6509,7 +6524,7 @@ class ASTInterpreter {
                         timestamp: Date.now()
                     });
                     
-                    console.log(`DEBUG Case ${testValue}: ${shouldExecute ? 'match' : 'no match'}`);
+                    debugLog(`DEBUG Case ${testValue}: ${shouldExecute ? 'match' : 'no match'}`);
                 } else if (!fallThrough && isDefault) {
                     // Default case - execute only if no previous match
                     shouldExecute = !matchFound;
@@ -6521,7 +6536,7 @@ class ASTInterpreter {
                         timestamp: Date.now()
                     });
                     
-                    console.log(`DEBUG Default case: ${shouldExecute ? 'execute' : 'skip'}`);
+                    debugLog(`DEBUG Default case: ${shouldExecute ? 'execute' : 'skip'}`);
                 }
                 
                 if (shouldExecute) {
@@ -6537,7 +6552,7 @@ class ASTInterpreter {
                                 action: 'exit_switch'
                             });
                             
-                            console.log(`DEBUG Break statement encountered`);
+                            debugLog(`DEBUG Break statement encountered`);
                             return; // Exit switch
                         }
                         
@@ -6551,7 +6566,7 @@ class ASTInterpreter {
             }
         }
         
-        console.log(`DEBUG Switch completed: ${matchFound ? 'match found' : 'no match'}`);
+        debugLog(`DEBUG Switch completed: ${matchFound ? 'match found' : 'no match'}`);
     }
     
     async executeIfStatement(node) {
@@ -6649,7 +6664,7 @@ class ASTInterpreter {
             
             if (limitReached) {
                 if (this.options.verbose) {
-                    console.log(`While loop limit reached: ${iterations} iterations`);
+                    debugLog(`While loop limit reached: ${iterations} iterations`);
                 }
                 // Signal that we reached the limit for test completion
                 this.executionContext.shouldContinue = false;
@@ -6711,7 +6726,7 @@ class ASTInterpreter {
         
         if (limitReached) {
             if (this.options.verbose) {
-                console.log(`Do-while loop limit reached: ${iterations} iterations`);
+                debugLog(`Do-while loop limit reached: ${iterations} iterations`);
             }
             // Signal that we reached the limit for test completion
             this.executionContext.shouldContinue = false;
@@ -6811,7 +6826,7 @@ class ASTInterpreter {
             
             if (limitReached) {
                 if (this.options.verbose) {
-                    console.log(`For loop limit reached: ${iterations} iterations`);
+                    debugLog(`For loop limit reached: ${iterations} iterations`);
                 }
                 // Signal that we reached the limit for test completion
                 this.executionContext.shouldContinue = false;
@@ -6918,7 +6933,7 @@ class ASTInterpreter {
             message: `${funcName}(${args.join(', ')})`
         });
         
-        console.log(`DEBUG User function call: ${funcName}(${args.join(', ')})`);
+        debugLog(`DEBUG User function call: ${funcName}(${args.join(', ')})`);
         
         // Create new function scope and set function context
         this.variables.pushScope('function');
@@ -6952,14 +6967,14 @@ class ASTInterpreter {
                     
                     if (paramName) {
                         this.variables.set(paramName, argValue);
-                        console.log(`DEBUG Parameter: ${paramName} = ${argValue} (type: ${typeof argValue})`);
+                        debugLog(`DEBUG Parameter: ${paramName} = ${argValue} (type: ${typeof argValue})`);
                         
                         // Debug array parameters specifically
                         if (Array.isArray(argValue)) {
-                            console.log(`DEBUG Array parameter: ${paramName} = [${argValue.join(', ')}] (length: ${argValue.length})`);
+                            debugLog(`DEBUG Array parameter: ${paramName} = [${argValue.join(', ')}] (length: ${argValue.length})`);
                         }
                     } else {
-                        console.log(`DEBUG Failed to extract parameter name from:`, param);
+                        debugLog(`DEBUG Failed to extract parameter name from:`, param);
                     }
                 }
             }
@@ -6970,7 +6985,7 @@ class ASTInterpreter {
                 returnValue = await this.executeFunctionBody(funcNode.body);
             }
             
-            console.log(`DEBUG Function ${funcName} returned: ${returnValue}`);
+            debugLog(`DEBUG Function ${funcName} returned: ${returnValue}`);
             return returnValue;
                 
         } finally {
@@ -7007,7 +7022,7 @@ class ASTInterpreter {
                 // Handle return statement - evaluate and return the value
                 if (statement.value) {
                     const returnValue = await this.evaluateExpression(statement.value);
-                    console.log(`DEBUG Return statement: ${returnValue}`);
+                    debugLog(`DEBUG Return statement: ${returnValue}`);
                     return returnValue;
                 } else {
                     return null; // void return
@@ -7239,7 +7254,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`pulseIn(${pin}, ${value}) -> ${mockDuration}μs`);
+            debugLog(`pulseIn(${pin}, ${value}) -> ${mockDuration}μs`);
         }
         
         // Return proper type for Arduino compatibility
@@ -7271,7 +7286,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`tone(${pin}, ${frequency}${duration !== null ? ', ' + duration : ''})`);
+            debugLog(`tone(${pin}, ${frequency}${duration !== null ? ', ' + duration : ''})`);
         }
     }
     
@@ -7293,7 +7308,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`noTone(${pin})`);
+            debugLog(`noTone(${pin})`);
         }
     }
     
@@ -7568,7 +7583,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`AVR clock prescaler set: ${args.join(', ')}`);
+            debugLog(`AVR clock prescaler set: ${args.join(', ')}`);
         }
         
         return undefined; // void function
@@ -7605,7 +7620,7 @@ class ASTInterpreter {
                     message: `Serial.begin(${baudRate})`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.begin(${baudRate})`);
+                    debugLog(`Serial.begin(${baudRate})`);
                 }
                 return;
                 
@@ -7625,7 +7640,7 @@ class ASTInterpreter {
                     message: `Serial.print(${printDisplayArg})`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.print(${printData})`);
+                    debugLog(`Serial.print(${printData})`);
                 }
                 return;
                 
@@ -7641,7 +7656,7 @@ class ASTInterpreter {
                         message: `Serial.println()`
                     });
                     if (this.options.verbose) {
-                        console.log(`Serial.println()`);
+                        debugLog(`Serial.println()`);
                     }
                     return;
                 } else {
@@ -7656,7 +7671,7 @@ class ASTInterpreter {
                         message: `Serial.println(${printlnDisplayArg})`
                     });
                     if (this.options.verbose) {
-                        console.log(`Serial.println(${printlnData})`);
+                        debugLog(`Serial.println(${printlnData})`);
                     }
                     return;
                 }
@@ -7674,7 +7689,7 @@ class ASTInterpreter {
                     message: `Serial.available()`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.available() -> ${availableBytes}`);
+                    debugLog(`Serial.available() -> ${availableBytes}`);
                 }
                 return availableBytes;
                 
@@ -7690,7 +7705,7 @@ class ASTInterpreter {
                     message: `Serial.read()`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.read() -> ${readByte}`);
+                    debugLog(`Serial.read() -> ${readByte}`);
                 }
                 return readByte;
                 
@@ -7708,7 +7723,7 @@ class ASTInterpreter {
                     message: `Serial.write(${writeData})`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.write(${writeData})`);
+                    debugLog(`Serial.write(${writeData})`);
                 }
                 return;
                 
@@ -7723,7 +7738,7 @@ class ASTInterpreter {
                     message: `Serial.peek()`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.peek() -> ${peekByte}`);
+                    debugLog(`Serial.peek() -> ${peekByte}`);
                 }
                 return peekByte;
                 
@@ -7737,7 +7752,7 @@ class ASTInterpreter {
                     message: `Serial.flush()`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.flush()`);
+                    debugLog(`Serial.flush()`);
                 }
                 return;
                 
@@ -7755,7 +7770,7 @@ class ASTInterpreter {
                     message: `Serial.setTimeout(${timeout})`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.setTimeout(${timeout})`);
+                    debugLog(`Serial.setTimeout(${timeout})`);
                 }
                 return;
                 
@@ -7771,7 +7786,7 @@ class ASTInterpreter {
                     message: `Serial.parseInt()`
                 });
                 if (this.options.verbose) {
-                    console.log(`Serial.parseInt() -> ${parsedInt}`);
+                    debugLog(`Serial.parseInt() -> ${parsedInt}`);
                 }
                 return parsedInt;
                 
@@ -7819,7 +7834,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log(`Static method: ${libraryName}.${methodName}(${args.join(', ')})`);
+            debugLog(`Static method: ${libraryName}.${methodName}(${args.join(', ')})`);
         }
         
         // Return appropriate value based on method (simplified)
@@ -7985,7 +8000,7 @@ class ASTInterpreter {
             if (metadata?.isStatic) {
                 const staticValue = this.staticVariables.get(metadata.staticKey);
                 if (this.options.verbose) {
-                    console.log(`Getting static variable ${name} = ${staticValue} (key: ${metadata.staticKey})`);
+                    debugLog(`Getting static variable ${name} = ${staticValue} (key: ${metadata.staticKey})`);
                 }
                 return staticValue;
             }
@@ -7994,7 +8009,7 @@ class ASTInterpreter {
             if (metadata?.isExtern && metadata?.isForwardDeclaration && metadata?.value === undefined) {
                 // This is an extern forward declaration that hasn't been defined yet
                 if (this.options.verbose) {
-                    console.log(`Extern forward declaration ${name} not yet defined`);
+                    debugLog(`Extern forward declaration ${name} not yet defined`);
                 }
                 this.emitError(`Extern variable '${name}' used but not defined`);
                 return 0;
@@ -8005,7 +8020,7 @@ class ASTInterpreter {
             // Phase 4.4: Variable already marked as used in evaluateExpression
             
             if (this.options.verbose) {
-                console.log(`Getting variable ${name} = ${metadata?.value} (initialized: ${metadata?.isInitialized}, used: ${metadata?.isUsed}, extern: ${metadata?.isExtern})`);
+                debugLog(`Getting variable ${name} = ${metadata?.value} (initialized: ${metadata?.isInitialized}, used: ${metadata?.isUsed}, extern: ${metadata?.isExtern})`);
             }
             
             // FALLBACK: Check static storage if variable has no static metadata but might be static
@@ -8013,7 +8028,7 @@ class ASTInterpreter {
             if (this.staticVariables.has(staticKey)) {
                 const staticValue = this.staticVariables.get(staticKey);
                 if (this.options.verbose) {
-                    console.log(`Getting static variable ${name} = ${staticValue}`);
+                    debugLog(`Getting static variable ${name} = ${staticValue}`);
                 }
                 return staticValue;
             }
@@ -8026,7 +8041,7 @@ class ASTInterpreter {
         if (constantValue !== name) {
             // It's a valid constant
             if (this.options.verbose) {
-                console.log(`Getting constant ${name} = ${constantValue}`);
+                debugLog(`Getting constant ${name} = ${constantValue}`);
             }
             return constantValue;
         }
@@ -8054,7 +8069,7 @@ class ASTInterpreter {
                 });
                 
                 if (this.options.verbose) {
-                    console.log(`Restored static variable ${varName} = ${staticValue} (key: ${staticKey})`);
+                    debugLog(`Restored static variable ${varName} = ${staticValue} (key: ${staticKey})`);
                 }
             }
         }
@@ -8069,7 +8084,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`State changed: ${oldState} → ${newState}, Phase: ${this.executionContext.phase}, Loop: ${this.executionContext.loopIteration}`);
+            debugLog(`State changed: ${oldState} → ${newState}, Phase: ${this.executionContext.phase}, Loop: ${this.executionContext.loopIteration}`);
         }
     }
     
@@ -8081,7 +8096,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log("Command:", command);
+            debugLog("Command:", command);
         }
     }
     
@@ -8315,7 +8330,7 @@ class ASTInterpreter {
         const consequent = node.consequent || [];
         
         if (this.options.verbose) {
-            console.log(`Case statement: ${testValue !== null ? testValue : 'default'}`);
+            debugLog(`Case statement: ${testValue !== null ? testValue : 'default'}`);
         }
         
         // Case statements are typically handled within switch context
@@ -8330,7 +8345,7 @@ class ASTInterpreter {
     
     handleEmptyStatement(node) {
         if (this.options.verbose) {
-            console.log('Empty statement encountered');
+            debugLog('Empty statement encountered');
         }
         
         // Empty statements are no-ops, just return success
@@ -8354,7 +8369,7 @@ class ASTInterpreter {
         const rangeValue = await this.evaluateExpression(range);
         
         if (this.options.verbose) {
-            console.log(`Range-based for loop over ${typeof rangeValue}`);
+            debugLog(`Range-based for loop over ${typeof rangeValue}`);
         }
         
         // Extract variable name from declaration
@@ -8398,7 +8413,7 @@ class ASTInterpreter {
         
         // Clean up loop variable (optional)
         if (this.options.verbose) {
-            console.log(`Range-based for loop completed (${iterationValues.length} iterations)`);
+            debugLog(`Range-based for loop completed (${iterationValues.length} iterations)`);
         }
     }
     
@@ -8421,7 +8436,7 @@ class ASTInterpreter {
         const isTrue = Boolean(conditionResult);
         
         if (this.options.verbose) {
-            console.log(`Ternary expression: ${conditionResult} ? ... : ...`);
+            debugLog(`Ternary expression: ${conditionResult} ? ... : ...`);
         }
         
         // Return appropriate branch result
@@ -8446,7 +8461,7 @@ class ASTInterpreter {
         const operatorValue = operator.value || operator;
         
         if (this.options.verbose) {
-            console.log(`Postfix expression: ${operand.value || 'expression'}${operatorValue}`);
+            debugLog(`Postfix expression: ${operand.value || 'expression'}${operatorValue}`);
         }
         
         // Get current value before modification
@@ -8466,7 +8481,7 @@ class ASTInterpreter {
                     if (varInfo?.metadata?.isStatic) {
                         this.staticVariables.set(varInfo.metadata.staticKey, newValue);
                         if (this.options.verbose) {
-                            console.log(`Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
+                            debugLog(`Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
                         }
                     }
                 }
@@ -8484,7 +8499,7 @@ class ASTInterpreter {
                     if (varInfo?.metadata?.isStatic) {
                         this.staticVariables.set(varInfo.metadata.staticKey, newValue);
                         if (this.options.verbose) {
-                            console.log(`Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
+                            debugLog(`Updated static variable ${varName} = ${newValue} (key: ${varInfo.metadata.staticKey})`);
                         }
                     }
                 }
@@ -8510,7 +8525,7 @@ class ASTInterpreter {
         const targetType = castType.value || castType;
         
         if (this.options.verbose) {
-            console.log(`C-style cast: (${targetType})${sourceValue}`);
+            debugLog(`C-style cast: (${targetType})${sourceValue}`);
         }
         
         // Perform cast (similar to static_cast)
@@ -8548,7 +8563,7 @@ class ASTInterpreter {
         const typeName = allocationType.value || allocationType;
         
         if (this.options.verbose) {
-            console.log(`New expression: new ${typeName}${size ? `[${size}]` : ''}(${args.length} args)`);
+            debugLog(`New expression: new ${typeName}${size ? `[${size}]` : ''}(${args.length} args)`);
         }
         
         // Evaluate constructor arguments
@@ -8587,7 +8602,7 @@ class ASTInterpreter {
         // Struct declaration processing
         
         if (this.options.verbose) {
-            console.log(`Struct declaration: ${structName || 'anonymous'} with ${members.length} members`);
+            debugLog(`Struct declaration: ${structName || 'anonymous'} with ${members.length} members`);
         }
         
         // Create struct type definition
@@ -8603,10 +8618,10 @@ class ASTInterpreter {
             this.structTypes = this.structTypes || new Map();
             this.structTypes.set(structName, structDef);
             if (this.options.verbose) {
-                console.log(`Stored struct type: ${structName}`);
+                debugLog(`Stored struct type: ${structName}`);
             }
         } else {
-            console.log(`DEBUG: No structName to store, skipping`);
+            debugLog(`DEBUG: No structName to store, skipping`);
         }
         
         return structDef;
@@ -8617,7 +8632,7 @@ class ASTInterpreter {
         const members = node.members || [];
         
         if (this.options.verbose) {
-            console.log(`Enum declaration: ${enumName || 'anonymous'} with ${members.length} members`);
+            debugLog(`Enum declaration: ${enumName || 'anonymous'} with ${members.length} members`);
         }
         
         // Process enum members and assign values
@@ -8659,7 +8674,7 @@ class ASTInterpreter {
     async createStructVariable(structTypeName, variableName) {
         // Create a struct variable instance
         if (this.options.verbose) {
-            console.log(`Creating struct variable: ${variableName} of type ${structTypeName}`);
+            debugLog(`Creating struct variable: ${variableName} of type ${structTypeName}`);
         }
         
         if (!this.structTypes) {
@@ -8710,7 +8725,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose) {
-            console.log(`Struct variable created: ${variableName} of type ${structTypeName} with fields [${Object.keys(structFields).join(', ')}]`);
+            debugLog(`Struct variable created: ${variableName} of type ${structTypeName} with fields [${Object.keys(structFields).join(', ')}]`);
         }
         
         // Emit command for variable creation
@@ -8729,7 +8744,7 @@ class ASTInterpreter {
         const variables = node.variables || [];
         
         if (this.options.verbose) {
-            console.log(`Union declaration: ${unionName || 'anonymous'} with ${members.length} members`);
+            debugLog(`Union declaration: ${unionName || 'anonymous'} with ${members.length} members`);
         }
         
         // Create union type definition
@@ -8776,7 +8791,7 @@ class ASTInterpreter {
         const structName = node.name;
         
         if (this.options.verbose) {
-            console.log(`Struct type reference: ${structName}`);
+            debugLog(`Struct type reference: ${structName}`);
         }
         
         // Store the pending struct type for the next identifier expression
@@ -8840,7 +8855,7 @@ class ASTInterpreter {
         const aliasName = node.typeName;
         
         if (this.options.verbose) {
-            console.log(`Processing typedef declaration: ${aliasName}`);
+            debugLog(`Processing typedef declaration: ${aliasName}`);
         }
         
         // Initialize type aliases map if needed
@@ -8864,14 +8879,14 @@ class ASTInterpreter {
             this.typeAliases.set(aliasName, 'struct');
             
             if (this.options.verbose) {
-                console.log(`Registered typedef struct: ${aliasName} with ${structDef.members?.length || 0} members`);
+                debugLog(`Registered typedef struct: ${aliasName} with ${structDef.members?.length || 0} members`);
             }
         } else {
             // Handle other typedef cases
             this.typeAliases.set(aliasName, node.baseType);
             
             if (this.options.verbose) {
-                console.log(`Registered typedef alias: ${aliasName}`);
+                debugLog(`Registered typedef alias: ${aliasName}`);
             }
         }
         
@@ -8883,7 +8898,7 @@ class ASTInterpreter {
         const className = node.className || node.name;
         
         if (this.options.verbose) {
-            console.log(`Class declaration: ${className}`);
+            debugLog(`Class declaration: ${className}`);
         }
         
         // Store class definition if needed
@@ -8905,7 +8920,7 @@ class ASTInterpreter {
         const className = node.className || node.name;
         
         if (this.options.verbose) {
-            console.log(`Constructor declaration: ${className}`);
+            debugLog(`Constructor declaration: ${className}`);
         }
         
         return { type: 'constructor_registered', className };
@@ -8917,7 +8932,7 @@ class ASTInterpreter {
         const methodName = node.methodName || node.name;
         
         if (this.options.verbose) {
-            console.log(`Member function declaration: ${className}::${methodName}`);
+            debugLog(`Member function declaration: ${className}::${methodName}`);
         }
         
         return { type: 'member_function_registered', className, methodName };
@@ -8928,7 +8943,7 @@ class ASTInterpreter {
         const templateName = node.templateName || node.name;
         
         if (this.options.verbose) {
-            console.log(`Template declaration: ${templateName}`);
+            debugLog(`Template declaration: ${templateName}`);
         }
         
         // Store template definition if needed
@@ -8951,7 +8966,7 @@ class ASTInterpreter {
         const body = node.body;
         
         if (this.options.verbose) {
-            console.log(`Lambda expression with ${captures.length} captures, ${parameters.length} parameters`);
+            debugLog(`Lambda expression with ${captures.length} captures, ${parameters.length} parameters`);
         }
         
         // Create a lambda function object
@@ -9128,7 +9143,7 @@ class ASTInterpreter {
         });
         
         if (this.options.verbose) {
-            console.log('Initialized default Arduino macros including PI and CIRCLE_AREA');
+            debugLog('Initialized default Arduino macros including PI and CIRCLE_AREA');
         }
     }
     
@@ -9146,7 +9161,7 @@ class ASTInterpreter {
                 this.activeLibraries.add(libraryName);
                 
                 if (this.options.verbose) {
-                    console.log(`📦 Enabled library: ${libraryName}`);
+                    debugLog(`📦 Enabled library: ${libraryName}`);
                 }
             }
         }
@@ -9197,7 +9212,7 @@ class ASTInterpreter {
                     this.variables.markAsInitialized(constantName);
                     
                     if (this.options.verbose) {
-                        console.log(`🔧 Added library constant: ${constantName} = ${value}`);
+                        debugLog(`🔧 Added library constant: ${constantName} = ${value}`);
                     }
                 } else if (this.options.verbose) {
                     console.warn(`⚠️  Failed to add library constant: ${constantName}`);
@@ -9206,7 +9221,7 @@ class ASTInterpreter {
         }
         
         if (this.options.verbose && (preprocessorInfo.activeLibraries?.length > 0 || Object.keys(preprocessorInfo.macros || {}).length > 0)) {
-            console.log(`✅ Processed preprocessor results: ${preprocessorInfo.activeLibraries?.length || 0} libraries, ${Object.keys(preprocessorInfo.macros || {}).length} macros, ${Object.keys(preprocessorInfo.libraryConstants || {}).length} constants`);
+            debugLog(`✅ Processed preprocessor results: ${preprocessorInfo.activeLibraries?.length || 0} libraries, ${Object.keys(preprocessorInfo.macros || {}).length} macros, ${Object.keys(preprocessorInfo.libraryConstants || {}).length} constants`);
         }
     }
     
@@ -9227,14 +9242,14 @@ class ASTInterpreter {
             });
             
             if (this.options.verbose) {
-                console.log(`Defined function macro: ${macroName}(${params.join(', ')}) = ${value}`);
+                debugLog(`Defined function macro: ${macroName}(${params.join(', ')}) = ${value}`);
             }
         } else {
             // Simple macro: #define PI 3.14159
             this.macros.set(name, value);
             
             if (this.options.verbose) {
-                console.log(`Defined macro: ${name} = ${value}`);
+                debugLog(`Defined macro: ${name} = ${value}`);
             }
         }
     }
@@ -9305,7 +9320,7 @@ class ASTInterpreter {
             const result = eval(expr);
             
             if (this.options.verbose) {
-                console.log(`Simple macro evaluation: ${expr} = ${result}`);
+                debugLog(`Simple macro evaluation: ${expr} = ${result}`);
             }
             
             return result;

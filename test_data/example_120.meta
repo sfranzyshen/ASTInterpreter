@@ -1,8 +1,9 @@
 name=Conditional_Operator_in_a_Loop.ino
-source=old_test
-astSize=1311
+source=unknown
+astSize=1781
 codeSize=297
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// Conditional Operator in a Loop
 void setup() {
   Serial.begin(9600);

@@ -1,8 +1,9 @@
 name=Complex_Conditional_Logic.ino
-source=old_test
-astSize=1625
+source=unknown
+astSize=1953
 codeSize=443
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=18
 content=// Complex Conditional Logic
 void setup() {
   Serial.begin(9600);

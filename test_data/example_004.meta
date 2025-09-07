@@ -1,8 +1,9 @@
 name=Fade.ino
-source=examples
-astSize=1387
+source=unknown
+astSize=1600
 codeSize=659
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 01.Basics Fade.ino 
 
 int led = 9;

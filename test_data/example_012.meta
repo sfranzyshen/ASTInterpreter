@@ -1,8 +1,9 @@
 name=toneMelody.ino
-source=examples
-astSize=1477
+source=unknown
+astSize=1609
 codeSize=826
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// 02.Digital toneMelody.ino
 
 #include "pitches.h"

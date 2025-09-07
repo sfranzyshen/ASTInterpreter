@@ -1,8 +1,9 @@
 name=Nested_for_and_if_with_break_and_continue.ino
-source=old_test
-astSize=1560
+source=unknown
+astSize=2010
 codeSize=539
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=26
 content=// Nested for and if with break and continue
 void setup() {
   Serial.begin(9600);

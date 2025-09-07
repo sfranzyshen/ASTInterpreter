@@ -1,8 +1,9 @@
 name=switchCase.ino
-source=examples
-astSize=1593
+source=unknown
+astSize=1911
 codeSize=774
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// 05.Control switchCase.ino
 
 // these constants won't change. They are the lowest and highest readings you

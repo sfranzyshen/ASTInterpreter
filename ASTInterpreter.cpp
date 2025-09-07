@@ -30,7 +30,7 @@ public:
 };
 
 static NullStream nullStream;
-#define DEBUG_OUT std::cout  // Temporarily enable debug for diagnosis
+#define DEBUG_OUT nullStream  // Disable debug for cross-platform validation
 
 namespace arduino_interpreter {
 
@@ -124,7 +124,15 @@ void ASTInterpreter::initializeInterpreter() {
     scopeManager_->setVariable("INPUT", Variable(static_cast<int32_t>(0), "int", true));
     scopeManager_->setVariable("OUTPUT", Variable(static_cast<int32_t>(1), "int", true));
     scopeManager_->setVariable("INPUT_PULLUP", Variable(static_cast<int32_t>(2), "int", true));
-    scopeManager_->setVariable("LED_BUILTIN", Variable(static_cast<int32_t>(13), "int", true));
+    scopeManager_->setVariable("LED_BUILTIN", Variable(static_cast<int32_t>(2), "int", true)); // ESP32 built-in LED
+    
+    // Initialize analog pin constants (ESP32 pin mappings)
+    scopeManager_->setVariable("A0", Variable(static_cast<int32_t>(36), "int", true));
+    scopeManager_->setVariable("A1", Variable(static_cast<int32_t>(39), "int", true));
+    scopeManager_->setVariable("A2", Variable(static_cast<int32_t>(34), "int", true));
+    scopeManager_->setVariable("A3", Variable(static_cast<int32_t>(35), "int", true));
+    scopeManager_->setVariable("A4", Variable(static_cast<int32_t>(32), "int", true));
+    scopeManager_->setVariable("A5", Variable(static_cast<int32_t>(33), "int", true));
     
     debugLog("Interpreter initialized with " + std::to_string(maxLoopIterations_) + " max loop iterations");
 }
@@ -330,8 +338,7 @@ void ASTInterpreter::executeLoop() {
                 currentFunction_ = nullptr;
                 scopeManager_->popScope();
                 
-                // Emit function call end command
-                emitCommand(CommandFactory::createFunctionCall("loop"));
+                // CROSS-PLATFORM FIX: Don't emit duplicate loop function call (JavaScript doesn't emit this)
                 
                 // Handle step delay - for Arduino, delays should be handled by parent application
                 // The tick() method should return quickly and let the parent handle timing
@@ -342,8 +349,8 @@ void ASTInterpreter::executeLoop() {
             } // End while loop
         }
         
-        // Emit main loop end command (JavaScript emits LOOP_END instead of LOOP_LIMIT_REACHED)
-        emitCommand(CommandFactory::createLoopEnd("main", currentLoopIteration_));
+        // CROSS-PLATFORM FIX: Don't emit LOOP_END command (JavaScript doesn't emit this)
+        // emitCommand(CommandFactory::createLoopEnd("main", currentLoopIteration_));
     } else {
         debugLog("No loop() function found");
     }
@@ -635,6 +642,16 @@ void ASTInterpreter::visit(arduino_ast::FuncCallNode& node) {
     if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(node.getCallee())) {
         functionName = identifier->getName();
         TRACE("FuncCall-Name", "Calling function: " + functionName);
+    } else if (const auto* memberAccess = dynamic_cast<const arduino_ast::MemberAccessNode*>(node.getCallee())) {
+        // Handle member access like Serial.begin()
+        if (const auto* objectId = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccess->getObject())) {
+            if (const auto* propertyId = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccess->getProperty())) {
+                std::string objectName = objectId->getName();
+                std::string methodName = propertyId->getName();
+                functionName = objectName + "." + methodName;
+                TRACE("FuncCall-MemberAccess", "Calling member function: " + functionName);
+            }
+        }
     }
     
     // Evaluate arguments
@@ -1018,6 +1035,11 @@ void ASTInterpreter::visit(arduino_ast::VarDeclNode& node) {
             
             debugLog("Declared variable: " + varName + " (" + typeName + ") = " + commandValueToString(typedValue));
             TRACE("VarDecl-Variable", "Declared " + varName + "=" + commandValueToString(typedValue));
+            
+            // CROSS-PLATFORM FIX: JavaScript emits VAR_SET only for GLOBAL variable declarations
+            if (scopeManager_->isGlobalScope()) {
+                emitCommand(CommandFactory::createVarSet(varName, typedValue));
+            }
         } else {
             debugLog("Declaration " + std::to_string(i) + " is not a DeclaratorNode, skipping");
         }
@@ -1875,9 +1897,36 @@ CommandValue ASTInterpreter::evaluateExpression(arduino_ast::ASTNode* expr) {
         case arduino_ast::ASTNodeType::FUNC_CALL:
             if (auto* funcNode = dynamic_cast<arduino_ast::FuncCallNode*>(expr)) {
                 std::string functionName;
+                debugLog("evaluateExpression: FUNC_CALL node found");
+                
                 if (const auto* identifier = dynamic_cast<const arduino_ast::IdentifierNode*>(funcNode->getCallee())) {
                     functionName = identifier->getName();
+                    debugLog("evaluateExpression: Identifier callee: " + functionName);
+                } else if (const auto* memberAccess = dynamic_cast<const arduino_ast::MemberAccessNode*>(funcNode->getCallee())) {
+                    debugLog("evaluateExpression: MemberAccess callee found");
+                    // Handle member access like Serial.begin()
+                    if (const auto* objectId = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccess->getObject())) {
+                        if (const auto* propertyId = dynamic_cast<const arduino_ast::IdentifierNode*>(memberAccess->getProperty())) {
+                            std::string objectName = objectId->getName();
+                            std::string methodName = propertyId->getName();
+                            functionName = objectName + "." + methodName;
+                            debugLog("evaluateExpression: Extracted function name: " + functionName);
+                        } else {
+                            debugLog("evaluateExpression: Property is not IdentifierNode");
+                        }
+                    } else {
+                        debugLog("evaluateExpression: Object is not IdentifierNode");
+                    }
+                } else {
+                    debugLog("evaluateExpression: Callee is neither Identifier nor MemberAccess");
+                    if (funcNode->getCallee()) {
+                        debugLog("evaluateExpression: Callee type: " + std::to_string(static_cast<int>(funcNode->getCallee()->getType())));
+                    } else {
+                        debugLog("evaluateExpression: Callee is null");
+                    }
                 }
+                
+                debugLog("evaluateExpression: Final function name: '" + functionName + "'");
                 
                 std::vector<CommandValue> args;
                 for (const auto& arg : funcNode->getArguments()) {
@@ -2265,8 +2314,14 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
         return handleTimingOperation(name, args);
     }
     
-    // Serial operations  
-    else if (name == "Serial.begin" || name == "Serial.print" || name == "Serial.println") {
+    // Serial operations (Serial, Serial1, Serial2, Serial3)
+    else if (name == "Serial.begin" || name == "Serial.print" || name == "Serial.println" ||
+             name == "Serial1.begin" || name == "Serial1.print" || name == "Serial1.println" ||
+             name == "Serial1.available" || name == "Serial1.read" || name == "Serial1.write" ||
+             name == "Serial2.begin" || name == "Serial2.print" || name == "Serial2.println" ||
+             name == "Serial2.available" || name == "Serial2.read" || name == "Serial2.write" ||
+             name == "Serial3.begin" || name == "Serial3.print" || name == "Serial3.println" ||
+             name == "Serial3.available" || name == "Serial3.read" || name == "Serial3.write") {
         auto result = handleSerialOperation(name, args);
         serialOperations_++;
         auto functionEnd = std::chrono::steady_clock::now();
@@ -2516,6 +2571,35 @@ CommandValue ASTInterpreter::executeArduinoFunction(const std::string& name, con
             int32_t maxVal = convertToInt(args[1]);
             if (maxVal <= minVal) return minVal;
             return static_cast<int32_t>(rand() % (maxVal - minVal) + minVal);
+        }
+    }
+    
+    // Audio/Tone library functions
+    else if (name == "tone") {
+        // tone(pin, frequency) or tone(pin, frequency, duration)
+        if (args.size() >= 2) {
+            int32_t pin = convertToInt(args[0]);
+            int32_t frequency = convertToInt(args[1]);
+            if (args.size() >= 3) {
+                int32_t duration = convertToInt(args[2]);
+                emitCommand(CommandFactory::createToneWithDuration(pin, frequency, duration));
+            } else {
+                emitCommand(CommandFactory::createTone(pin, frequency));
+            }
+            auto functionEnd = std::chrono::steady_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+            functionExecutionTimes_[name] += duration;
+            return std::monostate{};
+        }
+    } else if (name == "noTone") {
+        // noTone(pin)
+        if (args.size() >= 1) {
+            int32_t pin = convertToInt(args[0]);
+            emitCommand(CommandFactory::createNoTone(pin));
+            auto functionEnd = std::chrono::steady_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(functionEnd - functionStart);
+            functionExecutionTimes_[name] += duration;
+            return std::monostate{};
         }
     }
     

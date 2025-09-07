@@ -29,7 +29,7 @@
  * 
  * Architecture: Code → Platform Context → Preprocessor → Parser → Clean AST
  * 
- * CHANGELOG v5.1.0:
+ * CHANGELOG v5.2.0:
  *   + CRITICAL FIX: CompactAST export mapping for ternary expressions
  *   + Fixed 'TernaryExpressionNode' → 'TernaryExpression' mapping for cross-platform compatibility
  *   + Ensures JavaScript ↔ C++ ternary expression parity in CompactAST format
@@ -44,7 +44,7 @@
 // PARSER CONSTANTS AND CONFIGURATION
 // =============================================================================
 
-const PARSER_VERSION = "5.1.0";
+const PARSER_VERSION = "5.2.0";
 const PLATFORM_EMULATION_VERSION = '1.0.0';
 const PREPROCESSOR_VERSION = '1.2.0';
 
@@ -4740,6 +4740,7 @@ class CompactASTExporter {
             'BinaryOpNode': ['left', 'right'],
             'UnaryOpNode': ['operand'],
             'AssignmentNode': ['left', 'right'],
+            'ExpressionStatement': ['expression'],
             'MemberAccessNode': ['object', 'property'],
             'ParamNode': ['paramType', 'declarator', 'defaultValue'],
             'ArrayAccessNode': ['object', 'index'],
@@ -4910,7 +4911,7 @@ class CompactASTExporter {
         // Calculate flags
         let flags = 0;
         if (this.getChildCount(node) > 0) flags |= 0x01; // HAS_CHILDREN
-        if (node.value !== undefined) flags |= 0x02; // HAS_VALUE
+        if (node.value !== undefined || node.operator !== undefined) flags |= 0x02; // HAS_VALUE
         
         view.setUint8(offset, flags);
         offset += 1;
@@ -4921,16 +4922,12 @@ class CompactASTExporter {
         
         const dataStartOffset = offset;
         
-        // Write value if present
+        // Write value if present (node.value takes precedence over node.operator)
         if (node.value !== undefined) {
             offset = this.writeValue(view, offset, node.value);
-        }
-        
-        // Write operator if present
-        if (node.operator) {
-            view.setUint8(offset, 0x0F); // OPERATOR_VAL
-            view.setUint16(offset + 1, this.stringTable.get(node.operator), true);
-            offset += 3;
+        } else if (node.operator !== undefined) {
+            // Write operator as a regular string value for C++ compatibility
+            offset = this.writeValue(view, offset, node.operator);
         }
         
         // Write children indices

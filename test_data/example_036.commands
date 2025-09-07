@@ -1,1 +1,196 @@
-[{"type":"AST_ONLY_MODE","data":{}}]
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757251672026,
+    "component": "interpreter",
+    "version": "7.1.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757251672026,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 9,
+    "isConst": true,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "indicatorLedPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 1023,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 0,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1757251672026
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757251672027,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1757251672027
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 9,
+    "mode": 1,
+    "timestamp": 1757251672027
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1757251672027
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757251672027,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251672027,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251672027,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1757251672027
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1757251672027,
+    "message": "while loop started"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1757251672027_0.7689580682237898",
+    "timestamp": 1757251672027
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1757251672029,
+    "message": "while loop iteration 0"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "calibrate",
+    "arguments": [],
+    "timestamp": 1757251672029,
+    "message": "calibrate()"
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1757251672029
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1757251672033_0.5478891602541507",
+    "timestamp": 1757251672034
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 938,
+    "timestamp": 1757251672037
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1757251672042
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 938,
+    "timestamp": 1757251672042
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1757251672047
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 938,
+    "timestamp": 1757251672047
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1757251672057_0.18477018356948172",
+    "timestamp": 1757251672057
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 1,
+    "timestamp": 1757251672064,
+    "message": "While loop limit reached: completed 1 iterations (max: 1)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1757251672064
+  }
+]

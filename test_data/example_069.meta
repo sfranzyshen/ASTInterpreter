@@ -1,8 +1,9 @@
 name=p07_Keyboard.ino
-source=examples
-astSize=1559
+source=unknown
+astSize=1931
 codeSize=965
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=// 10.StarterKit_BasicKit p07_Keyboard
 
 // create an array of notes

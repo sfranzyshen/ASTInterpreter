@@ -1,8 +1,9 @@
 name=IfStatementConditional.ino
-source=examples
-astSize=1445
+source=unknown
+astSize=1746
 codeSize=644
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 05.Control IfStatementConditional.ino
 
 // These constants won't change:

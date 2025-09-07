@@ -1,8 +1,9 @@
 name=Test_Case_for_Function_Pointer_Declarations.ino
-source=old_test
+source=unknown
 astSize=1216
 codeSize=155
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=12
 content=// Test Case for Function Pointer Declarations
 void myInterruptService() {}
 

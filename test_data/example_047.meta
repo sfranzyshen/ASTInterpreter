@@ -1,8 +1,9 @@
 name=StringAppendOperator
-source=examples
-astSize=1417
+source=unknown
+astSize=2570
 codeSize=1366
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=41
 content=// 08.Strings StringAppendOperator
 
 String stringOne, stringTwo;

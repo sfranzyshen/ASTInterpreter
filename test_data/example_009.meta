@@ -1,8 +1,9 @@
 name=DigitalInputPullup.ino
-source=examples
-astSize=1300
+source=unknown
+astSize=1626
 codeSize=708
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 02.Digital DigitalInputPullup.ino
 
 void setup() {

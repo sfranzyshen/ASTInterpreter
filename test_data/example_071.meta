@@ -1,8 +1,9 @@
 name=p09_MotorizedPinwheel.ino
-source=examples
-astSize=1377
+source=unknown
+astSize=1615
 codeSize=625
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// 10.StarterKit_BasicKit p09_MotorizedPinwheel
 
 // named constants for the switch and motor pins

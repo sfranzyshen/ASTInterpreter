@@ -1,8 +1,9 @@
 name=Unary_Plus_and_Minus_with_Operator_Precedence.ino
-source=old_test
-astSize=1460
+source=unknown
+astSize=1840
 codeSize=372
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// Unary Plus and Minus with Operator Precedence
 void setup() {
   Serial.begin(9600);

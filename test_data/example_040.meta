@@ -1,8 +1,9 @@
 name=Knock.ino
-source=examples
-astSize=1473
+source=unknown
+astSize=1832
 codeSize=718
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=25
 content=// 06.Sensors Knock.ino
 
 // these constants won't change:

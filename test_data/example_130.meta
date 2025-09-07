@@ -1,8 +1,9 @@
 name=Bit-Fields_in_Structs.ino
-source=old_test
-astSize=1206
+source=unknown
+astSize=1708
 codeSize=348
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// Bit-Fields in Structs
 struct MyFlags {
   unsigned int a : 1;

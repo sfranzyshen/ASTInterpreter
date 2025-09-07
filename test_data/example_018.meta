@@ -1,8 +1,9 @@
 name=Calibration.ino
-source=examples
-astSize=1583
+source=unknown
+astSize=2111
 codeSize=1148
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=27
 content=// 03.Analog Calibration.ino
 
 // These constants won't change:

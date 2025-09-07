@@ -1,8 +1,9 @@
 name=p06_LightTheremin.ino
-source=examples
-astSize=1623
+source=unknown
+astSize=2026
 codeSize=1132
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=26
 content=// 10.StarterKit_BasicKit p06_LightTheremin
 
 // variable to hold sensor value

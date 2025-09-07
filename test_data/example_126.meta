@@ -1,8 +1,9 @@
 name=Self-Referential_Structs_Linked_List_Node.ino
-source=old_test
-astSize=1212
+source=unknown
+astSize=1828
 codeSize=379
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=25
 content=// Self-Referential Structs (Linked List Node)
 struct Node {
   int data;

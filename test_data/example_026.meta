@@ -1,8 +1,9 @@
 name=PhysicalPixel.ino
-source=examples
-astSize=1437
+source=unknown
+astSize=1697
 codeSize=653
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// 04.Communication PhysicalPixel.ino
 
 const int ledPin = 13;

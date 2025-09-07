@@ -1,8 +1,9 @@
 name=StringStartsWithEndsWith.ino
-source=examples
-astSize=1633
+source=unknown
+astSize=2309
 codeSize=1147
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=29
 content=// 08.Strings StringStartsWithEndsWith
 
 void setup() {

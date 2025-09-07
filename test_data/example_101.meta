@@ -1,8 +1,9 @@
 name=Multiple_Statements_on_a_Single_Line.ino
-source=old_test
-astSize=1471
+source=unknown
+astSize=1774
 codeSize=305
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// Multiple Statements on a Single Line
 void setup() {
   Serial.begin(9600);

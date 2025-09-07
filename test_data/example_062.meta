@@ -1,8 +1,9 @@
 name=ButtonMouseControl.ino
-source=examples
-astSize=2287
+source=unknown
+astSize=2741
 codeSize=1514
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=41
 content=// 09.USB Mouse/ButtonMouseControl
 
 #include "Mouse.h"

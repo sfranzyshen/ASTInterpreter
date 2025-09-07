@@ -1,8 +1,9 @@
 name=Variable_Declarations_in_a_for_Loop.ino
-source=old_test
-astSize=1252
+source=unknown
+astSize=1432
 codeSize=178
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// Variable Declarations in a for Loop
 void setup() {
   Serial.begin(9600);

@@ -1,8 +1,9 @@
 name=Nested_Loops_and_Variable_Scope.ino
-source=old_test
-astSize=1454
+source=unknown
+astSize=1848
 codeSize=406
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=29
 content=// Nested Loops and Variable Scope
 void setup() {
   Serial.begin(9600);

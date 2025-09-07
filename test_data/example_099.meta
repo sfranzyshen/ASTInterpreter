@@ -1,8 +1,9 @@
 name=Floating-Point_Arithmetic_and_Mixed_Types.ino
-source=old_test
-astSize=1524
+source=unknown
+astSize=1974
 codeSize=476
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// Floating-Point Arithmetic and Mixed Types
 void setup() {
   Serial.begin(9600);

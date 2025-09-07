@@ -1,8 +1,9 @@
 name=StringLengthTrim.ino
-source=examples
-astSize=1329
+source=unknown
+astSize=1937
 codeSize=728
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// 08.Strings StringLengthTrim
 
 void setup() {

@@ -1,8 +1,9 @@
 name=StringToInt.ino
-source=examples
-astSize=1527
+source=unknown
+astSize=1973
 codeSize=809
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// 08.Strings StringToInt
 
 String inString = "";

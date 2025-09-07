@@ -1,8 +1,9 @@
 name=Unary_sizeof_Operator.ino
-source=old_test
-astSize=1315
+source=unknown
+astSize=1698
 codeSize=323
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=// Unary sizeof Operator
 void setup() {
   Serial.begin(9600);

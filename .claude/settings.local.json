@@ -83,7 +83,10 @@
       "Bash(./test_structured_batch)",
       "Bash(./test_validation_sample)",
       "Bash(./test_comprehensive_similarity)",
-      "Bash(./simple_trace_test)"
+      "Bash(./simple_trace_test)",
+      "Bash(./quick_similarity_test)",
+      "Bash(jq:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": [],

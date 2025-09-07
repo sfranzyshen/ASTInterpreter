@@ -1,8 +1,9 @@
 name=Test_Case_for_Advanced_Numeric_Literals.ino
-source=old_test
+source=unknown
 astSize=1291
 codeSize=139
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=14
 content=// Test Case for Advanced Numeric Literals
 int hexValue = 0x1A;
 int octValue = 032;

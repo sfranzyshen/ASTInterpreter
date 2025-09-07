@@ -23,7 +23,7 @@ public:
 };
 
 static NullStream nullStream;
-#define DEBUG_OUT std::cout
+#define DEBUG_OUT nullStream
 
 // Platform-specific headers
 #ifdef ARDUINO_ARCH_ESP32
@@ -37,7 +37,7 @@ namespace arduino_ast {
 // CONSTANTS
 // =============================================================================
 
-static constexpr uint32_t COMPACT_AST_MAGIC = 0x50545341; // 'ASTP' as read from little-endian file
+static constexpr uint32_t COMPACT_AST_MAGIC = 0x50545341; // 'ASTP' as written by JavaScript in little-endian
 static constexpr uint16_t SUPPORTED_VERSION = 0x0100;     // v1.0
 static constexpr size_t MIN_BUFFER_SIZE = sizeof(CompactASTHeader);
 
@@ -501,19 +501,19 @@ ASTValue CompactASTReader::parseValue() {
             
         case ValueType::INT16_VAL:
             validatePosition(2);
-            return static_cast<int32_t>(static_cast<int16_t>(convertFromLittleEndian16(readUint16())));
+            return static_cast<double>(static_cast<int16_t>(convertFromLittleEndian16(readUint16())));
             
         case ValueType::UINT16_VAL:
             validatePosition(2);
-            return static_cast<int32_t>(convertFromLittleEndian16(readUint16()));
+            return static_cast<double>(convertFromLittleEndian16(readUint16()));
             
         case ValueType::INT32_VAL:
             validatePosition(4);
-            return static_cast<int32_t>(convertFromLittleEndian32(readUint32()));
+            return static_cast<double>(convertFromLittleEndian32(readUint32()));
             
         case ValueType::UINT32_VAL:
             validatePosition(4);
-            return static_cast<int32_t>(convertFromLittleEndian32(readUint32()));
+            return static_cast<double>(convertFromLittleEndian32(readUint32()));
             
         case ValueType::FLOAT32_VAL:
             validatePosition(4);
@@ -672,6 +672,40 @@ void CompactASTReader::linkNodeChildren() {
                 } else {
                     parentNode->addChild(std::move(nodes_[childIndex]));
                 }
+            } else if (parentNode->getType() == ASTNodeType::EXPRESSION_STMT) {
+                DEBUG_OUT << "linkNodeChildren(): Found EXPRESSION_STMT parent node!" << std::endl;
+                auto* exprStmtNode = dynamic_cast<arduino_ast::ExpressionStatement*>(parentNode.get());
+                if (exprStmtNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up ExpressionStatement child " << childIndex << std::endl;
+                    
+                    // ExpressionStatement expects its first child to be the expression
+                    if (!exprStmtNode->getExpression()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting expression" << std::endl;
+                        exprStmtNode->setExpression(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Expression already set, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::FUNC_CALL) {
+                DEBUG_OUT << "linkNodeChildren(): Found FUNC_CALL parent node!" << std::endl;
+                auto* funcCallNode = dynamic_cast<arduino_ast::FuncCallNode*>(parentNode.get());
+                if (funcCallNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up FuncCallNode child " << childIndex << std::endl;
+                    
+                    // FuncCallNode expects first child as callee, rest as arguments
+                    if (!funcCallNode->getCallee()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting callee" << std::endl;
+                        funcCallNode->setCallee(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Adding argument" << std::endl;
+                        funcCallNode->addArgument(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
             } else if (parentNode->getType() == ASTNodeType::TERNARY_EXPR) {
                 DEBUG_OUT << "linkNodeChildren(): Found TERNARY_EXPR parent node!" << std::endl;
                 auto* ternaryNode = dynamic_cast<arduino_ast::TernaryExpressionNode*>(parentNode.get());
@@ -697,6 +731,26 @@ void CompactASTReader::linkNodeChildren() {
                         ternaryNode->setFalseExpression(std::move(nodes_[childIndex]));
                     } else {
                         DEBUG_OUT << "linkNodeChildren(): Too many children for ternary expression, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::MEMBER_ACCESS) {
+                DEBUG_OUT << "linkNodeChildren(): Found MEMBER_ACCESS parent node!" << std::endl;
+                auto* memberAccessNode = dynamic_cast<arduino_ast::MemberAccessNode*>(parentNode.get());
+                if (memberAccessNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up MemberAccessNode child " << childIndex << std::endl;
+                    
+                    // MemberAccessNode expects 2 children in order: object, property
+                    if (!memberAccessNode->getObject()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting object" << std::endl;
+                        memberAccessNode->setObject(std::move(nodes_[childIndex]));
+                    } else if (!memberAccessNode->getProperty()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting property" << std::endl;
+                        memberAccessNode->setProperty(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for member access, adding as generic child" << std::endl;
                         parentNode->addChild(std::move(nodes_[childIndex]));
                     }
                 } else {

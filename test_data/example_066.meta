@@ -1,8 +1,9 @@
 name=p04_ColorMixingLamp.ino
-source=examples
-astSize=1928
+source=unknown
+astSize=3198
 codeSize=1742
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=53
 content=// 10.StarterKit_BasicKit p04_ColorMixingLamp
 
 const int greenLEDPin = 9;

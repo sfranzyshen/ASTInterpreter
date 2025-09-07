@@ -1,8 +1,9 @@
 name=toneKeyboard.ino
-source=examples
-astSize=1448
+source=unknown
+astSize=1516
 codeSize=533
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 02.Digital toneKeyboard.ino
 
 #include "pitches.h"

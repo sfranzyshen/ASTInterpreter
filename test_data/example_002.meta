@@ -1,8 +1,9 @@
 name=Blink.ino
-source=examples
-astSize=1162
+source=unknown
+astSize=1389
 codeSize=369
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// 01.Basics Blink.ino
 
 // the setup function runs once when you press reset or power the board

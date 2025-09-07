@@ -1,8 +1,9 @@
 name=AnalogInOutSerial.ino
-source=examples
-astSize=1408
+source=unknown
+astSize=1943
 codeSize=823
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=25
 content=// 03.Analog AnalogInOutSerial.ino
 
 // These constants won't change.

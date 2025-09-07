@@ -1,8 +1,9 @@
 name=BareMinimum.ino
-source=examples
+source=unknown
 astSize=1132
 codeSize=157
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=11
 content=// 01.Basics BareMinimum.ino
 
 void setup() {

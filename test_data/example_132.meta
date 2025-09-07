@@ -1,8 +1,9 @@
 name=Ternary_Operator_with_Complex_Expressions.ino
-source=old_test
-astSize=1511
+source=unknown
+astSize=1699
 codeSize=303
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=18
 content=// Ternary Operator with Complex Expressions
 int getBigger(int x, int y) {
   return (x > y) ? x : y;

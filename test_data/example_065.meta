@@ -1,8 +1,9 @@
 name=p03_LoveOMeter.ino
-source=examples
-astSize=2080
+source=unknown
+astSize=3148
 codeSize=1885
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=14
 content=// 10.StarterKit_BasicKit p03_LoveOMeter
 
 // named constant for the pin the sensor is connected to

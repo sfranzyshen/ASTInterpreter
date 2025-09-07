@@ -1,8 +1,9 @@
 name=StringCaseChanges.ino
-source=examples
-astSize=1390
+source=unknown
+astSize=1823
 codeSize=676
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 08.Strings StringCaseChanges
 
 void setup() {

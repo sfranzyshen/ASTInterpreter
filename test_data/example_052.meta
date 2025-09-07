@@ -1,8 +1,9 @@
 name=StringLength.ino
-source=examples
-astSize=1670
+source=unknown
+astSize=2195
 codeSize=975
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// 08.Strings StringLength
 
 String txtMsg = "";

@@ -1,8 +1,9 @@
 name=switchCase2.ino
-source=examples
-astSize=1695
+source=unknown
+astSize=2078
 codeSize=821
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=11
 content=// 05.Control switchCase2.ino
 
 void setup() {

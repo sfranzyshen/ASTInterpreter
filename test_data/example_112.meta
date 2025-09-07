@@ -1,8 +1,9 @@
 name=Empty_and_NULL_statements.ino
-source=old_test
-astSize=1389
+source=unknown
+astSize=1550
 codeSize=222
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=14
 content=// Empty and NULL statements
 void setup() {
   Serial.begin(9600);

@@ -1,8 +1,9 @@
 name=Button.ino
-source=examples
-astSize=1373
+source=unknown
+astSize=1615
 codeSize=678
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// 02.Digital Button.ino
 
 // constants won't change. They're used here to set pin numbers:

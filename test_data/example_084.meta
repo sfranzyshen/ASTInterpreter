@@ -1,8 +1,9 @@
 name=Test_Case_for_Unary_vs_Binary_Operators.ino
-source=old_test
+source=unknown
 astSize=1280
 codeSize=171
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=14
 content=// Test Case for Unary vs. Binary Operators
 void setup() {
   int x = 10;

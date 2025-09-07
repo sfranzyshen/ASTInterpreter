@@ -1,8 +1,9 @@
 name=typedef_and_Structs_with_Pointers.ino
-source=old_test
-astSize=1272
+source=unknown
+astSize=1822
 codeSize=360
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=24
 content=// typedef and Structs with Pointers
 typedef struct {
   int x;

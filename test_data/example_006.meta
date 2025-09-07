@@ -1,8 +1,9 @@
 name=BlinkWithoutDelay.ino
-source=examples
-astSize=1566
+source=unknown
+astSize=1759
 codeSize=1009
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// 02.Digital BlinkWithoutDelay.ino
 
 

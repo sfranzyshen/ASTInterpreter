@@ -1,8 +1,9 @@
 name=Comma_Operator_in_a_for_Loop.ino
-source=old_test
-astSize=1358
+source=unknown
+astSize=1696
 codeSize=274
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// Comma Operator in a for Loop
 void setup() {
   Serial.begin(9600);

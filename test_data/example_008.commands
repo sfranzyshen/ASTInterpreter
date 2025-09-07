@@ -1,1 +1,182 @@
-[{"type":"AST_ONLY_MODE","data":{}}]
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757251671433,
+    "component": "interpreter",
+    "version": "7.1.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757251671433,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonPin",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledState",
+    "value": 1,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "buttonState",
+    "value": null,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastButtonState",
+    "value": 0,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastDebounceTime",
+    "value": 0,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "debounceDelay",
+    "value": 50,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757251671434,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757251671434,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251671434,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757251671434,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1757251671434
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1757251671435_0.6330776198518517",
+    "timestamp": 1757251671435
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "reading",
+    "value": 1,
+    "timestamp": 1757251671439
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1757251671439
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1757251671440_0.5092093620819851",
+    "timestamp": 1757251671440
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastDebounceTime",
+    "value": 71440,
+    "timestamp": 1757251671448
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1757251671448_0.635055514324762",
+    "timestamp": 1757251671448
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1757251671449
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1757251671449
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "lastButtonState",
+    "value": 1,
+    "timestamp": 1757251671449
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1757251671449
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1757251671455,
+    "message": "Loop limit reached: completed 1 iterations (max: 1)",
+    "iterations": 1,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757251671455,
+    "message": "Program completed after 1 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757251671455,
+    "message": "Program execution stopped"
+  }
+]

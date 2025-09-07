@@ -1,8 +1,9 @@
 name=StringConstructors.ino
-source=examples
-astSize=1485
+source=unknown
+astSize=2692
 codeSize=1486
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=40
 content=// 08.Strings StringConstructors
 
 void setup() {

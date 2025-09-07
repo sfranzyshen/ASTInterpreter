@@ -1,8 +1,9 @@
 name=Test_Case_for_Pointer_vs_Multiplication.ino
-source=old_test
+source=unknown
 astSize=1247
 codeSize=109
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=13
 content=// Test Case for Pointer vs. Multiplication
 void setup() {
   int x = 5 * 10;

@@ -1,8 +1,9 @@
 name=Test_Case_for_the_Dangling_Else.ino
-source=old_test
-astSize=1302
+source=unknown
+astSize=1404
 codeSize=181
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// Test Case for the "Dangling Else"
 void setup() {
   int x = 5;

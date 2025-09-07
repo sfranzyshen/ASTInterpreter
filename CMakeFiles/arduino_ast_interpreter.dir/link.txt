@@ -1,0 +1,2 @@
+/usr/bin/ar qc libarduino_ast_interpreter.a CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o
+/usr/bin/ranlib libarduino_ast_interpreter.a

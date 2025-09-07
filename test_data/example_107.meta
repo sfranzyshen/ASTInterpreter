@@ -1,8 +1,9 @@
 name=Chained_Assignments_and_Unary_Operators.ino
-source=old_test
-astSize=1455
+source=unknown
+astSize=2076
 codeSize=428
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=36
 content=// Chained Assignments and Unary Operators
 void setup() {
   Serial.begin(9600);

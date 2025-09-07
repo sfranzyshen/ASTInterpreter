@@ -1,1 +1,87 @@
-[{"type":"AST_ONLY_MODE","data":{}}]
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757251671972,
+    "component": "interpreter",
+    "version": "7.1.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757251671972,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "timer",
+    "value": 100,
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPins",
+    "value": [
+      2,
+      7,
+      4,
+      6,
+      5,
+      3
+    ],
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pinCount",
+    "value": 6,
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757251671973,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1757251671973,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 0,
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1757251671973,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 1,
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisPin",
+    "value": 1,
+    "timestamp": 1757251671973
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 1,
+    "timestamp": 1757251671978,
+    "message": "For loop limit reached: completed 1 iterations (max: 1)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757251671978,
+    "message": "Completed setup() function"
+  }
+]

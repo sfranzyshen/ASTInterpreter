@@ -1,8 +1,9 @@
 name=ADXL3xx.ino
-source=examples
-astSize=1443
+source=unknown
+astSize=2053
 codeSize=793
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=31
 content=// 06.Sensors ADXL3xx.ino
 
 // these constants describe the pins.

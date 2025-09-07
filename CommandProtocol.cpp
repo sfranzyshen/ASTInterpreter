@@ -415,6 +415,20 @@ CommandPtr CommandFactory::createMultiSerialCommand(const std::string& portName,
     return std::make_unique<SystemCommand>(CommandType::MULTI_SERIAL_COMMAND, portName + "." + methodName + "()");
 }
 
+// Audio/Tone library commands
+CommandPtr CommandFactory::createTone(int32_t pin, int32_t frequency) {
+    return std::make_unique<SystemCommand>(CommandType::TONE, "tone(" + std::to_string(pin) + ", " + std::to_string(frequency) + ")");
+}
+
+CommandPtr CommandFactory::createToneWithDuration(int32_t pin, int32_t frequency, int32_t duration) {
+    return std::make_unique<SystemCommand>(CommandType::TONE_WITH_DURATION, 
+        "tone(" + std::to_string(pin) + ", " + std::to_string(frequency) + ", " + std::to_string(duration) + ")");
+}
+
+CommandPtr CommandFactory::createNoTone(int32_t pin) {
+    return std::make_unique<SystemCommand>(CommandType::NO_TONE, "noTone(" + std::to_string(pin) + ")");
+}
+
 // =============================================================================
 // UTILITY FUNCTION IMPLEMENTATIONS
 // =============================================================================
@@ -478,6 +492,11 @@ std::string commandTypeToString(CommandType type) {
         case CommandType::MULTI_SERIAL_PRINTLN: return "MULTI_SERIAL_PRINTLN";
         case CommandType::MULTI_SERIAL_REQUEST: return "MULTI_SERIAL_REQUEST";
         case CommandType::MULTI_SERIAL_COMMAND: return "MULTI_SERIAL_COMMAND";
+        
+        // Audio/Tone library
+        case CommandType::TONE: return "TONE";
+        case CommandType::TONE_WITH_DURATION: return "TONE_WITH_DURATION";
+        case CommandType::NO_TONE: return "NO_TONE";
         
         default: return "UNKNOWN";
     }
@@ -564,7 +583,7 @@ std::string serializeCommand(const Command& command) {
     switch (command.type) {
         case CommandType::VERSION_INFO:
             oss << "  \"component\": \"interpreter\",\n";
-            oss << "  \"version\": \"7.0.0\",\n";
+            oss << "  \"version\": \"7.1.0\",\n";
             oss << "  \"status\": \"started\"\n";
             break;
             

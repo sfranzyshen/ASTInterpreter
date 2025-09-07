@@ -1,8 +1,9 @@
 name=KeyboardReprogram.ino
-source=examples
-astSize=1491
+source=unknown
+astSize=1827
 codeSize=813
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// 09.USB Keyboard/KeyboardReprogram
 
 #include "Keyboard.h"

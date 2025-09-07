@@ -1,8 +1,9 @@
 name=Ping.ino
-source=examples
-astSize=1555
+source=unknown
+astSize=2346
 codeSize=1824
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=35
 content=// 06.Sensors Ping.ino
 
 // this constant won't change. It's the pin number of the sensor's output:

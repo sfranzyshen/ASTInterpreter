@@ -1,8 +1,9 @@
 name=StringAdditionOperator
-source=examples
-astSize=1506
+source=unknown
+astSize=2562
 codeSize=1332
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=41
 content=// 08.Strings StringAdditionOperator
 
 String stringOne, stringTwo, stringThree;

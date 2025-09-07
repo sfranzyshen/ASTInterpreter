@@ -1,8 +1,9 @@
 name=Midi.ino
-source=examples
-astSize=1424
+source=unknown
+astSize=1802
 codeSize=700
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=24
 content=// 04.Communication Midi.ino
 
 void setup() {

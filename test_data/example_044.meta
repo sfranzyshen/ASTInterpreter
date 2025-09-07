@@ -1,8 +1,9 @@
 name=barGraph.ino
-source=examples
-astSize=1707
+source=unknown
+astSize=1870
 codeSize=938
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=13
 content=// 07.Display barGraph.ino
 
 // these constants won't change:

@@ -1,8 +1,9 @@
 name=StringReplace.ino
-source=examples
-astSize=1488
+source=unknown
+astSize=2178
 codeSize=1044
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=25
 content=// 08.Strings StringReplace
 
 void setup() {

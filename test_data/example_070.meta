@@ -1,8 +1,9 @@
 name=p08_DigitalHourglass.ino
-source=examples
-astSize=1912
+source=unknown
+astSize=2283
 codeSize=1530
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// 10.StarterKit_BasicKit p08_DigitalHourglass
 
 // named constant for the switch pin

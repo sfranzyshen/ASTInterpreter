@@ -1,8 +1,9 @@
 name=Initializer_Lists_and_Designated_Initializers.ino
-source=old_test
-astSize=1229
+source=unknown
+astSize=1697
 codeSize=378
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=20
 content=// Initializer Lists and Designated Initializers
 struct Point {
   int x;

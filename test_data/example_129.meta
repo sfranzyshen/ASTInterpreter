@@ -1,8 +1,9 @@
 name=Complex_Function_Declarations.ino
-source=old_test
-astSize=1469
+source=unknown
+astSize=1673
 codeSize=324
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// Complex Function Declarations
 int applyOperation(int (*op)(int, int), int a, int b) {
   return op(a, b);

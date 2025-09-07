@@ -1,8 +1,9 @@
 name=extern_Keyword.ino
-source=old_test
-astSize=1253
+source=unknown
+astSize=1494
 codeSize=236
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=16
 content=// extern Keyword
 extern int externalVariable;
 

@@ -1,8 +1,9 @@
 name=static_Global_Variable_and_Function.ino
-source=old_test
-astSize=1291
+source=unknown
+astSize=1528
 codeSize=282
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// static Global Variable and Function
 static int global_counter = 0;
 

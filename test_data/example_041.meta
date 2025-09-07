@@ -1,8 +1,9 @@
 name=Memsic2125.ino
-source=examples
-astSize=1424
+source=unknown
+astSize=2113
 codeSize=882
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=31
 content=// 06.Sensors Memsic2125.ino
 
 // these constants won't change:

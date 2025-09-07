@@ -1,8 +1,9 @@
 name=p13_TouchSensorLamp.ino
-source=examples
-astSize=1537
+source=unknown
+astSize=1834
 codeSize=1006
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 10.StarterKit_BasicKit p13_TouchSensorLamp
 
 // import the library (must be located in the Arduino/libraries directory)

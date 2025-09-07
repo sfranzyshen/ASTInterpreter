@@ -1,8 +1,9 @@
 name=Arrays.ino
-source=examples
-astSize=1594
+source=unknown
+astSize=1899
 codeSize=813
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=13
 content=// 05.Control Arrays.ino
 
 int timer = 100;

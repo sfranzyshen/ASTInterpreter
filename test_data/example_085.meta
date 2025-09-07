@@ -1,8 +1,9 @@
 name=Test_Case_for_C-Style_Initialization.ino
-source=old_test
+source=unknown
 astSize=1168
 codeSize=99
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=12
 content=// Test Case for C++-Style Initialization
 void setup() {
   int x(10);

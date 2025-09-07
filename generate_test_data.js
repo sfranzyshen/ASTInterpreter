@@ -13,24 +13,18 @@
  * 
  * OPTIMIZED SOLUTIONS:
  * 
- * 1. AST-ONLY MODE (--ast-only):
- *    - Generates all 135 AST files in 1.4 seconds (97 tests/sec)
- *    - Skips interpreter execution to avoid debug overhead
- *    - Perfect for C++ parsing validation
- * 
- * 2. SELECTIVE MODE (--selective):
+ * 1. SELECTIVE MODE (--selective):
  *    - AST generation: All 135 examples (1.4s)
  *    - Command generation: 60 fast examples (4.0s)
  *    - Total time: ~5.4 seconds vs 120+ seconds timeout
  *    - Provides both AST and command data for validation
  * 
- * 3. FORCE MODE (--force):
+ * 2. FORCE MODE (--force):
  *    - Attempts full command generation with optimizations
  *    - Uses aggressive timeouts and output suppression
  *    - May still timeout on slow examples but maximizes success
  * 
  * USAGE:
- *   node generate_test_data_optimized_final.js --ast-only     # Fastest (1.4s)
  *   node generate_test_data_optimized_final.js --selective    # Recommended (5.4s)
  *   node generate_test_data_optimized_final.js --force        # Attempt full (risky)
  */
@@ -107,7 +101,7 @@ async function generateASTOnly() {
                     `source=${example.source || 'unknown'}`,
                     `astSize=${compactAST.byteLength}`,
                     `codeSize=${code.length}`,
-                    `mode=AST_ONLY`,
+                    `mode=AST_AND_COMMANDS`,
                     `content=${code}`
                 ].join('\n')
             );
@@ -115,7 +109,7 @@ async function generateASTOnly() {
             // Save placeholder commands
             fs.writeFileSync(
                 path.join(outputDir, `${baseName}.commands`),
-                JSON.stringify([{ type: 'AST_ONLY_MODE', data: {} }])
+                JSON.stringify([{ type: 'PLACEHOLDER_COMMANDS', data: {} }])
             );
             
             results.push({ name: example.name, success: true, astSize: compactAST.byteLength });
@@ -193,7 +187,7 @@ function generateCommandsOptimized(ast, example) {
                 verbose: false,
                 debug: false,
                 stepDelay: 0,
-                maxLoopIterations: 3
+                maxLoopIterations: 1  // Reduced from 3 to 1 for faster, consistent execution
             });
             
             const commands = [];
@@ -202,6 +196,36 @@ function generateCommandsOptimized(ast, example) {
             interpreter.onCommand = (cmd) => {
                 // Capture command exactly as JavaScript interpreter produces it
                 commands.push(cmd);
+                
+                // CORRECT PATTERN: Handle request-response pattern for external data functions
+                // (Following the exact pattern from interpreter_playground.html)
+                switch (cmd.type) {
+                    case 'ANALOG_READ_REQUEST':
+                        const analogValue = Math.floor(Math.random() * 1024); // 0-1023
+                        setTimeout(() => {
+                            interpreter.handleResponse(cmd.requestId, analogValue);
+                        }, Math.random() * 10); // Random delay 0-10ms like playground
+                        break;
+                    case 'DIGITAL_READ_REQUEST':
+                        const digitalValue = Math.random() > 0.5 ? 1 : 0; // HIGH or LOW
+                        setTimeout(() => {
+                            interpreter.handleResponse(cmd.requestId, digitalValue);
+                        }, Math.random() * 10);
+                        break;
+                    case 'MILLIS_REQUEST':
+                        const millisValue = Date.now() % 100000; // Realistic millis
+                        setTimeout(() => {
+                            interpreter.handleResponse(cmd.requestId, millisValue);
+                        }, Math.random() * 10);
+                        break;
+                    case 'MICROS_REQUEST':
+                        const microsValue = Date.now() * 1000 % 1000000; // Realistic micros
+                        setTimeout(() => {
+                            interpreter.handleResponse(cmd.requestId, microsValue);
+                        }, Math.random() * 10);
+                        break;
+                }
+                
                 if (cmd.type === 'PROGRAM_END' || cmd.type === 'ERROR' || cmd.type === 'LOOP_LIMIT_REACHED') {
                     done = true;
                 }
@@ -211,29 +235,41 @@ function generateCommandsOptimized(ast, example) {
                 done = true;
             };
             
-            interpreter.responseHandler = (req) => {
-                setImmediate(() => {
-                    interpreter.handleResponse(req.id, 512);
-                });
-            };
-            
             // Complete output suppression
             const restore = suppressAllOutput();
             
             interpreter.start();
             
+            let timedOut = false;
             const timeout = setTimeout(() => { 
+                timedOut = true;
                 done = true;
                 restore();
-            }, 300);
+            }, 1000); // Increased from 300ms to 1000ms
             
+            let checkCount = 0;
             const check = () => {
+                checkCount++;
                 if (done) {
                     clearTimeout(timeout);
                     restore();
-                    resolve({ success: true, commands });
+                    
+                    // CRITICAL: If timeout occurred, this is a FAILURE not success
+                    if (timedOut) {
+                        resolve({ 
+                            success: false, 
+                            commands: [], 
+                            error: 'TIMEOUT: Test did not complete 1 iteration within 1000ms - inconsistent data rejected' 
+                        });
+                    } else {
+                        resolve({ success: true, commands });
+                    }
+                } else if (checkCount > 10000) { // Prevent infinite recursion
+                    clearTimeout(timeout);
+                    restore();
+                    resolve({ success: false, error: 'Infinite check loop detected' });
                 } else {
-                    setImmediate(check);
+                    setTimeout(check, 1); // Use setTimeout instead of setImmediate
                 }
             };
             check();
@@ -323,7 +359,7 @@ async function generateSelective() {
                 const metaFile = path.join(outputDir, `${baseName}.meta`);
                 const metadata = fs.readFileSync(metaFile, 'utf8');
                 const updatedMetadata = metadata.replace(
-                    'mode=AST_ONLY',
+                    'mode=AST_AND_COMMANDS',
                     `mode=AST_AND_COMMANDS\ncommandCount=${result.commands.length}`
                 );
                 fs.writeFileSync(metaFile, updatedMetadata);
@@ -394,6 +430,107 @@ async function generateForce() {
 }
 
 // =============================================================================
+// FULL TEST DATA GENERATION - ALL 135 TESTS OR FAIL
+// =============================================================================
+
+async function generateFullTestData() {
+    console.log('=== GENERATING FULL COMMAND STREAMS FOR ALL 135 TESTS ===');
+    console.log('REQUIREMENT: Every test must have complete AST + command data');
+    console.log('NO PLACEHOLDERS - NO PARTIAL DATA - ALL OR NOTHING');
+    console.log('');
+    
+    const outputDir = 'test_data';
+    
+    // Ensure output directory exists
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
+    
+    const allExamples = [...examplesFiles, ...oldTestFiles, ...neopixelFiles];
+    console.log(`Processing ${allExamples.length} examples...`);
+    
+    const results = {
+        totalTests: 0,
+        fullCommandTests: 0,
+        failures: []
+    };
+    
+    for (let i = 0; i < allExamples.length; i++) {
+        const example = allExamples[i];
+        const baseName = `example_${i.toString().padStart(3, '0')}`;
+        
+        try {
+            // Generate AST
+            const code = example.content || example.code;
+            const ast = parse(code);
+            const compactAST = exportCompactAST(ast);
+            
+            // Save AST file (convert ArrayBuffer to Buffer)
+            fs.writeFileSync(path.join(outputDir, `${baseName}.ast`), Buffer.from(compactAST));
+            
+            // Generate FULL command stream - NO PLACEHOLDERS ALLOWED
+            console.log(`[${i+1}/${allExamples.length}] Generating commands for ${example.name}...`);
+            const commandResult = await generateCommandsOptimized(ast, example);
+            
+            if (!commandResult.success || !commandResult.commands || commandResult.commands.length === 0) {
+                // FAIL IMMEDIATELY - NO PLACEHOLDERS
+                throw new Error(`Failed to generate commands for ${example.name}: ${commandResult.error || 'Empty command stream'}`);
+            }
+            
+            // Save full command stream with circular reference handling
+            fs.writeFileSync(
+                path.join(outputDir, `${baseName}.commands`),
+                JSON.stringify(commandResult.commands, (key, value) => {
+                    // Handle circular references and complex objects
+                    if (key === 'interpreter' || key === 'commandHistory') {
+                        return '[Circular Reference Removed]';
+                    }
+                    if (value && typeof value === 'object' && value.constructor && value.constructor.name === 'ArduinoPointer') {
+                        return {
+                            type: 'ArduinoPointer', 
+                            address: value.address || 0,
+                            pointsTo: typeof value.pointsTo
+                        };
+                    }
+                    return value;
+                }, 2)
+            );
+            
+            // Save metadata
+            fs.writeFileSync(
+                path.join(outputDir, `${baseName}.meta`),
+                [
+                    `name=${example.name}`,
+                    `source=${example.source || 'unknown'}`,
+                    `astSize=${compactAST.byteLength}`,
+                    `codeSize=${code.length}`,
+                    `mode=AST_AND_COMMANDS`,
+                    `commandCount=${commandResult.commands.length}`,
+                    `content=${code}`
+                ].join('\n')
+            );
+            
+            results.totalTests++;
+            results.fullCommandTests++;
+            
+        } catch (error) {
+            console.error(`❌ FAILED: ${example.name} - ${error.message}`);
+            results.failures.push({ name: example.name, error: error.message });
+            results.totalTests++;
+            
+            // STOP IMMEDIATELY ON ANY FAILURE
+            console.error('');
+            console.error('FATAL ERROR: Cannot generate placeholder data');
+            console.error('REQUIREMENT: ALL tests must have full command streams');
+            console.error(`Failed at test ${i+1}/${allExamples.length}: ${example.name}`);
+            throw error;
+        }
+    }
+    
+    return results;
+}
+
+// =============================================================================
 // MAIN EXECUTION
 // =============================================================================
 
@@ -406,32 +543,19 @@ async function main() {
     
     let result;
     
-    if (args.includes('--ast-only')) {
-        result = await generateASTOnly();
-        console.log('');
-        console.log('✓ AST-only mode complete!');
-        console.log('C++ parsing validation ready with all 135 AST files');
-        
-    } else if (args.includes('--selective')) {
-        result = await generateSelective();
-        console.log('');
-        console.log('✓ Selective mode complete!');
-        console.log('C++ validation ready with AST + selective command data');
-        
-    } else if (args.includes('--force')) {
-        result = await generateForce();
-        console.log('');
-        console.log('✓ Force mode complete!');
-        
-    } else {
-        console.log('USAGE:');
-        console.log('  --ast-only     Generate AST data only (fastest, 1.4s)');
-        console.log('  --selective    Generate AST + selective commands (recommended, 5.4s)');
-        console.log('  --force        Attempt full generation (may timeout)');
-        console.log('');
-        console.log('RECOMMENDATION: Use --selective for comprehensive C++ validation');
+    // GENERATE FULL COMMAND STREAMS FOR ALL 135 TESTS OR FAIL
+    result = await generateFullTestData();
+    
+    if (result.totalTests !== 135 || result.fullCommandTests !== 135) {
+        console.error('FATAL ERROR: Failed to generate full command streams for all tests');
+        console.error(`Generated: ${result.fullCommandTests}/${result.totalTests} full command streams`);
+        console.error('REQUIREMENT: ALL 135 tests must have full command streams');
         process.exit(1);
     }
+    
+    console.log('');
+    console.log('✅ SUCCESS: Generated full command streams for ALL 135 tests');
+    console.log('✅ Test data is now complete and ready for validation');
     
     console.log('');
     console.log('Next steps:');

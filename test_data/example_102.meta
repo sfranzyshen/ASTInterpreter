@@ -1,8 +1,9 @@
 name=Mixed-Type_Expressions_and_Casting.ino
-source=old_test
-astSize=1438
+source=unknown
+astSize=1899
 codeSize=433
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=23
 content=// Mixed-Type Expressions and Casting
 void setup() {
   Serial.begin(9600);

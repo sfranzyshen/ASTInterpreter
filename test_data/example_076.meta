@@ -1,8 +1,9 @@
 name=p14_TweakTheArduinoLogo.ino
-source=examples
-astSize=1150
+source=unknown
+astSize=1362
 codeSize=285
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=15
 content=// 10.StarterKit_BasicKit p14_TweakTheArduinoLogo
 
 void setup() {

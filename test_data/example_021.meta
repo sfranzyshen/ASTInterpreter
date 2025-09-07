@@ -1,8 +1,9 @@
 name=ASCIITable.ino
-source=examples
-astSize=1375
+source=unknown
+astSize=2013
 codeSize=1130
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=27
 content=// 04.Communication ASCIITable.ino
 
 void setup() {

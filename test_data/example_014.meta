@@ -1,8 +1,9 @@
 name=tonePitchFollower.ino
-source=examples
-astSize=1364
+source=unknown
+astSize=1586
 codeSize=654
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=18
 content=// 02.Digital tonePitchFollower.ino
 
 void setup() {

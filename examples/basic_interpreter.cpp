@@ -27,7 +27,7 @@ using namespace arduino_interpreter;
 class ExampleCommandListener : public CommandListener {
 public:
     void onCommand(const Command& command) override {
-        std::cout << "[COMMAND] " << command.toString() << std::endl;
+        std::cout << "[COMMAND] " << serializeCommand(command) << std::endl;
         
         // Track command statistics
         commandCount_++;
@@ -281,17 +281,73 @@ void loadAndTestExternalAST() {
 int main(int argc, char* argv[]) {
     printHeader();
     
-    // Print AST information
-    printASTInfo(EMBEDDED_AST, EMBEDDED_AST_SIZE);
-    
-    // Demonstrate compact AST reading
-    demonstrateCompactASTReading();
-    
-    // Demonstrate interpreter execution
-    demonstrateInterpreter();
-    
-    // Try to load and test external AST
-    loadAndTestExternalAST();
+    // Check for command line AST file
+    if (argc > 1) {
+        std::cout << "\nLoading AST file: " << argv[1] << std::endl;
+        
+        // Load the specified AST file
+        std::ifstream file(argv[1], std::ios::binary);
+        if (!file) {
+            std::cout << "ERROR: Cannot open AST file: " << argv[1] << std::endl;
+            return 1;
+        }
+        
+        // Read file
+        std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(file)),
+                                   std::istreambuf_iterator<char>());
+        file.close();
+        
+        if (buffer.empty()) {
+            std::cout << "ERROR: Empty AST file!" << std::endl;
+            return 1;
+        }
+        
+        std::cout << "Loaded AST file: " << buffer.size() << " bytes" << std::endl;
+        
+        // Use the loaded AST file for all demonstrations
+        printASTInfo(buffer.data(), buffer.size());
+        
+        // Test with the loaded AST
+        try {
+            InterpreterOptions options;
+            options.verbose = true;
+            options.debug = true;
+            options.maxLoopIterations = 3;
+            options.stepDelay = 0;
+            
+            auto interpreter = std::make_unique<ASTInterpreter>(buffer.data(), buffer.size(), options);
+            auto commandListener = std::make_unique<ExampleCommandListener>();
+            auto responseHandler = std::make_unique<ExampleResponseHandler>();
+            
+            interpreter->setCommandListener(commandListener.get());
+            interpreter->setResponseHandler(responseHandler.get());
+            
+            std::cout << "Starting interpreter execution..." << std::endl;
+            bool success = interpreter->start();
+            
+            std::cout << "Interpreter execution: " << (success ? "SUCCESS" : "FAILED") << std::endl;
+            commandListener->printStatistics();
+            
+        } catch (const std::exception& e) {
+            std::cout << "ERROR: " << e.what() << std::endl;
+        }
+        
+    } else {
+        // Default behavior - use embedded AST for demo
+        std::cout << "\nUsing embedded demo AST (no file specified)" << std::endl;
+        
+        // Print AST information
+        printASTInfo(EMBEDDED_AST, EMBEDDED_AST_SIZE);
+        
+        // Demonstrate compact AST reading
+        demonstrateCompactASTReading();
+        
+        // Demonstrate interpreter execution
+        demonstrateInterpreter();
+        
+        // Try to load and test external AST
+        loadAndTestExternalAST();
+    }
     
     std::cout << "\n--- Demo Complete ---" << std::endl;
     

@@ -1,8 +1,9 @@
 name=Type_Promotion_and_Implicit_Conversions.ino
-source=old_test
-astSize=1415
+source=unknown
+astSize=1699
 codeSize=309
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=21
 content=// Type Promotion and Implicit Conversions
 void setup() {
   Serial.begin(9600);

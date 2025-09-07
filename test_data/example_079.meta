@@ -1,8 +1,9 @@
 name=Test_Case_for_Array_Access.ino
-source=old_test
-astSize=1167
+source=unknown
+astSize=1230
 codeSize=131
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=13
 content=// Test Case for Array Access
 int myPins[] = {2, 4, 8};
 

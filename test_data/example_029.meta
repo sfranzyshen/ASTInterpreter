@@ -1,8 +1,9 @@
 name=SerialCallResponseASCII.ino
-source=examples
-astSize=1663
+source=unknown
+astSize=2419
 codeSize=972
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=19
 content=// 04.Communication SerialCallResponseASCII.ino
 
 int firstSensor = 0;

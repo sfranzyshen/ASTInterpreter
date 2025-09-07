@@ -1,8 +1,9 @@
 name=Test_Case_for_Operator_Precedence.ino
-source=old_test
+source=unknown
 astSize=1367
 codeSize=284
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=15
 content=// Test Case for Operator Precedence
 void setup() {
   int a = 5;

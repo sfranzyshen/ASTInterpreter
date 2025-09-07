@@ -1,8 +1,9 @@
 name=static_Variables_and_Scope.ino
-source=old_test
-astSize=1267
+source=unknown
+astSize=1519
 codeSize=223
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=17
 content=// static Variables and Scope
 void counter() {
   static int count = 0;

@@ -1,8 +1,9 @@
 name=StringCharacters.ino
-source=examples
-astSize=1528
+source=unknown
+astSize=1921
 codeSize=830
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=22
 content=// 08.Strings StringCharacters
 
 void setup() {

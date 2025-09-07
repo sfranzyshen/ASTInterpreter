@@ -1,8 +1,9 @@
 name=Test_Case_for_Parentheses_Precedence.ino
-source=old_test
+source=unknown
 astSize=1332
 codeSize=187
-mode=AST_ONLY
+mode=AST_AND_COMMANDS
+commandCount=15
 content=// Test Case for Parentheses Precedence
 void setup() {
   int a = 5;
