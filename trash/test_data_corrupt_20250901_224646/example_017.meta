@@ -1,9 +1,0 @@
-{
-  "name": "AnalogWriteMega.ino",
-  "source": "examples",
-  "index": "017",
-  "code": "// 03.Analog AnalogWriteMega.ino\n\n// These constants won't change. They're used to give names to the pins used:\nconst int lowestPin = 2;\nconst int highestPin = 13;\n\n\nvoid setup() {\n  // set pins 2 through 13 as outputs:\n  for (int thisPin = lowestPin; thisPin <= highestPin; thisPin++) {\n    pinMode(thisPin, OUTPUT);\n  }\n}\n\nvoid loop() {\n  // iterate over the pins:\n  for (int thisPin = lowestPin; thisPin <= highestPin; thisPin++) {\n    // fade the LED on thisPin from off to brightest:\n    for (int brightness = 0; brightness < 255; brightness++) {\n      analogWrite(thisPin, brightness);\n      delay(2);\n    }\n    // fade the LED on thisPin from brightest to off:\n    for (int brightness = 255; brightness >= 0; brightness--) {\n      analogWrite(thisPin, brightness);\n      delay(2);\n    }\n    // pause between LEDs:\n    delay(100);\n  }\n}\n",
-  "astSize": 634,
-  "commandCount": 18,
-  "generated": "2025-09-02T05:31:15.605Z"
-}

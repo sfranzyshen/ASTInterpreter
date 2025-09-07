@@ -1,9 +1,0 @@
-{
-  "name": "KeyboardReprogram.ino",
-  "source": "examples",
-  "index": "059",
-  "code": "// 09.USB Keyboard/KeyboardReprogram\n\n#include \"Keyboard.h\"\n\nconst int buttonPin = 4;\nint previousButtonState = HIGH;\nint counter = 0;\n\nvoid setup() {\n  // make the pushButton pin an input:\n  pinMode(buttonPin, INPUT);\n  // initialize control over the keyboard:\n  Keyboard.begin();\n}\n\nvoid loop() {\n  // read the pushbutton:\n  int buttonState = digitalRead(buttonPin);\n\n  // if the button state has changed,\n  if ((buttonState != previousButtonState)\n      // and it's currently pressed:\n      && (buttonState == HIGH)) {\n    // increment the button counter\n    counter++;\n    // type out a message\n    Keyboard.print(\"You pressed the button \");\n    Keyboard.print(counter);\n    Keyboard.println(\" times.\");\n  }\n\n  // save the current button state for comparison next time:\n  previousButtonState = buttonState;\n}\n",
-  "astSize": 467,
-  "commandCount": 38,
-  "generated": "2025-09-04T04:00:24.515Z"
-}

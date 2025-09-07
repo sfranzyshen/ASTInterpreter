@@ -1,9 +1,0 @@
-{
-  "name": "PhysicalPixel.ino",
-  "source": "examples",
-  "index": "026",
-  "code": "// 04.Communication PhysicalPixel.ino\n\nconst int ledPin = 13;\nint incomingByte;\n\nvoid setup() {\n  // initialize serial communication:\n  Serial.begin(9600);\n  // initialize the LED pin as an output:\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  // see if there's incoming serial data:\n  if (Serial.available() > 0) {\n    // read the oldest byte in the serial buffer:\n    incomingByte = Serial.read();\n\n    // if it's a capital H (ASCII 72), turn on the LED:\n    if (incomingByte == 'H') {\n      digitalWrite(ledPin, HIGH);\n    }\n    // if it's an L (ASCII 76) turn off the LED:\n    if (incomingByte == 'L') {\n      digitalWrite(ledPin, LOW);\n    }\n  }\n}\n",
-  "astSize": 413,
-  "commandCount": 27,
-  "generated": "2025-09-04T04:00:21.493Z"
-}

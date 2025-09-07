@@ -1,9 +1,0 @@
-{
-  "name": "Bit-Fields_in_Structs.ino",
-  "source": "old_test",
-  "index": "130",
-  "code": "// Bit-Fields in Structs\nstruct MyFlags {\n  unsigned int a : 1;\n  unsigned int b : 1;\n  unsigned int c : 6;\n};\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  struct MyFlags flags;\n  flags.a = 1;\n  flags.b = 0;\n  flags.c = 50;\n\n  Serial.print(\"Flag a: \");\n  Serial.println(flags.a);\n  Serial.print(\"Flag c: \");\n  Serial.println(flags.c);\n}",
-  "astSize": 182,
-  "commandCount": 48,
-  "generated": "2025-09-04T04:00:30.970Z"
-}

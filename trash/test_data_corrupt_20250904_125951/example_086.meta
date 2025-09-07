@@ -1,9 +1,0 @@
-{
-  "name": "Test_Rigorous_Brackets_Parentheses.ino",
-  "source": "old_test",
-  "index": "086",
-  "code": "// Test Rigorous Brackets & Parentheses\nint myPins[] = {2, 4, 8};\n\nint getIndex() {\n  return 1;\n}\n\nvoid setup() {\n  int x = myPins[0];\n  int y = myPins[getIndex()];\n  pinMode(myPins[2], OUTPUT);\n  int z = (myPins[0] + getIndex()) * myPins[2];\n}\n\nvoid loop() {\n  // empty\n}",
-  "astSize": 381,
-  "commandCount": 24,
-  "generated": "2025-09-04T04:00:27.114Z"
-}

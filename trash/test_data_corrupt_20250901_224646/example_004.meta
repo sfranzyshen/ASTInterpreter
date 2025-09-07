@@ -1,9 +1,0 @@
-{
-  "name": "Fade.ino",
-  "source": "examples",
-  "index": "004",
-  "code": "// 01.Basics Fade.ino \n\nint led = 9;\nint brightness = 0;\nint fadeAmount = 5;\n\n// the setup routine runs once when you press reset:\nvoid setup() {\n  // declare pin 9 to be an output:\n  pinMode(led, OUTPUT);\n}\n\n// the loop routine runs over and over again forever:\nvoid loop() {\n  // set the brightness of pin 9:\n  analogWrite(led, brightness);\n  // change the brightness for next time through the loop:\n  brightness = brightness + fadeAmount;\n  // reverse the direction of the fading at the ends of the fade:\n  if (brightness <= 0 || brightness >= 255) {\n    fadeAmount = -fadeAmount;\n  }\n  // wait for 30 milliseconds to see the dimming effect\n  delay(30);\n}\n",
-  "astSize": 363,
-  "commandCount": 33,
-  "generated": "2025-09-02T05:30:27.125Z"
-}

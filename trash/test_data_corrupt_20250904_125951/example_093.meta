@@ -1,9 +1,0 @@
-{
-  "name": "Nested_Loops_and_Variable_Scope.ino",
-  "source": "old_test",
-  "index": "093",
-  "code": "// Nested Loops and Variable Scope\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int i = 0;\n  while (i < 3) {\n    for (int j = 0; j < 3; j++) {\n      int k = 0;\n      do {\n        Serial.print(\"i: \");\n        Serial.print(i);\n        Serial.print(\", j: \");\n        Serial.print(j);\n        Serial.print(\", k: \");\n        Serial.println(k);\n        k++;\n      } while (k < 2);\n    }\n    i++;\n  }\n}",
-  "astSize": 430,
-  "commandCount": 80,
-  "generated": "2025-09-04T04:00:27.585Z"
-}

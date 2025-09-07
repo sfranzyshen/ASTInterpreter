@@ -1,9 +1,0 @@
-{
-  "name": "SerialCallResponse.ino",
-  "source": "examples",
-  "index": "028",
-  "code": "// 04.Communication SerialCallResponse.ino\n\nint firstSensor = 0;\nint secondSensor = 0;\nint thirdSensor = 0;\nint inByte = 0;\n\nvoid setup() {\n  // start serial port at 9600 bps:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  pinMode(2, INPUT);\n  establishContact();\n}\n\nvoid loop() {\n  // if we get a valid byte, read analog ins:\n  if (Serial.available() > 0) {\n    // get incoming byte:\n    inByte = Serial.read();\n\n    // read first analog input, divide by 4 to make the range 0-255:\n    firstSensor = analogRead(A0) / 4;\n    // delay 10ms to let the ADC recover:\n    delay(10);\n\n    // read second analog input, divide by 4 to make the range 0-255:\n    secondSensor = analogRead(1) / 4;\n\n    // read switch, map it to 0 or 255L\n    thirdSensor = map(digitalRead(2), 0, 1, 0, 255);\n\n    // send sensor values:\n    Serial.write(firstSensor);\n    Serial.write(secondSensor);\n    Serial.write(thirdSensor);\n  }\n}\n\nvoid establishContact() {\n  while (Serial.available() <= 0) {\n    Serial.print('A');\n    delay(300);\n  }\n}\n",
-  "astSize": 633,
-  "commandCount": 28,
-  "generated": "2025-09-02T05:31:26.273Z"
-}

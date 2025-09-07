@@ -1,9 +1,0 @@
-{
-  "name": "StateChangeDetection.ino",
-  "source": "examples",
-  "index": "010",
-  "code": "// 02.Digital StateChangeDetection.ino\n\n// this constant won't change:\nconst int buttonPin = 2;\nconst int ledPin = 13;\n\n// Variables will change:\nint buttonPushCounter = 0;\nint buttonState = 0;\nint lastButtonState = 0;\n\nvoid setup() {\n  // initialize the button pin as a input:\n  pinMode(buttonPin, INPUT);\n  // initialize the LED as an output:\n  pinMode(ledPin, OUTPUT);\n  // initialize serial communication:\n  Serial.begin(9600);\n}\n\n\nvoid loop() {\n  // read the pushbutton input pin:\n  buttonState = digitalRead(buttonPin);\n\n  // compare the buttonState to its previous state\n  if (buttonState != lastButtonState) {\n    // if the state has changed, increment the counter\n    if (buttonState == HIGH) {\n      // if the current state is HIGH then the button went from off to on:\n      buttonPushCounter++;\n      Serial.println(\"on\");\n      Serial.print(\"number of button pushes: \");\n      Serial.println(buttonPushCounter);\n    } else {\n      // if the current state is LOW then the button went from on to off:\n      Serial.println(\"off\");\n    }\n    // Delay a little bit to avoid bouncing\n    delay(50);\n  }\n\n  // save the current state as the last state, for next time through the loop\n  lastButtonState = buttonState;\n\n  // turns on the LED every four button pushes by checking the modulo of the\n  // button push counter.\n  if (buttonPushCounter % 4 == 0) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}\n",
-  "astSize": 616,
-  "commandCount": 43,
-  "generated": "2025-09-04T04:00:19.436Z"
-}

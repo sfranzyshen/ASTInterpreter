@@ -1,9 +1,0 @@
-{
-  "name": "tonePitchFollower.ino",
-  "source": "examples",
-  "index": "014",
-  "code": "// 02.Digital tonePitchFollower.ino\n\nvoid setup() {\n  // initialize serial communications (for debugging only):\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // read the sensor:\n  int sensorReading = analogRead(A0);\n\n  // print the sensor reading so you know its range\n  Serial.println(sensorReading);\n\n  // map the analog input range (in this case, 400 - 1000 from the photoresistor)\n  // to the output pitch range (120 - 1500Hz)\n  // change the minimum and maximum input numbers below depending on the range\n  // your sensor's giving:\n  int thisPitch = map(sensorReading, 400, 1000, 120, 1500);\n\n  // play the pitch:\n  tone(9, thisPitch, 10);\n  delay(1);\n}\n",
-  "astSize": 340,
-  "commandCount": 16,
-  "generated": "2025-09-02T05:31:05.472Z"
-}

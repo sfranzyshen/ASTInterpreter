@@ -1,9 +1,0 @@
-{
-  "name": "p07_Keyboard.ino",
-  "source": "examples",
-  "index": "069",
-  "code": "// 10.StarterKit_BasicKit p07_Keyboard\n\n// create an array of notes\nint notes[] = { 262, 294, 330, 349 };\n\nvoid setup() {\n  //start serial communication\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // create a local variable to hold the input on pin A0\n  int keyVal = analogRead(A0);\n  // send the value from A0 to the Serial Monitor\n  Serial.println(keyVal);\n\n  // play the note corresponding to each value on A0\n  if (keyVal == 1023) {\n    // play the first frequency in the array on pin 8\n    tone(8, notes[0]);\n  } else if (keyVal >= 990 && keyVal <= 1010) {\n    // play the second frequency in the array on pin 8\n    tone(8, notes[1]);\n  } else if (keyVal >= 505 && keyVal <= 515) {\n    // play the third frequency in the array on pin 8\n    tone(8, notes[2]);\n  } else if (keyVal >= 5 && keyVal <= 10) {\n    // play the fourth frequency in the array on pin 8\n    tone(8, notes[3]);\n  } else {\n    // if the value is out of range, play no tone\n    noTone(8);\n  }\n}\n",
-  "astSize": 535,
-  "commandCount": 43,
-  "generated": "2025-09-04T04:00:25.648Z"
-}

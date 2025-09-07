@@ -1,9 +1,0 @@
-{
-  "name": "StringAdditionOperator",
-  "source": "examples",
-  "index": "046",
-  "code": "// 08.Strings StringAdditionOperator\n\nString stringOne, stringTwo, stringThree;\n\nvoid setup() {\n  // initialize serial and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  stringOne = String(\"You added \");\n  stringTwo = String(\"this string\");\n  stringThree = String();\n\n  // send an intro:\n  Serial.println(\"\\n\\nAdding Strings together (concatenation):\");\n  Serial.println();\n}\n\nvoid loop() {\n  // adding a constant integer to a String:\n  stringThree = stringOne + 123;\n  Serial.println(stringThree);\n\n  // adding a constant long integer to a String:\n  stringThree = stringOne + 123456789;\n  Serial.println(stringThree);\n\n  // adding a constant character to a String:\n  stringThree = stringOne + 'A';\n  Serial.println(stringThree);\n\n  // adding a constant string to a String:\n  stringThree = stringOne + \"abc\";\n  Serial.println(stringThree);\n\n  stringThree = stringOne + stringTwo;\n  Serial.println(stringThree);\n\n  // adding a variable integer to a String:\n  int sensorValue = analogRead(A0);\n  stringOne = \"Sensor value: \";\n  stringThree = stringOne + sensorValue;\n  Serial.println(stringThree);\n\n  // adding a variable long integer to a String:\n  stringOne = \"millis() value: \";\n  stringThree = stringOne + millis();\n  Serial.println(stringThree);\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
-  "astSize": 482,
-  "commandCount": 36,
-  "generated": "2025-09-02T05:32:02.022Z"
-}

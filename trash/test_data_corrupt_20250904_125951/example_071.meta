@@ -1,9 +1,0 @@
-{
-  "name": "p09_MotorizedPinwheel.ino",
-  "source": "examples",
-  "index": "071",
-  "code": "// 10.StarterKit_BasicKit p09_MotorizedPinwheel\n\n// named constants for the switch and motor pins\nconst int switchPin = 2;\nconst int motorPin = 9;\n\nint switchState = 0;\n\nvoid setup() {\n  // initialize the motor pin as an output:\n  pinMode(motorPin, OUTPUT);\n  // initialize the switch pin as an input:\n  pinMode(switchPin, INPUT);\n}\n\nvoid loop() {\n  // read the state of the switch value:\n  switchState = digitalRead(switchPin);\n\n  // check if the switch is pressed.\n  if (switchState == HIGH) {\n    // turn motor on:\n    digitalWrite(motorPin, HIGH);\n  } else {\n    // turn motor off:\n    digitalWrite(motorPin, LOW);\n  }\n}\n",
-  "astSize": 353,
-  "commandCount": 34,
-  "generated": "2025-09-04T04:00:25.875Z"
-}
