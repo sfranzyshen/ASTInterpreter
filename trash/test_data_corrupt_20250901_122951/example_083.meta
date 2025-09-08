@@ -1,0 +1,18 @@
+name=Test_Case_for_Parentheses_Precedence.ino
+success=true
+commandCount=21
+error=
+astSize=180
+processingTime=16ms
+content=// Test Case for Parentheses Precedence
+void setup() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  int result = (a + b) * c; // Should evaluate (a + b) first.
+}
+
+void loop() {
+  // empty
+}

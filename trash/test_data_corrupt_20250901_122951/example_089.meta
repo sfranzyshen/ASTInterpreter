@@ -1,0 +1,11 @@
+name=Test_Case_for_Character_Literals.ino
+success=true
+commandCount=18
+error=
+astSize=133
+processingTime=16ms
+content=// Test Case for Character Literals
+char myChar = 'C';
+
+void setup() {}
+void loop() {}

@@ -1,0 +1,83 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738039861,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738039861,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 13,
+    "isConst": true,
+    "timestamp": 1756738039861
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledState",
+    "value": 0,
+    "timestamp": 1756738039861
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "previousMillis",
+    "value": 0,
+    "timestamp": 1756738039861
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "interval",
+    "value": 1000,
+    "isConst": true,
+    "timestamp": 1756738039862
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738039862,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756738039862
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756738039862,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738039862,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738039862,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756738039862
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1756738039862_0.8090605397265036",
+    "timestamp": 1756738039862
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738040861,
+    "message": "Program execution stopped"
+  }
+]

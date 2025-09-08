@@ -1,0 +1,139 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756791080834,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756791080834,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756791080834,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756791080834,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756791080834,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791080834,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756791080834,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756791080834
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 14,
+    "requestId": "analogRead_1756791080835_0.33380966288052805",
+    "timestamp": 1756791080835
+  },
+  {
+    "type": "TIMEOUT",
+    "message": "Execution timeout after 5 seconds",
+    "timestamp": 1756791085835
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756791085835,
+    "message": "Program execution stopped"
+  },
+  {
+    "type": "ERROR",
+    "message": "Line undefined, Column undefined: analogRead timeout: Request analogRead_1756791080835_0.33380966288052805 timed out after 5000ms\n  → function call 'unknown()'",
+    "originalMessage": "analogRead timeout: Request analogRead_1756791080835_0.33380966288052805 timed out after 5000ms",
+    "node": {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "FuncCallNode",
+        "callee": {
+          "type": "MemberAccessNode",
+          "object": {
+            "type": "IdentifierNode",
+            "value": "Serial"
+          },
+          "property": {
+            "type": "IdentifierNode",
+            "value": "println"
+          },
+          "operator": "DOT"
+        },
+        "arguments": [
+          {
+            "type": "FuncCallNode",
+            "callee": {
+              "type": "IdentifierNode",
+              "value": "analogRead"
+            },
+            "arguments": [
+              {
+                "type": "IdentifierNode",
+                "value": "A0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "location": {
+      "context": "function call 'unknown()'"
+    },
+    "timestamp": 1756791085835
+  },
+  {
+    "type": "ERROR",
+    "message": "[object Object]",
+    "timestamp": 1756791085835
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.println",
+    "arguments": [
+      "661"
+    ],
+    "data": "661",
+    "timestamp": 1756791085835,
+    "message": "Serial.println(661)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756791085835
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756791085840,
+    "message": "Completed loop() execution (1 iterations)",
+    "iterations": 1,
+    "limitReached": false
+  }
+]

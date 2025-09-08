@@ -1,0 +1,17 @@
+name=Test_Case_for_the_return_statement.ino
+success=true
+commandCount=17
+error=
+astSize=214
+processingTime=15ms
+content=// Test Case for the return statement
+int getValue() {
+  return 42;
+}
+
+void doSomething() {
+  return;
+}
+
+void setup() {}
+void loop() {}

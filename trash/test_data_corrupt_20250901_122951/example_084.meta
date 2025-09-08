@@ -1,0 +1,16 @@
+name=Test_Case_for_Unary_vs_Binary_Operators.ino
+success=true
+commandCount=20
+error=
+astSize=163
+processingTime=15ms
+content=// Test Case for Unary vs. Binary Operators
+void setup() {
+  int x = 10;
+  int y = -x;      // Unary minus
+  int z = 10 - 5;  // Binary minus
+}
+
+void loop() {
+  // empty
+}

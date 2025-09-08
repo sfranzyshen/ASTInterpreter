@@ -11,9 +11,9 @@
 
 #pragma once
 
-#include "../ASTInterpreter.hpp"
-#include "../CommandProtocol.hpp"
-#include "../CompactAST.hpp"
+#include "../src/cpp/ASTInterpreter.hpp"
+#include "../src/cpp/CommandProtocol.hpp"
+#include "../libs/CompactAST/src/CompactAST.hpp"
 #include <vector>
 #include <string>
 #include <memory>

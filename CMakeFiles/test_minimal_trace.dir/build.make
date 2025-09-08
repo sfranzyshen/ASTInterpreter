@@ -69,28 +69,28 @@ include CMakeFiles/test_minimal_trace.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test_minimal_trace.dir/flags.make
 
-CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o: CMakeFiles/test_minimal_trace.dir/flags.make
-CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o: test_minimal_trace.cpp
-CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o: CMakeFiles/test_minimal_trace.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o -MF CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o.d -o CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/test_minimal_trace.cpp
+CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o: CMakeFiles/test_minimal_trace.dir/flags.make
+CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o: src/cpp/test_minimal_trace.cpp
+CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o: CMakeFiles/test_minimal_trace.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/Devel/ASTInterpreter_Arduino/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o -MF CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o.d -o CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o -c /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/test_minimal_trace.cpp
 
-CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/test_minimal_trace.cpp > CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.i
+CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/test_minimal_trace.cpp > CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.i
 
-CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/test_minimal_trace.cpp -o CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.s
+CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/test_minimal_trace.cpp -o CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.s
 
 # Object files for target test_minimal_trace
 test_minimal_trace_OBJECTS = \
-"CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o"
+"CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o"
 
 # External object files for target test_minimal_trace
 test_minimal_trace_EXTERNAL_OBJECTS =
 
-test_minimal_trace: CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o
+test_minimal_trace: CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o
 test_minimal_trace: CMakeFiles/test_minimal_trace.dir/build.make
 test_minimal_trace: libarduino_ast_interpreter.a
 test_minimal_trace: CMakeFiles/test_minimal_trace.dir/link.txt

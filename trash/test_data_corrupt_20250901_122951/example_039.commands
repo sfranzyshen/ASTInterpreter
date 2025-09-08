@@ -1,0 +1,121 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738055556,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738055556,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "groundpin",
+    "value": 18,
+    "isConst": true,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "powerpin",
+    "value": 19,
+    "isConst": true,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "xpin",
+    "value": 17,
+    "isConst": true,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ypin",
+    "value": 16,
+    "isConst": true,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "zpin",
+    "value": 15,
+    "isConst": true,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738055556,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756738055556,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 18,
+    "mode": 1,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 19,
+    "mode": 1,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 18,
+    "value": 0,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 19,
+    "value": 1,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756738055556,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738055556,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738055556,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "ANALOG_READ_REQUEST",
+    "pin": 17,
+    "requestId": "analogRead_1756738055556_0.7532326407503307",
+    "timestamp": 1756738055556
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738056556,
+    "message": "Program execution stopped"
+  }
+]

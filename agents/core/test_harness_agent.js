@@ -85,7 +85,7 @@ class TestHarnessAgent {
                 expectedResults: { successRate: 100.0 }
             },
             "test_data_generation": {
-                path: "generate_test_data.js",
+                path: "src/javascript/generate_test_data.js",
                 description: "Generate binary AST test data for C++ validation",
                 type: "javascript_generator",
                 expectedResults: { total: 135, successRate: 95.0 }

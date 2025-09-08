@@ -308,198 +308,6 @@ cross_platform_validation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cross_platform_validation.dir/build.make CMakeFiles/cross_platform_validation.dir/build
 .PHONY : cross_platform_validation/fast
 
-ASTInterpreter.o: ASTInterpreter.cpp.o
-.PHONY : ASTInterpreter.o
-
-# target to build an object file
-ASTInterpreter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.o
-.PHONY : ASTInterpreter.cpp.o
-
-ASTInterpreter.i: ASTInterpreter.cpp.i
-.PHONY : ASTInterpreter.i
-
-# target to preprocess a source file
-ASTInterpreter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.i
-.PHONY : ASTInterpreter.cpp.i
-
-ASTInterpreter.s: ASTInterpreter.cpp.s
-.PHONY : ASTInterpreter.s
-
-# target to generate assembly for a file
-ASTInterpreter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTInterpreter.cpp.s
-.PHONY : ASTInterpreter.cpp.s
-
-ASTNodes.o: ASTNodes.cpp.o
-.PHONY : ASTNodes.o
-
-# target to build an object file
-ASTNodes.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.o
-.PHONY : ASTNodes.cpp.o
-
-ASTNodes.i: ASTNodes.cpp.i
-.PHONY : ASTNodes.i
-
-# target to preprocess a source file
-ASTNodes.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.i
-.PHONY : ASTNodes.cpp.i
-
-ASTNodes.s: ASTNodes.cpp.s
-.PHONY : ASTNodes.s
-
-# target to generate assembly for a file
-ASTNodes.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ASTNodes.cpp.s
-.PHONY : ASTNodes.cpp.s
-
-ArduinoDataTypes.o: ArduinoDataTypes.cpp.o
-.PHONY : ArduinoDataTypes.o
-
-# target to build an object file
-ArduinoDataTypes.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.o
-.PHONY : ArduinoDataTypes.cpp.o
-
-ArduinoDataTypes.i: ArduinoDataTypes.cpp.i
-.PHONY : ArduinoDataTypes.i
-
-# target to preprocess a source file
-ArduinoDataTypes.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.i
-.PHONY : ArduinoDataTypes.cpp.i
-
-ArduinoDataTypes.s: ArduinoDataTypes.cpp.s
-.PHONY : ArduinoDataTypes.s
-
-# target to generate assembly for a file
-ArduinoDataTypes.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoDataTypes.cpp.s
-.PHONY : ArduinoDataTypes.cpp.s
-
-ArduinoLibraryRegistry.o: ArduinoLibraryRegistry.cpp.o
-.PHONY : ArduinoLibraryRegistry.o
-
-# target to build an object file
-ArduinoLibraryRegistry.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.o
-.PHONY : ArduinoLibraryRegistry.cpp.o
-
-ArduinoLibraryRegistry.i: ArduinoLibraryRegistry.cpp.i
-.PHONY : ArduinoLibraryRegistry.i
-
-# target to preprocess a source file
-ArduinoLibraryRegistry.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.i
-.PHONY : ArduinoLibraryRegistry.cpp.i
-
-ArduinoLibraryRegistry.s: ArduinoLibraryRegistry.cpp.s
-.PHONY : ArduinoLibraryRegistry.s
-
-# target to generate assembly for a file
-ArduinoLibraryRegistry.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ArduinoLibraryRegistry.cpp.s
-.PHONY : ArduinoLibraryRegistry.cpp.s
-
-CommandProtocol.o: CommandProtocol.cpp.o
-.PHONY : CommandProtocol.o
-
-# target to build an object file
-CommandProtocol.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.o
-.PHONY : CommandProtocol.cpp.o
-
-CommandProtocol.i: CommandProtocol.cpp.i
-.PHONY : CommandProtocol.i
-
-# target to preprocess a source file
-CommandProtocol.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.i
-.PHONY : CommandProtocol.cpp.i
-
-CommandProtocol.s: CommandProtocol.cpp.s
-.PHONY : CommandProtocol.s
-
-# target to generate assembly for a file
-CommandProtocol.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CommandProtocol.cpp.s
-.PHONY : CommandProtocol.cpp.s
-
-CompactAST.o: CompactAST.cpp.o
-.PHONY : CompactAST.o
-
-# target to build an object file
-CompactAST.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.o
-.PHONY : CompactAST.cpp.o
-
-CompactAST.i: CompactAST.cpp.i
-.PHONY : CompactAST.i
-
-# target to preprocess a source file
-CompactAST.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.i
-.PHONY : CompactAST.cpp.i
-
-CompactAST.s: CompactAST.cpp.s
-.PHONY : CompactAST.s
-
-# target to generate assembly for a file
-CompactAST.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/CompactAST.cpp.s
-.PHONY : CompactAST.cpp.s
-
-EnhancedInterpreter.o: EnhancedInterpreter.cpp.o
-.PHONY : EnhancedInterpreter.o
-
-# target to build an object file
-EnhancedInterpreter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.o
-.PHONY : EnhancedInterpreter.cpp.o
-
-EnhancedInterpreter.i: EnhancedInterpreter.cpp.i
-.PHONY : EnhancedInterpreter.i
-
-# target to preprocess a source file
-EnhancedInterpreter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.i
-.PHONY : EnhancedInterpreter.cpp.i
-
-EnhancedInterpreter.s: EnhancedInterpreter.cpp.s
-.PHONY : EnhancedInterpreter.s
-
-# target to generate assembly for a file
-EnhancedInterpreter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/EnhancedInterpreter.cpp.s
-.PHONY : EnhancedInterpreter.cpp.s
-
-ExecutionTracer.o: ExecutionTracer.cpp.o
-.PHONY : ExecutionTracer.o
-
-# target to build an object file
-ExecutionTracer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.o
-.PHONY : ExecutionTracer.cpp.o
-
-ExecutionTracer.i: ExecutionTracer.cpp.i
-.PHONY : ExecutionTracer.i
-
-# target to preprocess a source file
-ExecutionTracer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.i
-.PHONY : ExecutionTracer.cpp.i
-
-ExecutionTracer.s: ExecutionTracer.cpp.s
-.PHONY : ExecutionTracer.s
-
-# target to generate assembly for a file
-ExecutionTracer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/ExecutionTracer.cpp.s
-.PHONY : ExecutionTracer.cpp.s
-
 examples/basic_interpreter.o: examples/basic_interpreter.cpp.o
 .PHONY : examples/basic_interpreter.o
 
@@ -524,29 +332,221 @@ examples/basic_interpreter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.s
 .PHONY : examples/basic_interpreter.cpp.s
 
-test_minimal_trace.o: test_minimal_trace.cpp.o
-.PHONY : test_minimal_trace.o
+libs/CompactAST/src/CompactAST.o: libs/CompactAST/src/CompactAST.cpp.o
+.PHONY : libs/CompactAST/src/CompactAST.o
 
 # target to build an object file
-test_minimal_trace.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.o
-.PHONY : test_minimal_trace.cpp.o
+libs/CompactAST/src/CompactAST.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/libs/CompactAST/src/CompactAST.cpp.o
+.PHONY : libs/CompactAST/src/CompactAST.cpp.o
 
-test_minimal_trace.i: test_minimal_trace.cpp.i
-.PHONY : test_minimal_trace.i
+libs/CompactAST/src/CompactAST.i: libs/CompactAST/src/CompactAST.cpp.i
+.PHONY : libs/CompactAST/src/CompactAST.i
 
 # target to preprocess a source file
-test_minimal_trace.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.i
-.PHONY : test_minimal_trace.cpp.i
+libs/CompactAST/src/CompactAST.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/libs/CompactAST/src/CompactAST.cpp.i
+.PHONY : libs/CompactAST/src/CompactAST.cpp.i
 
-test_minimal_trace.s: test_minimal_trace.cpp.s
-.PHONY : test_minimal_trace.s
+libs/CompactAST/src/CompactAST.s: libs/CompactAST/src/CompactAST.cpp.s
+.PHONY : libs/CompactAST/src/CompactAST.s
 
 # target to generate assembly for a file
-test_minimal_trace.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/test_minimal_trace.cpp.s
-.PHONY : test_minimal_trace.cpp.s
+libs/CompactAST/src/CompactAST.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/libs/CompactAST/src/CompactAST.cpp.s
+.PHONY : libs/CompactAST/src/CompactAST.cpp.s
+
+src/cpp/ASTInterpreter.o: src/cpp/ASTInterpreter.cpp.o
+.PHONY : src/cpp/ASTInterpreter.o
+
+# target to build an object file
+src/cpp/ASTInterpreter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTInterpreter.cpp.o
+.PHONY : src/cpp/ASTInterpreter.cpp.o
+
+src/cpp/ASTInterpreter.i: src/cpp/ASTInterpreter.cpp.i
+.PHONY : src/cpp/ASTInterpreter.i
+
+# target to preprocess a source file
+src/cpp/ASTInterpreter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTInterpreter.cpp.i
+.PHONY : src/cpp/ASTInterpreter.cpp.i
+
+src/cpp/ASTInterpreter.s: src/cpp/ASTInterpreter.cpp.s
+.PHONY : src/cpp/ASTInterpreter.s
+
+# target to generate assembly for a file
+src/cpp/ASTInterpreter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTInterpreter.cpp.s
+.PHONY : src/cpp/ASTInterpreter.cpp.s
+
+src/cpp/ASTNodes.o: src/cpp/ASTNodes.cpp.o
+.PHONY : src/cpp/ASTNodes.o
+
+# target to build an object file
+src/cpp/ASTNodes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTNodes.cpp.o
+.PHONY : src/cpp/ASTNodes.cpp.o
+
+src/cpp/ASTNodes.i: src/cpp/ASTNodes.cpp.i
+.PHONY : src/cpp/ASTNodes.i
+
+# target to preprocess a source file
+src/cpp/ASTNodes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTNodes.cpp.i
+.PHONY : src/cpp/ASTNodes.cpp.i
+
+src/cpp/ASTNodes.s: src/cpp/ASTNodes.cpp.s
+.PHONY : src/cpp/ASTNodes.s
+
+# target to generate assembly for a file
+src/cpp/ASTNodes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ASTNodes.cpp.s
+.PHONY : src/cpp/ASTNodes.cpp.s
+
+src/cpp/ArduinoDataTypes.o: src/cpp/ArduinoDataTypes.cpp.o
+.PHONY : src/cpp/ArduinoDataTypes.o
+
+# target to build an object file
+src/cpp/ArduinoDataTypes.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoDataTypes.cpp.o
+.PHONY : src/cpp/ArduinoDataTypes.cpp.o
+
+src/cpp/ArduinoDataTypes.i: src/cpp/ArduinoDataTypes.cpp.i
+.PHONY : src/cpp/ArduinoDataTypes.i
+
+# target to preprocess a source file
+src/cpp/ArduinoDataTypes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoDataTypes.cpp.i
+.PHONY : src/cpp/ArduinoDataTypes.cpp.i
+
+src/cpp/ArduinoDataTypes.s: src/cpp/ArduinoDataTypes.cpp.s
+.PHONY : src/cpp/ArduinoDataTypes.s
+
+# target to generate assembly for a file
+src/cpp/ArduinoDataTypes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoDataTypes.cpp.s
+.PHONY : src/cpp/ArduinoDataTypes.cpp.s
+
+src/cpp/ArduinoLibraryRegistry.o: src/cpp/ArduinoLibraryRegistry.cpp.o
+.PHONY : src/cpp/ArduinoLibraryRegistry.o
+
+# target to build an object file
+src/cpp/ArduinoLibraryRegistry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.o
+.PHONY : src/cpp/ArduinoLibraryRegistry.cpp.o
+
+src/cpp/ArduinoLibraryRegistry.i: src/cpp/ArduinoLibraryRegistry.cpp.i
+.PHONY : src/cpp/ArduinoLibraryRegistry.i
+
+# target to preprocess a source file
+src/cpp/ArduinoLibraryRegistry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.i
+.PHONY : src/cpp/ArduinoLibraryRegistry.cpp.i
+
+src/cpp/ArduinoLibraryRegistry.s: src/cpp/ArduinoLibraryRegistry.cpp.s
+.PHONY : src/cpp/ArduinoLibraryRegistry.s
+
+# target to generate assembly for a file
+src/cpp/ArduinoLibraryRegistry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.s
+.PHONY : src/cpp/ArduinoLibraryRegistry.cpp.s
+
+src/cpp/CommandProtocol.o: src/cpp/CommandProtocol.cpp.o
+.PHONY : src/cpp/CommandProtocol.o
+
+# target to build an object file
+src/cpp/CommandProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/CommandProtocol.cpp.o
+.PHONY : src/cpp/CommandProtocol.cpp.o
+
+src/cpp/CommandProtocol.i: src/cpp/CommandProtocol.cpp.i
+.PHONY : src/cpp/CommandProtocol.i
+
+# target to preprocess a source file
+src/cpp/CommandProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/CommandProtocol.cpp.i
+.PHONY : src/cpp/CommandProtocol.cpp.i
+
+src/cpp/CommandProtocol.s: src/cpp/CommandProtocol.cpp.s
+.PHONY : src/cpp/CommandProtocol.s
+
+# target to generate assembly for a file
+src/cpp/CommandProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/CommandProtocol.cpp.s
+.PHONY : src/cpp/CommandProtocol.cpp.s
+
+src/cpp/EnhancedInterpreter.o: src/cpp/EnhancedInterpreter.cpp.o
+.PHONY : src/cpp/EnhancedInterpreter.o
+
+# target to build an object file
+src/cpp/EnhancedInterpreter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/EnhancedInterpreter.cpp.o
+.PHONY : src/cpp/EnhancedInterpreter.cpp.o
+
+src/cpp/EnhancedInterpreter.i: src/cpp/EnhancedInterpreter.cpp.i
+.PHONY : src/cpp/EnhancedInterpreter.i
+
+# target to preprocess a source file
+src/cpp/EnhancedInterpreter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/EnhancedInterpreter.cpp.i
+.PHONY : src/cpp/EnhancedInterpreter.cpp.i
+
+src/cpp/EnhancedInterpreter.s: src/cpp/EnhancedInterpreter.cpp.s
+.PHONY : src/cpp/EnhancedInterpreter.s
+
+# target to generate assembly for a file
+src/cpp/EnhancedInterpreter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/EnhancedInterpreter.cpp.s
+.PHONY : src/cpp/EnhancedInterpreter.cpp.s
+
+src/cpp/ExecutionTracer.o: src/cpp/ExecutionTracer.cpp.o
+.PHONY : src/cpp/ExecutionTracer.o
+
+# target to build an object file
+src/cpp/ExecutionTracer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ExecutionTracer.cpp.o
+.PHONY : src/cpp/ExecutionTracer.cpp.o
+
+src/cpp/ExecutionTracer.i: src/cpp/ExecutionTracer.cpp.i
+.PHONY : src/cpp/ExecutionTracer.i
+
+# target to preprocess a source file
+src/cpp/ExecutionTracer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ExecutionTracer.cpp.i
+.PHONY : src/cpp/ExecutionTracer.cpp.i
+
+src/cpp/ExecutionTracer.s: src/cpp/ExecutionTracer.cpp.s
+.PHONY : src/cpp/ExecutionTracer.s
+
+# target to generate assembly for a file
+src/cpp/ExecutionTracer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ExecutionTracer.cpp.s
+.PHONY : src/cpp/ExecutionTracer.cpp.s
+
+src/cpp/test_minimal_trace.o: src/cpp/test_minimal_trace.cpp.o
+.PHONY : src/cpp/test_minimal_trace.o
+
+# target to build an object file
+src/cpp/test_minimal_trace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o
+.PHONY : src/cpp/test_minimal_trace.cpp.o
+
+src/cpp/test_minimal_trace.i: src/cpp/test_minimal_trace.cpp.i
+.PHONY : src/cpp/test_minimal_trace.i
+
+# target to preprocess a source file
+src/cpp/test_minimal_trace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.i
+.PHONY : src/cpp/test_minimal_trace.cpp.i
+
+src/cpp/test_minimal_trace.s: src/cpp/test_minimal_trace.cpp.s
+.PHONY : src/cpp/test_minimal_trace.s
+
+# target to generate assembly for a file
+src/cpp/test_minimal_trace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.s
+.PHONY : src/cpp/test_minimal_trace.cpp.s
 
 tests/test_ast_nodes.o: tests/test_ast_nodes.cpp.o
 .PHONY : tests/test_ast_nodes.o
@@ -692,36 +692,36 @@ help:
 	@echo "... test_cross_platform_validation"
 	@echo "... test_interpreter_integration"
 	@echo "... test_minimal_trace"
-	@echo "... ASTInterpreter.o"
-	@echo "... ASTInterpreter.i"
-	@echo "... ASTInterpreter.s"
-	@echo "... ASTNodes.o"
-	@echo "... ASTNodes.i"
-	@echo "... ASTNodes.s"
-	@echo "... ArduinoDataTypes.o"
-	@echo "... ArduinoDataTypes.i"
-	@echo "... ArduinoDataTypes.s"
-	@echo "... ArduinoLibraryRegistry.o"
-	@echo "... ArduinoLibraryRegistry.i"
-	@echo "... ArduinoLibraryRegistry.s"
-	@echo "... CommandProtocol.o"
-	@echo "... CommandProtocol.i"
-	@echo "... CommandProtocol.s"
-	@echo "... CompactAST.o"
-	@echo "... CompactAST.i"
-	@echo "... CompactAST.s"
-	@echo "... EnhancedInterpreter.o"
-	@echo "... EnhancedInterpreter.i"
-	@echo "... EnhancedInterpreter.s"
-	@echo "... ExecutionTracer.o"
-	@echo "... ExecutionTracer.i"
-	@echo "... ExecutionTracer.s"
 	@echo "... examples/basic_interpreter.o"
 	@echo "... examples/basic_interpreter.i"
 	@echo "... examples/basic_interpreter.s"
-	@echo "... test_minimal_trace.o"
-	@echo "... test_minimal_trace.i"
-	@echo "... test_minimal_trace.s"
+	@echo "... libs/CompactAST/src/CompactAST.o"
+	@echo "... libs/CompactAST/src/CompactAST.i"
+	@echo "... libs/CompactAST/src/CompactAST.s"
+	@echo "... src/cpp/ASTInterpreter.o"
+	@echo "... src/cpp/ASTInterpreter.i"
+	@echo "... src/cpp/ASTInterpreter.s"
+	@echo "... src/cpp/ASTNodes.o"
+	@echo "... src/cpp/ASTNodes.i"
+	@echo "... src/cpp/ASTNodes.s"
+	@echo "... src/cpp/ArduinoDataTypes.o"
+	@echo "... src/cpp/ArduinoDataTypes.i"
+	@echo "... src/cpp/ArduinoDataTypes.s"
+	@echo "... src/cpp/ArduinoLibraryRegistry.o"
+	@echo "... src/cpp/ArduinoLibraryRegistry.i"
+	@echo "... src/cpp/ArduinoLibraryRegistry.s"
+	@echo "... src/cpp/CommandProtocol.o"
+	@echo "... src/cpp/CommandProtocol.i"
+	@echo "... src/cpp/CommandProtocol.s"
+	@echo "... src/cpp/EnhancedInterpreter.o"
+	@echo "... src/cpp/EnhancedInterpreter.i"
+	@echo "... src/cpp/EnhancedInterpreter.s"
+	@echo "... src/cpp/ExecutionTracer.o"
+	@echo "... src/cpp/ExecutionTracer.i"
+	@echo "... src/cpp/ExecutionTracer.s"
+	@echo "... src/cpp/test_minimal_trace.o"
+	@echo "... src/cpp/test_minimal_trace.i"
+	@echo "... src/cpp/test_minimal_trace.s"
 	@echo "... tests/test_ast_nodes.o"
 	@echo "... tests/test_ast_nodes.i"
 	@echo "... tests/test_ast_nodes.s"

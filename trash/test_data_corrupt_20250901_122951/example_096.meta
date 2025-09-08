@@ -1,0 +1,33 @@
+name=Function_Calls_and_Parameter_Passing.ino
+success=true
+commandCount=45
+error=
+astSize=521
+processingTime=17ms
+content=// Function Calls and Parameter Passing
+int add(int x, int y) {
+  return x + y;
+}
+
+int multiply(int x, int y) {
+  return x * y;
+}
+
+int calculate(int x, int y, int z) {
+  return multiply(add(x, y), z);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int a = 5;
+  int b = 10;
+  int c = 2;
+
+  int finalResult = calculate(a, b, c);
+
+  Serial.print("Final result: ");
+  Serial.println(finalResult);
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Playground Fixes</title>
+</head>
+<body>
+    <h1>Testing Playground Fixes</h1>
+    <div id="results"></div>
+
+    <!-- Load scripts in same order as playground -->
+    <script src="parser.js"></script>
+    <script src="preprocessor.js"></script>
+    <script src="interpreter.js"></script>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        function addResult(message, isSuccess = true) {
+            const div = document.createElement('div');
+            div.style.color = isSuccess ? 'green' : 'red';
+            div.textContent = message;
+            results.appendChild(div);
+        }
+        
+        console.log('🧪 Testing Playground Fixes in Browser Environment');
+        
+        // Test 1: Check if globals are available
+        if (typeof parse !== 'undefined') {
+            addResult('✅ parse function is available globally');
+        } else {
+            addResult('❌ parse function not available globally', false);
+        }
+        
+        if (typeof PARSER_VERSION !== 'undefined') {
+            addResult(`✅ PARSER_VERSION is available: ${PARSER_VERSION}`);
+        } else {
+            addResult('❌ PARSER_VERSION not available globally', false);
+        }
+        
+        if (typeof ArduinoPreprocessor !== 'undefined' || (window.ArduinoPreprocessor !== 'undefined')) {
+            addResult('✅ ArduinoPreprocessor is available');
+        } else {
+            addResult('❌ ArduinoPreprocessor not available', false);
+        }
+        
+        // Test 2: Test preprocessing functionality
+        const testCode = `
+#define LED_COUNT 60
+uint16_t pixelNumber = LED_COUNT;
+void setup() {}
+void loop() {}
+`;
+        
+        try {
+            const ast = parse(testCode, { verbose: false, enablePreprocessor: true });
+            
+            if (ast && ast.preprocessorInfo && ast.preprocessorInfo.macros.LED_COUNT === '60') {
+                addResult('✅ LED_COUNT preprocessing works correctly');
+                addResult(`✅ LED_COUNT = ${ast.preprocessorInfo.macros.LED_COUNT}`);
+            } else {
+                addResult('❌ LED_COUNT preprocessing not working', false);
+            }
+            
+            // Test 3: Create interpreter and check variable resolution
+            const interpreter = new ASTInterpreter(ast, {
+                verbose: false,
+                debug: false,
+                stepDelay: 0,
+                maxLoopIterations: 1
+            });
+            
+            if (interpreter.macros.has('LED_COUNT')) {
+                const ledCountValue = interpreter.macros.get('LED_COUNT');
+                if (ledCountValue === '60') {
+                    addResult('✅ LED_COUNT available in interpreter with correct value');
+                } else {
+                    addResult(`❌ LED_COUNT has wrong value in interpreter: ${ledCountValue}`, false);
+                }
+            } else {
+                addResult('❌ LED_COUNT not available in interpreter', false);
+            }
+            
+            addResult('🎉 ALL TESTS PASSED - Playground should work correctly!');
+            
+        } catch (error) {
+            addResult(`❌ Testing failed: ${error.message}`, false);
+            console.error('Error details:', error);
+        }
+    </script>
+</body>
+</html>

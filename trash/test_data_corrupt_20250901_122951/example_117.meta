@@ -1,0 +1,22 @@
+name=static_Variables_and_Scope.ino
+success=true
+commandCount=33
+error=
+astSize=215
+processingTime=77ms
+content=// static Variables and Scope
+void counter() {
+  static int count = 0;
+  count++;
+  Serial.print("Count is: ");
+  Serial.println(count);
+}
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  counter();
+  delay(1000);
+}

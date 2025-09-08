@@ -1,0 +1,9 @@
+{
+  "name": "Graph.ino",
+  "source": "examples",
+  "index": "023",
+  "code": "// 04.Communication Graph.ino\n\nvoid setup() {\n  // initialize the serial communication:\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  // send the value of analog input 0:\n  Serial.println(analogRead(A0));\n  // wait a bit for the analog-to-digital converter to stabilize after the last\n  // reading:\n  delay(2);\n}\n",
+  "astSize": 126,
+  "commandCount": 27,
+  "generated": "2025-09-04T04:00:21.147Z"
+}

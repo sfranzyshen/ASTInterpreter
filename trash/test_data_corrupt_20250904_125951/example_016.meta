@@ -1,0 +1,9 @@
+{
+  "name": "AnalogInput.ino",
+  "source": "examples",
+  "index": "016",
+  "code": "// 03.Analog AnalogInput.ino\n\nint sensorPin = A0;\nint ledPin = LED_BUILTIN;\nint sensorValue = 0;\n\nvoid setup() {\n  // declare the ledPin as an OUTPUT:\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  // read the value from the sensor:\n  sensorValue = analogRead(sensorPin);\n\n  // turn the ledPin on\n  digitalWrite(ledPin, HIGH);\n  // stop the program for <sensorValue> milliseconds:\n  delay(sensorValue);\n\n  // turn the ledPin off:\n  digitalWrite(ledPin, LOW);\n  // stop the program for <sensorValue> milliseconds:\n  delay(sensorValue);\n}\n",
+  "astSize": 293,
+  "commandCount": 39,
+  "generated": "2025-09-04T04:00:20.278Z"
+}

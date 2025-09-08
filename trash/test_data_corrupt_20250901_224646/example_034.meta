@@ -1,0 +1,9 @@
+{
+  "name": "ForLoopIteration.ino",
+  "source": "examples",
+  "index": "034",
+  "code": "// 05.Control ForLoopIteration.ino\n\nint timer = 100;\n\nvoid setup() {\n  // use a for loop to initialize each pin as an output:\n  for (int thisPin = 2; thisPin < 8; thisPin++) {\n    pinMode(thisPin, OUTPUT);\n  }\n}\n\nvoid loop() {\n  // loop from the lowest pin to the highest:\n  for (int thisPin = 2; thisPin < 8; thisPin++) {\n    // turn the pin on:\n    digitalWrite(thisPin, HIGH);\n    delay(timer);\n    // turn the pin off:\n    digitalWrite(thisPin, LOW);\n  }\n\n  // loop from the highest pin to the lowest:\n  for (int thisPin = 7; thisPin >= 2; thisPin--) {\n    // turn the pin on:\n    digitalWrite(thisPin, HIGH);\n    delay(timer);\n    // turn the pin off:\n    digitalWrite(thisPin, LOW);\n  }\n}\n",
+  "astSize": 493,
+  "commandCount": 17,
+  "generated": "2025-09-02T05:31:31.559Z"
+}

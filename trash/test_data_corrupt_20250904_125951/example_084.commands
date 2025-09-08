@@ -1,0 +1,124 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756958426950,
+    "component": "interpreter",
+    "version": "6.5.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756958426950,
+    "message": "Program execution started"
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756958426950,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "x",
+    "value": 10,
+    "timestamp": 1756958426950
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "y",
+    "value": -10,
+    "timestamp": 1756958426950
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "z",
+    "value": 5,
+    "timestamp": 1756958426950
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756958426950,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426950,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426950,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756958426950
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1756958426950
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426955,
+    "message": "Starting loop iteration 2"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 2",
+    "iteration": 2,
+    "timestamp": 1756958426955
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 2",
+    "iteration": 2,
+    "completed": true,
+    "timestamp": 1756958426955
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756958426961,
+    "message": "Starting loop iteration 3"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 3",
+    "iteration": 3,
+    "timestamp": 1756958426961
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 3",
+    "iteration": 3,
+    "completed": true,
+    "timestamp": 1756958426961
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1756958426966,
+    "message": "Loop limit reached: completed 3 iterations (max: 3)",
+    "iterations": 3,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958426966,
+    "message": "Program completed after 3 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756958426966,
+    "message": "Program execution stopped"
+  }
+]

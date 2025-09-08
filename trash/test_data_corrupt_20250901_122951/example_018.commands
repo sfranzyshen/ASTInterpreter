@@ -1,0 +1,79 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738049036,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738049036,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorPin",
+    "value": 14,
+    "isConst": true,
+    "timestamp": 1756738049036
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "ledPin",
+    "value": 9,
+    "isConst": true,
+    "timestamp": 1756738049036
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorValue",
+    "value": 0,
+    "timestamp": 1756738049036
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMin",
+    "value": 1023,
+    "timestamp": 1756738049036
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "sensorMax",
+    "value": 0,
+    "timestamp": 1756738049037
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738049037,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 13,
+    "mode": 1,
+    "timestamp": 1756738049037
+  },
+  {
+    "type": "DIGITAL_WRITE",
+    "pin": 13,
+    "value": 1,
+    "timestamp": 1756738049037
+  },
+  {
+    "type": "WHILE_LOOP",
+    "phase": "start",
+    "timestamp": 1756738049037,
+    "message": "while loop started"
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1756738049037_0.3461298043654488",
+    "timestamp": 1756738049037
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738050036,
+    "message": "Program execution stopped"
+  }
+]

@@ -1,0 +1,173 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756738080788,
+    "component": "interpreter",
+    "version": "6.3.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756738080788,
+    "message": "Program execution started"
+  },
+  {
+    "type": "LIBRARY_OBJECT_INSTANTIATION",
+    "library": "Adafruit_NeoPixel",
+    "variableName": "strip",
+    "constructorArgs": [
+      60,
+      6,
+      82
+    ],
+    "timestamp": 1756738080789,
+    "message": "Adafruit_NeoPixel(60, 6, 82)"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "strip",
+    "value": {
+      "__type": "ArduinoObject",
+      "className": "Adafruit_NeoPixel",
+      "constructorArgs": [
+        60,
+        6,
+        82
+      ],
+      "objectId": "Adafruit_NeoPixel_1756738080789_4y80pu6k1"
+    },
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixelPrevious",
+    "value": 0,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "patternPrevious",
+    "value": 0,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "patternCurrent",
+    "value": 0,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "patternInterval",
+    "value": 5000,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "patternComplete",
+    "value": false,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixelInterval",
+    "value": 50,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixelQueue",
+    "value": 0,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixelCycle",
+    "value": 0,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "pixelNumber",
+    "value": 60,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756738080789,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "AVR_FUNCTION_CALL",
+    "function": "clock_prescale_set",
+    "args": [
+      0
+    ],
+    "message": "clock_prescale_set(0)",
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Adafruit_NeoPixel",
+    "object": "Adafruit_NeoPixel_1756738080789_4y80pu6k1",
+    "variableName": "strip",
+    "method": "begin",
+    "args": [],
+    "message": "strip.begin()",
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Adafruit_NeoPixel",
+    "object": "Adafruit_NeoPixel_1756738080789_4y80pu6k1",
+    "variableName": "strip",
+    "method": "show",
+    "args": [],
+    "message": "strip.show()",
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "LIBRARY_METHOD_CALL",
+    "library": "Adafruit_NeoPixel",
+    "object": "Adafruit_NeoPixel_1756738080789_4y80pu6k1",
+    "variableName": "strip",
+    "method": "setBrightness",
+    "args": [
+      50
+    ],
+    "message": "strip.setBrightness(50)",
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756738080789,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738080789,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1756738080789,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "MILLIS_REQUEST",
+    "requestId": "millis_1756738080789_0.6531937616164893",
+    "timestamp": 1756738080789
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1756738081788,
+    "message": "Program execution stopped"
+  }
+]

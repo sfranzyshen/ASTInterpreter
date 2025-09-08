@@ -1,0 +1,9 @@
+{
+  "name": "VirtualColorMixer.ino",
+  "source": "examples",
+  "index": "032",
+  "code": "// 04.Communication VirtualColorMixer.ino\n\nconst int redPin = A0;\nconst int greenPin = A1;\nconst int bluePin = A2;\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  Serial.print(analogRead(redPin));\n  Serial.print(\",\");\n  Serial.print(analogRead(greenPin));\n  Serial.print(\",\");\n  Serial.println(analogRead(bluePin));\n}\n",
+  "astSize": 293,
+  "commandCount": 45,
+  "generated": "2025-09-02T17:31:44.712Z"
+}

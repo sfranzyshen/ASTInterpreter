@@ -86,7 +86,8 @@
       "Bash(./simple_trace_test)",
       "Bash(./quick_similarity_test)",
       "Bash(jq:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": [],

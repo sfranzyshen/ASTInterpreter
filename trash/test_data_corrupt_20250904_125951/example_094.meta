@@ -1,0 +1,9 @@
+{
+  "name": "Complex_Conditional_Logic.ino",
+  "source": "old_test",
+  "index": "094",
+  "code": "// Complex Conditional Logic\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int x = 5;\n  int y = 10;\n  int z = 15;\n\n  if ((x < y && y != z) || (x == 5 && z > 10)) {\n    if (z / x > 2 && y % 2 == 0) {\n      Serial.println(\"Condition 1 met.\");\n    } else {\n      Serial.println(\"Condition 2 met.\");\n    }\n  } else if (x > y || y == 10) {\n    Serial.println(\"Condition 3 met.\");\n  } else {\n    Serial.println(\"No conditions met.\");\n  }\n}",
+  "astSize": 601,
+  "commandCount": 36,
+  "generated": "2025-09-04T04:00:27.676Z"
+}

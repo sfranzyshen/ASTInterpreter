@@ -3,8 +3,8 @@
 
 CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: examples/basic_interpreter.cpp \
   /usr/include/stdc-predef.h \
-  ASTInterpreter.hpp \
-  ASTNodes.hpp \
+  src/cpp/ASTInterpreter.hpp \
+  src/cpp/ASTNodes.hpp \
   /usr/include/c++/11/cstdint \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -197,7 +197,7 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: examp
   /usr/include/c++/11/bits/stl_map.h \
   /usr/include/c++/11/bits/stl_multimap.h \
   /usr/include/c++/11/bits/erase_if.h \
-  CommandProtocol.hpp \
+  src/cpp/CommandProtocol.hpp \
   /usr/include/c++/11/functional \
   /usr/include/c++/11/bits/std_function.h \
   /usr/include/c++/11/unordered_map \
@@ -212,10 +212,10 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: examp
   /usr/include/c++/11/ratio \
   /usr/include/c++/11/limits \
   /usr/include/c++/11/ctime \
-  CompactAST.hpp \
-  EnhancedInterpreter.hpp \
-  ArduinoDataTypes.hpp \
-  ArduinoLibraryRegistry.hpp \
+  libs/CompactAST/src/CompactAST.hpp \
+  src/cpp/EnhancedInterpreter.hpp \
+  src/cpp/ArduinoDataTypes.hpp \
+  src/cpp/ArduinoLibraryRegistry.hpp \
   /usr/include/c++/11/unordered_set \
   /usr/include/c++/11/bits/unordered_set.h \
   /usr/include/c++/11/stack \
@@ -273,11 +273,11 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: examp
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
 
+/usr/include/c++/11/fstream:
+
 /usr/include/c++/11/sstream:
 
 /usr/include/c++/11/bits/quoted_string.h:
-
-/usr/include/stdlib.h:
 
 /usr/include/c++/11/bits/string_view.tcc:
 
@@ -294,8 +294,6 @@ CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o: examp
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
 /usr/include/c++/11/bit:
-
-EnhancedInterpreter.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
@@ -395,9 +393,7 @@ examples/basic_interpreter.cpp:
 
 /usr/include/c++/11/bits/allocator.h:
 
-/usr/include/c++/11/fstream:
-
-ASTNodes.hpp:
+src/cpp/ASTNodes.hpp:
 
 /usr/include/c++/11/bits/alloc_traits.h:
 
@@ -407,23 +403,31 @@ ASTNodes.hpp:
 
 /usr/include/c++/11/bits/stl_function.h:
 
-ASTInterpreter.hpp:
+/usr/include/stdlib.h:
 
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
+src/cpp/ASTInterpreter.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/c++/11/bits/stl_iterator.h:
+
+/usr/include/c++/11/bits/sstream.tcc:
+
+/usr/include/c++/11/new:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/usr/include/c++/11/bits/range_access.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
 /usr/include/c++/11/bits/hash_bytes.h:
 
 /usr/include/c++/11/bits/move.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/c++/11/bits/unordered_map.h:
 
@@ -442,8 +446,6 @@ ASTInterpreter.hpp:
 /usr/include/c++/11/iosfwd:
 
 /usr/include/c++/11/initializer_list:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
 
 /usr/include/c++/11/bits/stl_algobase.h:
 
@@ -477,9 +479,15 @@ ASTInterpreter.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/usr/include/c++/11/bits/range_access.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/c++/11/debug/assertions.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 
@@ -497,8 +505,6 @@ ASTInterpreter.hpp:
 
 /usr/include/features-time64.h:
 
-/usr/include/c++/11/ext/string_conversions.h:
-
 /usr/include/c++/11/bits/exception_ptr.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
@@ -513,19 +519,19 @@ ASTInterpreter.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/long-double.h:
-
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
 
 /usr/include/c++/11/bits/functexcept.h:
 
 /usr/include/c++/11/streambuf:
 
-/usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
 
-CompactAST.hpp:
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
+/usr/include/c++/11/string_view:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
@@ -568,20 +574,6 @@ CompactAST.hpp:
 /usr/include/c++/11/bits/std_function.h:
 
 /usr/include/c++/11/bits/stl_tempbuf.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
-/usr/include/c++/11/bits/stl_iterator.h:
-
-/usr/include/c++/11/bits/sstream.tcc:
-
-/usr/include/c++/11/new:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
-
-/usr/include/c++/11/string_view:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/c++/11/clocale:
 
@@ -629,6 +621,8 @@ CompactAST.hpp:
 
 /usr/include/c++/11/cerrno:
 
+/usr/include/errno.h:
+
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
 /usr/include/sched.h:
@@ -642,6 +636,10 @@ CompactAST.hpp:
 /usr/include/asm-generic/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
+
+src/cpp/EnhancedInterpreter.hpp:
 
 /usr/include/c++/11/bits/charconv.h:
 
@@ -671,11 +669,7 @@ CompactAST.hpp:
 
 /usr/include/c++/11/bits/stl_raw_storage_iter.h:
 
-/usr/include/c++/11/bits/uses_allocator.h:
-
 /usr/include/c++/11/bits/unique_ptr.h:
-
-CommandProtocol.hpp:
 
 /usr/include/c++/11/ostream:
 
@@ -705,11 +699,13 @@ CommandProtocol.hpp:
 
 /usr/include/c++/11/variant:
 
+src/cpp/CommandProtocol.hpp:
+
 /usr/include/c++/11/bits/stl_map.h:
 
-/usr/include/stdint.h:
-
 /usr/include/c++/11/bits/ptr_traits.h:
+
+/usr/include/stdint.h:
 
 /usr/include/endian.h:
 
@@ -733,11 +729,15 @@ CommandProtocol.hpp:
 
 /usr/include/c++/11/limits:
 
-ArduinoDataTypes.hpp:
+libs/CompactAST/src/CompactAST.hpp:
 
-/usr/include/errno.h:
+/usr/include/c++/11/ext/string_conversions.h:
 
-ArduinoLibraryRegistry.hpp:
+src/cpp/ArduinoDataTypes.hpp:
+
+/usr/include/c++/11/bits/uses_allocator.h:
+
+src/cpp/ArduinoLibraryRegistry.hpp:
 
 /usr/include/c++/11/bits/unordered_set.h:
 

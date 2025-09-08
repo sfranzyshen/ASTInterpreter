@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Comprehensive Test Harness - Arduino Parser Testing</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #58a6ff;
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+        }
+        
+        .subtitle {
+            color: #7c3aed;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        .stats-bar {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            border: 1px solid #58a6ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            color: #58a6ff;
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .controls {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .controls h3 {
+            color: #58a6ff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        label {
+            color: #f0f6fc;
+            font-weight: 500;
+            min-width: 80px;
+        }
+        
+        select, input[type="text"] {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            min-width: 200px;
+        }
+        
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #2ea043, #238636);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 160, 67, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn.danger {
+            background: linear-gradient(135deg, #da3633, #f85149);
+        }
+        
+        .btn.danger:hover {
+            background: linear-gradient(135deg, #f85149, #da3633);
+            box-shadow: 0 4px 12px rgba(248, 81, 73, 0.3);
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(135deg, #6f42c1, #8b5cf6);
+        }
+        
+        .btn.secondary:hover {
+            background: linear-gradient(135deg, #8b5cf6, #6f42c1);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+        
+        .progress-container {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #30363d;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #238636, #2ea043);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        
+        .progress-stats .success { color: #2ea043; }
+        .progress-stats .error { color: #f85149; }
+        .progress-stats .total { color: #58a6ff; }
+        
+        #log {
+            background: #0d1117;
+            border: 2px solid #21262d;
+            border-radius: 10px;
+            padding: 25px;
+            white-space: pre-wrap;
+            font-size: 13px;
+            line-height: 1.5;
+            max-height: 600px;
+            overflow-y: auto;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .pass { 
+            color: #2ea043; 
+            font-weight: bold; 
+        }
+        
+        .fail { 
+            color: #f85149; 
+            font-weight: bold; 
+        }
+        
+        .success { 
+            color: #2ea043; 
+            font-weight: bold; 
+        }
+        
+        .failure { 
+            color: #f85149; 
+            font-weight: bold; 
+        }
+        
+        .category-header {
+            color: #58a6ff;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 5px;
+            margin: 20px 0 10px 0;
+        }
+        
+        .test-name {
+            color: #7c3aed;
+            font-weight: 500;
+        }
+        
+        .test-details {
+            color: #8b949e;
+            font-size: 0.9em;
+            margin-left: 20px;
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            border: 1px solid #58a6ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .summary h3 {
+            color: #58a6ff;
+            margin-top: 0;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .summary-item {
+            background: #21262d;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+        
+        .summary-item h4 {
+            margin: 0 0 10px 0;
+            color: #f0f6fc;
+            font-size: 1em;
+        }
+        
+        .summary-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .scrollbar-custom {
+            scrollbar-width: thin;
+            scrollbar-color: #58a6ff #21262d;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: #21262d;
+            border-radius: 4px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #58a6ff;
+            border-radius: 4px;
+        }
+        
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            select, input[type="text"] {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 Comprehensive Test Harness</h1>
+        <div class="subtitle">Arduino Parser & AST Testing Suite</div>
+    </div>
+    
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number" id="totalTests">162</span>
+            <span class="stat-label">Total Tests</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="parserTests">27</span>
+            <span class="stat-label">Parser Tests</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="comprehensiveTests">54</span>
+            <span class="stat-label">Comprehensive</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="arduinoTests">79</span>
+            <span class="stat-label">Arduino Examples</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" id="neopixelTests">2</span>
+            <span class="stat-label">NeoPixel</span>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <h3>🎛️ Test Configuration</h3>
+        
+        <div class="control-row">
+            <div class="control-group">
+                <label for="categorySelect">Category:</label>
+                <select id="categorySelect">
+                    <option value="all">All Categories (162 tests)</option>
+                    <option value="Parser Unit Tests">Parser Unit Tests (27)</option>
+                    <option value="Comprehensive Tests">Comprehensive Tests (54)</option>
+                    <option value="Arduino Examples">Arduino Examples (79)</option>
+                    <option value="NeoPixel Examples">NeoPixel Examples (2)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="testSelect">Specific Test:</label>
+                <select id="testSelect">
+                    <option value="all">All Tests in Category</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-row">
+            <div class="control-group">
+                <label for="searchBox">Search:</label>
+                <input type="text" id="searchBox" placeholder="Search test names or content...">
+            </div>
+            
+            <div class="control-group">
+                <label for="testTypeFilter">Test Type:</label>
+                <select id="testTypeFilter">
+                    <option value="all">All Types</option>
+                    <option value="lexer">Lexer Tests</option>
+                    <option value="parser">Parser (AST) Tests</option>
+                    <option value="sketch">Complete Sketches</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="control-row">
+            <button class="btn" onclick="runSelectedTests()">▶️ Run Tests</button>
+            <button class="btn secondary" onclick="runBatchTests()">🔄 Run All Categories</button>
+            <button class="btn danger" onclick="clearResults()">🗑️ Clear Results</button>
+            <button class="btn secondary" onclick="exportResults()">📊 Export Results</button>
+        </div>
+    </div>
+    
+    <div class="progress-container" id="progressContainer">
+        <h3>🚀 Test Progress</h3>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+        <div class="progress-stats">
+            <span>Passed: <span class="success" id="passedCount">0</span></span>
+            <span>Failed: <span class="error" id="failedCount">0</span></span>
+            <span>Total: <span class="total" id="runningTotal">0</span></span>
+        </div>
+    </div>
+    
+    <pre id="log" class="scrollbar-custom">
+🎯 Comprehensive Test Harness Ready
+📊 162 total tests available across 4 categories
+🔧 Select category and click "Run Tests" to begin
+
+Parser Version: Loading...
+Test Categories:
+• Parser Unit Tests: 27 lexer and AST tests
+• Comprehensive Tests: 54 complete Arduino sketches
+• Arduino Examples: 79 official Arduino IDE examples  
+• NeoPixel Examples: 2 advanced LED strip examples
+
+Features:
+✅ Category-based testing
+✅ Individual test selection
+✅ Search and filtering
+✅ Batch execution
+✅ Progress tracking
+✅ Export results
+    </pre>
+    
+    <div class="summary" id="summary" style="display: none;">
+        <h3>📊 Test Summary</h3>
+        <div class="summary-grid">
+            <div class="summary-item">
+                <h4>Tests Run</h4>
+                <div class="summary-value total" id="summaryTotal">0</div>
+            </div>
+            <div class="summary-item">
+                <h4>Passed</h4>
+                <div class="summary-value success" id="summaryPassed">0</div>
+            </div>
+            <div class="summary-item">
+                <h4>Failed</h4>
+                <div class="summary-value error" id="summaryFailed">0</div>
+            </div>
+            <div class="summary-item">
+                <h4>Success Rate</h4>
+                <div class="summary-value" id="summaryRate">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load dependencies -->
+    <script src="parser.js"></script>
+    <script src="comprehensive_tests.js"></script>
+    <script src="test.js"></script>
+    <script src="old_test.js"></script>
+    <script src="examples.js"></script>
+    <script src="neopixel.js"></script>
+    
+    <script>
+        // Global state
+        let currentTests = [];
+        let testResults = {
+            passed: 0,
+            failed: 0,
+            total: 0,
+            details: []
+        };
+        let isRunning = false;
+        
+        // Initialize the test harness
+        function initializeHarness() {
+            updateParserVersion();
+            populateCategorySelect();
+            setupEventListeners();
+            updateTestCounts();
+        }
+        
+        function updateParserVersion() {
+            const version = typeof PARSER_VERSION !== 'undefined' ? PARSER_VERSION : 'Unknown';
+            const log = document.getElementById('log');
+            log.textContent = log.textContent.replace('Parser Version: Loading...', `Parser Version: ${version}`);
+        }
+        
+        function populateCategorySelect() {
+            const categorySelect = document.getElementById('categorySelect');
+            const testSelect = document.getElementById('testSelect');
+            
+            // Update category select with dynamic test counts
+            if (typeof comprehensiveTestCollection !== 'undefined') {
+                categorySelect.innerHTML = '<option value="all">All Categories (162 tests)</option>';
+                
+                Object.entries(comprehensiveTestCollection).forEach(([category, data]) => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = `${category} (${data.count})`;
+                    categorySelect.appendChild(option);
+                });
+            }
+            
+            categorySelect.addEventListener('change', updateTestSelect);
+            updateTestSelect();
+        }
+        
+        function updateTestSelect() {
+            const categorySelect = document.getElementById('categorySelect');
+            const testSelect = document.getElementById('testSelect');
+            const selectedCategory = categorySelect.value;
+            
+            testSelect.innerHTML = '<option value="all">All Tests in Category</option>';
+            
+            if (selectedCategory !== 'all' && typeof comprehensiveTestCollection !== 'undefined') {
+                const categoryData = comprehensiveTestCollection[selectedCategory];
+                if (categoryData && categoryData.tests) {
+                    categoryData.tests.forEach((test, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = test.name || `Test ${index + 1}`;
+                        testSelect.appendChild(option);
+                    });
+                }
+            }
+        }
+        
+        function setupEventListeners() {
+            const searchBox = document.getElementById('searchBox');
+            const testTypeFilter = document.getElementById('testTypeFilter');
+            
+            searchBox.addEventListener('input', debounce(filterTests, 300));
+            testTypeFilter.addEventListener('change', filterTests);
+        }
+        
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        function filterTests() {
+            // Implementation for filtering tests based on search and type
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const testType = document.getElementById('testTypeFilter').value;
+            
+            // Update test selection based on filters
+            updateTestSelect();
+        }
+        
+        function updateTestCounts() {
+            if (typeof comprehensiveTestCollection !== 'undefined') {
+                Object.entries(comprehensiveTestCollection).forEach(([category, data]) => {
+                    const elementId = category.replace(/\s+/g, '').replace('Tests', 'Tests').toLowerCase() + 'Tests';
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.textContent = data.count;
+                    }
+                });
+            }
+        }
+        
+        async function runSelectedTests() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            resetResults();
+            showProgress();
+            
+            const categorySelect = document.getElementById('categorySelect');
+            const testSelect = document.getElementById('testSelect');
+            const selectedCategory = categorySelect.value;
+            const selectedTest = testSelect.value;
+            
+            try {
+                if (selectedCategory === 'all') {
+                    await runAllCategories();
+                } else {
+                    await runCategoryTests(selectedCategory, selectedTest);
+                }
+            } catch (error) {
+                logError(`Test execution error: ${error.message}`);
+            } finally {
+                isRunning = false;
+                hideProgress();
+                showSummary();
+            }
+        }
+        
+        async function runBatchTests() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            resetResults();
+            showProgress();
+            
+            try {
+                await runAllCategories();
+            } catch (error) {
+                logError(`Batch test execution error: ${error.message}`);
+            } finally {
+                isRunning = false;
+                hideProgress();
+                showSummary();
+            }
+        }
+        
+        async function runAllCategories() {
+            if (typeof comprehensiveTestCollection === 'undefined') {
+                logError('Test collection not loaded');
+                return;
+            }
+            
+            for (const [categoryName, categoryData] of Object.entries(comprehensiveTestCollection)) {
+                await runCategoryTests(categoryName, 'all');
+            }
+        }
+        
+        async function runCategoryTests(categoryName, testIndex) {
+            logMessage(`\n=== Running ${categoryName} ===`, 'category-header');
+            
+            let tests = [];
+            
+            // Get tests for the category
+            if (typeof comprehensiveTestCollection !== 'undefined' && comprehensiveTestCollection[categoryName]) {
+                tests = comprehensiveTestCollection[categoryName].tests;
+            } else {
+                // Fallback to legacy test arrays
+                switch (categoryName) {
+                    case 'Parser Unit Tests':
+                        tests = typeof testCases !== 'undefined' ? testCases : [];
+                        break;
+                    case 'Comprehensive Tests':
+                        tests = typeof testFiles !== 'undefined' ? testFiles : [];
+                        break;
+                    case 'Arduino Examples':
+                        tests = typeof window !== 'undefined' && window.testFiles ? window.testFiles : [];
+                        break;
+                    case 'NeoPixel Examples':
+                        tests = typeof neopixelExamples !== 'undefined' ? neopixelExamples : [];
+                        break;
+                }
+            }
+            
+            if (testIndex !== 'all') {
+                const index = parseInt(testIndex);
+                if (index >= 0 && index < tests.length) {
+                    tests = [tests[index]];
+                }
+            }
+            
+            for (let i = 0; i < tests.length; i++) {
+                const test = tests[i];
+                await runSingleTest(test, categoryName, i);
+                
+                // Update progress
+                updateProgress();
+                
+                // Small delay to prevent UI freezing
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+        }
+        
+        async function runSingleTest(test, category, index) {
+            const testName = test.name || `Test ${index + 1}`;
+            
+            try {
+                testResults.total++;
+                
+                if (test.expectedTokens) {
+                    // Lexer test
+                    await runLexerTest(test, testName);
+                } else if (test.expectedAST) {
+                    // Parser AST test
+                    await runParserTest(test, testName);
+                } else if (test.content || test.code) {
+                    // Complete sketch test (parse only)
+                    await runSketchTest(test, testName);
+                } else {
+                    throw new Error('Unknown test type');
+                }
+                
+                testResults.passed++;
+                logMessage(`✅ ${testName}`, 'pass');
+                
+            } catch (error) {
+                testResults.failed++;
+                logMessage(`❌ ${testName}`, 'fail');
+                logMessage(`   Error: ${error.message}`, 'test-details');
+                
+                testResults.details.push({
+                    name: testName,
+                    category: category,
+                    error: error.message,
+                    status: 'failed'
+                });
+            }
+        }
+        
+        async function runLexerTest(test, testName) {
+            if (typeof Parser === 'undefined') {
+                throw new Error('Parser not available');
+            }
+            
+            const actualTokens = [];
+            const lexerInstance = new Parser(test.code);
+            lexerInstance.position = 0;
+            lexerInstance.currentChar = lexerInstance.code[0] || null;
+            
+            let token;
+            while ((token = lexerInstance.getNextToken()).type !== 'EOF') {
+                actualTokens.push(token);
+            }
+            
+            if (!areTokenArraysEqual(actualTokens, test.expectedTokens)) {
+                throw new Error('Token mismatch');
+            }
+        }
+        
+        async function runParserTest(test, testName) {
+            if (typeof Parser === 'undefined') {
+                throw new Error('Parser not available');
+            }
+            
+            const parser = new Parser(test.code);
+            const actualAST = parser.parse();
+            
+            if (!areASTsEqual(actualAST, test.expectedAST)) {
+                throw new Error('AST mismatch');
+            }
+        }
+        
+        async function runSketchTest(test, testName) {
+            if (typeof parse === 'undefined') {
+                throw new Error('Parser not available');
+            }
+            
+            const code = test.content || test.code;
+            const ast = parse(code);
+            
+            // Check for parse errors
+            if (hasErrors(ast)) {
+                const errors = collectErrors(ast);
+                throw new Error(`Parse errors: ${errors.slice(0, 3).join('; ')}`);
+            }
+        }
+        
+        // Helper functions for test validation
+        function areTokenArraysEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i].type !== arr2[i].type || arr1[i].value !== arr2[i].value) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function areASTsEqual(obj1, obj2) {
+            const sortObject = (obj) => {
+                if (obj === null || typeof obj !== 'object') return obj;
+                if (Array.isArray(obj)) return obj.map(sortObject);
+                return Object.keys(obj).sort().reduce((acc, key) => {
+                    acc[key] = sortObject(obj[key]);
+                    return acc;
+                }, {});
+            };
+            return JSON.stringify(sortObject(obj1)) === JSON.stringify(sortObject(obj2));
+        }
+        
+        function hasErrors(node) {
+            if (!node || typeof node !== 'object') return false;
+            if (node.type === 'ErrorNode') return true;
+            
+            for (const key in node) {
+                if (typeof node[key] === 'object' && node[key] !== null) {
+                    if (Array.isArray(node[key])) {
+                        for (const item of node[key]) {
+                            if (hasErrors(item)) return true;
+                        }
+                    } else {
+                        if (hasErrors(node[key])) return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        function collectErrors(node, errors = []) {
+            if (!node || typeof node !== 'object') return errors;
+            if (node.type === 'ErrorNode') {
+                errors.push(node.value || 'Unknown error');
+                return errors;
+            }
+            
+            for (const key in node) {
+                if (typeof node[key] === 'object' && node[key] !== null) {
+                    if (Array.isArray(node[key])) {
+                        for (const item of node[key]) {
+                            collectErrors(item, errors);
+                        }
+                    } else {
+                        collectErrors(node[key], errors);
+                    }
+                }
+            }
+            return errors;
+        }
+        
+        // UI Management Functions
+        function resetResults() {
+            testResults = { passed: 0, failed: 0, total: 0, details: [] };
+            updateProgressDisplay();
+        }
+        
+        function showProgress() {
+            document.getElementById('progressContainer').style.display = 'block';
+        }
+        
+        function hideProgress() {
+            document.getElementById('progressContainer').style.display = 'none';
+        }
+        
+        function updateProgress() {
+            updateProgressDisplay();
+        }
+        
+        function updateProgressDisplay() {
+            const percentage = testResults.total > 0 ? Math.round((testResults.passed + testResults.failed) / testResults.total * 100) : 0;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressFill').textContent = percentage + '%';
+            document.getElementById('passedCount').textContent = testResults.passed;
+            document.getElementById('failedCount').textContent = testResults.failed;
+            document.getElementById('runningTotal').textContent = testResults.passed + testResults.failed;
+        }
+        
+        function showSummary() {
+            const summaryElement = document.getElementById('summary');
+            summaryElement.style.display = 'block';
+            
+            document.getElementById('summaryTotal').textContent = testResults.total;
+            document.getElementById('summaryPassed').textContent = testResults.passed;
+            document.getElementById('summaryFailed').textContent = testResults.failed;
+            
+            const successRate = testResults.total > 0 ? Math.round((testResults.passed / testResults.total) * 100) : 0;
+            document.getElementById('summaryRate').textContent = successRate + '%';
+            document.getElementById('summaryRate').className = `summary-value ${successRate >= 90 ? 'success' : successRate >= 70 ? 'total' : 'error'}`;
+        }
+        
+        function logMessage(message, className = '') {
+            const log = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const formattedMessage = `[${timestamp}] ${message}\n`;
+            
+            if (className) {
+                // For HTML formatted messages, we'd need to convert to HTML
+                log.textContent += formattedMessage;
+            } else {
+                log.textContent += formattedMessage;
+            }
+            
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function logError(message) {
+            logMessage(`❌ ERROR: ${message}`, 'fail');
+        }
+        
+        function clearResults() {
+            document.getElementById('log').textContent = `🎯 Comprehensive Test Harness Ready
+📊 162 total tests available across 4 categories
+🔧 Select category and click "Run Tests" to begin
+
+Parser Version: ${typeof PARSER_VERSION !== 'undefined' ? PARSER_VERSION : 'Unknown'}
+Test Categories:
+• Parser Unit Tests: 27 lexer and AST tests
+• Comprehensive Tests: 54 complete Arduino sketches
+• Arduino Examples: 79 official Arduino IDE examples  
+• NeoPixel Examples: 2 advanced LED strip examples
+
+Features:
+✅ Category-based testing
+✅ Individual test selection
+✅ Search and filtering
+✅ Batch execution
+✅ Progress tracking
+✅ Export results
+            `;
+            document.getElementById('summary').style.display = 'none';
+            resetResults();
+        }
+        
+        function exportResults() {
+            const results = {
+                timestamp: new Date().toISOString(),
+                summary: {
+                    total: testResults.total,
+                    passed: testResults.passed,
+                    failed: testResults.failed,
+                    successRate: testResults.total > 0 ? Math.round((testResults.passed / testResults.total) * 100) : 0
+                },
+                details: testResults.details,
+                environment: {
+                    parser: typeof PARSER_VERSION !== 'undefined' ? PARSER_VERSION : 'Unknown',
+                    browser: navigator.userAgent
+                }
+            };
+            
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `test-results-${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeHarness);
+    </script>
+</body>
+</html>

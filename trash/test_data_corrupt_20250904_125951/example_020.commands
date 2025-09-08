@@ -1,0 +1,140 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1756958420606,
+    "component": "interpreter",
+    "version": "6.5.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1756958420606,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "numReadings",
+    "value": 10,
+    "isConst": true,
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "readings",
+    "value": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "readIndex",
+    "value": 0,
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "total",
+    "value": 0,
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "average",
+    "value": 0,
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "inputPin",
+    "value": 14,
+    "timestamp": 1756958420606
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1756958420606,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1756958420606,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "start",
+    "timestamp": 1756958420606,
+    "message": "for loop started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisReading",
+    "value": 0,
+    "timestamp": 1756958420607
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 0,
+    "timestamp": 1756958420607,
+    "message": "for loop iteration 0"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisReading",
+    "value": 1,
+    "timestamp": 1756958420607
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 1,
+    "timestamp": 1756958420613,
+    "message": "for loop iteration 1"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisReading",
+    "value": 2,
+    "timestamp": 1756958420613
+  },
+  {
+    "type": "FOR_LOOP",
+    "phase": "iteration",
+    "iteration": 2,
+    "timestamp": 1756958420619,
+    "message": "for loop iteration 2"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "thisReading",
+    "value": 3,
+    "timestamp": 1756958420619
+  },
+  {
+    "type": "LOOP_LIMIT_REACHED",
+    "phase": "end",
+    "iterations": 3,
+    "timestamp": 1756958420624,
+    "message": "For loop limit reached: completed 3 iterations (max: 3)"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1756958420624,
+    "message": "Completed setup() function"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "switchCase2.ino",
+  "source": "examples",
+  "index": "038",
+  "code": "// 05.Control switchCase2.ino\n\nvoid setup() {\n  // initialize serial communication:\n  Serial.begin(9600);\n  // initialize the LED pins:\n  for (int thisPin = 2; thisPin < 7; thisPin++) {\n    pinMode(thisPin, OUTPUT);\n  }\n}\n\nvoid loop() {\n  // read the sensor:\n  if (Serial.available() > 0) {\n    int inByte = Serial.read();\n\n    switch (inByte) {\n      case 'a':\n        digitalWrite(2, HIGH);\n        break;\n      case 'b':\n        digitalWrite(3, HIGH);\n        break;\n      case 'c':\n        digitalWrite(4, HIGH);\n        break;\n      case 'd':\n        digitalWrite(5, HIGH);\n        break;\n      case 'e':\n        digitalWrite(6, HIGH);\n        break;\n      default:\n        // turn all the LEDs off:\n        for (int thisPin = 2; thisPin < 7; thisPin++) {\n          digitalWrite(thisPin, LOW);\n        }\n    }\n  }\n}\n",
+  "astSize": 671,
+  "commandCount": 17,
+  "generated": "2025-09-04T04:00:22.681Z"
+}

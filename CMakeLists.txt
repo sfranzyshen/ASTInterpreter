@@ -79,45 +79,47 @@ endif()
 # Core AST Interpreter Library
 add_library(arduino_ast_interpreter
     # AST Node definitions
-    ASTNodes.cpp
-    ASTNodes.hpp
+    src/cpp/ASTNodes.cpp
+    src/cpp/ASTNodes.hpp
     
-    # Compact AST binary format
-    CompactAST.cpp
-    CompactAST.hpp
+    # Compact AST binary format (now in libs)
+    libs/CompactAST/src/CompactAST.cpp
+    libs/CompactAST/src/CompactAST.hpp
     
     # Command protocol
-    CommandProtocol.cpp
-    CommandProtocol.hpp
+    src/cpp/CommandProtocol.cpp
+    src/cpp/CommandProtocol.hpp
     
     # Main interpreter
-    ASTInterpreter.cpp
-    ASTInterpreter.hpp
+    src/cpp/ASTInterpreter.cpp
+    src/cpp/ASTInterpreter.hpp
     
     # Execution diagnostics
-    ExecutionTracer.cpp
-    ExecutionTracer.hpp
+    src/cpp/ExecutionTracer.cpp
+    src/cpp/ExecutionTracer.hpp
     
     # Data model classes
-    ArduinoDataTypes.cpp
-    ArduinoDataTypes.hpp
+    src/cpp/ArduinoDataTypes.cpp
+    src/cpp/ArduinoDataTypes.hpp
     
     # Enhanced interpreter
-    EnhancedInterpreter.cpp
-    EnhancedInterpreter.hpp
+    src/cpp/EnhancedInterpreter.cpp
+    src/cpp/EnhancedInterpreter.hpp
     
     # Arduino library registry
-    ArduinoLibraryRegistry.cpp
-    ArduinoLibraryRegistry.hpp
+    src/cpp/ArduinoLibraryRegistry.cpp
+    src/cpp/ArduinoLibraryRegistry.hpp
 )
 
 # Include directories
 target_include_directories(arduino_ast_interpreter
     PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/cpp>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/CompactAST/src>
         $<INSTALL_INTERFACE:include>
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/CompactAST/src
 )
 
 # Compiler features and properties
@@ -167,7 +169,7 @@ if(BUILD_EXAMPLES)
     
     # Minimal trace test
     add_executable(test_minimal_trace
-        test_minimal_trace.cpp
+        src/cpp/test_minimal_trace.cpp
     )
     
     target_link_libraries(test_minimal_trace

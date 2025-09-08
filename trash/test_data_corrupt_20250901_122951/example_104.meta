@@ -1,0 +1,24 @@
+name=Complex_Preprocessor_Directives.ino
+success=true
+commandCount=30
+error=
+astSize=168
+processingTime=19ms
+content=// Complex Preprocessor Directives
+#define PI 3.14159
+#define CIRCLE_AREA(r) (PI * r * r)
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  #ifdef PI
+    float radius = 5.0;
+    float area = CIRCLE_AREA(radius);
+    Serial.print("Area of circle: ");
+    Serial.println(area);
+  #else
+    Serial.println("PI is not defined.");
+  #endif
+}

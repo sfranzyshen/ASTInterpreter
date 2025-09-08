@@ -1,0 +1,9 @@
+{
+  "name": "Unary_Plus_and_Minus_with_Operator_Precedence.ino",
+  "source": "old_test",
+  "index": "111",
+  "code": "// Unary Plus and Minus with Operator Precedence\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int a = 5;\n  int b = -10;\n\n  int result1 = a + -b;\n  int result2 = -a * b;\n  int result3 = 10 - +a;\n\n  Serial.print(\"Result 1: \"); Serial.println(result1);\n  Serial.print(\"Result 2: \"); Serial.println(result2);\n  Serial.print(\"Result 3: \"); Serial.println(result3);\n}",
+  "astSize": 436,
+  "commandCount": 51,
+  "generated": "2025-09-04T04:00:29.361Z"
+}

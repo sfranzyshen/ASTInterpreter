@@ -14,7 +14,7 @@ function runExamples() {
     let testsPassed = 0;
     
     const timestamp = new Date().toLocaleString();
-    fullLog += `Parser Version: ${PARSER_VERSION} | Test run at: ${timestamp}\n\n`;
+    fullLog += `Parser Version: ${typeof PARSER_VERSION !== 'undefined' ? PARSER_VERSION : 'Unknown'} | Test run at: ${timestamp}\n\n`;
 
     neopixelFiles.forEach(testFile => {
         fullLog += `--- Running: ${testFile.name} ---\n`;
@@ -79,7 +79,9 @@ function runExamples() {
 
     fullLog += `--- Test Summary ---\n`;
     fullLog += `${testsPassed} / ${neopixelFiles.length} examples parsed successfully.\n`;
-    logElement.innerHTML = fullLog;
+    if (logElement) {
+        logElement.innerHTML = fullLog;
+    }
 }
 
 // Universal export for Node.js and browser compatibility

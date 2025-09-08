@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCMAKE_BUILD_TYPE=\"Debug\" -DDEBUG -DPROJECT_VERSION=\"1.0.0\" -D_GNU_SOURCE
 
-CXX_INCLUDES = -I/mnt/d/Devel/ASTInterpreter_Arduino
+CXX_INCLUDES = -I/mnt/d/Devel/ASTInterpreter_Arduino/src/cpp -I/mnt/d/Devel/ASTInterpreter_Arduino/libs/CompactAST/src
 
 CXX_FLAGS = -g -O0 -Wall -Wextra -Wpedantic -std=c++17
 
