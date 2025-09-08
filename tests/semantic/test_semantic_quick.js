@@ -9,7 +9,7 @@
 console.log('🔍 Quick Semantic Diagnostic Test');
 console.log('=================================');
 
-const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('../../src/javascript/ArduinoParser.js');
+const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('../../libs/ArduinoParser/src/ArduinoParser.js');
 const { ASTInterpreter } = require('../../src/javascript/ASTInterpreter.js');
 const { CommandStreamValidator } = require('../../src/javascript/command_stream_validator.js');
 

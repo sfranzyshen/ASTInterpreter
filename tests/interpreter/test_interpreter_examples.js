@@ -9,7 +9,7 @@ console.log('🚀 Arduino Interpreter Test - All 79 Examples');
 console.log('===============================================');
 
 // Load dependencies
-const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('../../src/javascript/ArduinoParser.js');
+const { Parser, parse, PlatformEmulation, ArduinoPreprocessor } = require('../../libs/ArduinoParser/src/ArduinoParser.js');
 const { ASTInterpreter } = require('../../src/javascript/ASTInterpreter.js');
 // Load examples.js file
 let testFiles;
