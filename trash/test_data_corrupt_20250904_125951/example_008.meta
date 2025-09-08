@@ -1,9 +1,0 @@
-{
-  "name": "Debounce.ino",
-  "source": "examples",
-  "index": "008",
-  "code": "// 02.Digital Debounce.ino\n\n// constants won't change. They're used here to set pin numbers:\nconst int buttonPin = 2;\nconst int ledPin = 13;\n\n// Variables will change:\nint ledState = HIGH;\nint buttonState;\nint lastButtonState = LOW;\n\n// the following variables are unsigned longs because the time, measured in\n// milliseconds, will quickly become a bigger number than can be stored in an int.\nunsigned long lastDebounceTime = 0;\nunsigned long debounceDelay = 50;\n\nvoid setup() {\n  pinMode(buttonPin, INPUT);\n  pinMode(ledPin, OUTPUT);\n  // set initial LED state\n  digitalWrite(ledPin, ledState);\n}\n\nvoid loop() {\n  // read the state of the switch into a local variable:\n  int reading = digitalRead(buttonPin);\n\n  // If the switch changed, due to noise or pressing:\n  if (reading != lastButtonState) {\n    // reset the debouncing timer\n    lastDebounceTime = millis();\n  }\n\n  if ((millis() - lastDebounceTime) > debounceDelay) {\n    // if the button state has changed:\n    if (reading != buttonState) {\n      buttonState = reading;\n\n      // only toggle the LED if the new button state is HIGH\n      if (buttonState == HIGH) {\n        ledState = !ledState;\n      }\n    }\n  }\n\n  // set the LED:\n  digitalWrite(ledPin, ledState);\n\n  // save the reading.\n  lastButtonState = reading;\n}\n",
-  "astSize": 783,
-  "commandCount": 51,
-  "generated": "2025-09-04T04:00:19.134Z"
-}

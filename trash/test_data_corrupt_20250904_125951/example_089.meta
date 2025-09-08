@@ -1,9 +1,0 @@
-{
-  "name": "Test_Case_for_Character_Literals.ino",
-  "source": "old_test",
-  "index": "089",
-  "code": "// Test Case for Character Literals\nchar myChar = 'C';\n\nvoid setup() {}\nvoid loop() {}",
-  "astSize": 159,
-  "commandCount": 18,
-  "generated": "2025-09-02T17:33:03.122Z"
-}

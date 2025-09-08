@@ -1,9 +1,0 @@
-{
-  "name": "DigitalInputPullup.ino",
-  "source": "examples",
-  "index": "009",
-  "code": "// 02.Digital DigitalInputPullup.ino\n\nvoid setup() {\n  //start serial connection\n  Serial.begin(9600);\n  //configure pin 2 as an input and enable the internal pull-up resistor\n  pinMode(2, INPUT_PULLUP);\n  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  //read the pushbutton value into a variable\n  int sensorVal = digitalRead(2);\n  //print out the value of the pushbutton\n  Serial.println(sensorVal);\n\n  // Keep in mind the pull-up means the pushbutton's logic is inverted.\n  // It goes\n  // HIGH when it's open, and LOW when it's pressed.\n  // Turn on pin 13 when the\n  // button's pressed, and off when it's not:\n  if (sensorVal == HIGH) {\n    digitalWrite(13, LOW);\n  } else {\n    digitalWrite(13, HIGH);\n  }\n}\n",
-  "astSize": 276,
-  "commandCount": 35,
-  "generated": "2025-09-04T04:00:19.233Z"
-}

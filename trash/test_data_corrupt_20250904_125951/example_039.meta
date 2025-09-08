@@ -1,9 +1,0 @@
-{
-  "name": "ADXL3xx.ino",
-  "source": "examples",
-  "index": "039",
-  "code": "// 06.Sensors ADXL3xx.ino\n\n// these constants describe the pins.\nconst int groundpin = 18;\nconst int powerpin = 19;\nconst int xpin = A3;\nconst int ypin = A2;\nconst int zpin = A1;\n\nvoid setup() {\n  // initialize the serial communications:\n  Serial.begin(9600);\n\n  // Provide ground and power by using the analog inputs as normal digital pins.\n  pinMode(groundpin, OUTPUT);\n  pinMode(powerpin, OUTPUT);\n  digitalWrite(groundpin, LOW);\n  digitalWrite(powerpin, HIGH);\n}\n\nvoid loop() {\n  // print the sensor values:\n  Serial.print(analogRead(xpin));\n  // print a tab between values:\n  Serial.print(\"\\t\");\n  Serial.print(analogRead(ypin));\n  // print a tab between values:\n  Serial.print(\"\\t\");\n  Serial.print(analogRead(zpin));\n  Serial.println();\n\n  // delay before next reading:\n  delay(100);\n}\n",
-  "astSize": 419,
-  "commandCount": 57,
-  "generated": "2025-09-04T04:00:22.802Z"
-}

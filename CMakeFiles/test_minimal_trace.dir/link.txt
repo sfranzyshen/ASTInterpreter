@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -O0 -Wall -Wextra -Wpedantic CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o -o test_minimal_trace  libarduino_ast_interpreter.a -ldl 

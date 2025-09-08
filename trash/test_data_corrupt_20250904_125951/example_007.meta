@@ -1,9 +1,0 @@
-{
-  "name": "Button.ino",
-  "source": "examples",
-  "index": "007",
-  "code": "// 02.Digital Button.ino\n\n// constants won't change. They're used here to set pin numbers:\nconst int buttonPin = 2;\nconst int ledPin = 13;\n\n// variables will change:\nint buttonState = 0;\n\nvoid setup() {\n  // initialize the LED pin as an output:\n  pinMode(ledPin, OUTPUT);\n  // initialize the pushbutton pin as an input:\n  pinMode(buttonPin, INPUT);\n}\n\nvoid loop() {\n  // read the state of the pushbutton value:\n  buttonState = digitalRead(buttonPin);\n\n  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:\n  if (buttonState == HIGH) {\n    // turn LED on:\n    digitalWrite(ledPin, HIGH);\n  } else {\n    // turn LED off:\n    digitalWrite(ledPin, LOW);\n  }\n}\n",
-  "astSize": 349,
-  "commandCount": 34,
-  "generated": "2025-09-04T04:00:19.029Z"
-}

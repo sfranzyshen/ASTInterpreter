@@ -1,9 +1,0 @@
-{
-  "name": "DigitalReadSerial.ino",
-  "source": "examples",
-  "index": "003",
-  "code": "// 01.Basics DigitalReadSerial.ino\n\n// digital pin 7 has a pushbutton attached to it.\nint pushButton = 7;\n\n// the setup routine runs once when you press reset:\nvoid setup() {\n  // initialize serial communication at 9600 bits per second:\n  Serial.begin(9600);\n  // make the pushbutton's pin an input:\n  pinMode(pushButton, INPUT);\n}\n\n// the loop routine runs over and over again forever:\nvoid loop() {\n  // read the input pin:\n  int buttonState = digitalRead(pushButton);\n  // print out the state of the button:\n  Serial.println(buttonState);\n  delay(1);\n}\n",
-  "astSize": 263,
-  "commandCount": 32,
-  "generated": "2025-09-04T04:00:18.525Z"
-}

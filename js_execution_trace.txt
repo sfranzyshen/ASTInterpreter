@@ -1,2 +1,0 @@
-COMMAND: VERSION_INFO - {"type":"VERSION_INFO","timestamp":1757145279068,"component":"interpreter","version":"7.0.0","status":"started"}
-COMMAND: PROGRAM_START - {"type":"PROGRAM_START","timestamp":1757145279068,"message":"Program execution started"}

@@ -1,9 +1,0 @@
-{
-  "name": "StringStartsWithEndsWith.ino",
-  "source": "examples",
-  "index": "055",
-  "code": "// 08.Strings StringStartsWithEndsWith\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString startsWith() and endsWith():\");\n  Serial.println();\n}\n\nvoid loop() {\n  // startsWith() checks to see if a String starts with a particular substring:\n  String stringOne = \"HTTP/1.1 200 OK\";\n  Serial.println(stringOne);\n  if (stringOne.startsWith(\"HTTP/1.1\")) {\n    Serial.println(\"Server's using http version 1.1\");\n  }\n\n  // you can also look for startsWith() at an offset position in the string:\n  stringOne = \"HTTP/1.1 200 OK\";\n  if (stringOne.startsWith(\"200 OK\", 9)) {\n    Serial.println(\"Got an OK from the server\");\n  }\n\n  // endsWith() checks to see if a String ends with a particular character:\n  String sensorReading = \"sensor = \";\n  sensorReading += analogRead(A0);\n  Serial.print(sensorReading);\n  if (sensorReading.endsWith(\"0\")) {\n    Serial.println(\". This reading is divisible by ten\");\n  } else {\n    Serial.println(\". This reading is not divisible by ten\");\n  }\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
-  "astSize": 609,
-  "commandCount": 32,
-  "generated": "2025-09-04T04:00:24.029Z"
-}

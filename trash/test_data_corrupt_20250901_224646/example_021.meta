@@ -1,9 +1,0 @@
-{
-  "name": "ASCIITable.ino",
-  "source": "examples",
-  "index": "021",
-  "code": "// 04.Communication ASCIITable.ino\n\nvoid setup() {\n  //Initialize serial and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // prints title with ending line break\n  Serial.println(\"ASCII Table ~ Character Map\");\n}\n\n// first visible ASCIIcharacter '!' is number 33:\nint thisByte = 33;\n\nvoid loop() {\n  // prints value unaltered, i.e. the raw binary version of the byte.\n  Serial.write(thisByte);\n\n  Serial.print(\", dec: \");\n  // prints value as string as an ASCII-encoded decimal (base 10).\n  Serial.print(thisByte);\n\n  Serial.print(\", hex: \");\n  // prints value as string in hexadecimal (base 16):\n  Serial.print(thisByte, HEX);\n\n  Serial.print(\", oct: \");\n  // prints value as string in octal (base 8);\n  Serial.print(thisByte, OCT);\n\n  Serial.print(\", bin: \");\n  // prints value as string in binary (base 2) also prints ending line break:\n  Serial.println(thisByte, BIN);\n\n  // if printed last visible character '~' or 126, stop:\n  if (thisByte == 126) {\n    // This loop loops forever and does nothing\n    while (true) {\n      continue;\n    }\n  }\n  // go on to the next character\n  thisByte++;\n}\n",
-  "astSize": 351,
-  "commandCount": 55,
-  "generated": "2025-09-02T05:31:20.769Z"
-}

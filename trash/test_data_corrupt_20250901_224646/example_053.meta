@@ -1,9 +1,0 @@
-{
-  "name": "StringLengthTrim.ino",
-  "source": "examples",
-  "index": "053",
-  "code": "// 08.Strings StringLengthTrim\n\nvoid setup() {\n  // Open serial communications and wait for port to open:\n  Serial.begin(9600);\n  while (!Serial) {\n    ;\n  }\n\n  // send an intro:\n  Serial.println(\"\\n\\nString length() and trim():\");\n  Serial.println();\n}\n\nvoid loop() {\n  // here's a String with empty spaces at the end (called white space):\n  String stringOne = \"Hello!       \";\n  Serial.print(stringOne);\n  Serial.print(\"<--- end of string. Length: \");\n  Serial.println(stringOne.length());\n\n  // trim the white space off the string:\n  stringOne.trim();\n  Serial.print(stringOne);\n  Serial.print(\"<--- end of trimmed string. Length: \");\n  Serial.println(stringOne.length());\n\n  // do nothing while true:\n  while (true)\n    ;\n}\n",
-  "astSize": 305,
-  "commandCount": 26,
-  "generated": "2025-09-02T05:32:17.382Z"
-}

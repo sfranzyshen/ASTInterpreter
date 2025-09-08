@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -O0 -Wall -Wextra -Wpedantic CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o -o basic_interpreter_example  libarduino_ast_interpreter.a -ldl 
