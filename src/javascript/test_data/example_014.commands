@@ -1,19 +1,19 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241498,
     "component": "interpreter",
     "version": "7.2.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241498,
     "message": "Program execution started"
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241499,
     "message": "Executing setup() function"
   },
   {
@@ -23,22 +23,22 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241499,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241499,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241499,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757287439420,
+    "timestamp": 1757371241499,
     "message": "Starting loop iteration 1"
   },
   {
@@ -46,55 +46,55 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757287439420
+    "timestamp": 1757371241499
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1757287439421_0.9449244801192112",
-    "timestamp": 1757287439421
+    "requestId": "analogRead_1757371241499_0.8912723960151179",
+    "timestamp": 1757371241499
   },
   {
     "type": "VAR_SET",
     "variable": "sensorReading",
-    "value": 347,
-    "timestamp": 1757287439423
+    "value": 960,
+    "timestamp": 1757371241500
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [
-      "347"
+      "960"
     ],
-    "data": "347",
-    "timestamp": 1757287439423,
-    "message": "Serial.println(347)"
+    "data": "960",
+    "timestamp": 1757371241500,
+    "message": "Serial.println(960)"
   },
   {
     "type": "VAR_SET",
     "variable": "thisPitch",
-    "value": -2,
-    "timestamp": 1757287439424
+    "value": 1408,
+    "timestamp": 1757371241501
   },
   {
     "type": "FUNCTION_CALL",
     "function": "tone",
     "arguments": [
       9,
-      -2,
+      1408,
       10
     ],
     "pin": 9,
-    "frequency": -2,
+    "frequency": 1408,
     "duration": 10,
-    "timestamp": 1757287439424,
-    "message": "tone(9, -2, 10)"
+    "timestamp": 1757371241501,
+    "message": "tone(9, 1408, 10)"
   },
   {
     "type": "DELAY",
     "duration": 1,
     "actualDelay": 1,
-    "timestamp": 1757287439424
+    "timestamp": 1757371241501
   },
   {
     "type": "FUNCTION_CALL",
@@ -102,23 +102,23 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757287439424
+    "timestamp": 1757371241501
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757287439429,
+    "timestamp": 1757371241507,
     "message": "Loop limit reached: completed 1 iterations (max: 1)",
     "iterations": 1,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757287439429,
+    "timestamp": 1757371241507,
     "message": "Program completed after 1 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757287439429,
+    "timestamp": 1757371241507,
     "message": "Program execution stopped"
   }
 ]

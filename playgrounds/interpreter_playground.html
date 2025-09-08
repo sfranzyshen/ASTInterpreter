@@ -389,19 +389,19 @@ void loop() {
     <script>
         // Capture examples.js examplesFiles immediately
         const examplesTestFiles = examplesFiles.slice();
-        console.log(`Loaded ${examplesTestFiles.length} Arduino examples`);
+        conditionalLog(true, `Loaded ${examplesTestFiles.length} Arduino examples`);
     </script>
     <script src="../old_test.js"></script>
     <script>
         // Capture old_test.js oldTestFiles immediately  
         const oldTestFilesArray = oldTestFiles.slice();
-        console.log(`Loaded ${oldTestFilesArray.length} comprehensive tests`);
+        conditionalLog(true, `Loaded ${oldTestFilesArray.length} comprehensive tests`);
     </script>
     <script src="../neopixel.js"></script>
     <script>
         // Capture neopixel.js neopixelFiles immediately
         const neopixelTestFilesArray = neopixelFiles.slice();
-        console.log(`Loaded ${neopixelTestFilesArray.length} NeoPixel examples`);
+        conditionalLog(true, `Loaded ${neopixelTestFilesArray.length} NeoPixel examples`);
         
         // Global state
         let currentAST = null;
@@ -415,13 +415,13 @@ void loop() {
             try {
                 // Initialize platform emulation system (ESP32 Nano default)
                 platformEmulation = new PlatformEmulation('ESP32_NANO');
-                console.log(`🎯 Platform initialized: ${platformEmulation.currentPlatform.displayName}`);
+                conditionalLog(true, `🎯 Platform initialized: ${platformEmulation.currentPlatform.displayName}`);
                 
                 // Initialize preprocessor with platform context
                 preprocessor = new ArduinoPreprocessor({
                     platformContext: platformEmulation
                 });
-                console.log('🔧 Preprocessor initialized with platform context');
+                conditionalLog(true, '🔧 Preprocessor initialized with platform context');
                 
             } catch (error) {
                 console.error('Failed to initialize platform/preprocessor:', error);
@@ -500,7 +500,7 @@ void loop() {
                 updateLineCounters();
                 clearCommands();
                 resetInterpreter();
-                console.log(`Loaded test: ${selectedTest.name}`);
+                conditionalLog(true, `Loaded test: ${selectedTest.name}`);
             }
         }
         
@@ -540,7 +540,7 @@ void loop() {
             updateLineCounters();
             clearCommands();
             resetInterpreter();
-            console.log(`Loaded random test: ${randomTest.name}`);
+            conditionalLog(true, `Loaded random test: ${randomTest.name}`);
         }
         
         // Remove the old hardcoded examples object - replaced by dynamic loading
@@ -592,7 +592,7 @@ void loop() {
                     startBtn.onclick = () => { 
                         if (interpreter) {
                             const success = interpreter.resume();
-                            console.log('Resume result:', success, 'State:', interpreter.getState());
+                            conditionalLog(true, 'Resume result:', success, 'State:', interpreter.getState());
                         }
                     };
                     pauseBtn.disabled = true;
@@ -628,13 +628,13 @@ void loop() {
                 const preprocessStartTime = performance.now();
                 const preprocessResult = preprocessor.preprocess(code);
                 const preprocessEndTime = performance.now();
-                console.log(`Preprocessed in ${(preprocessEndTime - preprocessStartTime).toFixed(2)}ms`);
+                conditionalLog(true, `Preprocessed in ${(preprocessEndTime - preprocessStartTime).toFixed(2)}ms`);
                 
                 // Step 2: Parse preprocessed code to AST
                 const parseStartTime = performance.now();
                 currentAST = parse(preprocessResult.processedCode || preprocessResult, { verbose: false });
                 const parseEndTime = performance.now();
-                console.log(`Parsed successfully in ${(parseEndTime - parseStartTime).toFixed(2)}ms`);
+                conditionalLog(true, `Parsed successfully in ${(parseEndTime - parseStartTime).toFixed(2)}ms`);
                 
                 // Step 3: Immediately interpret the AST
                 await interpretAST();
@@ -727,7 +727,7 @@ void loop() {
             };
             
             interpreter.onStateChange = (newState, oldState) => {
-                console.log(`State change: ${oldState} → ${newState}`);
+                conditionalLog(true, `State change: ${oldState} → ${newState}`);
                 updateStatus(newState);
                 updateButtons(newState);
             };
@@ -745,21 +745,21 @@ void loop() {
         function pauseExecution() {
             if (interpreter) {
                 const success = interpreter.pause();
-                console.log('Pause result:', success, 'State:', interpreter.getState());
+                conditionalLog(true, 'Pause result:', success, 'State:', interpreter.getState());
             }
         }
         
         function stepExecution() {
             if (interpreter) {
                 const success = interpreter.step();
-                console.log('Step result:', success, 'State:', interpreter.getState());
+                conditionalLog(true, 'Step result:', success, 'State:', interpreter.getState());
             }
         }
         
         function stopExecution() {
             if (interpreter) {
                 const success = interpreter.stop();
-                console.log('Stop result:', success, 'State:', interpreter.getState());
+                conditionalLog(true, 'Stop result:', success, 'State:', interpreter.getState());
             }
         }
         

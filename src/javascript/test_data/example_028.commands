@@ -1,43 +1,43 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757287439956,
+    "timestamp": 1757371241831,
     "component": "interpreter",
     "version": "7.2.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "Program execution started"
   },
   {
     "type": "VAR_SET",
     "variable": "firstSensor",
     "value": 0,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241831
   },
   {
     "type": "VAR_SET",
     "variable": "secondSensor",
     "value": 0,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241831
   },
   {
     "type": "VAR_SET",
     "variable": "thirdSensor",
     "value": 0,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241831
   },
   {
     "type": "VAR_SET",
     "variable": "inByte",
     "value": 0,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241831
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "Executing setup() function"
   },
   {
@@ -47,53 +47,53 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "WHILE_LOOP",
     "phase": "start",
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "while loop started"
   },
   {
     "type": "WHILE_LOOP",
     "phase": "end",
     "iterations": 0,
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "while loop completed (0 iterations)"
   },
   {
     "type": "PIN_MODE",
     "pin": 2,
     "mode": 0,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241831
   },
   {
     "type": "FUNCTION_CALL",
     "function": "establishContact",
     "arguments": [],
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241831,
     "message": "establishContact()"
   },
   {
     "type": "WHILE_LOOP",
     "phase": "start",
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241832,
     "message": "while loop started"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241832,
     "message": "Serial.available()"
   },
   {
     "type": "WHILE_LOOP",
     "phase": "iteration",
     "iteration": 0,
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241832,
     "message": "while loop iteration 0"
   },
   {
@@ -103,27 +103,27 @@
       "'65'"
     ],
     "data": "65",
-    "timestamp": 1757287439957,
+    "timestamp": 1757371241832,
     "message": "Serial.print('65')"
   },
   {
     "type": "DELAY",
     "duration": 300,
     "actualDelay": 300,
-    "timestamp": 1757287439957
+    "timestamp": 1757371241832
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.available",
     "arguments": [],
-    "timestamp": 1757287439961,
+    "timestamp": 1757371241836,
     "message": "Serial.available()"
   },
   {
     "type": "LOOP_LIMIT_REACHED",
     "phase": "end",
     "iterations": 1,
-    "timestamp": 1757287439961,
+    "timestamp": 1757371241836,
     "message": "While loop limit reached: completed 1 iterations (max: 1)"
   }
 ]

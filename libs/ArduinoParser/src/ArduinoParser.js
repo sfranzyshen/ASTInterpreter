@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
+// Load debug logger for performance optimization (Node.js only)
+let conditionalLog = (verbose, ...args) => { if (verbose) console.log(...args); };
+if (typeof require !== 'undefined') {
+    try {
+        const debugLogger = require('../../../src/javascript/utils/debug-logger.js');
+        conditionalLog = debugLogger.conditionalLog;
+    } catch (e) {
+        // Fallback to simple implementation if debug logger not found
+    }
+}
+
 /**
  * ArduinoParser - Comprehensive Arduino/C++ Parser with Integrated Preprocessing and Platform Emulation
  * 
@@ -51,7 +62,7 @@
 // PARSER CONSTANTS AND CONFIGURATION
 // =============================================================================
 
-const PARSER_VERSION = "5.3.0";
+const PARSER_VERSION = "5.3.1";
 const PLATFORM_EMULATION_VERSION = '1.0.0';
 const PREPROCESSOR_VERSION = '1.2.0';
 
@@ -4423,13 +4434,13 @@ function parse(code, options = {}) {
                 processedCode = preprocessorResult.processedCode;
                 
                 if (verbose) {
-                    console.log('✅ Arduino Preprocessing completed:');
-                    console.log(`   📊 Macros defined: ${Object.keys(preprocessorResult.macros || {}).length}`);
-                    console.log(`   📚 Active libraries: ${preprocessorResult.activeLibraries?.length || 0}`);
-                    console.log(`   🔧 Library constants: ${Object.keys(preprocessorResult.libraryConstants || {}).length}`);
+                    conditionalLog(verbose, '✅ Arduino Preprocessing completed:');
+                    conditionalLog(verbose, `   📊 Macros defined: ${Object.keys(preprocessorResult.macros || {}).length}`);
+                    conditionalLog(verbose, `   📚 Active libraries: ${preprocessorResult.activeLibraries?.length || 0}`);
+                    conditionalLog(verbose, `   🔧 Library constants: ${Object.keys(preprocessorResult.libraryConstants || {}).length}`);
                     
                     if (preprocessorResult.activeLibraries?.length > 0) {
-                        console.log(`   📦 Libraries: ${preprocessorResult.activeLibraries.join(', ')}`);
+                        conditionalLog(verbose, `   📦 Libraries: ${preprocessorResult.activeLibraries.join(', ')}`);
                     }
                 }
             } catch (preprocessorError) {
@@ -4478,28 +4489,28 @@ function parse(code, options = {}) {
             const totalNodes = countNodes(ast);
             const successRate = errors.length === 0 ? 100 : Math.max(0, ((totalNodes - errors.length) / totalNodes * 100));
             
-            console.log(`\n🔍 Parser Analysis (v${PARSER_VERSION}):`);
-            console.log(`   📊 Success Rate: ${successRate.toFixed(1)}%`);
-            console.log(`   ✅ Successful Nodes: ${totalNodes - errors.length}`);
-            console.log(`   ❌ Error Nodes: ${errors.length}`);
+            conditionalLog(verbose || errors.length > 0, `\n🔍 Parser Analysis (v${PARSER_VERSION}):`);
+            conditionalLog(verbose || errors.length > 0, `   📊 Success Rate: ${successRate.toFixed(1)}%`);
+            conditionalLog(verbose || errors.length > 0, `   ✅ Successful Nodes: ${totalNodes - errors.length}`);
+            conditionalLog(verbose || errors.length > 0, `   ❌ Error Nodes: ${errors.length}`);
             
             if (errors.length > 0) {
-                console.log(`\n🚨 Parsing Issues Found:`);
+                conditionalLog(verbose || errors.length > 0, `\n🚨 Parsing Issues Found:`);
                 errors.forEach((error, i) => {
-                    console.log(`   ${i + 1}. ${error}`);
+                    conditionalLog(verbose || errors.length > 0, `   ${i + 1}. ${error}`);
                 });
                 
-                console.log(`\n💡 Suggestions:`);
+                conditionalLog(verbose || errors.length > 0, `\n💡 Suggestions:`);
                 if (errors.some(e => e.includes('Unexpected token'))) {
-                    console.log(`   • Check for missing semicolons or braces`);
+                    conditionalLog(verbose || errors.length > 0, `   • Check for missing semicolons or braces`);
                 }
                 if (errors.some(e => e.includes('Expected token'))) {
-                    console.log(`   • Verify syntax matches C++ standards`);
+                    conditionalLog(verbose || errors.length > 0, `   • Verify syntax matches C++ standards`);
                 }
                 if (errors.some(e => e.includes('function') || e.includes('LBRACE'))) {
-                    console.log(`   • Check function declarations vs definitions`);
+                    conditionalLog(verbose || errors.length > 0, `   • Check function declarations vs definitions`);
                 }
-                console.log(`   • Consider updating to latest parser version`);
+                conditionalLog(verbose || errors.length > 0, `   • Consider updating to latest parser version`);
             }
         }
         

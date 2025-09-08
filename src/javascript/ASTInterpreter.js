@@ -1,3 +1,13 @@
+// conditionalLog is provided by ArduinoParser.js in browser
+// For Node.js standalone usage, we'll use a simple fallback if not defined
+if (typeof conditionalLog === 'undefined') {
+    if (typeof console !== 'undefined') {
+        conditionalLog = (verbose, ...args) => { if (verbose) console.log(...args); };
+    } else {
+        conditionalLog = () => {}; // No-op fallback
+    }
+}
+
 /**
  * Arduino AST Interpreter
  * 
@@ -5,8 +15,8 @@
  * for execution by parent application.
  * 
  * USAGE:
- *   const interpreter = new ASTInterpreter(ast);
- *   interpreter.onCommand = (command) => console.log(command);
+ *   const interpreter = new ASTInterpreter(ast, { verbose: true });
+ *   interpreter.onCommand = (command) => conditionalLog(true, command);
  *   interpreter.start();
  * 
  * FEATURES:
@@ -17,13 +27,13 @@
  *   ✅ setup() and loop() execution flow
  */
 
-const INTERPRETER_VERSION = "7.2.0";
+const INTERPRETER_VERSION = "7.3.0";
 
 // Global debugLog function for contexts where 'this' is not available
 function debugLog(...args) {
     // Silent by default - only logs if explicitly enabled globally
     if (global.INTERPRETER_DEBUG_ENABLED) {
-        console.log(...args);
+        conditionalLog(true, ...args);
     }
 }
 
@@ -1772,7 +1782,7 @@ class ASTInterpreter {
         // Debug logging function that respects verbose flag
         debugLog = (...args) => {
             if (this.options.verbose) {
-                console.log(...args);
+                conditionalLog(this.options.verbose, ...args);
             }
         };
         

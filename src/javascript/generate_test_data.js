@@ -32,6 +32,23 @@
 const fs = require('fs');
 const path = require('path');
 
+// Load debug logger for performance optimization (Node.js only)
+let conditionalLog = (verbose, ...args) => { if (verbose) console.log(...args); };
+let parseVerboseArgs = () => ({ verbose: false, quiet: false, components: {} });
+if (typeof require !== 'undefined') {
+    try {
+        const debugLogger = require('./utils/debug-logger.js');
+        conditionalLog = debugLogger.conditionalLog;
+        parseVerboseArgs = debugLogger.parseVerboseArgs;
+    } catch (e) {
+        // Fallback to simple implementation if debug logger not found
+    }
+}
+
+// Parse command line arguments for verbose control
+const cmdArgs = parseVerboseArgs();
+const isVerbose = cmdArgs.verbose;
+
 // Load modules
 const { parse, exportCompactAST } = require('../../libs/ArduinoParser/src/ArduinoParser.js');
 const { examplesFiles } = require('../../examples.js');
@@ -64,16 +81,16 @@ function ensureOutputDir(outputDir) {
  * Generate AST data only - ultra-fast approach
  */
 async function generateASTOnly() {
-    console.log('=== AST-ONLY MODE ===');
-    console.log('Generating compact AST data for C++ parsing validation');
-    console.log('(Skipping interpreter execution to avoid debug overhead)');
-    console.log('');
+    conditionalLog(isVerbose, '=== AST-ONLY MODE ===');
+    conditionalLog(isVerbose, 'Generating compact AST data for C++ parsing validation');
+    conditionalLog(isVerbose, '(Skipping interpreter execution to avoid debug overhead)');
+    conditionalLog(isVerbose, '');
     
     const outputDir = 'test_data';
     ensureOutputDir(outputDir);
     
     const allExamples = getAllExamples();
-    console.log(`Processing ${allExamples.length} examples...`);
+    conditionalLog(isVerbose, `Processing ${allExamples.length} examples...`);
     
     const startTime = Date.now();
     const results = [];
@@ -122,15 +139,15 @@ async function generateASTOnly() {
         if ((i + 1) % 25 === 0 || i === allExamples.length - 1) {
             const elapsed = Date.now() - startTime;
             const rate = (i + 1) / elapsed * 1000;
-            console.log(`[${i + 1}/${allExamples.length}] ${(elapsed/1000).toFixed(1)}s, ${rate.toFixed(1)} tests/sec`);
+            conditionalLog(isVerbose, `[${i + 1}/${allExamples.length}] ${(elapsed/1000).toFixed(1)}s, ${rate.toFixed(1)} tests/sec`);
         }
     }
     
     const totalTime = Date.now() - startTime;
     const successful = results.filter(r => r.success).length;
     
-    console.log('');
-    console.log(`✓ AST-only generation complete: ${successful}/${results.length} in ${(totalTime/1000).toFixed(1)}s`);
+    conditionalLog(isVerbose, '');
+    conditionalLog(isVerbose, `✓ AST-only generation complete: ${successful}/${results.length} in ${(totalTime/1000).toFixed(1)}s`);
     
     return { successful, total: results.length, time: totalTime };
 }
@@ -282,7 +299,7 @@ function generateCommandsOptimized(ast, example) {
 
 function suppressAllOutput() {
     const original = {
-        log: console.log,
+        log: isVerbose ? console.log : (() => {}),
         error: console.error,
         warn: console.warn,
         info: console.info,
@@ -291,7 +308,7 @@ function suppressAllOutput() {
     };
     
     const noop = () => {};
-    console.log = noop;
+    if (!isVerbose) console.log = noop;
     console.error = noop;
     console.warn = noop;
     console.info = noop;
@@ -299,7 +316,7 @@ function suppressAllOutput() {
     process.stderr.write = () => true;
     
     return () => {
-        console.log = original.log;
+        if (!isVerbose) console.log = original.log;
         console.error = original.error;
         console.warn = original.warn;
         console.info = original.info;
@@ -312,25 +329,25 @@ function suppressAllOutput() {
  * Generate AST + selective commands
  */
 async function generateSelective() {
-    console.log('=== SELECTIVE MODE (RECOMMENDED) ===');
-    console.log('AST generation for all examples + commands for fast examples');
-    console.log('');
+    conditionalLog(isVerbose, '=== SELECTIVE MODE (RECOMMENDED) ===');
+    conditionalLog(isVerbose, 'AST generation for all examples + commands for fast examples');
+    conditionalLog(isVerbose, '');
     
     // Step 1: Generate all AST data
     const astResult = await generateASTOnly();
     
-    console.log('');
-    console.log('AST generation complete, now adding commands for fast examples...');
-    console.log('');
+    conditionalLog(isVerbose, '');
+    conditionalLog(isVerbose, 'AST generation complete, now adding commands for fast examples...');
+    conditionalLog(isVerbose, '');
     
     // Step 2: Add commands for fast examples
     const allExamples = getAllExamples();
     const { fastExamples, slowExamples } = classifyExamples(allExamples);
     
-    console.log(`Command generation plan:`);
-    console.log(`- Fast examples: ${fastExamples.length} (will generate commands)`);
-    console.log(`- Slow examples: ${slowExamples.length} (AST-only due to debug overhead)`);
-    console.log('');
+    conditionalLog(isVerbose, `Command generation plan:`);
+    conditionalLog(isVerbose, `- Fast examples: ${fastExamples.length} (will generate commands)`);
+    conditionalLog(isVerbose, `- Slow examples: ${slowExamples.length} (AST-only due to debug overhead)`);
+    conditionalLog(isVerbose, '');
     
     const outputDir = 'test_data';
     const commandResults = [];
@@ -376,24 +393,24 @@ async function generateSelective() {
         if ((i + 1) % 15 === 0 || i === fastExamples.length - 1) {
             const elapsed = Date.now() - startTime;
             const rate = (i + 1) / elapsed * 1000;
-            console.log(`Commands: [${i + 1}/${fastExamples.length}] ${(elapsed/1000).toFixed(1)}s, ${rate.toFixed(1)}/sec`);
+            conditionalLog(isVerbose, `Commands: [${i + 1}/${fastExamples.length}] ${(elapsed/1000).toFixed(1)}s, ${rate.toFixed(1)}/sec`);
         }
     }
     
     const commandTime = Date.now() - startTime;
     const commandSuccess = commandResults.filter(r => r.success).length;
     
-    console.log('');
-    console.log('=== FINAL SELECTIVE RESULTS ===');
-    console.log(`Total examples: ${allExamples.length}`);
-    console.log(`AST files: ${astResult.successful}/${astResult.total} (${(astResult.successful*100/astResult.total).toFixed(1)}%)`);
-    console.log(`Command files: ${commandSuccess}/${fastExamples.length} (${(commandSuccess*100/fastExamples.length).toFixed(1)}%)`);
-    console.log(`Total time: ${((astResult.time + commandTime)/1000).toFixed(1)} seconds`);
-    console.log('');
-    console.log('FILE SUMMARY:');
-    console.log(`- ${astResult.successful} .ast files (100% coverage)`);
-    console.log(`- ${commandSuccess} .commands files (${(commandSuccess*100/allExamples.length).toFixed(1)}% coverage)`);
-    console.log(`- ${allExamples.length} .meta files (100% coverage)`);
+    conditionalLog(isVerbose, '');
+    conditionalLog(isVerbose, '=== FINAL SELECTIVE RESULTS ===');
+    conditionalLog(isVerbose, `Total examples: ${allExamples.length}`);
+    conditionalLog(isVerbose, `AST files: ${astResult.successful}/${astResult.total} (${(astResult.successful*100/astResult.total).toFixed(1)}%)`);
+    conditionalLog(isVerbose, `Command files: ${commandSuccess}/${fastExamples.length} (${(commandSuccess*100/fastExamples.length).toFixed(1)}%)`);
+    conditionalLog(isVerbose, `Total time: ${((astResult.time + commandTime)/1000).toFixed(1)} seconds`);
+    conditionalLog(isVerbose, '');
+    conditionalLog(isVerbose, 'FILE SUMMARY:');
+    conditionalLog(isVerbose, `- ${astResult.successful} .ast files (100% coverage)`);
+    conditionalLog(isVerbose, `- ${commandSuccess} .commands files (${(commandSuccess*100/allExamples.length).toFixed(1)}% coverage)`);
+    conditionalLog(isVerbose, `- ${allExamples.length} .meta files (100% coverage)`);
     
     return {
         totalExamples: allExamples.length,
@@ -411,10 +428,10 @@ async function generateSelective() {
  * Attempt full command generation with maximum optimizations
  */
 async function generateForce() {
-    console.log('=== FORCE MODE ===');
-    console.log('Attempting full command generation with aggressive optimizations');
-    console.log('WARNING: May timeout on debug-heavy examples');
-    console.log('');
+    conditionalLog(isVerbose, '=== FORCE MODE ===');
+    conditionalLog(isVerbose, 'Attempting full command generation with aggressive optimizations');
+    conditionalLog(isVerbose, 'WARNING: May timeout on debug-heavy examples');
+    conditionalLog(isVerbose, '');
     
     // Import original function with modifications
     const { generateTestDataOptimized } = require('./generate_test_data_optimized.js');
@@ -423,8 +440,8 @@ async function generateForce() {
         const success = await generateTestDataOptimized();
         return success;
     } catch (error) {
-        console.log('Force mode failed:', error.message);
-        console.log('Falling back to selective mode...');
+        conditionalLog(isVerbose, 'Force mode failed:', error.message);
+        conditionalLog(isVerbose, 'Falling back to selective mode...');
         return await generateSelective();
     }
 }
@@ -434,10 +451,10 @@ async function generateForce() {
 // =============================================================================
 
 async function generateFullTestData() {
-    console.log('=== GENERATING FULL COMMAND STREAMS FOR ALL 135 TESTS ===');
-    console.log('REQUIREMENT: Every test must have complete AST + command data');
-    console.log('NO PLACEHOLDERS - NO PARTIAL DATA - ALL OR NOTHING');
-    console.log('');
+    conditionalLog(isVerbose, '=== GENERATING FULL COMMAND STREAMS FOR ALL 135 TESTS ===');
+    conditionalLog(isVerbose, 'REQUIREMENT: Every test must have complete AST + command data');
+    conditionalLog(isVerbose, 'NO PLACEHOLDERS - NO PARTIAL DATA - ALL OR NOTHING');
+    conditionalLog(isVerbose, '');
     
     const outputDir = 'test_data';
     
@@ -447,7 +464,7 @@ async function generateFullTestData() {
     }
     
     const allExamples = [...examplesFiles, ...oldTestFiles, ...neopixelFiles];
-    console.log(`Processing ${allExamples.length} examples...`);
+    conditionalLog(isVerbose, `Processing ${allExamples.length} examples...`);
     
     const results = {
         totalTests: 0,
@@ -469,7 +486,7 @@ async function generateFullTestData() {
             fs.writeFileSync(path.join(outputDir, `${baseName}.ast`), Buffer.from(compactAST));
             
             // Generate FULL command stream - NO PLACEHOLDERS ALLOWED
-            console.log(`[${i+1}/${allExamples.length}] Generating commands for ${example.name}...`);
+            conditionalLog(isVerbose, `[${i+1}/${allExamples.length}] Generating commands for ${example.name}...`);
             const commandResult = await generateCommandsOptimized(ast, example);
             
             if (!commandResult.success || !commandResult.commands || commandResult.commands.length === 0) {
@@ -537,9 +554,9 @@ async function generateFullTestData() {
 async function main() {
     const args = process.argv.slice(2);
     
-    console.log('Arduino Test Data Generation - OPTIMIZED');
-    console.log('Solving timeout issues with 198 hardcoded debug statements');
-    console.log('');
+    conditionalLog(true, 'Arduino Test Data Generation - OPTIMIZED');
+    conditionalLog(true, 'Solving timeout issues with 198 hardcoded debug statements');
+    conditionalLog(true, '');
     
     let result;
     
@@ -553,15 +570,15 @@ async function main() {
         process.exit(1);
     }
     
-    console.log('');
-    console.log('✅ SUCCESS: Generated full command streams for ALL 135 tests');
-    console.log('✅ Test data is now complete and ready for validation');
+    conditionalLog(true, '');
+    conditionalLog(true, '✅ SUCCESS: Generated full command streams for ALL 135 tests');
+    conditionalLog(true, '✅ Test data is now complete and ready for validation');
     
-    console.log('');
-    console.log('Next steps:');
-    console.log('1. Run C++ build: cmake --build .');
-    console.log('2. Run validation: ./test_cross_platform_validation');
-    console.log('3. Verify 135 baseline tests pass in C++ interpreter');
+    conditionalLog(true, '');
+    conditionalLog(true, 'Next steps:');
+    conditionalLog(true, '1. Run C++ build: cmake --build .');
+    conditionalLog(true, '2. Run validation: ./test_cross_platform_validation');
+    conditionalLog(true, '3. Verify 135 baseline tests pass in C++ interpreter');
     
     return result;
 }

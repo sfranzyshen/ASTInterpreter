@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
+// Load debug logger for performance optimization (Node.js only)
+let conditionalLog = (verbose, ...args) => { if (verbose) console.log(...args); };
+if (typeof require !== 'undefined') {
+    try {
+        const debugLogger = require('./utils/debug-logger.js');
+        conditionalLog = debugLogger.conditionalLog;
+    } catch (e) {
+        // Fallback to simple implementation if debug logger not found
+    }
+}
+
 /**
  * CommandStreamValidator - External Semantic Accuracy Validation Framework
  * 
@@ -460,69 +471,69 @@ class CommandStreamValidator {
     
     printReport(options = {}) {
         const report = this.generateReport();
-        const { detailed = false, showCommands = false } = options;
+        const { detailed = false, showCommands = false, verbose = true } = options;
         
-        console.log('\n📊 SEMANTIC ACCURACY VALIDATION REPORT');
-        console.log('═'.repeat(50));
+        conditionalLog(verbose, '\n📊 SEMANTIC ACCURACY VALIDATION REPORT');
+        conditionalLog(verbose, '═'.repeat(50));
         
-        console.log('\n🎯 SUMMARY:');
-        console.log(`  Total Commands: ${report.summary.totalCommands}`);
-        console.log(`  Duration: ${report.summary.duration || 'N/A'}ms`);
-        console.log(`  Semantic Accuracy: ${report.summary.semanticAccuracy.percentage}%`);
-        console.log(`  Errors: ${report.summary.errors}`);
-        console.log(`  Warnings: ${report.summary.warnings}`);
+        conditionalLog(verbose, '\n🎯 SUMMARY:');
+        conditionalLog(verbose, `  Total Commands: ${report.summary.totalCommands}`);
+        conditionalLog(verbose, `  Duration: ${report.summary.duration || 'N/A'}ms`);
+        conditionalLog(verbose, `  Semantic Accuracy: ${report.summary.semanticAccuracy.percentage}%`);
+        conditionalLog(verbose, `  Errors: ${report.summary.errors}`);
+        conditionalLog(verbose, `  Warnings: ${report.summary.warnings}`);
         
-        console.log('\n🔧 EXECUTION:');
-        console.log(`  setup() called: ${report.execution.setupCalled ? '✅' : '❌'}`);
-        console.log(`  loop() called: ${report.execution.loopCalled ? '✅' : '❌'}`);
-        console.log(`  Loop iterations: ${report.execution.loopIterations}`);
-        console.log(`  Infinite loop detected: ${report.execution.infiniteLoopDetected ? '⚠️  YES' : '✅ NO'}`);
+        conditionalLog(verbose, '\n🔧 EXECUTION:');
+        conditionalLog(verbose, `  setup() called: ${report.execution.setupCalled ? '✅' : '❌'}`);
+        conditionalLog(verbose, `  loop() called: ${report.execution.loopCalled ? '✅' : '❌'}`);
+        conditionalLog(verbose, `  Loop iterations: ${report.execution.loopIterations}`);
+        conditionalLog(verbose, `  Infinite loop detected: ${report.execution.infiniteLoopDetected ? '⚠️  YES' : '✅ NO'}`);
         
         if (detailed) {
-            console.log('\n🔌 HARDWARE STATE:');
-            console.log(`  Serial initialized: ${report.hardware.serial.initialized ? '✅' : '❌'}`);
+            conditionalLog(verbose, '\n🔌 HARDWARE STATE:');
+            conditionalLog(verbose, `  Serial initialized: ${report.hardware.serial.initialized ? '✅' : '❌'}`);
             if (report.hardware.serial.baudRate) {
-                console.log(`  Serial baud rate: ${report.hardware.serial.baudRate}`);
+                conditionalLog(verbose, `  Serial baud rate: ${report.hardware.serial.baudRate}`);
             }
-            console.log(`  Pins configured: ${Object.keys(report.hardware.pins).length}`);
-            console.log(`  Total delay time: ${report.hardware.timing.totalDelay}ms`);
-            console.log(`  Delay calls: ${report.hardware.timing.delayCount}`);
+            conditionalLog(verbose, `  Pins configured: ${Object.keys(report.hardware.pins).length}`);
+            conditionalLog(verbose, `  Total delay time: ${report.hardware.timing.totalDelay}ms`);
+            conditionalLog(verbose, `  Delay calls: ${report.hardware.timing.delayCount}`);
             
-            console.log('\n📦 VARIABLES:');
+            conditionalLog(verbose, '\n📦 VARIABLES:');
             const varCount = Object.keys(report.variables).length;
-            console.log(`  Variables tracked: ${varCount}`);
+            conditionalLog(verbose, `  Variables tracked: ${varCount}`);
             if (varCount > 0 && varCount <= 10) {
                 Object.entries(report.variables).forEach(([name, info]) => {
-                    console.log(`    ${name}: ${info.type} = ${info.value}`);
+                    conditionalLog(verbose, `    ${name}: ${info.type} = ${info.value}`);
                 });
             }
         }
         
         if (report.issues.errors.length > 0) {
-            console.log('\n❌ ERRORS:');
+            conditionalLog(verbose, '\n❌ ERRORS:');
             report.issues.errors.forEach((error, idx) => {
-                console.log(`  ${idx + 1}. [${error.type}] ${error.message}`);
+                conditionalLog(verbose, `  ${idx + 1}. [${error.type}] ${error.message}`);
             });
         }
         
         if (report.issues.warnings.length > 0) {
-            console.log('\n⚠️  WARNINGS:');
+            conditionalLog(verbose, '\n⚠️  WARNINGS:');
             report.issues.warnings.forEach((warning, idx) => {
-                console.log(`  ${idx + 1}. [${warning.type}] ${warning.message}`);
+                conditionalLog(verbose, `  ${idx + 1}. [${warning.type}] ${warning.message}`);
             });
         }
         
         if (showCommands && report.commands.length > 0) {
-            console.log('\n📋 COMMAND STREAM:');
+            conditionalLog(verbose, '\n📋 COMMAND STREAM:');
             report.commands.slice(0, 20).forEach((cmd, idx) => {
-                console.log(`  ${idx + 1}. [${cmd.type}] ${JSON.stringify(cmd).substring(0, 80)}...`);
+                conditionalLog(verbose, `  ${idx + 1}. [${cmd.type}] ${JSON.stringify(cmd).substring(0, 80)}...`);
             });
             if (report.commands.length > 20) {
-                console.log(`  ... and ${report.commands.length - 20} more commands`);
+                conditionalLog(verbose, `  ... and ${report.commands.length - 20} more commands`);
             }
         }
         
-        console.log('\n═'.repeat(50));
+        conditionalLog(verbose, '\n═'.repeat(50));
         
         return report;
     }
