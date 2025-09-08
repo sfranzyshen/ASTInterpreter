@@ -205,32 +205,6 @@ arduino_ast_interpreter/fast:
 .PHONY : arduino_ast_interpreter/fast
 
 #=============================================================================
-# Target rules for targets named basic_interpreter_example
-
-# Build rule for target.
-basic_interpreter_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 basic_interpreter_example
-.PHONY : basic_interpreter_example
-
-# fast build rule for target.
-basic_interpreter_example/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/build
-.PHONY : basic_interpreter_example/fast
-
-#=============================================================================
-# Target rules for targets named test_minimal_trace
-
-# Build rule for target.
-test_minimal_trace: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_minimal_trace
-.PHONY : test_minimal_trace
-
-# fast build rule for target.
-test_minimal_trace/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/build
-.PHONY : test_minimal_trace/fast
-
-#=============================================================================
 # Target rules for targets named test_ast_nodes
 
 # Build rule for target.
@@ -307,30 +281,6 @@ cross_platform_validation: cmake_check_build_system
 cross_platform_validation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cross_platform_validation.dir/build.make CMakeFiles/cross_platform_validation.dir/build
 .PHONY : cross_platform_validation/fast
-
-examples/basic_interpreter.o: examples/basic_interpreter.cpp.o
-.PHONY : examples/basic_interpreter.o
-
-# target to build an object file
-examples/basic_interpreter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.o
-.PHONY : examples/basic_interpreter.cpp.o
-
-examples/basic_interpreter.i: examples/basic_interpreter.cpp.i
-.PHONY : examples/basic_interpreter.i
-
-# target to preprocess a source file
-examples/basic_interpreter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.i
-.PHONY : examples/basic_interpreter.cpp.i
-
-examples/basic_interpreter.s: examples/basic_interpreter.cpp.s
-.PHONY : examples/basic_interpreter.s
-
-# target to generate assembly for a file
-examples/basic_interpreter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_interpreter_example.dir/build.make CMakeFiles/basic_interpreter_example.dir/examples/basic_interpreter.cpp.s
-.PHONY : examples/basic_interpreter.cpp.s
 
 libs/CompactAST/src/CompactAST.o: libs/CompactAST/src/CompactAST.cpp.o
 .PHONY : libs/CompactAST/src/CompactAST.o
@@ -524,30 +474,6 @@ src/cpp/ExecutionTracer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ExecutionTracer.cpp.s
 .PHONY : src/cpp/ExecutionTracer.cpp.s
 
-src/cpp/test_minimal_trace.o: src/cpp/test_minimal_trace.cpp.o
-.PHONY : src/cpp/test_minimal_trace.o
-
-# target to build an object file
-src/cpp/test_minimal_trace.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.o
-.PHONY : src/cpp/test_minimal_trace.cpp.o
-
-src/cpp/test_minimal_trace.i: src/cpp/test_minimal_trace.cpp.i
-.PHONY : src/cpp/test_minimal_trace.i
-
-# target to preprocess a source file
-src/cpp/test_minimal_trace.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.i
-.PHONY : src/cpp/test_minimal_trace.cpp.i
-
-src/cpp/test_minimal_trace.s: src/cpp/test_minimal_trace.cpp.s
-.PHONY : src/cpp/test_minimal_trace.s
-
-# target to generate assembly for a file
-src/cpp/test_minimal_trace.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_minimal_trace.dir/build.make CMakeFiles/test_minimal_trace.dir/src/cpp/test_minimal_trace.cpp.s
-.PHONY : src/cpp/test_minimal_trace.cpp.s
-
 tests/test_ast_nodes.o: tests/test_ast_nodes.cpp.o
 .PHONY : tests/test_ast_nodes.o
 
@@ -685,16 +611,11 @@ help:
 	@echo "... test"
 	@echo "... cross_platform_validation"
 	@echo "... arduino_ast_interpreter"
-	@echo "... basic_interpreter_example"
 	@echo "... test_ast_nodes"
 	@echo "... test_command_protocol"
 	@echo "... test_compact_ast"
 	@echo "... test_cross_platform_validation"
 	@echo "... test_interpreter_integration"
-	@echo "... test_minimal_trace"
-	@echo "... examples/basic_interpreter.o"
-	@echo "... examples/basic_interpreter.i"
-	@echo "... examples/basic_interpreter.s"
 	@echo "... libs/CompactAST/src/CompactAST.o"
 	@echo "... libs/CompactAST/src/CompactAST.i"
 	@echo "... libs/CompactAST/src/CompactAST.s"
@@ -719,9 +640,6 @@ help:
 	@echo "... src/cpp/ExecutionTracer.o"
 	@echo "... src/cpp/ExecutionTracer.i"
 	@echo "... src/cpp/ExecutionTracer.s"
-	@echo "... src/cpp/test_minimal_trace.o"
-	@echo "... src/cpp/test_minimal_trace.i"
-	@echo "... src/cpp/test_minimal_trace.s"
 	@echo "... tests/test_ast_nodes.o"
 	@echo "... tests/test_ast_nodes.i"
 	@echo "... tests/test_ast_nodes.s"

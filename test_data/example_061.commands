@@ -1,0 +1,252 @@
+[
+  {
+    "type": "VERSION_INFO",
+    "timestamp": 1757287440843,
+    "component": "interpreter",
+    "version": "7.2.0",
+    "status": "started"
+  },
+  {
+    "type": "PROGRAM_START",
+    "timestamp": 1757287440843,
+    "message": "Program execution started"
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "upButton",
+    "value": 2,
+    "isConst": true,
+    "timestamp": 1757287440843
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "downButton",
+    "value": 3,
+    "isConst": true,
+    "timestamp": 1757287440843
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "leftButton",
+    "value": 4,
+    "isConst": true,
+    "timestamp": 1757287440843
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "rightButton",
+    "value": 5,
+    "isConst": true,
+    "timestamp": 1757287440843
+  },
+  {
+    "type": "VAR_SET",
+    "variable": "mouseButton",
+    "value": 6,
+    "isConst": true,
+    "timestamp": 1757287440843
+  },
+  {
+    "type": "SETUP_START",
+    "timestamp": 1757287440844,
+    "message": "Executing setup() function"
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 2,
+    "mode": 0,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 3,
+    "mode": 0,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 4,
+    "mode": 0,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 5,
+    "mode": 0,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "PIN_MODE",
+    "pin": 6,
+    "mode": 0,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.begin",
+    "arguments": [
+      9600
+    ],
+    "baudRate": 9600,
+    "timestamp": 1757287440844,
+    "message": "Serial.begin(9600)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Mouse.begin",
+    "arguments": [],
+    "timestamp": 1757287440844,
+    "message": "Mouse.begin()"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.begin",
+    "arguments": [],
+    "timestamp": 1757287440844,
+    "message": "Keyboard.begin()"
+  },
+  {
+    "type": "SETUP_END",
+    "timestamp": 1757287440844,
+    "message": "Completed setup() function"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757287440844,
+    "message": "Starting loop() execution"
+  },
+  {
+    "type": "LOOP_START",
+    "timestamp": 1757287440844,
+    "message": "Starting loop iteration 1"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Executing loop() iteration 1",
+    "iteration": 1,
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Serial.available",
+    "arguments": [],
+    "timestamp": 1757287440844,
+    "message": "Serial.available()"
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 2,
+    "requestId": "digitalRead_1757287440844_0.24608140502237386",
+    "timestamp": 1757287440844
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1757287440851
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 3,
+    "requestId": "digitalRead_1757287440851_0.19170565013246188",
+    "timestamp": 1757287440851
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1757287440853
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 4,
+    "requestId": "digitalRead_1757287440853_0.4732758006565807",
+    "timestamp": 1757287440853
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1757287440858
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      108
+    ],
+    "timestamp": 1757287440858,
+    "message": "Keyboard.write(108)"
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 5,
+    "requestId": "digitalRead_1757287440858_0.35595566266935164",
+    "timestamp": 1757287440858
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": false,
+    "result": false,
+    "branch": "else",
+    "timestamp": 1757287440866
+  },
+  {
+    "type": "DIGITAL_READ_REQUEST",
+    "pin": 6,
+    "requestId": "digitalRead_1757287440866_0.15678378050143227",
+    "timestamp": 1757287440866
+  },
+  {
+    "type": "IF_STATEMENT",
+    "condition": true,
+    "result": true,
+    "branch": "then",
+    "timestamp": 1757287440871
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "Keyboard.write",
+    "arguments": [
+      109
+    ],
+    "timestamp": 1757287440871,
+    "message": "Keyboard.write(109)"
+  },
+  {
+    "type": "FUNCTION_CALL",
+    "function": "loop",
+    "message": "Completed loop() iteration 1",
+    "iteration": 1,
+    "completed": true,
+    "timestamp": 1757287440871
+  },
+  {
+    "type": "LOOP_END",
+    "timestamp": 1757287440876,
+    "message": "Loop limit reached: completed 1 iterations (max: 1)",
+    "iterations": 1,
+    "limitReached": true
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757287440876,
+    "message": "Program completed after 1 loop iterations (limit reached)"
+  },
+  {
+    "type": "PROGRAM_END",
+    "timestamp": 1757287440876,
+    "message": "Program execution stopped"
+  }
+]

@@ -1,0 +1,8 @@
+# ArduinoASTInterpreterConfig.cmake.in
+# Config file for ArduinoASTInterpreter package
+
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/ArduinoASTInterpreterTargets.cmake")
+
+check_required_components(ArduinoASTInterpreter)

@@ -158,23 +158,26 @@ endif()
 # =============================================================================
 
 if(BUILD_EXAMPLES)
-    # Basic interpreter example
-    add_executable(basic_interpreter_example
-        examples/basic_interpreter.cpp
-    )
+    # Note: Example executables require C++ source files that may not exist
+    # Commenting out until proper example files are created
     
-    target_link_libraries(basic_interpreter_example
-        PRIVATE arduino_ast_interpreter
-    )
+    # # Basic interpreter example
+    # add_executable(basic_interpreter_example
+    #     examples/basic_interpreter.cpp
+    # )
+    # 
+    # target_link_libraries(basic_interpreter_example
+    #     PRIVATE arduino_ast_interpreter
+    # )
     
-    # Minimal trace test
-    add_executable(test_minimal_trace
-        src/cpp/test_minimal_trace.cpp
-    )
-    
-    target_link_libraries(test_minimal_trace
-        PRIVATE arduino_ast_interpreter
-    )
+    # # Minimal trace test
+    # add_executable(test_minimal_trace
+    #     src/cpp/test_minimal_trace.cpp
+    # )
+    # 
+    # target_link_libraries(test_minimal_trace
+    #     PRIVATE arduino_ast_interpreter
+    # )
     
     # Compact AST demo (TODO: Create compact_ast_demo.cpp)
     # add_executable(compact_ast_demo
