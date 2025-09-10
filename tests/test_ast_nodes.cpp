@@ -85,7 +85,7 @@ void testVisitorPattern() {
     auto number = arduino_ast::createNumberNode(123);
     number->accept(visitor);
     TEST_ASSERT_EQ(visitor.visitCount, 2, "Number node visit count");
-    TEST_ASSERT_EQ(visitor.lastVisited, arduino_ast::ASTNodeType::NUMBER, "Number node visited");
+    TEST_ASSERT_EQ(visitor.lastVisited, arduino_ast::ASTNodeType::NUMBER_LITERAL, "Number node visited");
 }
 
 // =============================================================================

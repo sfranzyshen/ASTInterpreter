@@ -1,14 +1,14 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757371242897,
+    "timestamp": 1757408928193,
     "component": "interpreter",
-    "version": "7.2.0",
+    "version": "7.3.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757371242897,
+    "timestamp": 1757408928193,
     "message": "Program execution started"
   },
   {
@@ -16,82 +16,82 @@
     "variable": "greenLEDPin",
     "value": 9,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "redLEDPin",
     "value": 10,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "blueLEDPin",
     "value": 11,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "redSensorPin",
     "value": 14,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "greenSensorPin",
     "value": 15,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "blueSensorPin",
     "value": 16,
     "isConst": true,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "redValue",
     "value": 0,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "greenValue",
     "value": 0,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "blueValue",
     "value": 0,
-    "timestamp": 1757371242897
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "redSensorValue",
     "value": 0,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "greenSensorValue",
     "value": 0,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "blueSensorValue",
     "value": 0,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757371242898,
+    "timestamp": 1757408928193,
     "message": "Executing setup() function"
   },
   {
@@ -101,40 +101,40 @@
       9600
     ],
     "baudRate": 9600,
-    "timestamp": 1757371242898,
+    "timestamp": 1757408928193,
     "message": "Serial.begin(9600)"
   },
   {
     "type": "PIN_MODE",
     "pin": 9,
     "mode": 1,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "PIN_MODE",
     "pin": 10,
     "mode": 1,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "PIN_MODE",
     "pin": 11,
     "mode": 1,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757371242898,
+    "timestamp": 1757408928193,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757371242898,
+    "timestamp": 1757408928193,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757371242898,
+    "timestamp": 1757408928193,
     "message": "Starting loop iteration 1"
   },
   {
@@ -142,55 +142,55 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757371242898
+    "timestamp": 1757408928193
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1757371242898_0.4931047892334042",
-    "timestamp": 1757371242898
+    "requestId": "analogRead_1757408928193_0.8990152401976219",
+    "timestamp": 1757408928193
   },
   {
     "type": "VAR_SET",
     "variable": "redSensorValue",
-    "value": 89,
-    "timestamp": 1757371242905
+    "value": 16,
+    "timestamp": 1757408928194
   },
   {
     "type": "DELAY",
     "duration": 5,
     "actualDelay": 5,
-    "timestamp": 1757371242905
+    "timestamp": 1757408928194
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 15,
-    "requestId": "analogRead_1757371242905_0.558412828483853",
-    "timestamp": 1757371242905
+    "requestId": "analogRead_1757408928194_0.7802340872606661",
+    "timestamp": 1757408928194
   },
   {
     "type": "VAR_SET",
     "variable": "greenSensorValue",
-    "value": 624,
-    "timestamp": 1757371242907
+    "value": 323,
+    "timestamp": 1757408928197
   },
   {
     "type": "DELAY",
     "duration": 5,
     "actualDelay": 5,
-    "timestamp": 1757371242907
+    "timestamp": 1757408928197
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 16,
-    "requestId": "analogRead_1757371242907_0.9627545301028082",
-    "timestamp": 1757371242907
+    "requestId": "analogRead_1757408928197_0.13954202065513255",
+    "timestamp": 1757408928197
   },
   {
     "type": "VAR_SET",
     "variable": "blueSensorValue",
-    "value": 853,
-    "timestamp": 1757371242916
+    "value": 187,
+    "timestamp": 1757408928205
   },
   {
     "type": "FUNCTION_CALL",
@@ -199,18 +199,18 @@
       "\"raw sensor Values \t red: \""
     ],
     "data": "raw sensor Values \t red: ",
-    "timestamp": 1757371242916,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"raw sensor Values \t red: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.print",
     "arguments": [
-      "89"
+      "16"
     ],
-    "data": "89",
-    "timestamp": 1757371242916,
-    "message": "Serial.print(89)"
+    "data": "16",
+    "timestamp": 1757408928205,
+    "message": "Serial.print(16)"
   },
   {
     "type": "FUNCTION_CALL",
@@ -219,18 +219,18 @@
       "\"\t green: \""
     ],
     "data": "\t green: ",
-    "timestamp": 1757371242916,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"\t green: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.print",
     "arguments": [
-      "624"
+      "323"
     ],
-    "data": "624",
-    "timestamp": 1757371242916,
-    "message": "Serial.print(624)"
+    "data": "323",
+    "timestamp": 1757408928205,
+    "message": "Serial.print(323)"
   },
   {
     "type": "FUNCTION_CALL",
@@ -239,36 +239,36 @@
       "\"\t Blue: \""
     ],
     "data": "\t Blue: ",
-    "timestamp": 1757371242916,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"\t Blue: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [
-      "853"
+      "187"
     ],
-    "data": "853",
-    "timestamp": 1757371242916,
-    "message": "Serial.println(853)"
+    "data": "187",
+    "timestamp": 1757408928205,
+    "message": "Serial.println(187)"
   },
   {
     "type": "VAR_SET",
     "variable": "redValue",
-    "value": 22.25,
-    "timestamp": 1757371242916
+    "value": 4,
+    "timestamp": 1757408928205
   },
   {
     "type": "VAR_SET",
     "variable": "greenValue",
-    "value": 156,
-    "timestamp": 1757371242916
+    "value": 80.75,
+    "timestamp": 1757408928205
   },
   {
     "type": "VAR_SET",
     "variable": "blueValue",
-    "value": 213.25,
-    "timestamp": 1757371242916
+    "value": 46.75,
+    "timestamp": 1757408928205
   },
   {
     "type": "FUNCTION_CALL",
@@ -277,18 +277,18 @@
       "\"Mapped sensor Values \t red: \""
     ],
     "data": "Mapped sensor Values \t red: ",
-    "timestamp": 1757371242917,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"Mapped sensor Values \t red: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.print",
     "arguments": [
-      "22.25"
+      "4"
     ],
-    "data": "22.25",
-    "timestamp": 1757371242917,
-    "message": "Serial.print(22.25)"
+    "data": "4",
+    "timestamp": 1757408928205,
+    "message": "Serial.print(4)"
   },
   {
     "type": "FUNCTION_CALL",
@@ -297,18 +297,18 @@
       "\"\t green: \""
     ],
     "data": "\t green: ",
-    "timestamp": 1757371242917,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"\t green: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.print",
     "arguments": [
-      "156"
+      "80.75"
     ],
-    "data": "156",
-    "timestamp": 1757371242917,
-    "message": "Serial.print(156)"
+    "data": "80.75",
+    "timestamp": 1757408928205,
+    "message": "Serial.print(80.75)"
   },
   {
     "type": "FUNCTION_CALL",
@@ -317,36 +317,36 @@
       "\"\t Blue: \""
     ],
     "data": "\t Blue: ",
-    "timestamp": 1757371242917,
+    "timestamp": 1757408928205,
     "message": "Serial.print(\"\t Blue: \")"
   },
   {
     "type": "FUNCTION_CALL",
     "function": "Serial.println",
     "arguments": [
-      "213.25"
+      "46.75"
     ],
-    "data": "213.25",
-    "timestamp": 1757371242917,
-    "message": "Serial.println(213.25)"
+    "data": "46.75",
+    "timestamp": 1757408928205,
+    "message": "Serial.println(46.75)"
   },
   {
     "type": "ANALOG_WRITE",
     "pin": 10,
-    "value": 22.25,
-    "timestamp": 1757371242917
+    "value": 4,
+    "timestamp": 1757408928205
   },
   {
     "type": "ANALOG_WRITE",
     "pin": 9,
-    "value": 156,
-    "timestamp": 1757371242917
+    "value": 80.75,
+    "timestamp": 1757408928205
   },
   {
     "type": "ANALOG_WRITE",
     "pin": 11,
-    "value": 213.25,
-    "timestamp": 1757371242917
+    "value": 46.75,
+    "timestamp": 1757408928205
   },
   {
     "type": "FUNCTION_CALL",
@@ -354,23 +354,23 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757371242917
+    "timestamp": 1757408928205
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757371242921,
+    "timestamp": 1757408928210,
     "message": "Loop limit reached: completed 1 iterations (max: 1)",
     "iterations": 1,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757371242921,
+    "timestamp": 1757408928210,
     "message": "Program completed after 1 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757371242921,
+    "timestamp": 1757408928210,
     "message": "Program execution stopped"
   }
 ]

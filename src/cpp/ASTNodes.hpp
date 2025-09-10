@@ -13,6 +13,7 @@
 
 #include <cstdint>
 #include <string>
+#include <iostream>
 #include <vector>
 #include <memory>
 #include <variant>
@@ -78,6 +79,9 @@ enum class ASTNodeType : uint8_t {
     CAST_EXPR = 0x36,
     SIZEOF_EXPR = 0x37,
     TERNARY_EXPR = 0x38,
+    NAMESPACE_ACCESS = 0x39,
+    CPP_CAST = 0x3A,
+    FUNCTION_STYLE_CAST = 0x3B,
     
     // Literals and identifiers
     NUMBER_LITERAL = 0x40,
@@ -86,6 +90,8 @@ enum class ASTNodeType : uint8_t {
     IDENTIFIER = 0x43,
     CONSTANT = 0x44,
     ARRAY_INIT = 0x45,
+    WIDE_CHAR_LITERAL = 0x46,
+    DESIGNATED_INITIALIZER = 0x47,
     
     // Types and parameters
     TYPE_NODE = 0x50,
@@ -98,6 +104,21 @@ enum class ASTNodeType : uint8_t {
     ARRAY_DECLARATOR = 0x57,
     POINTER_DECLARATOR = 0x58,
     CONSTRUCTOR_CALL = 0x59,
+    
+    // JavaScript-compatible node types (added for cross-platform parity)
+    CONSTRUCTOR_DECLARATION = 0x5A,
+    ENUM_MEMBER = 0x5B,
+    ENUM_TYPE = 0x5C,
+    LAMBDA_EXPRESSION = 0x5D,
+    MEMBER_FUNCTION_DECLARATION = 0x5E,
+    MULTIPLE_STRUCT_MEMBERS = 0x5F,
+    NEW_EXPRESSION = 0x60,
+    PREPROCESSOR_DIRECTIVE = 0x61,
+    RANGE_EXPRESSION = 0x62,
+    STRUCT_MEMBER = 0x63,
+    TEMPLATE_TYPE_PARAMETER = 0x64,
+    UNION_DECLARATION = 0x65,
+    UNION_TYPE = 0x66,
     
     // Unknown/Invalid
     UNKNOWN = 0xFF
@@ -798,8 +819,30 @@ public:
 };
 
 class ArrayDeclaratorNode : public ASTNode {
+private:
+    ASTNodePtr identifier_;     // Variable name being declared  
+    ASTNodePtr size_;          // Single dimension size expression (e.g., [10])
+    std::vector<ASTNodePtr> dimensions_; // Multiple dimensions for multi-dimensional arrays
+
 public:
     ArrayDeclaratorNode() : ASTNode(ASTNodeType::ARRAY_DECLARATOR) {}
+    
+    // Identifier (variable name)
+    void setIdentifier(ASTNodePtr identifier) { identifier_ = std::move(identifier); }
+    const ASTNode* getIdentifier() const { return identifier_.get(); }
+    
+    // Single dimension size
+    void setSize(ASTNodePtr size) { size_ = std::move(size); }
+    const ASTNode* getSize() const { return size_.get(); }
+    
+    // Multiple dimensions
+    void addDimension(ASTNodePtr dimension) { dimensions_.push_back(std::move(dimension)); }
+    const std::vector<ASTNodePtr>& getDimensions() const { return dimensions_; }
+    
+    // Helper methods
+    bool isMultiDimensional() const { return !dimensions_.empty(); }
+    bool hasSize() const { return size_ != nullptr || !dimensions_.empty(); }
+    
     void accept(ASTVisitor& visitor) override;
 };
 
@@ -813,6 +856,361 @@ public:
 class StructType : public ASTNode {
 public:
     StructType() : ASTNode(ASTNodeType::STRUCT_TYPE) {}
+    void accept(ASTVisitor& visitor) override;
+};
+
+// C++ and namespace access nodes
+class NamespaceAccessNode : public ASTNode {
+private:
+    ASTNodePtr namespace_;
+    ASTNodePtr member_;
+    
+public:
+    NamespaceAccessNode() : ASTNode(ASTNodeType::NAMESPACE_ACCESS) {}
+    
+    void setNamespace(ASTNodePtr ns) { namespace_ = std::move(ns); }
+    void setMember(ASTNodePtr member) { member_ = std::move(member); }
+    
+    const ASTNode* getNamespace() const { return namespace_.get(); }
+    const ASTNode* getMember() const { return member_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class CppCastNode : public ASTNode {
+private:
+    std::string castType_;
+    ASTNodePtr targetType_;
+    ASTNodePtr expression_;
+    
+public:
+    CppCastNode() : ASTNode(ASTNodeType::CPP_CAST) {}
+    
+    void setCastType(const std::string& castType) { castType_ = castType; }
+    void setTargetType(ASTNodePtr targetType) { targetType_ = std::move(targetType); }
+    void setExpression(ASTNodePtr expr) { expression_ = std::move(expr); }
+    
+    const std::string& getCastType() const { return castType_; }
+    const ASTNode* getTargetType() const { return targetType_.get(); }
+    const ASTNode* getExpression() const { return expression_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class FunctionStyleCastNode : public ASTNode {
+private:
+    ASTNodePtr castType_;
+    ASTNodePtr argument_;
+    
+public:
+    FunctionStyleCastNode() : ASTNode(ASTNodeType::FUNCTION_STYLE_CAST) {}
+    
+    void setCastType(ASTNodePtr castType) { castType_ = std::move(castType); }
+    void setArgument(ASTNodePtr arg) { argument_ = std::move(arg); }
+    
+    const ASTNode* getCastType() const { return castType_.get(); }
+    const ASTNode* getArgument() const { return argument_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class WideCharLiteralNode : public ASTNode {
+private:
+    std::string value_;
+    bool isString_;
+    
+public:
+    WideCharLiteralNode() : ASTNode(ASTNodeType::WIDE_CHAR_LITERAL), isString_(false) {}
+    
+    void setValue(const std::string& value) { value_ = value; }
+    void setIsString(bool isString) { isString_ = isString; }
+    
+    const std::string& getValue() const { return value_; }
+    bool isString() const { return isString_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class DesignatedInitializerNode : public ASTNode {
+private:
+    ASTNodePtr field_;
+    ASTNodePtr value_;
+    
+public:
+    DesignatedInitializerNode() : ASTNode(ASTNodeType::DESIGNATED_INITIALIZER) {}
+    
+    void setField(ASTNodePtr field) { field_ = std::move(field); }
+    void setValue(ASTNodePtr value) { value_ = std::move(value); }
+    
+    const ASTNode* getField() const { return field_.get(); }
+    const ASTNode* getValue() const { return value_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class FuncDeclNode : public ASTNode {
+private:
+    ASTNodePtr returnType_;
+    ASTNodePtr declarator_;
+    std::vector<ASTNodePtr> parameters_;
+    
+public:
+    FuncDeclNode() : ASTNode(ASTNodeType::FUNC_DECL) {}
+    
+    void setReturnType(ASTNodePtr returnType) { returnType_ = std::move(returnType); }
+    void setDeclarator(ASTNodePtr declarator) { declarator_ = std::move(declarator); }
+    void addParameter(ASTNodePtr param) { parameters_.push_back(std::move(param)); }
+    
+    const ASTNode* getReturnType() const { return returnType_.get(); }
+    const ASTNode* getDeclarator() const { return declarator_.get(); }
+    const std::vector<ASTNodePtr>& getParameters() const { return parameters_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+// =============================================================================
+// JAVASCRIPT-COMPATIBLE NODE TYPES (Added for cross-platform parity)
+// =============================================================================
+
+class ConstructorDeclarationNode : public ASTNode {
+private:
+    std::string constructorName_;
+    std::vector<ASTNodePtr> parameters_;
+    ASTNodePtr body_;
+    
+public:
+    ConstructorDeclarationNode() : ASTNode(ASTNodeType::CONSTRUCTOR_DECLARATION) {}
+    
+    void setConstructorName(const std::string& name) { constructorName_ = name; }
+    void addParameter(ASTNodePtr param) { parameters_.push_back(std::move(param)); }
+    void setBody(ASTNodePtr body) { body_ = std::move(body); }
+    
+    const std::string& getConstructorName() const { return constructorName_; }
+    const std::vector<ASTNodePtr>& getParameters() const { return parameters_; }
+    const ASTNode* getBody() const { return body_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class EnumMemberNode : public ASTNode {
+private:
+    std::string memberName_;
+    ASTNodePtr value_;
+    
+public:
+    EnumMemberNode() : ASTNode(ASTNodeType::ENUM_MEMBER) {}
+    
+    void setMemberName(const std::string& name) { memberName_ = name; }
+    void setValue(ASTNodePtr value) { value_ = std::move(value); }
+    
+    const std::string& getMemberName() const { return memberName_; }
+    const ASTNode* getValue() const { return value_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class EnumTypeNode : public ASTNode {
+private:
+    std::string enumName_;
+    std::vector<ASTNodePtr> members_;
+    
+public:
+    EnumTypeNode() : ASTNode(ASTNodeType::ENUM_TYPE) {}
+    
+    void setEnumName(const std::string& name) { enumName_ = name; }
+    void addMember(ASTNodePtr member) { members_.push_back(std::move(member)); }
+    
+    const std::string& getEnumName() const { return enumName_; }
+    const std::vector<ASTNodePtr>& getMembers() const { return members_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class LambdaExpressionNode : public ASTNode {
+private:
+    std::vector<ASTNodePtr> captureList_;
+    std::vector<ASTNodePtr> parameters_;
+    ASTNodePtr body_;
+    ASTNodePtr returnType_;
+    
+public:
+    LambdaExpressionNode() : ASTNode(ASTNodeType::LAMBDA_EXPRESSION) {}
+    
+    void addCapture(ASTNodePtr capture) { captureList_.push_back(std::move(capture)); }
+    void addParameter(ASTNodePtr param) { parameters_.push_back(std::move(param)); }
+    void setBody(ASTNodePtr body) { body_ = std::move(body); }
+    void setReturnType(ASTNodePtr returnType) { returnType_ = std::move(returnType); }
+    
+    const std::vector<ASTNodePtr>& getCaptureList() const { return captureList_; }
+    const std::vector<ASTNodePtr>& getParameters() const { return parameters_; }
+    const ASTNode* getBody() const { return body_.get(); }
+    const ASTNode* getReturnType() const { return returnType_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class MemberFunctionDeclarationNode : public ASTNode {
+private:
+    std::string functionName_;
+    ASTNodePtr returnType_;
+    std::vector<ASTNodePtr> parameters_;
+    ASTNodePtr body_;
+    bool isConst_;
+    bool isVirtual_;
+    
+public:
+    MemberFunctionDeclarationNode() : ASTNode(ASTNodeType::MEMBER_FUNCTION_DECLARATION), isConst_(false), isVirtual_(false) {}
+    
+    void setFunctionName(const std::string& name) { functionName_ = name; }
+    void setReturnType(ASTNodePtr returnType) { returnType_ = std::move(returnType); }
+    void addParameter(ASTNodePtr param) { parameters_.push_back(std::move(param)); }
+    void setBody(ASTNodePtr body) { body_ = std::move(body); }
+    void setConst(bool isConst) { isConst_ = isConst; }
+    void setVirtual(bool isVirtual) { isVirtual_ = isVirtual; }
+    
+    const std::string& getFunctionName() const { return functionName_; }
+    const ASTNode* getReturnType() const { return returnType_.get(); }
+    const std::vector<ASTNodePtr>& getParameters() const { return parameters_; }
+    const ASTNode* getBody() const { return body_.get(); }
+    bool isConst() const { return isConst_; }
+    bool isVirtual() const { return isVirtual_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class MultipleStructMembersNode : public ASTNode {
+private:
+    std::vector<ASTNodePtr> members_;
+    
+public:
+    MultipleStructMembersNode() : ASTNode(ASTNodeType::MULTIPLE_STRUCT_MEMBERS) {}
+    
+    void addMember(ASTNodePtr member) { members_.push_back(std::move(member)); }
+    
+    const std::vector<ASTNodePtr>& getMembers() const { return members_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class NewExpressionNode : public ASTNode {
+private:
+    ASTNodePtr typeSpecifier_;
+    std::vector<ASTNodePtr> arguments_;
+    
+public:
+    NewExpressionNode() : ASTNode(ASTNodeType::NEW_EXPRESSION) {}
+    
+    void setTypeSpecifier(ASTNodePtr typeSpecifier) { typeSpecifier_ = std::move(typeSpecifier); }
+    void addArgument(ASTNodePtr arg) { arguments_.push_back(std::move(arg)); }
+    
+    const ASTNode* getTypeSpecifier() const { return typeSpecifier_.get(); }
+    const std::vector<ASTNodePtr>& getArguments() const { return arguments_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class PreprocessorDirectiveNode : public ASTNode {
+private:
+    std::string directive_;
+    std::string content_;
+    
+public:
+    PreprocessorDirectiveNode() : ASTNode(ASTNodeType::PREPROCESSOR_DIRECTIVE) {}
+    
+    void setDirective(const std::string& directive) { directive_ = directive; }
+    void setContent(const std::string& content) { content_ = content; }
+    
+    const std::string& getDirective() const { return directive_; }
+    const std::string& getContent() const { return content_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class RangeExpressionNode : public ASTNode {
+private:
+    ASTNodePtr start_;
+    ASTNodePtr end_;
+    
+public:
+    RangeExpressionNode() : ASTNode(ASTNodeType::RANGE_EXPRESSION) {}
+    
+    void setStart(ASTNodePtr start) { start_ = std::move(start); }
+    void setEnd(ASTNodePtr end) { end_ = std::move(end); }
+    
+    const ASTNode* getStart() const { return start_.get(); }
+    const ASTNode* getEnd() const { return end_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class StructMemberNode : public ASTNode {
+private:
+    ASTNodePtr memberType_;
+    std::string memberName_;
+    ASTNodePtr initializer_;
+    
+public:
+    StructMemberNode() : ASTNode(ASTNodeType::STRUCT_MEMBER) {}
+    
+    void setMemberType(ASTNodePtr memberType) { memberType_ = std::move(memberType); }
+    void setMemberName(const std::string& name) { memberName_ = name; }
+    void setInitializer(ASTNodePtr initializer) { initializer_ = std::move(initializer); }
+    
+    const ASTNode* getMemberType() const { return memberType_.get(); }
+    const std::string& getMemberName() const { return memberName_; }
+    const ASTNode* getInitializer() const { return initializer_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class TemplateTypeParameterNode : public ASTNode {
+private:
+    std::string parameterName_;
+    ASTNodePtr defaultType_;
+    
+public:
+    TemplateTypeParameterNode() : ASTNode(ASTNodeType::TEMPLATE_TYPE_PARAMETER) {}
+    
+    void setParameterName(const std::string& name) { parameterName_ = name; }
+    void setDefaultType(ASTNodePtr defaultType) { defaultType_ = std::move(defaultType); }
+    
+    const std::string& getParameterName() const { return parameterName_; }
+    const ASTNode* getDefaultType() const { return defaultType_.get(); }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class UnionDeclarationNode : public ASTNode {
+private:
+    std::string unionName_;
+    std::vector<ASTNodePtr> members_;
+    
+public:
+    UnionDeclarationNode() : ASTNode(ASTNodeType::UNION_DECLARATION) {}
+    
+    void setUnionName(const std::string& name) { unionName_ = name; }
+    void addMember(ASTNodePtr member) { members_.push_back(std::move(member)); }
+    
+    const std::string& getUnionName() const { return unionName_; }
+    const std::vector<ASTNodePtr>& getMembers() const { return members_; }
+    
+    void accept(ASTVisitor& visitor) override;
+};
+
+class UnionTypeNode : public ASTNode {
+private:
+    std::string typeName_;
+    std::vector<ASTNodePtr> types_;
+    
+public:
+    UnionTypeNode() : ASTNode(ASTNodeType::UNION_TYPE) {}
+    
+    void setTypeName(const std::string& name) { typeName_ = name; }
+    void addType(ASTNodePtr type) { types_.push_back(std::move(type)); }
+    
+    const std::string& getTypeName() const { return typeName_; }
+    const std::vector<ASTNodePtr>& getTypes() const { return types_; }
+    
     void accept(ASTVisitor& visitor) override;
 };
 
@@ -857,6 +1255,9 @@ public:
     virtual void visit(ArrayAccessNode& node) = 0;
     virtual void visit(TernaryExpressionNode& node) = 0;
     virtual void visit(CommaExpression& node) = 0;
+    virtual void visit(NamespaceAccessNode& node) = 0;
+    virtual void visit(CppCastNode& node) = 0;
+    virtual void visit(FunctionStyleCastNode& node) = 0;
     
     // Literals
     virtual void visit(NumberNode& node) = 0;
@@ -865,6 +1266,8 @@ public:
     virtual void visit(IdentifierNode& node) = 0;
     virtual void visit(ConstantNode& node) = 0;
     virtual void visit(ArrayInitializerNode& node) = 0;
+    virtual void visit(WideCharLiteralNode& node) = 0;
+    virtual void visit(DesignatedInitializerNode& node) = 0;
     
     // Statements 
     virtual void visit(EmptyStatement& node) = 0;
@@ -872,6 +1275,7 @@ public:
     // Declarations
     virtual void visit(VarDeclNode& node) = 0;
     virtual void visit(FuncDefNode& node) = 0;
+    virtual void visit(FuncDeclNode& node) = 0;
     virtual void visit(TypeNode& node) = 0;
     virtual void visit(DeclaratorNode& node) = 0;
     virtual void visit(ParamNode& node) = 0;
@@ -881,6 +1285,21 @@ public:
     virtual void visit(StructDeclaration& node) = 0;
     virtual void visit(TypedefDeclaration& node) = 0;
     virtual void visit(StructType& node) = 0;
+    
+    // JavaScript-compatible node types (added for cross-platform parity)
+    virtual void visit(ConstructorDeclarationNode& node) = 0;
+    virtual void visit(EnumMemberNode& node) = 0;
+    virtual void visit(EnumTypeNode& node) = 0;
+    virtual void visit(LambdaExpressionNode& node) = 0;
+    virtual void visit(MemberFunctionDeclarationNode& node) = 0;
+    virtual void visit(MultipleStructMembersNode& node) = 0;
+    virtual void visit(NewExpressionNode& node) = 0;
+    virtual void visit(PreprocessorDirectiveNode& node) = 0;
+    virtual void visit(RangeExpressionNode& node) = 0;
+    virtual void visit(StructMemberNode& node) = 0;
+    virtual void visit(TemplateTypeParameterNode& node) = 0;
+    virtual void visit(UnionDeclarationNode& node) = 0;
+    virtual void visit(UnionTypeNode& node) = 0;
 };
 
 // =============================================================================
@@ -898,6 +1317,13 @@ ASTNodePtr createNode(ASTNodeType type);
 std::string nodeTypeToString(ASTNodeType type);
 
 /**
+ * Stream operator for ASTNodeType debugging
+ */
+inline std::ostream& operator<<(std::ostream& os, ASTNodeType type) {
+    return os << nodeTypeToString(type);
+}
+
+/**
  * Convert value type enum to string for debugging
  */
 std::string valueTypeToString(ValueType type);
@@ -906,5 +1332,16 @@ std::string valueTypeToString(ValueType type);
  * Memory usage estimation for nodes
  */
 size_t estimateNodeMemoryUsage(const ASTNode* node);
+
+/**
+ * Specialized factory functions for common nodes (for test compatibility)
+ */
+inline ASTNodePtr createNumberNode(double value) {
+    return std::make_unique<NumberNode>(value);
+}
+
+inline ASTNodePtr createProgramNode() {
+    return std::make_unique<ProgramNode>();
+}
 
 } // namespace arduino_ast

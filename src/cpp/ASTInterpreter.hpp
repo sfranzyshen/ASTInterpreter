@@ -14,6 +14,7 @@
 
 #include "ASTNodes.hpp"
 #include "CommandProtocol.hpp"
+#include "FlexibleCommand.hpp"
 #include "CompactAST.hpp"
 #include "EnhancedInterpreter.hpp"
 #include "ArduinoLibraryRegistry.hpp"
@@ -53,7 +54,8 @@ struct InterpreterOptions {
     uint32_t requestTimeout = 5000; // Request timeout (ms)
     bool enableSerial = true;       // Enable Serial commands
     bool enablePins = true;         // Enable pin operations
-    std::string version = "1.0.0";  // Interpreter version
+    bool syncMode = false;          // Test mode: immediate sync responses for digitalRead/analogRead
+    std::string version = "7.3.0";  // Interpreter version
 };
 
 /**
@@ -307,9 +309,9 @@ private:
     std::unique_ptr<ArduinoLibraryRegistry> libraryRegistry_;    // New comprehensive system
     
     // Command handling
-    CommandListener* commandListener_;
+    FlexibleCommandListener* commandListener_;
     ResponseHandler* responseHandler_;
-    std::queue<CommandPtr> commandQueue_;
+    std::queue<FlexibleCommand> commandQueue_;
     
     // Execution control
     bool setupCalled_;
@@ -342,6 +344,15 @@ private:
     // Request-response system
     std::unordered_map<std::string, CommandValue> pendingResponseValues_;
     std::queue<std::pair<std::string, CommandValue>> responseQueue_;
+    
+    // =============================================================================
+    // INSTANCE VARIABLES (converted from problematic static variables)  
+    // =============================================================================
+    bool inTick_;                          // Prevent re-entry in tick()
+    uint32_t requestIdCounter_;            // For generateRequestId()
+    std::vector<std::string> callStack_;   // Function call stack tracking
+    int allocationCounter_;                // malloc allocation counter
+    int mallocCounter_;                    // malloc request counter
     
     // =============================================================================
     // PERFORMANCE TRACKING & STATISTICS
@@ -491,7 +502,7 @@ public:
     /**
      * Set command listener for receiving commands
      */
-    void setCommandListener(CommandListener* listener) { commandListener_ = listener; }
+    void setCommandListener(FlexibleCommandListener* listener) { commandListener_ = listener; }
     
     /**
      * Set response handler for request-response operations
@@ -565,6 +576,29 @@ public:
     void visit(arduino_ast::StructDeclaration& node) override;
     void visit(arduino_ast::TypedefDeclaration& node) override;
     void visit(arduino_ast::StructType& node) override;
+    
+    // Missing AST node types for JavaScript compatibility
+    void visit(arduino_ast::NamespaceAccessNode& node) override;
+    void visit(arduino_ast::CppCastNode& node) override;
+    void visit(arduino_ast::FunctionStyleCastNode& node) override;
+    void visit(arduino_ast::WideCharLiteralNode& node) override;
+    void visit(arduino_ast::DesignatedInitializerNode& node) override;
+    void visit(arduino_ast::FuncDeclNode& node) override;
+    
+    // JavaScript-compatible node types (added for cross-platform parity)
+    void visit(arduino_ast::ConstructorDeclarationNode& node) override;
+    void visit(arduino_ast::EnumMemberNode& node) override;
+    void visit(arduino_ast::EnumTypeNode& node) override;
+    void visit(arduino_ast::LambdaExpressionNode& node) override;
+    void visit(arduino_ast::MemberFunctionDeclarationNode& node) override;
+    void visit(arduino_ast::MultipleStructMembersNode& node) override;
+    void visit(arduino_ast::NewExpressionNode& node) override;
+    void visit(arduino_ast::PreprocessorDirectiveNode& node) override;
+    void visit(arduino_ast::RangeExpressionNode& node) override;
+    void visit(arduino_ast::StructMemberNode& node) override;
+    void visit(arduino_ast::TemplateTypeParameterNode& node) override;
+    void visit(arduino_ast::UnionDeclarationNode& node) override;
+    void visit(arduino_ast::UnionTypeNode& node) override;
     
     // =============================================================================
     // UTILITY METHODS
@@ -758,7 +792,7 @@ private:
     CommandValue consumeResponse(const std::string& requestId);
     
     // Command emission
-    void emitCommand(CommandPtr command);
+    void emitCommand(FlexibleCommand command);
     void emitError(const std::string& message, const std::string& type = "RuntimeError");
     void emitSystemCommand(CommandType type, const std::string& message);
     

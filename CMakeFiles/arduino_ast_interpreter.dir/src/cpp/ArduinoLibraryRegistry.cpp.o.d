@@ -1,8 +1,8 @@
 CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.o: \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/ArduinoLibraryRegistry.cpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/ArduinoLibraryRegistry.cpp \
  /usr/include/stdc-predef.h \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/ArduinoLibraryRegistry.hpp \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/CommandProtocol.hpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/ArduinoLibraryRegistry.hpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/CommandProtocol.hpp \
  /usr/include/c++/11/cstdint \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -167,22 +167,13 @@ CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.o: \
  /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/ArduinoDataTypes.hpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/ArduinoDataTypes.hpp \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/ASTInterpreter.hpp \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/ASTNodes.hpp \
- /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
- /usr/include/c++/11/bits/stl_map.h \
- /usr/include/c++/11/bits/stl_multimap.h \
- /mnt/d/Devel/ASTInterpreter_Arduino/libs/CompactAST/src/CompactAST.hpp \
- /mnt/d/Devel/ASTInterpreter_Arduino/src/cpp/EnhancedInterpreter.hpp \
- /usr/include/c++/11/stack /usr/include/c++/11/deque \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/queue \
- /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/iostream \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
- /usr/include/c++/11/bits/ios_base.h \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/ASTInterpreter.hpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/ASTNodes.hpp \
+ /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
+ /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h \
  /usr/include/c++/11/bits/locale_classes.tcc \
  /usr/include/c++/11/system_error \
@@ -198,8 +189,26 @@ CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ArduinoLibraryRegistry.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc /usr/include/c++/11/cmath \
+ /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/FlexibleCommand.hpp \
+ /usr/include/c++/11/sstream /usr/include/c++/11/bits/sstream.tcc \
+ /usr/include/c++/11/iomanip /usr/include/c++/11/locale \
+ /usr/include/c++/11/bits/locale_facets_nonio.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/c++/11/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/11/bits/locale_conv.h \
+ /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
+ /mnt/d/Devel/ASTInterpreter/libs/CompactAST/src/CompactAST.hpp \
+ /mnt/d/Devel/ASTInterpreter/src/cpp/EnhancedInterpreter.hpp \
+ /usr/include/c++/11/stack /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/bits/stl_stack.h /usr/include/c++/11/queue \
+ /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/cmath \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \

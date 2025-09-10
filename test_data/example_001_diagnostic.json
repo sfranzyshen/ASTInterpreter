@@ -1,0 +1,23 @@
+{
+  "testCase": "BareMinimum.ino",
+  "timestamp": "2025-09-09T08:31:11.138Z",
+  "javascript": {
+    "success": false,
+    "commandCount": 0,
+    "executionTime": 0,
+    "commands": []
+  },
+  "cpp": {
+    "success": false,
+    "commandCount": 0,
+    "executionTime": 0,
+    "commands": []
+  },
+  "analysis": {
+    "lengthDifference": 0,
+    "jsOnlyCommands": [],
+    "cppOnlyCommands": [],
+    "mismatchedCommands": [],
+    "commonCommands": 0
+  }
+}

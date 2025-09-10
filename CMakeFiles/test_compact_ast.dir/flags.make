@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DDEBUG
 
-CXX_INCLUDES = -I/mnt/d/Devel/ASTInterpreter_Arduino/src/cpp -I/mnt/d/Devel/ASTInterpreter_Arduino/libs/CompactAST/src
+CXX_INCLUDES = -I/mnt/d/Devel/ASTInterpreter/src/cpp -I/mnt/d/Devel/ASTInterpreter/libs/CompactAST/src
 
 CXX_FLAGS = -g -O0 -Wall -Wextra -Wpedantic -std=c++17
 

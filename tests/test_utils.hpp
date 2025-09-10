@@ -34,23 +34,21 @@ namespace testing {
  * Command stream capture for testing
  * Records all commands emitted by interpreter for validation
  */
-class CommandStreamCapture : public CommandListener {
+class CommandStreamCapture : public FlexibleCommandListener {
 private:
-    std::vector<CommandPtr> capturedCommands_;
+    std::vector<FlexibleCommand> capturedCommands_;
     std::stringstream logStream_;
     bool verbose_;
 
 public:
     explicit CommandStreamCapture(bool verbose = false) : verbose_(verbose) {}
     
-    void onCommand(const Command& command) override {
-        auto commandPtr = std::make_unique<Command>(command);
-        
+    void onCommand(const FlexibleCommand& command) override {
         if (verbose_) {
-            logStream_ << "[COMMAND] " << serializeCommand(command) << std::endl;
+            logStream_ << "[COMMAND] " << command.toJSON() << std::endl;
         }
         
-        capturedCommands_.push_back(std::move(commandPtr));
+        capturedCommands_.push_back(command);
     }
     
     void onError(const std::string& error) override {
@@ -58,11 +56,12 @@ public:
             logStream_ << "[ERROR] " << error << std::endl;
         }
         
-        auto errorCommand = CommandFactory::createError(error);
-        capturedCommands_.push_back(std::move(errorCommand));
+        FlexibleCommand errorCommand("error");
+        errorCommand.set("message", error);
+        capturedCommands_.push_back(errorCommand);
     }
     
-    const std::vector<CommandPtr>& getCommands() const { return capturedCommands_; }
+    const std::vector<FlexibleCommand>& getCommands() const { return capturedCommands_; }
     std::string getLog() const { return logStream_.str(); }
     size_t getCommandCount() const { return capturedCommands_.size(); }
     
@@ -74,7 +73,7 @@ public:
     
     /**
      * Get commands as JSON-like string for comparison with JavaScript
-     * Uses the enhanced serializeCommand function for structured output
+     * Uses FlexibleCommand toJson() method for structured output
      */
     std::string getCommandsAsJson() const {
         std::stringstream json;
@@ -82,11 +81,11 @@ public:
         for (size_t i = 0; i < capturedCommands_.size(); ++i) {
             if (i > 0) json << ",\n";
             
-            // Use the enhanced serializeCommand function for structured JSON
-            std::string structuredCommand = serializeCommand(*capturedCommands_[i]);
+            // Use FlexibleCommand's toJson method
+            std::string commandJson = capturedCommands_[i].toJSON();
             
             // Add proper indentation to match JavaScript format
-            std::istringstream iss(structuredCommand);
+            std::istringstream iss(commandJson);
             std::string line;
             bool firstLine = true;
             while (std::getline(iss, line)) {
@@ -113,7 +112,7 @@ private:
     std::unordered_map<std::string, CommandValue> mockResponses_;
     std::vector<RequestId> receivedRequests_;
     uint32_t defaultAnalogValue_ = 512;
-    uint32_t defaultDigitalValue_ = 1;
+    uint32_t defaultDigitalValue_ = 0;
     uint32_t mockMillis_ = 1000;
 
 public:
@@ -242,7 +241,8 @@ std::unique_ptr<ASTInterpreter> createInterpreterFromBinary(const uint8_t* data,
     InterpreterOptions options;
     options.verbose = false;
     options.debug = false;
-    options.maxLoopIterations = 3; // Prevent infinite loops in tests
+    options.maxLoopIterations = 1; // MATCH JAVASCRIPT: Use exactly 1 iteration like JS test data
+    options.syncMode = true; // TEST MODE: Enable synchronous responses for digitalRead/analogRead
     
     return std::make_unique<ASTInterpreter>(data, size, options);
 }

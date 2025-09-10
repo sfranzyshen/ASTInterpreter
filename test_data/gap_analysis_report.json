@@ -1,0 +1,38 @@
+{
+  "timestamp": "2025-09-09T03:55:29.709Z",
+  "summary": {
+    "jsCommands": 18,
+    "cppCommands": 13,
+    "gap": 5,
+    "gapPercentage": "27.8%"
+  },
+  "jsCommandBreakdown": {
+    "VERSION_INFO": 1,
+    "PROGRAM_START": 1,
+    "SETUP_START": 1,
+    "SETUP_END": 1,
+    "LOOP_START": 4,
+    "FUNCTION_CALL": 6,
+    "LOOP_END": 1,
+    "PROGRAM_END": 3
+  },
+  "likelyMissingInCpp": [
+    {
+      "type": "FUNCTION_CALL completion tracking",
+      "count": 3,
+      "reason": "C++ may not be generating \"Completed loop() iteration\" commands",
+      "jsExample": "FUNCTION_CALL with completed:true flag"
+    },
+    {
+      "type": "LOOP_START per-iteration",
+      "count": 2,
+      "reason": "C++ may only generate one LOOP_START vs JS generating per-iteration",
+      "jsExample": "Multiple LOOP_START commands for iterations 2 and 3"
+    }
+  ],
+  "recommendations": [
+    "Fix C++ loop iteration tracking (LOOP_START per iteration)",
+    "Add C++ function completion tracking (FUNCTION_CALL completion)",
+    "Fix C++ JSON output format (compact vs pretty-printed)"
+  ]
+}

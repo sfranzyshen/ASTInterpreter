@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "ASTNodes.hpp"
+#include "../../../src/cpp/ASTNodes.hpp"
 #include <cstdint>
 #include <vector>
 #include <string>

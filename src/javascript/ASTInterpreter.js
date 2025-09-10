@@ -1786,6 +1786,18 @@ class ASTInterpreter {
             }
         };
         
+        // Safe array allocation with size limits to prevent memory exhaustion
+        this.validateArraySize = (size, context = 'array') => {
+            const MAX_ARRAY_SIZE = 1000000; // 1 million elements max (reasonable for Arduino contexts)
+            if (typeof size !== 'number' || size < 0) {
+                throw new Error(`Invalid ${context} size: ${size}. Size must be a non-negative number`);
+            }
+            if (size > MAX_ARRAY_SIZE) {
+                throw new Error(`${context} size ${size} exceeds maximum limit of ${MAX_ARRAY_SIZE} elements`);
+            }
+            return size;
+        };
+        
         // Execution state
         this.state = EXECUTION_STATE.IDLE;
         this.previousExecutionState = null; // Track state before WAITING_FOR_RESPONSE
@@ -3391,6 +3403,7 @@ class ASTInterpreter {
                         
                         // Initialize 1D array with default values (if not multidimensional)
                         if (arraySize && arraySize > 0 && !value) {
+                            this.validateArraySize(arraySize, 'variable declaration array');
                             value = new Array(arraySize).fill(0); // Initialize with zeros
                             if (this.options.verbose) {
                                 debugLog(`Array ${varName} initialized with size ${arraySize}`);
@@ -3905,6 +3918,10 @@ class ASTInterpreter {
         if (templateType.startsWith('std::vector<') && templateType.endsWith('>')) {
             // Extract the element type from std::vector<ElementType>
             const elementType = templateType.slice(12, -1); // Remove 'std::vector<' and '>'
+            // Validate size if provided in constructor args
+            if (constructorArgs.length > 0 && typeof constructorArgs[0] === 'number') {
+                this.validateArraySize(constructorArgs[0], 'std::vector');
+            }
             return new ArduinoVector(elementType, constructorArgs);
         } else if (templateType === 'std::string') {
             return new ArduinoStdString(constructorArgs);
@@ -3914,6 +3931,7 @@ class ASTInterpreter {
             const parts = innerContent.split(',').map(s => s.trim());
             const elementType = parts[0];
             const arraySize = parseInt(parts[1]) || 0;
+            this.validateArraySize(arraySize, 'std::array');
             return new ArduinoArray(elementType, arraySize, constructorArgs);
         }
         
@@ -8590,7 +8608,7 @@ class ASTInterpreter {
                 type: 'dynamic_array',
                 elementType: typeName,
                 size: arraySize,
-                elements: new Array(arraySize).fill(null),
+                elements: new Array(this.validateArraySize(arraySize, 'heap allocated array')).fill(null),
                 isHeapAllocated: true
             };
         } else {
@@ -9052,9 +9070,11 @@ class ASTInterpreter {
         }
         
         if (dimensions.length === 1) {
+            this.validateArraySize(dimensions[0], 'multidimensional array');
             return new Array(dimensions[0]).fill(0);
         }
         
+        this.validateArraySize(dimensions[0], 'multidimensional array dimension');
         const result = new Array(dimensions[0]);
         const remainingDimensions = dimensions.slice(1);
         
@@ -9307,8 +9327,8 @@ class ASTInterpreter {
         return this.macros.has(name) || this.functionMacros.has(name);
     }
     
-    // Simple expression evaluator for macro expansions
-    // Handles basic arithmetic expressions like "(3.14159 * 5 * 5)"
+    // Safe mathematical expression evaluator for macro expansions
+    // Handles basic arithmetic expressions like "(3.14159 * 5 * 5)" without eval()
     evaluateSimpleMacroExpression(expression) {
         // Remove outer parentheses if they exist
         let expr = expression.trim();
@@ -9319,24 +9339,85 @@ class ASTInterpreter {
         // Replace any remaining macro references
         expr = this.expandMacros(expr);
         
-        // Simple evaluation using JavaScript's eval (safe in this controlled context)
-        // This handles basic arithmetic: +, -, *, /, parentheses
+        // Safe evaluation using custom parser (no eval())
         try {
             // Sanitize the expression to only allow numbers, operators, and parentheses
             if (!/^[0-9+\-*/().\ ]+$/.test(expr)) {
                 throw new Error(`Unsafe expression: ${expr}`);
             }
             
-            const result = eval(expr);
+            const result = this.evaluateMathExpression(expr);
             
             if (this.options.verbose) {
-                debugLog(`Simple macro evaluation: ${expr} = ${result}`);
+                debugLog(`Safe macro evaluation: ${expr} = ${result}`);
             }
             
             return result;
         } catch (error) {
             throw new Error(`Cannot evaluate expression: ${expr} (${error.message})`);
         }
+    }
+    
+    // Safe mathematical expression evaluator using shunting-yard algorithm
+    // Supports: numbers, +, -, *, /, parentheses with proper precedence
+    evaluateMathExpression(expr) {
+        // Tokenize the expression
+        const tokens = expr.match(/\d+\.?\d*|[+\-*/()]/g);
+        if (!tokens) return 0;
+        
+        // Convert to postfix notation (RPN) using shunting-yard algorithm
+        const output = [];
+        const operators = [];
+        const precedence = { '+': 1, '-': 1, '*': 2, '/': 2 };
+        
+        for (const token of tokens) {
+            if (/^\d+\.?\d*$/.test(token)) {
+                // Number
+                output.push(parseFloat(token));
+            } else if (token === '(') {
+                operators.push(token);
+            } else if (token === ')') {
+                while (operators.length && operators[operators.length - 1] !== '(') {
+                    output.push(operators.pop());
+                }
+                operators.pop(); // Remove '('
+            } else if (precedence[token]) {
+                // Operator
+                while (operators.length && 
+                       operators[operators.length - 1] !== '(' &&
+                       precedence[operators[operators.length - 1]] >= precedence[token]) {
+                    output.push(operators.pop());
+                }
+                operators.push(token);
+            }
+        }
+        
+        // Pop remaining operators
+        while (operators.length) {
+            output.push(operators.pop());
+        }
+        
+        // Evaluate postfix expression
+        const stack = [];
+        for (const item of output) {
+            if (typeof item === 'number') {
+                stack.push(item);
+            } else {
+                const b = stack.pop();
+                const a = stack.pop();
+                switch (item) {
+                    case '+': stack.push(a + b); break;
+                    case '-': stack.push(a - b); break;
+                    case '*': stack.push(a * b); break;
+                    case '/': 
+                        if (b === 0) throw new Error('Division by zero');
+                        stack.push(a / b); 
+                        break;
+                }
+            }
+        }
+        
+        return stack[0] || 0;
     }
 }
 

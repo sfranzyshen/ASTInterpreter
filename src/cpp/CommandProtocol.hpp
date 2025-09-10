@@ -354,8 +354,18 @@ struct FunctionCallCommand : public Command {
     // TODO: Restore arguments when recursive CommandValue is fixed
     // std::vector<CommandValue> arguments;
     
-    FunctionCallCommand(const std::string& name /* , const std::vector<CommandValue>& args = {} */) 
-        : Command(CommandType::FUNCTION_CALL), functionName(name) /* , arguments(args) */ {}
+    // Temporary workaround: Store arguments as serialized strings to avoid recursion
+    std::vector<std::string> argumentStrings;
+    
+    // CROSS-PLATFORM FIX: Support completion status and custom messages like JavaScript
+    bool completed = false;
+    int32_t iteration = 0;
+    std::string customMessage = "";
+    
+    FunctionCallCommand(const std::string& name, const std::vector<std::string>& argStrings = {}, 
+                       bool isCompleted = false, int32_t iter = 0, const std::string& message = "") 
+        : Command(CommandType::FUNCTION_CALL), functionName(name), argumentStrings(argStrings),
+          completed(isCompleted), iteration(iter), customMessage(message) {}
     
     std::string toString() const override;
     CommandValue getValue(const std::string& key) const override;
@@ -511,7 +521,8 @@ public:
     static CommandPtr createVarGet(const std::string& name);
     
     // Functions
-    static CommandPtr createFunctionCall(const std::string& name /* , const std::vector<CommandValue>& args = {} */);
+    static CommandPtr createFunctionCall(const std::string& name, const std::vector<std::string>& argStrings = {}, 
+                                        bool isCompleted = false, int32_t iter = 0, const std::string& message = "");
     
     // Control flow
     static CommandPtr createIfStatement(const CommandValue& condition, bool result, const std::string& branch);

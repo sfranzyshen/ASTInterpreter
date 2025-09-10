@@ -756,6 +756,147 @@ void CompactASTReader::linkNodeChildren() {
                 } else {
                     parentNode->addChild(std::move(nodes_[childIndex]));
                 }
+            } else if (parentNode->getType() == ASTNodeType::IF_STMT) {
+                DEBUG_OUT << "linkNodeChildren(): Found IF_STMT parent node!" << std::endl;
+                auto* ifStmtNode = dynamic_cast<arduino_ast::IfStatement*>(parentNode.get());
+                if (ifStmtNode) {
+                    // Count how many children this if statement already has
+                    int ifChildCount = 0;
+                    if (ifStmtNode->getCondition()) ifChildCount++;
+                    if (ifStmtNode->getConsequent()) ifChildCount++;
+                    if (ifStmtNode->getAlternate()) ifChildCount++;
+                    
+                    DEBUG_OUT << "linkNodeChildren(): Setting up IfStatement child " << childIndex 
+                             << " (relative position: " << ifChildCount << ")" << std::endl;
+                    
+                    // If statements expect: condition, consequent, alternate (optional)
+                    if (ifChildCount == 0) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting condition" << std::endl;
+                        ifStmtNode->setCondition(std::move(nodes_[childIndex]));
+                    } else if (ifChildCount == 1) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting consequent" << std::endl;
+                        ifStmtNode->setConsequent(std::move(nodes_[childIndex]));
+                    } else if (ifChildCount == 2) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting alternate" << std::endl;
+                        ifStmtNode->setAlternate(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for if statement, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::WHILE_STMT) {
+                DEBUG_OUT << "linkNodeChildren(): Found WHILE_STMT parent node!" << std::endl;
+                auto* whileStmtNode = dynamic_cast<arduino_ast::WhileStatement*>(parentNode.get());
+                if (whileStmtNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up WhileStatement child " << childIndex << std::endl;
+                    
+                    // While statements expect: condition, body
+                    if (!whileStmtNode->getCondition()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting condition" << std::endl;
+                        whileStmtNode->setCondition(std::move(nodes_[childIndex]));
+                    } else if (!whileStmtNode->getBody()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting body" << std::endl;
+                        whileStmtNode->setBody(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for while statement, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::FOR_STMT) {
+                DEBUG_OUT << "linkNodeChildren(): Found FOR_STMT parent node!" << std::endl;
+                auto* forStmtNode = dynamic_cast<arduino_ast::ForStatement*>(parentNode.get());
+                if (forStmtNode) {
+                    // Count how many children this for statement already has
+                    int forChildCount = 0;
+                    if (forStmtNode->getInitializer()) forChildCount++;
+                    if (forStmtNode->getCondition()) forChildCount++;
+                    if (forStmtNode->getIncrement()) forChildCount++;
+                    if (forStmtNode->getBody()) forChildCount++;
+                    
+                    DEBUG_OUT << "linkNodeChildren(): Setting up ForStatement child " << childIndex 
+                             << " (relative position: " << forChildCount << ")" << std::endl;
+                    
+                    // For statements expect: initializer, condition, increment, body
+                    if (forChildCount == 0) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting initializer" << std::endl;
+                        forStmtNode->setInitializer(std::move(nodes_[childIndex]));
+                    } else if (forChildCount == 1) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting condition" << std::endl;
+                        forStmtNode->setCondition(std::move(nodes_[childIndex]));
+                    } else if (forChildCount == 2) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting increment" << std::endl;
+                        forStmtNode->setIncrement(std::move(nodes_[childIndex]));
+                    } else if (forChildCount == 3) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting body" << std::endl;
+                        forStmtNode->setBody(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for for statement, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::BINARY_OP) {
+                DEBUG_OUT << "linkNodeChildren(): Found BINARY_OP parent node!" << std::endl;
+                auto* binaryOpNode = dynamic_cast<arduino_ast::BinaryOpNode*>(parentNode.get());
+                if (binaryOpNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up BinaryOpNode child " << childIndex << std::endl;
+                    
+                    // Binary operations expect: left, right
+                    if (!binaryOpNode->getLeft()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting left operand" << std::endl;
+                        binaryOpNode->setLeft(std::move(nodes_[childIndex]));
+                    } else if (!binaryOpNode->getRight()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting right operand" << std::endl;
+                        binaryOpNode->setRight(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for binary operation, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::UNARY_OP) {
+                DEBUG_OUT << "linkNodeChildren(): Found UNARY_OP parent node!" << std::endl;
+                auto* unaryOpNode = dynamic_cast<arduino_ast::UnaryOpNode*>(parentNode.get());
+                if (unaryOpNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up UnaryOpNode child " << childIndex << std::endl;
+                    
+                    // Unary operations expect: operand
+                    if (!unaryOpNode->getOperand()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting operand" << std::endl;
+                        unaryOpNode->setOperand(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for unary operation, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
+            } else if (parentNode->getType() == ASTNodeType::ASSIGNMENT) {
+                DEBUG_OUT << "linkNodeChildren(): Found ASSIGNMENT parent node!" << std::endl;
+                auto* assignmentNode = dynamic_cast<arduino_ast::AssignmentNode*>(parentNode.get());
+                if (assignmentNode) {
+                    DEBUG_OUT << "linkNodeChildren(): Setting up AssignmentNode child " << childIndex << std::endl;
+                    
+                    // Assignment operations expect: left, right
+                    if (!assignmentNode->getLeft()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting left side" << std::endl;
+                        assignmentNode->setLeft(std::move(nodes_[childIndex]));
+                    } else if (!assignmentNode->getRight()) {
+                        DEBUG_OUT << "linkNodeChildren(): Setting right side" << std::endl;
+                        assignmentNode->setRight(std::move(nodes_[childIndex]));
+                    } else {
+                        DEBUG_OUT << "linkNodeChildren(): Too many children for assignment, adding as generic child" << std::endl;
+                        parentNode->addChild(std::move(nodes_[childIndex]));
+                    }
+                } else {
+                    parentNode->addChild(std::move(nodes_[childIndex]));
+                }
             } else {
                 parentNode->addChild(std::move(nodes_[childIndex]));
             }

@@ -174,15 +174,35 @@ CommandValue VarGetCommand::getValue(const std::string& key) const {
 
 std::string FunctionCallCommand::toString() const {
     std::ostringstream oss;
-    oss << "FUNCTION_CALL(name=" << functionName << ")";
-    // TODO: Restore arguments display when recursive CommandValue is fixed
+    oss << "FUNCTION_CALL(name=" << functionName;
+    if (!argumentStrings.empty()) {
+        oss << ", args=[";
+        for (size_t i = 0; i < argumentStrings.size(); ++i) {
+            if (i > 0) oss << ", ";
+            oss << argumentStrings[i];
+        }
+        oss << "]";
+    }
+    oss << ")";
     return oss.str();
 }
 
 CommandValue FunctionCallCommand::getValue(const std::string& key) const {
     if (key == "name") return functionName;
-    // TODO: Restore arguments when recursive CommandValue is fixed
-    // if (key == "arguments") return arguments;
+    if (key == "function") return functionName; // JavaScript uses "function" key
+    if (key == "completed") return completed;
+    if (key == "iteration") return iteration;
+    if (key == "message") {
+        if (!customMessage.empty()) return customMessage;
+        // Generate default message based on completion status
+        if (completed) {
+            return "Completed " + functionName + "() iteration " + std::to_string(iteration);
+        } else {
+            return "Executing " + functionName + "() iteration " + std::to_string(iteration);
+        }
+    }
+    // TODO: For now, return argument count as workaround for recursive CommandValue
+    if (key == "argumentCount") return static_cast<int>(argumentStrings.size());
     return std::monostate{};
 }
 
@@ -250,6 +270,11 @@ std::string LoopEndCommand::toString() const {
 CommandValue LoopEndCommand::getValue(const std::string& key) const {
     if (key == "loopType") return loopType;
     if (key == "iteration") return static_cast<int32_t>(iteration);
+    if (key == "iterations") return static_cast<int32_t>(iteration); // JavaScript uses "iterations" (plural)
+    if (key == "limitReached") return true; // Always true when loop ends due to iteration limit
+    if (key == "message") {
+        return "Loop limit reached: completed " + std::to_string(iteration) + " iterations (max: " + std::to_string(iteration) + ")";
+    }
     return std::monostate{};
 }
 
@@ -328,8 +353,9 @@ CommandPtr CommandFactory::createVarGet(const std::string& name) {
     return std::make_unique<VarGetCommand>(name);
 }
 
-CommandPtr CommandFactory::createFunctionCall(const std::string& name /* , const std::vector<CommandValue>& args */) {
-    return std::make_unique<FunctionCallCommand>(name /* , args */);
+CommandPtr CommandFactory::createFunctionCall(const std::string& name, const std::vector<std::string>& argStrings, 
+                                            bool isCompleted, int32_t iter, const std::string& message) {
+    return std::make_unique<FunctionCallCommand>(name, argStrings, isCompleted, iter, message);
 }
 
 CommandPtr CommandFactory::createIfStatement(const CommandValue& condition, bool result, const std::string& branch) {
@@ -570,37 +596,37 @@ bool commandValuesEqual(const CommandValue& a, const CommandValue& b) {
 
 std::string serializeCommand(const Command& command) {
     std::ostringstream oss;
-    oss << "{\n";
-    oss << "  \"type\": \"" << commandTypeToString(command.type) << "\",\n";
+    oss << "{";
+    oss << "\"type\":\"" << commandTypeToString(command.type) << "\",";
     
     // Convert timestamp to milliseconds since epoch to match JavaScript format
     auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::system_clock::now().time_since_epoch()
     ).count();
-    oss << "  \"timestamp\": " << now << ",\n";
+    oss << "\"timestamp\":" << now << ",";
     
     // Add type-specific fields to match JavaScript structure exactly
     switch (command.type) {
         case CommandType::VERSION_INFO:
-            oss << "  \"component\": \"interpreter\",\n";
-            oss << "  \"version\": \"7.1.0\",\n";
-            oss << "  \"status\": \"started\"\n";
+            oss << "\"component\":\"interpreter\",";
+            oss << "\"version\":\"7.3.0\",";
+            oss << "\"status\":\"started\"";
             break;
             
         case CommandType::PROGRAM_START:
-            oss << "  \"message\": \"Program execution started\"\n";
+            oss << "\"message\":\"Program execution started\"";
             break;
             
         case CommandType::SETUP_START:
-            oss << "  \"message\": \"Executing setup() function\"\n";
+            oss << "\"message\":\"Executing setup() function\"";
             break;
             
         case CommandType::SETUP_END:
-            oss << "  \"message\": \"Completed setup() function\"\n";
+            oss << "\"message\":\"Completed setup() function\"";
             break;
             
         case CommandType::PROGRAM_END:
-            oss << "  \"message\": \"Program execution stopped\"\n";
+            oss << "\"message\":\"Program execution stopped\"";
             break;
             
         case CommandType::LOOP_START:
@@ -608,12 +634,14 @@ std::string serializeCommand(const Command& command) {
                 const auto* loopCmd = dynamic_cast<const LoopStartCommand*>(&command);
                 if (loopCmd) {
                     if (loopCmd->loopType == "main" && loopCmd->iteration == 0) {
-                        oss << "  \"message\": \"Starting loop() execution\"\n";
+                        oss << "\"message\":\"Starting loop() execution\"";
+                    } else if (loopCmd->loopType == "loop" && loopCmd->iteration > 0) {
+                        oss << "\"message\":\"Starting loop iteration " << loopCmd->iteration << "\"";
                     } else {
-                        oss << "  \"message\": \"Starting loop iteration " << loopCmd->iteration << "\"\n";
+                        oss << "\"message\":\"Starting loop() execution\"";
                     }
                 } else {
-                    oss << "  \"message\": \"Starting loop() execution\"\n";
+                    oss << "\"message\":\"Starting loop() execution\"";
                 }
             }
             break;
@@ -622,12 +650,12 @@ std::string serializeCommand(const Command& command) {
             {
                 const auto* loopCmd = dynamic_cast<const LoopEndCommand*>(&command);
                 if (loopCmd) {
-                    oss << "  \"message\": \"Loop limit reached: completed " << loopCmd->iteration 
-                        << " iterations (max: " << loopCmd->iteration << ")\",\n";
-                    oss << "  \"iterations\": " << loopCmd->iteration << ",\n";
-                    oss << "  \"limitReached\": true\n";
+                    oss << "\"message\":\"Loop limit reached: completed " << loopCmd->iteration 
+                        << " iterations (max: " << loopCmd->iteration << ")\",";
+                    oss << "\"iterations\":" << loopCmd->iteration << ",";
+                    oss << "\"limitReached\":true";
                 } else {
-                    oss << "  \"message\": \"Loop ended\"\n";
+                    oss << "\"message\":\"Loop ended\"";
                 }
             }
             break;
@@ -636,29 +664,18 @@ std::string serializeCommand(const Command& command) {
             {
                 const auto* funcCmd = dynamic_cast<const FunctionCallCommand*>(&command);
                 if (funcCmd) {
-                    oss << "  \"function\": \"" << funcCmd->functionName << "\",\n";
-                    // Match JavaScript pattern for loop function calls
-                    if (funcCmd->functionName == "loop") {
-                        // Static counter for iteration tracking (simplified approach)
-                        static int iterationCount = 0;
-                        static bool isExecuting = true;
-                        
-                        if (isExecuting) {
-                            iterationCount++;
-                            oss << "  \"message\": \"Executing loop() iteration " << iterationCount << "\",\n";
-                            oss << "  \"iteration\": " << iterationCount << "\n";
-                            isExecuting = false;
-                        } else {
-                            oss << "  \"message\": \"Completed loop() iteration " << iterationCount << "\",\n";
-                            oss << "  \"iteration\": " << iterationCount << ",\n";
-                            oss << "  \"completed\": true\n";
-                            isExecuting = true;
-                        }
+                    oss << "\"function\":\"" << funcCmd->functionName << "\",";
+                    
+                    if (funcCmd->completed) {
+                        oss << "\"message\":\"Completed " << funcCmd->functionName << "() iteration " << funcCmd->iteration << "\",";
+                        oss << "\"iteration\":" << funcCmd->iteration << ",";
+                        oss << "\"completed\":true";
                     } else {
-                        oss << "  \"message\": \"Executing " << funcCmd->functionName << "()\"\n";
+                        oss << "\"message\":\"Executing " << funcCmd->functionName << "() iteration " << funcCmd->iteration << "\",";
+                        oss << "\"iteration\":" << funcCmd->iteration;
                     }
                 } else {
-                    oss << "  \"message\": \"Function call\"\n";
+                    oss << "\"message\":\"Function call\"";
                 }
             }
             break;
@@ -711,7 +728,7 @@ std::string serializeCommand(const Command& command) {
             break;
             
         default:
-            oss << "  \"message\": \"" << command.toString() << "\"\n";
+            oss << "\"message\":\"" << command.toString() << "\"";
             break;
     }
     

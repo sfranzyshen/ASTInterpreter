@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/d/Devel/ASTInterpreter_Arduino
+# Install script for directory: /mnt/d/Devel/ASTInterpreter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,18 +43,18 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/mnt/d/Devel/ASTInterpreter_Arduino/libarduino_ast_interpreter.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/mnt/d/Devel/ASTInterpreter/libarduino_ast_interpreter.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/arduino_ast_interpreter" TYPE FILE FILES
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ASTNodes.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/CompactAST.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/CommandProtocol.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ASTInterpreter.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ArduinoDataTypes.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/EnhancedInterpreter.hpp"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ArduinoLibraryRegistry.hpp"
+    "/mnt/d/Devel/ASTInterpreter/ASTNodes.hpp"
+    "/mnt/d/Devel/ASTInterpreter/CompactAST.hpp"
+    "/mnt/d/Devel/ASTInterpreter/CommandProtocol.hpp"
+    "/mnt/d/Devel/ASTInterpreter/ASTInterpreter.hpp"
+    "/mnt/d/Devel/ASTInterpreter/ArduinoDataTypes.hpp"
+    "/mnt/d/Devel/ASTInterpreter/EnhancedInterpreter.hpp"
+    "/mnt/d/Devel/ASTInterpreter/ArduinoLibraryRegistry.hpp"
     )
 endif()
 
@@ -62,7 +62,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake"
-         "/mnt/d/Devel/ASTInterpreter_Arduino/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake")
+         "/mnt/d/Devel/ASTInterpreter/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -71,16 +71,16 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter" TYPE FILE FILES "/mnt/d/Devel/ASTInterpreter_Arduino/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter" TYPE FILE FILES "/mnt/d/Devel/ASTInterpreter/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter" TYPE FILE FILES "/mnt/d/Devel/ASTInterpreter_Arduino/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets-debug.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter" TYPE FILE FILES "/mnt/d/Devel/ASTInterpreter/CMakeFiles/Export/lib/cmake/ArduinoASTInterpreter/ArduinoASTInterpreterTargets-debug.cmake")
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/ArduinoASTInterpreter" TYPE FILE FILES
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ArduinoASTInterpreterConfig.cmake"
-    "/mnt/d/Devel/ASTInterpreter_Arduino/ArduinoASTInterpreterConfigVersion.cmake"
+    "/mnt/d/Devel/ASTInterpreter/ArduinoASTInterpreterConfig.cmake"
+    "/mnt/d/Devel/ASTInterpreter/ArduinoASTInterpreterConfigVersion.cmake"
     )
 endif()
 
@@ -92,5 +92,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/d/Devel/ASTInterpreter_Arduino/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/d/Devel/ASTInterpreter/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
