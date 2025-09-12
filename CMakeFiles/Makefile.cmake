@@ -63,5 +63,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_command_protocol.dir/DependInfo.cmake"
   "CMakeFiles/test_interpreter_integration.dir/DependInfo.cmake"
   "CMakeFiles/test_cross_platform_validation.dir/DependInfo.cmake"
+  "CMakeFiles/extract_cpp_commands.dir/DependInfo.cmake"
+  "CMakeFiles/validate_cross_platform.dir/DependInfo.cmake"
   "CMakeFiles/cross_platform_validation.dir/DependInfo.cmake"
   )

@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
     testId << std::setfill('0') << std::setw(3) << testNum;
     
     std::string astFile = "test_data/example_" + testId.str() + ".ast";
-    std::string jsFile = "src/javascript/test_data/example_" + testId.str() + ".commands";
+    std::string jsFile = "test_data/example_" + testId.str() + ".commands";
     
     std::cout << "=== SINGLE TEST COMPARISON - Test " << testNum << " ===" << std::endl;
     std::cout << "AST file: " << astFile << std::endl;
@@ -60,9 +60,17 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     
-    std::string jsContent((std::istreambuf_iterator<char>(js)),
-                          std::istreambuf_iterator<char>());
+    std::string jsContent;
+    std::string line;
+    while (std::getline(js, line)) {
+        jsContent += line + "\n";
+    }
     js.close();
+    
+    // Debug: Check if file was read
+    if (jsContent.empty()) {
+        std::cerr << "Warning: JavaScript file " << jsFile << " appears to be empty" << std::endl;
+    }
     
     std::cout << "C++ OUTPUT:" << std::endl;
     std::cout << "----------" << std::endl;

@@ -43,7 +43,7 @@ private:
     std::string testDataDir_;
 
 public:
-    explicit JavaScriptTestLoader(const std::string& testDataDir = "test_data") 
+    explicit JavaScriptTestLoader(const std::string& testDataDir = "../test_data") 
         : testDataDir_(testDataDir) {}
     
     /**
@@ -136,7 +136,7 @@ private:
     std::string testDataDir_;
 
 public:
-    CppInterpreterTestRunner(const std::string& testDataDir = "test_data") 
+    CppInterpreterTestRunner(const std::string& testDataDir = "../test_data") 
         : nodeExecutable_("node"), parserScript_("../generate_compact_ast.js"), testDataDir_(testDataDir) {}
     
     /**

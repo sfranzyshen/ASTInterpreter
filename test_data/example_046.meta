@@ -1,6 +1,6 @@
 name=StringAdditionOperator
 source=unknown
-astSize=2562
+astSize=2594
 codeSize=1332
 mode=AST_AND_COMMANDS
 commandCount=41

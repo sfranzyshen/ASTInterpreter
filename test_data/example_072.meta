@@ -1,9 +1,9 @@
 name=p10_Zoetrope.ino
 source=unknown
-astSize=3082
+astSize=3125
 codeSize=2380
 mode=AST_AND_COMMANDS
-commandCount=48
+commandCount=46
 content=// 10.StarterKit_BasicKit p10_Zoetrope
 
 const int controlPin1 = 2;

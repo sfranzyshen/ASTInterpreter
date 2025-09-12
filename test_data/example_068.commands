@@ -1,95 +1,95 @@
 [
   {
     "type": "VERSION_INFO",
-    "timestamp": 1757461264170,
+    "timestamp": 1757637419326,
     "component": "interpreter",
     "version": "7.3.0",
     "status": "started"
   },
   {
     "type": "PROGRAM_START",
-    "timestamp": 1757461264170,
+    "timestamp": 1757637419326,
     "message": "Program execution started"
   },
   {
     "type": "VAR_SET",
     "variable": "sensorValue",
     "value": null,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "VAR_SET",
     "variable": "sensorLow",
     "value": 1023,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "VAR_SET",
     "variable": "sensorHigh",
     "value": 0,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "VAR_SET",
     "variable": "ledPin",
     "value": 13,
     "isConst": true,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "SETUP_START",
-    "timestamp": 1757461264170,
+    "timestamp": 1757637419326,
     "message": "Executing setup() function"
   },
   {
     "type": "PIN_MODE",
     "pin": 13,
     "mode": 1,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 1,
-    "timestamp": 1757461264170
+    "timestamp": 1757637419326
   },
   {
     "type": "WHILE_LOOP",
     "phase": "start",
-    "timestamp": 1757461264170,
+    "timestamp": 1757637419326,
     "message": "while loop started"
   },
   {
     "type": "MILLIS_REQUEST",
-    "requestId": "millis_1757461264170_0.6274962845333734",
-    "timestamp": 1757461264170
+    "requestId": "millis_1757637419326_0.6020767095822457",
+    "timestamp": 1757637419326
   },
   {
     "type": "WHILE_LOOP",
     "phase": "end",
     "iterations": 0,
-    "timestamp": 1757461264171,
+    "timestamp": 1757637419332,
     "message": "while loop completed (0 iterations)"
   },
   {
     "type": "DIGITAL_WRITE",
     "pin": 13,
     "value": 0,
-    "timestamp": 1757461264171
+    "timestamp": 1757637419332
   },
   {
     "type": "SETUP_END",
-    "timestamp": 1757461264171,
+    "timestamp": 1757637419332,
     "message": "Completed setup() function"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757461264171,
+    "timestamp": 1757637419332,
     "message": "Starting loop() execution"
   },
   {
     "type": "LOOP_START",
-    "timestamp": 1757461264171,
+    "timestamp": 1757637419332,
     "message": "Starting loop iteration 1"
   },
   {
@@ -97,45 +97,45 @@
     "function": "loop",
     "message": "Executing loop() iteration 1",
     "iteration": 1,
-    "timestamp": 1757461264171
+    "timestamp": 1757637419332
   },
   {
     "type": "ANALOG_READ_REQUEST",
     "pin": 14,
-    "requestId": "analogRead_1757461264171_0.2669043528227173",
-    "timestamp": 1757461264171
+    "requestId": "analogRead_1757637419332_0.23600986500909493",
+    "timestamp": 1757637419332
   },
   {
     "type": "VAR_SET",
     "variable": "sensorValue",
-    "value": 776,
-    "timestamp": 1757461264180
+    "value": 351,
+    "timestamp": 1757637419341
   },
   {
     "type": "VAR_SET",
     "variable": "pitch",
-    "value": 1004,
-    "timestamp": 1757461264181
+    "value": 2645,
+    "timestamp": 1757637419342
   },
   {
     "type": "FUNCTION_CALL",
     "function": "tone",
     "arguments": [
       8,
-      1004,
+      2645,
       20
     ],
     "pin": 8,
-    "frequency": 1004,
+    "frequency": 2645,
     "duration": 20,
-    "timestamp": 1757461264181,
-    "message": "tone(8, 1004, 20)"
+    "timestamp": 1757637419342,
+    "message": "tone(8, 2645, 20)"
   },
   {
     "type": "DELAY",
     "duration": 10,
     "actualDelay": 10,
-    "timestamp": 1757461264181
+    "timestamp": 1757637419342
   },
   {
     "type": "FUNCTION_CALL",
@@ -143,23 +143,23 @@
     "message": "Completed loop() iteration 1",
     "iteration": 1,
     "completed": true,
-    "timestamp": 1757461264181
+    "timestamp": 1757637419342
   },
   {
     "type": "LOOP_END",
-    "timestamp": 1757461264185,
+    "timestamp": 1757637419346,
     "message": "Loop limit reached: completed 1 iterations (max: 1)",
     "iterations": 1,
     "limitReached": true
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757461264185,
+    "timestamp": 1757637419346,
     "message": "Program completed after 1 loop iterations (limit reached)"
   },
   {
     "type": "PROGRAM_END",
-    "timestamp": 1757461264185,
+    "timestamp": 1757637419346,
     "message": "Program execution stopped"
   }
 ]

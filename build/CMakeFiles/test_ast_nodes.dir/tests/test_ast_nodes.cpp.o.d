@@ -201,7 +201,8 @@ CMakeFiles/test_ast_nodes.dir/tests/test_ast_nodes.cpp.o: \
  /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
  /usr/include/c++/11/bits/locale_conv.h \
- /usr/include/c++/11/bits/quoted_string.h \
+ /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
  /mnt/d/Devel/ASTInterpreter/libs/CompactAST/src/CompactAST.hpp \
  /mnt/d/Devel/ASTInterpreter/tests/../src/cpp/EnhancedInterpreter.hpp \
  /mnt/d/Devel/ASTInterpreter/tests/../src/cpp/ArduinoDataTypes.hpp \

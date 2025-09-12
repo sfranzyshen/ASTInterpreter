@@ -336,6 +336,9 @@ private:
     
     // Continuation-based execution system for non-blocking operations
     arduino_ast::ASTNode* suspendedNode_;
+    int suspendedChildIndex_;                  // Track child index in CompoundStmtNode for resumption
+    arduino_ast::ASTNode* currentCompoundNode_; // Track current compound statement being executed
+    int currentChildIndex_;                    // Track current child index being executed
     std::string waitingForRequestId_;
     std::string suspendedFunction_;
     CommandValue lastExpressionResult_;
@@ -489,6 +492,11 @@ public:
      * Check if interpreter is running
      */
     bool isRunning() const { return state_ == ExecutionState::RUNNING; }
+    
+    /**
+     * Check if interpreter is waiting for response
+     */
+    bool isWaitingForResponse() const;
     
     /**
      * Get current execution state
@@ -787,7 +795,6 @@ private:
     void requestMicros();
     
     // Continuation helpers
-    bool isWaitingForResponse() const;
     bool hasResponse(const std::string& requestId) const;
     CommandValue consumeResponse(const std::string& requestId);
     

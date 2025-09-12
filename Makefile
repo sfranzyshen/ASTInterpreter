@@ -270,6 +270,32 @@ test_cross_platform_validation/fast:
 .PHONY : test_cross_platform_validation/fast
 
 #=============================================================================
+# Target rules for targets named extract_cpp_commands
+
+# Build rule for target.
+extract_cpp_commands: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extract_cpp_commands
+.PHONY : extract_cpp_commands
+
+# fast build rule for target.
+extract_cpp_commands/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/extract_cpp_commands.dir/build.make CMakeFiles/extract_cpp_commands.dir/build
+.PHONY : extract_cpp_commands/fast
+
+#=============================================================================
+# Target rules for targets named validate_cross_platform
+
+# Build rule for target.
+validate_cross_platform: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 validate_cross_platform
+.PHONY : validate_cross_platform
+
+# fast build rule for target.
+validate_cross_platform/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/validate_cross_platform.dir/build.make CMakeFiles/validate_cross_platform.dir/build
+.PHONY : validate_cross_platform/fast
+
+#=============================================================================
 # Target rules for targets named cross_platform_validation
 
 # Build rule for target.
@@ -281,6 +307,30 @@ cross_platform_validation: cmake_check_build_system
 cross_platform_validation/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cross_platform_validation.dir/build.make CMakeFiles/cross_platform_validation.dir/build
 .PHONY : cross_platform_validation/fast
+
+build/validate_cross_platform.o: build/validate_cross_platform.cpp.o
+.PHONY : build/validate_cross_platform.o
+
+# target to build an object file
+build/validate_cross_platform.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/validate_cross_platform.dir/build.make CMakeFiles/validate_cross_platform.dir/build/validate_cross_platform.cpp.o
+.PHONY : build/validate_cross_platform.cpp.o
+
+build/validate_cross_platform.i: build/validate_cross_platform.cpp.i
+.PHONY : build/validate_cross_platform.i
+
+# target to preprocess a source file
+build/validate_cross_platform.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/validate_cross_platform.dir/build.make CMakeFiles/validate_cross_platform.dir/build/validate_cross_platform.cpp.i
+.PHONY : build/validate_cross_platform.cpp.i
+
+build/validate_cross_platform.s: build/validate_cross_platform.cpp.s
+.PHONY : build/validate_cross_platform.s
+
+# target to generate assembly for a file
+build/validate_cross_platform.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/validate_cross_platform.dir/build.make CMakeFiles/validate_cross_platform.dir/build/validate_cross_platform.cpp.s
+.PHONY : build/validate_cross_platform.cpp.s
 
 libs/CompactAST/src/CompactAST.o: libs/CompactAST/src/CompactAST.cpp.o
 .PHONY : libs/CompactAST/src/CompactAST.o
@@ -474,6 +524,30 @@ src/cpp/ExecutionTracer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arduino_ast_interpreter.dir/build.make CMakeFiles/arduino_ast_interpreter.dir/src/cpp/ExecutionTracer.cpp.s
 .PHONY : src/cpp/ExecutionTracer.cpp.s
 
+tests/extract_cpp_commands.o: tests/extract_cpp_commands.cpp.o
+.PHONY : tests/extract_cpp_commands.o
+
+# target to build an object file
+tests/extract_cpp_commands.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/extract_cpp_commands.dir/build.make CMakeFiles/extract_cpp_commands.dir/tests/extract_cpp_commands.cpp.o
+.PHONY : tests/extract_cpp_commands.cpp.o
+
+tests/extract_cpp_commands.i: tests/extract_cpp_commands.cpp.i
+.PHONY : tests/extract_cpp_commands.i
+
+# target to preprocess a source file
+tests/extract_cpp_commands.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/extract_cpp_commands.dir/build.make CMakeFiles/extract_cpp_commands.dir/tests/extract_cpp_commands.cpp.i
+.PHONY : tests/extract_cpp_commands.cpp.i
+
+tests/extract_cpp_commands.s: tests/extract_cpp_commands.cpp.s
+.PHONY : tests/extract_cpp_commands.s
+
+# target to generate assembly for a file
+tests/extract_cpp_commands.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/extract_cpp_commands.dir/build.make CMakeFiles/extract_cpp_commands.dir/tests/extract_cpp_commands.cpp.s
+.PHONY : tests/extract_cpp_commands.cpp.s
+
 tests/test_ast_nodes.o: tests/test_ast_nodes.cpp.o
 .PHONY : tests/test_ast_nodes.o
 
@@ -611,11 +685,16 @@ help:
 	@echo "... test"
 	@echo "... cross_platform_validation"
 	@echo "... arduino_ast_interpreter"
+	@echo "... extract_cpp_commands"
 	@echo "... test_ast_nodes"
 	@echo "... test_command_protocol"
 	@echo "... test_compact_ast"
 	@echo "... test_cross_platform_validation"
 	@echo "... test_interpreter_integration"
+	@echo "... validate_cross_platform"
+	@echo "... build/validate_cross_platform.o"
+	@echo "... build/validate_cross_platform.i"
+	@echo "... build/validate_cross_platform.s"
 	@echo "... libs/CompactAST/src/CompactAST.o"
 	@echo "... libs/CompactAST/src/CompactAST.i"
 	@echo "... libs/CompactAST/src/CompactAST.s"
@@ -640,6 +719,9 @@ help:
 	@echo "... src/cpp/ExecutionTracer.o"
 	@echo "... src/cpp/ExecutionTracer.i"
 	@echo "... src/cpp/ExecutionTracer.s"
+	@echo "... tests/extract_cpp_commands.o"
+	@echo "... tests/extract_cpp_commands.i"
+	@echo "... tests/extract_cpp_commands.s"
 	@echo "... tests/test_ast_nodes.o"
 	@echo "... tests/test_ast_nodes.i"
 	@echo "... tests/test_ast_nodes.s"

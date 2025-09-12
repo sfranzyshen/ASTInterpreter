@@ -4,6 +4,8 @@
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/test_command_protocol.dir
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/test_interpreter_integration.dir
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/test_cross_platform_validation.dir
+/mnt/d/Devel/ASTInterpreter/CMakeFiles/extract_cpp_commands.dir
+/mnt/d/Devel/ASTInterpreter/CMakeFiles/validate_cross_platform.dir
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/cross_platform_validation.dir
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/package.dir
 /mnt/d/Devel/ASTInterpreter/CMakeFiles/package_source.dir

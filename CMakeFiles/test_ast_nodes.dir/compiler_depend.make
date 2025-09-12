@@ -250,6 +250,8 @@ CMakeFiles/test_ast_nodes.dir/tests/test_ast_nodes.cpp.o: tests/test_ast_nodes.c
   /usr/include/c++/11/bits/locale_facets_nonio.tcc \
   /usr/include/c++/11/bits/locale_conv.h \
   /usr/include/c++/11/bits/quoted_string.h \
+  /usr/include/c++/11/algorithm \
+  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
   libs/CompactAST/src/CompactAST.hpp \
   src/cpp/EnhancedInterpreter.hpp \
   src/cpp/ArduinoDataTypes.hpp \
@@ -271,6 +273,10 @@ CMakeFiles/test_ast_nodes.dir/tests/test_ast_nodes.cpp.o: tests/test_ast_nodes.c
 /usr/include/c++/11/bits/stl_stack.h:
 
 /usr/include/c++/11/bits/deque.tcc:
+
+/usr/include/c++/11/deque:
+
+/usr/include/c++/11/stack:
 
 /usr/include/c++/11/bits/string_view.tcc:
 
@@ -328,6 +334,8 @@ CMakeFiles/test_ast_nodes.dir/tests/test_ast_nodes.cpp.o: tests/test_ast_nodes.c
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
+/usr/include/c++/11/algorithm:
+
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/libintl.h:
@@ -345,8 +353,6 @@ CMakeFiles/test_ast_nodes.dir/tests/test_ast_nodes.cpp.o: tests/test_ast_nodes.c
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/c++/11/deque:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
@@ -538,8 +544,6 @@ src/cpp/ASTNodes.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
-/usr/include/c++/11/stack:
-
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
 /usr/include/c++/11/type_traits:
@@ -671,6 +675,8 @@ src/cpp/EnhancedInterpreter.hpp:
 /usr/include/c++/11/utility:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
+
+/usr/include/c++/11/pstl/glue_algorithm_defs.h:
 
 /usr/include/c++/11/stdexcept:
 

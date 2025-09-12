@@ -1,6 +1,6 @@
 name=ReadASCIIString.ino
 source=unknown
-astSize=2496
+astSize=2527
 codeSize=1195
 mode=AST_AND_COMMANDS
 commandCount=21

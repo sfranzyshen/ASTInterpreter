@@ -1,9 +1,9 @@
 name=KeyboardAndMouseControl.ino
 source=unknown
-astSize=3008
+astSize=3048
 codeSize=1544
 mode=AST_AND_COMMANDS
-commandCount=40
+commandCount=39
 content=// 09.USB KeyboardAndMouseControl
 
 #include "Keyboard.h"

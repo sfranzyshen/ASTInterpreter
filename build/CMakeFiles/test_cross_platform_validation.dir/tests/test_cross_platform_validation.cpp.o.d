@@ -201,7 +201,8 @@ CMakeFiles/test_cross_platform_validation.dir/tests/test_cross_platform_validati
  /usr/include/libintl.h /usr/include/c++/11/bits/codecvt.h \
  /usr/include/c++/11/bits/locale_facets_nonio.tcc \
  /usr/include/c++/11/bits/locale_conv.h \
- /usr/include/c++/11/bits/quoted_string.h \
+ /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/algorithm \
+ /usr/include/c++/11/pstl/glue_algorithm_defs.h \
  /mnt/d/Devel/ASTInterpreter/libs/CompactAST/src/CompactAST.hpp \
  /mnt/d/Devel/ASTInterpreter/tests/../src/cpp/EnhancedInterpreter.hpp \
  /mnt/d/Devel/ASTInterpreter/tests/../src/cpp/ArduinoDataTypes.hpp \
@@ -219,8 +220,6 @@ CMakeFiles/test_cross_platform_validation.dir/tests/test_cross_platform_validati
  /usr/include/c++/11/bits/fs_fwd.h /usr/include/c++/11/bits/fs_path.h \
  /usr/include/c++/11/codecvt /usr/include/c++/11/bits/fs_dir.h \
  /usr/include/c++/11/bits/fs_ops.h /usr/include/c++/11/regex \
- /usr/include/c++/11/algorithm \
- /usr/include/c++/11/pstl/glue_algorithm_defs.h \
  /usr/include/c++/11/bitset /usr/include/c++/11/iterator \
  /usr/include/c++/11/bits/stream_iterator.h /usr/include/c++/11/cstring \
  /usr/include/string.h /usr/include/strings.h \

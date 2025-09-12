@@ -156,6 +156,7 @@ public:
     
     void setDefaultAnalogValue(uint32_t value) { defaultAnalogValue_ = value; }
     void setDefaultDigitalValue(uint32_t value) { defaultDigitalValue_ = value; }
+    void setDefaultMillisValue(uint32_t value) { mockMillis_ = value; }
     
     const std::vector<RequestId>& getReceivedRequests() const { return receivedRequests_; }
     void clearRequests() { receivedRequests_.clear(); }
@@ -193,6 +194,9 @@ TestResult executeWithTimeout(ASTInterpreter& interpreter, uint32_t timeoutMs = 
     auto capture = std::make_unique<CommandStreamCapture>(false);
     auto mockHandler = std::make_unique<MockResponseHandler>();
     
+    // Set mock value to match JavaScript test expectation (723)
+    mockHandler->setDefaultAnalogValue(723);
+    
     interpreter.setCommandListener(capture.get());
     interpreter.setResponseHandler(mockHandler.get());
     
@@ -207,7 +211,9 @@ TestResult executeWithTimeout(ASTInterpreter& interpreter, uint32_t timeoutMs = 
         
         // Wait for completion or timeout
         auto deadline = startTime + std::chrono::milliseconds(timeoutMs);
-        while (interpreter.isRunning() && std::chrono::steady_clock::now() < deadline) {
+        while ((interpreter.isRunning() || interpreter.isWaitingForResponse()) && std::chrono::steady_clock::now() < deadline) {
+            // CRITICAL FIX: Drive the interpreter with tick() calls
+            interpreter.tick();
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
         

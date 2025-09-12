@@ -108,6 +108,9 @@ class CompactASTExporter {
     }
     
     export(ast) {
+        // CompactAST JavaScript Export Fix - ACTIVE
+        // Consolidated solution from ChatGPT + Claude + Gemini reviews
+        
         // Phase 1: Collect all nodes and build string table
         this.collectNodes(ast);
         
@@ -137,6 +140,8 @@ class CompactASTExporter {
     collectNodes(node, index = 0) {
         if (!node) return index;
         
+        // Node collection phase
+        
         // Add to node list
         this.nodes[index] = node;
         this.nodeMap.set(node, index);
@@ -145,8 +150,10 @@ class CompactASTExporter {
         if (node.value && typeof node.value === 'string') {
             this.addString(node.value);
         }
-        if (node.operator && typeof node.operator === 'string') {
-            this.addString(node.operator);
+        // [FROM CHATGPT] Use the same robust extractor for the string table
+        const opStr = this.getOperatorString(node);
+        if (typeof opStr === 'string' && opStr.length > 0) {
+            this.addString(opStr);
         }
         if (node.name && typeof node.name === 'string') {
             this.addString(node.name);
@@ -218,6 +225,52 @@ class CompactASTExporter {
         return childrenMap[node.type] || [];
     }
     
+    /**
+     * [FROM CHATGPT]
+     * Return canonical operator string for a node, or undefined if none.
+     * Checks several possible AST shapes to be robust against different AST producers.
+     */
+    getOperatorString(node) {
+        if (!node) return undefined;
+        
+        // Robust operator extraction across different AST structures
+        
+        // 1) node.operator (common field)
+        if (typeof node.operator === 'string' && node.operator.length > 0) return node.operator;
+        
+        // 2) node.op can be a string or an object with .value/.lexeme/.token
+        if (node.op !== undefined) {
+            if (typeof node.op === 'string' && node.op.length > 0) return node.op;
+            if (typeof node.op === 'object' && node.op !== null) {
+                if (typeof node.op.value === 'string' && node.op.value.length > 0) return node.op.value;
+                if (typeof node.op.lexeme === 'string' && node.op.lexeme.length > 0) return node.op.lexeme;
+                if (typeof node.op.token === 'string' && node.op.token.length > 0) return node.op.token;
+            }
+        }
+        
+        // 3) node.value if it's a string (some ASTs put operator directly in value)
+        if (typeof node.value === 'string' && node.value.length > 0) return node.value;
+        
+        // 4) fallback to undefined to indicate no operator found
+        return undefined;
+    }
+    
+    /**
+     * [FROM CLAUDE]
+     * A helper to log the structure of operator nodes for easy debugging.
+     */
+    debugOperatorNode(node) {
+        if (node.type === 'UnaryOpNode' || node.type === 'BinaryOpNode') {
+            console.log(`\n=== DEBUG: ${node.type} ===`);
+            console.log('node.operator:', node.operator);
+            console.log('node.op:', node.op);
+            console.log('node.op?.value:', node.op?.value);
+            console.log('node.value:', node.value);
+            console.log('Full node structure:', JSON.stringify(node, null, 2));
+            console.log('========================\n');
+        }
+    }
+    
     addString(str) {
         if (!this.stringTable.has(str)) {
             const index = this.strings.length;
@@ -258,6 +311,11 @@ class CompactASTExporter {
         
         // Add operator size if present
         if (node.operator) {
+            size += 3; // ValueType + StringIndex
+        }
+        
+        // Add op.value size if present (for BinaryOpNode/UnaryOpNode)
+        if (node.op && node.op.value) {
             size += 3; // ValueType + StringIndex
         }
         
@@ -371,27 +429,43 @@ class CompactASTExporter {
         view.setUint8(offset, nodeType);
         offset += 1;
         
+        // [FROM CLAUDE] Call the debug helper to inspect the node if needed (uncomment to debug)
+        // this.debugOperatorNode(node);
+
+        // --- CONSOLIDATED FLAG AND VALUE LOGIC ---
+        // [INSPIRED BY GEMINI] The logic is structured to prioritize operator nodes first.
+        // [FROM CHATGPT] This implementation is the most robust.
+        
         // Calculate flags
         let flags = 0;
         if (this.getChildCount(node) > 0) flags |= 0x01; // HAS_CHILDREN
-        if (node.value !== undefined || node.operator !== undefined) flags |= 0x02; // HAS_VALUE
-        
+
+        // Extract operator using the robust helper function
+        const operatorString = this.getOperatorString(node);
+
+        // Set HAS_VALUE flag ONLY if we will actually write a value
+        if (node.value !== undefined) {
+            flags |= 0x02; // HAS_VALUE
+        } else if (typeof operatorString === 'string') {
+            flags |= 0x02; // HAS_VALUE for operator nodes, but only if operator exists
+        }
+
         view.setUint8(offset, flags);
         offset += 1;
-        
-        // Skip data size for now, will write at end
+
+        // Skip data size for now, will write at the end
         const dataSizeOffset = offset;
         offset += 2;
-        
         const dataStartOffset = offset;
-        
-        // Write value if present (node.value takes precedence over node.operator)
+
+        // Write value if present (node.value takes precedence over operators)
         if (node.value !== undefined) {
             offset = this.writeValue(view, offset, node.value);
-        } else if (node.operator !== undefined) {
-            // Write operator as a regular string value for C++ compatibility
-            offset = this.writeValue(view, offset, node.operator);
+        } else if (typeof operatorString === 'string') {
+            // Write the canonical operator we extracted
+            offset = this.writeValue(view, offset, operatorString);
         }
+        // The faulty fallback that wrote an empty string is now removed.
         
         // Write children indices
         const childIndices = this.getChildIndices(node);

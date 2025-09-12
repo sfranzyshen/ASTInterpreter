@@ -143,9 +143,18 @@ public:
         } else if (cmdType == "DIGITAL_READ_REQUEST") {
             // DIGITAL_READ_REQUEST: type, pin, requestId, timestamp
             jsOrder = {"type", "pin", "requestId", "timestamp"};
+        } else if (cmdType == "ANALOG_READ_REQUEST") {
+            // ANALOG_READ_REQUEST: type, pin, requestId, timestamp (match JavaScript field order)
+            jsOrder = {"type", "pin", "requestId", "timestamp"};
         } else if (cmdType == "DELAY") {
             // DELAY: type, duration, actualDelay, timestamp
             jsOrder = {"type", "duration", "actualDelay", "timestamp"};
+        } else if (cmdType == "ANALOG_WRITE") {
+            // ANALOG_WRITE: type, pin, value, timestamp
+            jsOrder = {"type", "pin", "value", "timestamp"};
+        } else if (cmdType == "IF_STATEMENT") {
+            // IF_STATEMENT: type, condition, result, branch, timestamp
+            jsOrder = {"type", "condition", "result", "branch", "timestamp"};
         } else {
             // Other commands: type, timestamp, then other fields
             jsOrder = {"type", "timestamp", "component", "version", "status", "message", "requestId", 

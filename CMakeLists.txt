@@ -256,6 +256,26 @@ if(BUILD_TESTS)
     
     add_test(NAME CrossPlatformValidationTest COMMAND test_cross_platform_validation)
     
+    # C++ command stream extraction tool
+    add_executable(extract_cpp_commands
+        tests/extract_cpp_commands.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(extract_cpp_commands
+        PRIVATE arduino_ast_interpreter
+    )
+    
+    # Cross-platform validation tool - compares C++ and JavaScript command streams
+    add_executable(validate_cross_platform
+        build/validate_cross_platform.cpp
+        tests/test_utils.hpp
+    )
+    
+    target_link_libraries(validate_cross_platform
+        PRIVATE arduino_ast_interpreter
+    )
+    
     # Memory usage and performance tests
     if(ENABLE_PROFILING)
         add_executable(test_memory_performance

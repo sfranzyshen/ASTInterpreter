@@ -212,7 +212,7 @@ public:
     
     // Value access
     const ASTValue& getValue() const { return value_; }
-    void setValue(const ASTValue& value) { 
+    virtual void setValue(const ASTValue& value) { 
         value_ = value; 
         addFlag(ASTNodeFlags::HAS_VALUE);
     }
@@ -422,6 +422,17 @@ public:
     const ASTNode* getLeft() const { return left_.get(); }
     const ASTNode* getRight() const { return right_.get(); }
     
+    // CRITICAL FIX: Override setValue to extract operator string from ASTValue
+    void setValue(const ASTValue& value) override {
+        // Call base class first
+        ASTNode::setValue(value);
+        
+        // Extract operator string if the value contains one
+        if (std::holds_alternative<std::string>(value)) {
+            operator_ = std::get<std::string>(value);
+        }
+    }
+    
     void accept(ASTVisitor& visitor) override;
 };
 
@@ -441,6 +452,17 @@ public:
     const std::string& getOperator() const { return operator_; }
     const ASTNode* getOperand() const { return operand_.get(); }
     bool isPrefix() const { return isPrefix_; }
+    
+    // CRITICAL FIX: Override setValue to extract operator string from ASTValue
+    void setValue(const ASTValue& value) override {
+        // Call base class first
+        ASTNode::setValue(value);
+        
+        // Extract operator string if the value contains one
+        if (std::holds_alternative<std::string>(value)) {
+            operator_ = std::get<std::string>(value);
+        }
+    }
     
     void accept(ASTVisitor& visitor) override;
 };
