@@ -1,6 +1,6 @@
 name=StringReplace.ino
 source=unknown
-astSize=2178
+astSize=2201
 codeSize=1044
 mode=AST_AND_COMMANDS
 commandCount=25

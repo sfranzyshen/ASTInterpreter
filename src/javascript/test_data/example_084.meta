@@ -1,6 +1,6 @@
 name=Test_Case_for_Unary_vs_Binary_Operators.ino
 source=unknown
-astSize=1280
+astSize=1290
 codeSize=171
 mode=AST_AND_COMMANDS
 commandCount=14

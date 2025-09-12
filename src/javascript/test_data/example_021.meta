@@ -1,6 +1,6 @@
 name=ASCIITable.ino
 source=unknown
-astSize=2013
+astSize=2038
 codeSize=1130
 mode=AST_AND_COMMANDS
 commandCount=27

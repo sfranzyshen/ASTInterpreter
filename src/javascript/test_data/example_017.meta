@@ -1,6 +1,6 @@
 name=AnalogWriteMega.ino
 source=unknown
-astSize=1885
+astSize=1933
 codeSize=843
 mode=AST_AND_COMMANDS
 commandCount=12

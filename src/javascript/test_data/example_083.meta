@@ -1,6 +1,6 @@
 name=Test_Case_for_Parentheses_Precedence.ino
 source=unknown
-astSize=1332
+astSize=1346
 codeSize=187
 mode=AST_AND_COMMANDS
 commandCount=15

@@ -1,6 +1,6 @@
 name=DigitalInputPullup.ino
 source=unknown
-astSize=1626
+astSize=1637
 codeSize=708
 mode=AST_AND_COMMANDS
 commandCount=19

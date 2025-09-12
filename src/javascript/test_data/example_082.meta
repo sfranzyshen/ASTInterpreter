@@ -1,6 +1,6 @@
 name=Test_Case_for_Operator_Precedence.ino
 source=unknown
-astSize=1367
+astSize=1406
 codeSize=284
 mode=AST_AND_COMMANDS
 commandCount=15

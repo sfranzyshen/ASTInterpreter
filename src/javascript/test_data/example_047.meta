@@ -1,6 +1,6 @@
 name=StringAppendOperator
 source=unknown
-astSize=2570
+astSize=2577
 codeSize=1366
 mode=AST_AND_COMMANDS
 commandCount=41

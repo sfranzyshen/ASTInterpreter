@@ -1,9 +1,9 @@
 name=JoystickMouseControl.ino
 source=unknown
-astSize=3193
+astSize=3244
 codeSize=2133
 mode=AST_AND_COMMANDS
-commandCount=52
+commandCount=56
 content=// 09.USB Mouse/JoystickMouseControl
 
 #include "Mouse.h"
